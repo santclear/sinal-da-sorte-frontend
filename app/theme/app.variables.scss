@@ -26,10 +26,126 @@
 // are different per mode.
 
 $colors: (
-  primary:    #387ef5,
-  secondary:  #32db64,
+  primary:    #551A8B,
+  secondary:  #FF7F00,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
   favorite:   #69BB7B
 );
+
+// .toolbar, .show-navbar > .toolbar-background{
+//     background: #FFD700; /* For browsers that do not support gradients */
+//     background: -webkit-linear-gradient(left, #FFD700 10%, #551A8B); /* For Safari 5.1 to 6.0 */
+//     background: -o-linear-gradient(right, #FFD700 10%, #551A8B); /* For Opera 11.1 to 12.0 */
+//     background: -moz-linear-gradient(right, #FFD700 10%, #551A8B); /* For Firefox 3.6 to 15 */
+//     background: linear-gradient(to right, #FFD700 60%, #551A8B); /* Standard syntax */
+// }
+// .toolbar, .show-navbar > .toolbar-background{
+//     background: #FFD700; /* For browsers that do not support gradients */
+//     background: -webkit-linear-gradient(left, #7D26CD 10%, #7D26CD); /* For Safari 5.1 to 6.0 */
+//     background: -o-linear-gradient(right, #7D26CD 10%, #7D26CD); /* For Opera 11.1 to 12.0 */
+//     background: -moz-linear-gradient(right, #7D26CD 10%, #7D26CD); /* For Firefox 3.6 to 15 */
+//     background: linear-gradient(to right, #7D26CD 60%, #7D26CD); /* Standard syntax */
+// }
+
+// .toolbar-title {
+//     color: #ffffff !important;
+// }
+.toolbar-title, img {
+    width: 27px;
+    height: 27px;
+    vertical-align: middle;
+}
+/*              escuro		claro
+lotofacil		#930089		#c87fc3
+megasena		#209869		#8fcbb3
+quina			#260085		#927fc1
+lotomania		#f78100		#fabf7f
+duplasena		#a61324		#d28891
+timemania		#02ff02		#99ff99
+*/
+
+// Lotofácil
+.backgroundEscuroLotofacil {
+    background-color: #930089 !important;
+}
+.backgroundClaroLotofacil {
+    background-color: #c87fc3 !important;
+}
+.colorEscuroLotofacil {
+    color: #930089 !important;
+}
+.colorClaroLotofacil {
+    color: #c87fc3 !important;
+}
+
+// Mega Sena
+.backgroundEscuroMegaSena {
+    background-color: #209869 !important;
+}
+.backgroundClaroMegaSena {
+    background-color: #8fcbb3 !important;
+}
+.colorEscuroMegaSena {
+    color: #209869 !important;
+}
+.colorClaroMegaSena {
+    color: #8fcbb3 !important;
+}
+
+// Quina
+.backgroundEscuroQuina {
+    background-color: #260085 !important;
+}
+.backgroundClaroQuina {
+    background-color: #927fc1 !important;
+}
+.colorEscuroQuina {
+    color: #260085 !important;
+}
+.colorClaroQuina {
+    color: #927fc1 !important;
+}
+
+// Lotomania
+.backgroundEscuroLotomania {
+    background-color: #f78100 !important;
+}
+.backgroundClaroLotomania {
+    background-color: #fabf7f !important;
+}
+.colorEscuroLotomania {
+    color: #f78100 !important;
+}
+.colorClaroLotomania {
+    color: #fabf7f !important;
+}
+
+// Dupla Sena
+.backgroundEscuroDuplaSena {
+    background-color: #a61324 !important;
+}
+.backgroundClaroDuplaSena {
+    background-color: #d28891 !important;
+}
+.colorEscuroDuplaSena {
+    color: #a61324 !important;
+}
+.colorClaroDuplaSena {
+    color: #d28891 !important;
+}
+
+//Timemania
+.backgroundEscuroTimemania {
+    background-color: #02ff02 !important;
+}
+.backgroundClaroTimemania {
+    background-color: #99ff99 !important;
+}
+.colorEscuroTimemania {
+    color: #02ff02 !important;
+}
+.colorClaroTimemania {
+    color: #99ff99 !important;
+}

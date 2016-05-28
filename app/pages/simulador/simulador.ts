@@ -1,8 +1,15 @@
 import {Page, NavController} from 'ionic-angular';
+import {NavBarAgS} from '../../componentes/navbar-componente';
+import {BasePage} from '../base';
 
 @Page({
     templateUrl: 'build/pages/simulador/simulador.html',
+    directives: [NavBarAgS],
 })
-export class SimuladorPage {
-    constructor(public nav: NavController) {}
+export class SimuladorPage extends BasePage {
+
+    constructor(public nav: NavController) {
+        super();
+        this.setTitulo("Simulador");
+    }
 }

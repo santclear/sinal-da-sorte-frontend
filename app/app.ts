@@ -8,6 +8,7 @@ import {ApostaPage} from './pages/aposta/aposta';
 import {GruposEspeciaisPage} from './pages/grupos-especiais/grupos-especiais';
 import {BolaoPage} from './pages/bolao/bolao';
 import {HistoricoDeApostasPage} from './pages/historico-de-apostas/historico-de-apostas';
+import {Sessao} from './util/sessao';
 
 @App({
     templateUrl: 'build/app.html',
@@ -15,12 +16,14 @@ import {HistoricoDeApostasPage} from './pages/historico-de-apostas/historico-de-
 })
 class AgenteDaSorte {
     // make HelloIonicPage the root (or first) page
-    paginaInicial: any = BemVindoPage;
-    paginas: Array<{id: string, titulo: string, componente: any}>;
-    menuAtivo: string;
-    loterias: Array<{id: string, nome: string, caminhoDoIconeAvatar: string}>;
-    loteriaSelecionada: string;
-    caminhoDoIconeAvatarDaLoteriaSelecionada: string;
+    private paginaInicial: any = BemVindoPage;
+    private paginas: Array<{id: string, titulo: string, componente: any}>;
+    private menuAtivo: string;
+    private loterias: Array<{id: string, nome: string, caminhoDoIconeAvatar: string}>;
+    private idLoteriaSelecionada: string = "Lotofacil";
+    private nomeLoteriaSelecionada: string = "Lotofácil";
+    private caminhoDoIconeAvatarDaLoteriaSelecionada: string = "img/lotofacil.png";
+    private templateDaAplicacao: string;
 
     constructor(private app: IonicApp, private plataforma: Platform, private menu: MenuController) {
         this.initializeApp();
@@ -38,16 +41,18 @@ class AgenteDaSorte {
         ];
 
         this.loterias = [
-            {id: 'lotofacil', nome: 'Lotofácil', caminhoDoIconeAvatar: 'img/lotofacil.png'},
-            {id: 'mega-senha', nome: 'Mega Sena', caminhoDoIconeAvatar: 'img/mega-sena.png'},
-            {id: 'quina', nome: 'Quina', caminhoDoIconeAvatar: 'img/quina.png'},
-            {id: 'lotomania', nome: 'Lotomania', caminhoDoIconeAvatar: 'img/lotomania.png'},
-            {id: 'dupla-sena', nome: 'Dupla Sena', caminhoDoIconeAvatar: 'img/dupla-sena.png'},
-            {id: 'timemania', nome: 'Timemania', caminhoDoIconeAvatar: 'img/timemania.png'}
+            {id: 'Lotofacil', nome: 'Lotofácil', caminhoDoIconeAvatar: 'img/lotofacil.png'},
+            {id: 'MegaSena', nome: 'Mega Sena', caminhoDoIconeAvatar: 'img/mega-sena.png'},
+            {id: 'Quina', nome: 'Quina', caminhoDoIconeAvatar: 'img/quina.png'},
+            {id: 'Lotomania', nome: 'Lotomania', caminhoDoIconeAvatar: 'img/lotomania.png'},
+            {id: 'DuplaSena', nome: 'Dupla Sena', caminhoDoIconeAvatar: 'img/dupla-sena.png'},
+            {id: 'Timemania', nome: 'Timemania', caminhoDoIconeAvatar: 'img/timemania.png'}
         ];
 
-        this.loteriaSelecionada = "Lotofácil";
-        this.caminhoDoIconeAvatarDaLoteriaSelecionada = "img/lotofacil.png";
+        let sessao = new Sessao();
+        sessao.set('idLoteriaSelecionada', this.idLoteriaSelecionada);
+        sessao.set('nomeLoteriaSelecionada', this.nomeLoteriaSelecionada);
+        sessao.set('caminhoDoIconeAvatarDaLoteriaSelecionada', this.caminhoDoIconeAvatarDaLoteriaSelecionada);
     }
 
     initializeApp() {
@@ -60,16 +65,24 @@ class AgenteDaSorte {
         this.menu.close();
         let nav = this.app.getComponent('nav');
         nav.setRoot(pagina.componente);
+
     }
 
     abraAPaginaBemVindo() {
         this.abraAPagina(this.paginas[7]);
     }
 
-    ativeMenuPaginas(loteria, caminhoDoIconeAvatar) {
-        // altera o nome e o caminho do icone avatar no menuPaginas, conforme selecionado no menuLoterias
-        this.loteriaSelecionada = loteria;
-        this.caminhoDoIconeAvatarDaLoteriaSelecionada = caminhoDoIconeAvatar;
+    ativeMenuPaginas(indiceLoteria) {
+        let sessao = new Sessao();
+
+        sessao.set('idLoteriaSelecionada', this.loterias[indiceLoteria].id);
+        sessao.set('nomeLoteriaSelecionada', this.loterias[indiceLoteria].nome);
+        sessao.set('caminhoDoIconeAvatarDaLoteriaSelecionada', this.loterias[indiceLoteria].caminhoDoIconeAvatar);
+
+        this.idLoteriaSelecionada = this.loterias[indiceLoteria].id;
+        this.nomeLoteriaSelecionada = this.loterias[indiceLoteria].nome;
+        this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
+
 
         this.menuAtivo = 'menuPaginas';
         this.menu.enable(true, 'menuPaginas');

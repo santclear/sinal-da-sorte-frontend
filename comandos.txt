@@ -1,6 +1,0 @@
-ionic platform add android
-
-cordova plugin add cordova-sqlite-storage
-ionic plugin add cordova-plugin-x-toast
-
-ionic g page <nomeDaPagina>
