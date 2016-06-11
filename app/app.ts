@@ -48,11 +48,10 @@ class AgenteDaSorte {
             {id: 'DuplaSena', nome: 'Dupla Sena', caminhoDoIconeAvatar: 'img/dupla-sena.png'},
             {id: 'Timemania', nome: 'Timemania', caminhoDoIconeAvatar: 'img/timemania.png'}
         ];
-
-        let sessao = new Sessao();
-        sessao.set('idLoteriaSelecionada', this.idLoteriaSelecionada);
-        sessao.set('nomeLoteriaSelecionada', this.nomeLoteriaSelecionada);
-        sessao.set('caminhoDoIconeAvatarDaLoteriaSelecionada', this.caminhoDoIconeAvatarDaLoteriaSelecionada);
+        
+        this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('idLoteriaSelecionada', 'Lotofacil');
+        this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('nomeLoteriaSelecionada', 'Lotofácil');
+        this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('caminhoDoIconeAvatarDaLoteriaSelecionada', 'img/lotofacil.png');
     }
 
     initializeApp() {
@@ -73,16 +72,14 @@ class AgenteDaSorte {
     }
 
     ativeMenuPaginas(indiceLoteria) {
-        let sessao = new Sessao();
-
-        sessao.set('idLoteriaSelecionada', this.loterias[indiceLoteria].id);
-        sessao.set('nomeLoteriaSelecionada', this.loterias[indiceLoteria].nome);
-        sessao.set('caminhoDoIconeAvatarDaLoteriaSelecionada', this.loterias[indiceLoteria].caminhoDoIconeAvatar);
-
         this.idLoteriaSelecionada = this.loterias[indiceLoteria].id;
         this.nomeLoteriaSelecionada = this.loterias[indiceLoteria].nome;
         this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
-
+        
+        let sessao = new Sessao();
+        sessao.setValor('idLoteriaSelecionada', this.idLoteriaSelecionada);
+        sessao.setValor('nomeLoteriaSelecionada', this.nomeLoteriaSelecionada);
+        sessao.setValor('caminhoDoIconeAvatarDaLoteriaSelecionada', this.caminhoDoIconeAvatarDaLoteriaSelecionada);
 
         this.menuAtivo = 'menuPaginas';
         this.menu.enable(true, 'menuPaginas');
@@ -95,5 +92,16 @@ class AgenteDaSorte {
         this.menu.enable(false, 'menuPaginas');
         this.menu.enable(true, 'menuLoterias');
         this.menu.open();
+    }
+    
+    _adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada(chaveDaLoteria: string, dadoPadrao: string) {
+        let sessao = new Sessao();
+        // através da chaveLoteria, tenta pegar da sessão um novo dado
+        // se retornar undefined, quer dizer que não existe o valor na sessão
+        // então seta um valor padrão na sessão
+        sessao.getValor(chaveDaLoteria, (dadoEmSessaoDaLoteria) => {
+            let dadoDaLoteria = dadoEmSessaoDaLoteria != undefined ? dadoEmSessaoDaLoteria : dadoPadrao;
+            sessao.setValor(chaveDaLoteria, dadoDaLoteria);
+        });
     }
 }

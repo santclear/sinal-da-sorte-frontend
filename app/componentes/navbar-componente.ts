@@ -7,6 +7,7 @@ import {Sessao} from '../util/sessao';
     selector: "ags-navbar",
     directives: [IONIC_DIRECTIVES],
     inputs: ['tituloInput'],
+    providers: [Sessao],
     template:`
         <ion-navbar *navbar primary>
             <button menuToggle>
@@ -27,11 +28,9 @@ export class NavBarAgS {
     private nomeLoteriaSelecionada: string = "Lotofácil";
     private caminhoDoIconeAvatarDaLoteriaSelecionada: string = "img/lotofacil.png";
 
-    constructor(private menu: MenuController, private nav: NavController) {
-        let sessao = new Sessao();
-
-        sessao.get('idLoteriaSelecionada', (valor) => {this.idLoteriaSelecionada = valor});
-        sessao.get('nomeLoteriaSelecionada', (valor) => {this.nomeLoteriaSelecionada = valor});
-        sessao.get('caminhoDoIconeAvatarDaLoteriaSelecionada', (valor) => {this.caminhoDoIconeAvatarDaLoteriaSelecionada = valor});
+    constructor(private menu: MenuController, private nav: NavController, private sessao: Sessao) {
+        this.sessao.getValor('idLoteriaSelecionada', (valor) => {this.idLoteriaSelecionada = valor});
+        this.sessao.getValor('nomeLoteriaSelecionada', (valor) => {this.nomeLoteriaSelecionada = valor});
+        this.sessao.getValor('caminhoDoIconeAvatarDaLoteriaSelecionada', (valor) => {this.caminhoDoIconeAvatarDaLoteriaSelecionada = valor});
     }
 }
