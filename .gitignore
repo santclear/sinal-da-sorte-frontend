@@ -6,6 +6,7 @@ www/build/
 platforms/
 plugins/
 .idea/
+.vscode/
 *.swp
 .DS_Store
 Thumbs.db
