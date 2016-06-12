@@ -1,6 +1,5 @@
-import {Component, Input} from 'angular2/core';
-import {MenuController, NavController} from 'ionic-angular';
-import {IONIC_DIRECTIVES} from 'ionic-angular/config/directives';
+import {Component, Input} from '@angular/core';
+import {MenuController, IONIC_DIRECTIVES} from 'ionic-angular';
 import {Sessao} from '../util/sessao';
 
 @Component({
@@ -8,27 +7,14 @@ import {Sessao} from '../util/sessao';
     directives: [IONIC_DIRECTIVES],
     inputs: ['tituloInput'],
     providers: [Sessao],
-    template:`
-        <ion-navbar *navbar primary>
-            <button menuToggle>
-                <ion-icon name="menu"></ion-icon>
-            </button>
-
-            <ion-title>
-                {{tituloInput}}
-            </ion-title>
-
-            <ion-buttons end>
-                <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}">
-            </ion-buttons>
-        </ion-navbar>
-`})
+    templateUrl: 'build/componentes/navbar-componente.html'
+})
 export class NavBarAgS {
     private idLoteriaSelecionada: string = "Lotofacil";
     private nomeLoteriaSelecionada: string = "Lotofácil";
     private caminhoDoIconeAvatarDaLoteriaSelecionada: string = "img/lotofacil.png";
 
-    constructor(private menu: MenuController, private nav: NavController, private sessao: Sessao) {
+    constructor(private menu: MenuController, private sessao: Sessao) {
         this.sessao.getValor('idLoteriaSelecionada', (valor) => {this.idLoteriaSelecionada = valor});
         this.sessao.getValor('nomeLoteriaSelecionada', (valor) => {this.nomeLoteriaSelecionada = valor});
         this.sessao.getValor('caminhoDoIconeAvatarDaLoteriaSelecionada', (valor) => {this.caminhoDoIconeAvatarDaLoteriaSelecionada = valor});

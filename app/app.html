@@ -12,7 +12,7 @@
                 <h1>{{nomeLoteriaSelecionada}}</h1>
             </button>
 
-            <button [attr.id]="'bt'+pagina.id" ion-item *ngFor="#pagina of paginas" (click)="abraAPagina(pagina)" [ngClass]="['colorEscuro'+ idLoteriaSelecionada]">
+            <button [attr.id]="'bt'+pagina.id" ion-item *ngFor="let pagina of paginas" (click)="abraAPagina(pagina)" [ngClass]="['colorEscuro'+ idLoteriaSelecionada]">
                 {{pagina.titulo}}
             </button>
 
@@ -34,7 +34,7 @@
     <ion-content>
         <ion-list>
             <!-- itera a propriedade Array loterias, criada no construtor -->
-            <button [attr.id]="'bt'+loteria.id" ion-item *ngFor="#loteria of loterias; #indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.id]">
+            <button [attr.id]="'bt'+loteria.id" ion-item *ngFor="let loteria of loterias; let indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.id]">
                 <ion-avatar item-left>
                     <img src="{{loteria.caminhoDoIconeAvatar}}">
                 </ion-avatar>

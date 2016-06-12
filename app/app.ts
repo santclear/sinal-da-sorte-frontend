@@ -1,4 +1,5 @@
-import {App, IonicApp, Platform, MenuController} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {BemVindoPage} from './pages/bem-vindo/bem-vindo';
 import {EstatisticaPage} from './pages/estatistica/estatistica';
@@ -10,11 +11,11 @@ import {BolaoPage} from './pages/bolao/bolao';
 import {HistoricoDeApostasPage} from './pages/historico-de-apostas/historico-de-apostas';
 import {Sessao} from './util/sessao';
 
-@App({
-    templateUrl: 'build/app.html',
-    config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+@Component({
+  templateUrl: 'build/app.html'
 })
 class AgenteDaSorte {
+	@ViewChild(Nav) nav: Nav;
     // make HelloIonicPage the root (or first) page
     private paginaInicial: any = BemVindoPage;
     private paginas: Array<{id: string, titulo: string, componente: any}>;
@@ -25,7 +26,7 @@ class AgenteDaSorte {
     private caminhoDoIconeAvatarDaLoteriaSelecionada: string = "img/lotofacil.png";
     private templateDaAplicacao: string;
 
-    constructor(private app: IonicApp, private plataforma: Platform, private menu: MenuController) {
+    constructor(private plataforma: Platform, private menu: MenuController) {
         this.initializeApp();
 
         // set our app's pages
@@ -62,8 +63,9 @@ class AgenteDaSorte {
 
     abraAPagina(pagina) {
         this.menu.close();
-        let nav = this.app.getComponent('nav');
-        nav.setRoot(pagina.componente);
+        //let nav = this.app.getComponent('nav');
+        //nav.setRoot(pagina.componente);
+		this.nav.setRoot(pagina.componente);
 
     }
 
@@ -105,3 +107,5 @@ class AgenteDaSorte {
         });
     }
 }
+
+ionicBootstrap(AgenteDaSorte);
