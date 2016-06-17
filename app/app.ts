@@ -9,7 +9,7 @@ import {ApostaPage} from './pages/aposta/aposta';
 import {GruposEspeciaisPage} from './pages/grupos-especiais/grupos-especiais';
 import {BolaoPage} from './pages/bolao/bolao';
 import {HistoricoDeApostasPage} from './pages/historico-de-apostas/historico-de-apostas';
-import {Sessao} from './util/sessao';
+import {Cookie} from './util/cookie';
 
 @Component({
   templateUrl: 'build/app.html'
@@ -18,7 +18,7 @@ class AgenteDaSorte {
 	@ViewChild(Nav) nav: Nav;
     // make HelloIonicPage the root (or first) page
     private paginaInicial: any = BemVindoPage;
-    private paginas: Array<{id: string, titulo: string, componente: any}>;
+    private paginas: Array<{id: string, titulo: string, class: any}>;
     private menuAtivo: string;
     private loterias: Array<{id: string, nome: string, caminhoDoIconeAvatar: string}>;
     private idLoteriaSelecionada: string = "Lotofacil";
@@ -31,14 +31,14 @@ class AgenteDaSorte {
 
         // set our app's pages
         this.paginas = [
-            {id: 'Estatistica', titulo: 'Estatística', componente: EstatisticaPage},
-            {id: 'Simulador', titulo: 'Simulador', componente: SimuladorPage},
-            {id: 'Fechamento', titulo: 'Fechamento', componente: FechamentoPage},
-            {id: 'Aposta', titulo: 'Aposta', componente: ApostaPage},
-            {id: 'GruposEspeciais', titulo: 'Grupos Especiais', componente: GruposEspeciaisPage},
-            {id: 'Bolao', titulo: 'Bolão', componente: BolaoPage},
-            {id: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', componente: HistoricoDeApostasPage},
-            {id: 'BemVindo', titulo: 'Bem Vindo', componente: BemVindoPage}
+            {id: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage},
+            {id: 'Simulador', titulo: 'Simulador', class: SimuladorPage},
+            {id: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage},
+            {id: 'Aposta', titulo: 'Aposta', class: ApostaPage},
+            {id: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage},
+            {id: 'Bolao', titulo: 'Bolão', class: BolaoPage},
+            {id: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage},
+            {id: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage}
         ];
 
         this.loterias = [
@@ -50,9 +50,11 @@ class AgenteDaSorte {
             {id: 'Timemania', nome: 'Timemania', caminhoDoIconeAvatar: 'img/timemania.png'}
         ];
         
-        this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('idLoteriaSelecionada', 'Lotofacil');
-        this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('nomeLoteriaSelecionada', 'Lotofácil');
-        this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('caminhoDoIconeAvatarDaLoteriaSelecionada', 'img/lotofacil.png');
+        this.idLoteriaSelecionada = this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('idLoteriaSelecionada', 'Lotofacil');
+        this.nomeLoteriaSelecionada = this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('nomeLoteriaSelecionada', 'Lotofácil');
+        this.caminhoDoIconeAvatarDaLoteriaSelecionada = this._adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada('caminhoDoIconeAvatarDaLoteriaSelecionada', 'img/lotofacil.png');
+        
+        Cookie.set('indicePagina', '7');
     }
 
     initializeApp() {
@@ -61,28 +63,29 @@ class AgenteDaSorte {
         });
     }
 
-    abraAPagina(pagina) {
+    abraAPagina(objetoPagina, indicePagina) {
         this.menu.close();
-        //let nav = this.app.getComponent('nav');
-        //nav.setRoot(pagina.componente);
-		this.nav.setRoot(pagina.componente);
+        Cookie.set('indicePagina', indicePagina)
+		this.nav.setRoot(objetoPagina.class);
 
     }
 
     abraAPaginaBemVindo() {
-        this.abraAPagina(this.paginas[7]);
+        this.abraAPagina(this.paginas[7], 7);
     }
 
     ativeMenuPaginas(indiceLoteria) {
         this.idLoteriaSelecionada = this.loterias[indiceLoteria].id;
         this.nomeLoteriaSelecionada = this.loterias[indiceLoteria].nome;
         this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
-        
-        let sessao = new Sessao();
-        sessao.setValor('idLoteriaSelecionada', this.idLoteriaSelecionada);
-        sessao.setValor('nomeLoteriaSelecionada', this.nomeLoteriaSelecionada);
-        sessao.setValor('caminhoDoIconeAvatarDaLoteriaSelecionada', this.caminhoDoIconeAvatarDaLoteriaSelecionada);
 
+        Cookie.set('idLoteriaSelecionada', this.idLoteriaSelecionada);
+        Cookie.set('nomeLoteriaSelecionada', this.nomeLoteriaSelecionada);
+        Cookie.set('caminhoDoIconeAvatarDaLoteriaSelecionada', this.caminhoDoIconeAvatarDaLoteriaSelecionada);
+
+        this.nav.pop();
+        this.nav.setRoot(this.paginas[Cookie.get('indicePagina')].class);
+        
         this.menuAtivo = 'menuPaginas';
         this.menu.enable(true, 'menuPaginas');
         this.menu.enable(false, 'menuLoterias');
@@ -96,15 +99,15 @@ class AgenteDaSorte {
         this.menu.open();
     }
     
-    _adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada(chaveDaLoteria: string, dadoPadrao: string) {
-        let sessao = new Sessao();
+    _adicioneNaViewValoresEmSessaoDaUltimaLoteriaSelecionada(chaveDaLoteria: string, dadoPadrao: string): string {
         // através da chaveLoteria, tenta pegar da sessão um novo dado
         // se retornar undefined, quer dizer que não existe o valor na sessão
         // então seta um valor padrão na sessão
-        sessao.getValor(chaveDaLoteria, (dadoEmSessaoDaLoteria) => {
-            let dadoDaLoteria = dadoEmSessaoDaLoteria != undefined ? dadoEmSessaoDaLoteria : dadoPadrao;
-            sessao.setValor(chaveDaLoteria, dadoDaLoteria);
-        });
+        let dadoEmSessaoDaLoteria = Cookie.get(chaveDaLoteria);
+        let dadoDaLoteria = dadoEmSessaoDaLoteria != undefined ? dadoEmSessaoDaLoteria : dadoPadrao;
+        Cookie.set(chaveDaLoteria, dadoDaLoteria);
+        
+        return dadoDaLoteria;
     }
 }
 

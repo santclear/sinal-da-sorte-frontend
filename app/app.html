@@ -12,7 +12,7 @@
                 <h1>{{nomeLoteriaSelecionada}}</h1>
             </button>
 
-            <button [attr.id]="'bt'+pagina.id" ion-item *ngFor="let pagina of paginas" (click)="abraAPagina(pagina)" [ngClass]="['colorEscuro'+ idLoteriaSelecionada]">
+            <button [attr.id]="'bt'+pagina.id" ion-item *ngFor="let pagina of paginas; let indicePagina = index" (click)="abraAPagina(pagina, indicePagina)" [ngClass]="['colorEscuro'+ idLoteriaSelecionada]">
                 {{pagina.titulo}}
             </button>
 

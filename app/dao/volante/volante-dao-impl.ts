@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import{VolanteDAO} from './volante-dao';
 import {VolanteDTO} from './volante-dto';
 

@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ConcursoDAOImpl} from './concurso-dao-impl';
 import{ConcursoDTO} from './concurso-dto';
 

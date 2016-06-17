@@ -1,8 +1,9 @@
-import {Page, NavController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
 import {NavBarAgS} from '../../componentes/navbar-componente';
 import {BasePage} from '../base';
 
-@Page({
+@Component({
     templateUrl: 'build/pages/historico-de-apostas/historico-de-apostas.html',
     directives: [NavBarAgS],
 })

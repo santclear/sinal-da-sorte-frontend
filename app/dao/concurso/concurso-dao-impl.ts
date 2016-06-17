@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import{ConcursoDAO} from './concurso-dao';
 import {ConcursoDTO} from './concurso-dto';
 
