@@ -14,7 +14,7 @@ import {Cookie} from './util/cookie';
 @Component({
   templateUrl: 'build/app.html'
 })
-class AgenteDaSorte {
+export class AgenteDaSorte {
 	@ViewChild(Nav) nav: Nav;
     // make HelloIonicPage the root (or first) page
     private paginaInicial: any = BemVindoPage;
@@ -67,7 +67,6 @@ class AgenteDaSorte {
         this.menu.close();
         Cookie.set('indicePagina', indicePagina)
 		this.nav.setRoot(objetoPagina.class);
-
     }
 
     abraAPaginaBemVindo() {
@@ -82,7 +81,7 @@ class AgenteDaSorte {
         Cookie.set('idLoteriaSelecionada', this.idLoteriaSelecionada);
         Cookie.set('nomeLoteriaSelecionada', this.nomeLoteriaSelecionada);
         Cookie.set('caminhoDoIconeAvatarDaLoteriaSelecionada', this.caminhoDoIconeAvatarDaLoteriaSelecionada);
-
+        
         this.nav.pop();
         this.nav.setRoot(this.paginas[Cookie.get('indicePagina')].class);
         

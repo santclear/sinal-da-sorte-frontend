@@ -1,11 +1,24 @@
+import {Loteria} from '../enum/loteria';
+
 export class VolanteDTO {
+	private id: number;
     private dezenasMarcadas: string;
     private quantidadeDeDezenasNoVolante: number;
     private teimosinha: number;
     private dataDaAposta: Date;
 
+	private loteria: Loteria;
+	
     constructor() {}
+	
+	public get $id(): number {
+		return this.id;
+	}
 
+	public set $id(value: number) {
+		this.id = value;
+	}
+	
 	public get $dezenasMarcadas(): string {
 		return this.dezenasMarcadas;
 	}
@@ -38,4 +51,12 @@ export class VolanteDTO {
 		this.dataDaAposta = value;
 	}
     
+
+	public get $loteria(): Loteria {
+		return this.loteria;
+	}
+
+	public set $loteria(value: Loteria) {
+		this.loteria = value;
+	}
 }

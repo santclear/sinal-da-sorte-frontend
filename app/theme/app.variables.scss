@@ -55,7 +55,14 @@ $colors: (
 //     color: #ffffff !important;
 // }
 chart {
-        display: block;
+    display: block;
+}
+.san {
+	display: block;
+	border: 1px solid red;
+	margin-top: 100px;
+	width: 100%;
+	height: 500px;    
 }
 
 .toolbar-title, img {

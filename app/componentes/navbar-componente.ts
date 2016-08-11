@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {MenuController, IONIC_DIRECTIVES} from 'ionic-angular';
+import {IONIC_DIRECTIVES} from 'ionic-angular';
 import {Cookie} from '../util/cookie';
 
 @Component({
@@ -13,7 +13,7 @@ export class NavBarAgS {
     private nomeLoteriaSelecionada: string = "Lotofácil";
     private caminhoDoIconeAvatarDaLoteriaSelecionada: string = "img/lotofacil.png";
 
-    constructor(private menu: MenuController) {
+    constructor() {
         this.idLoteriaSelecionada = Cookie.get('idLoteriaSelecionada');
         this.nomeLoteriaSelecionada = Cookie.get('nomeLoteriaSelecionada');  
         this.caminhoDoIconeAvatarDaLoteriaSelecionada = Cookie.get('caminhoDoIconeAvatarDaLoteriaSelecionada');  

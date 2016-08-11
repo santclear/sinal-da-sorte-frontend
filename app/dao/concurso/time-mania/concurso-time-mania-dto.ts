@@ -1,5 +1,5 @@
 import {ConcursoDTO} from '../concurso-dto';
-import {Time} from '../../enum/time';
+import {Time} from '../../../enum/time';
 
 export class ConcursoTimeManiaDTO extends ConcursoDTO {
 	private time: Time;

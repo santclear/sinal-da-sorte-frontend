@@ -1,20 +1,49 @@
-import {RateioDTO} from '../rateio/rateio-dto';
-import {Loteria} from '../enum/loteria';
+import {LoteriaDTO} from '../loteria/loteria-dto';
 
 export class ConcursoDTO {
+	private id: number;
+	private loteriaDTO: LoteriaDTO;
+    private numero: number;
+    private dataDoSorteio: string;
     private numerosSorteados: string;
-    private concurso: number;
-    private dataDoSorteio: Date;
-    private proximoConcurso: number;
+	private arrecadacaoTotal: number;
     private estimativaDePremioParaOProximoConcurso: number;
-    private acumuladoParaOproximoConcurso: number;
-    private dataDoProximoConcurso: Date;
-	private loteria: Loteria;
-    private rateios: Array<RateioDTO>;
+    private acumuladoParaOProximoConcurso: number;
 
     constructor() {}
 
+	public get $id(): number {
+		return this.id;
+	}
 
+	public set $id(value: number) {
+		this.id = value;
+	}
+
+	public get $loteriaDTO(): LoteriaDTO {
+		return this.loteriaDTO;
+	}
+
+	public set $loteriaDTO(value: LoteriaDTO) {
+		this.loteriaDTO = value;
+	}
+
+	public get $numero(): number {
+		return this.numero;
+	}
+
+	public set $numero(value: number) {
+		this.numero = value;
+	}
+
+	public get $dataDoSorteio(): string {
+		return this.dataDoSorteio;
+	}
+
+	public set $dataDoSorteio(value: string) {
+		this.dataDoSorteio = value;
+	}
+	
 	public get $numerosSorteados(): string {
 		return this.numerosSorteados;
 	}
@@ -23,28 +52,12 @@ export class ConcursoDTO {
 		this.numerosSorteados = value;
 	}
 
-	public get $concurso(): number {
-		return this.concurso;
+	public get $arrecadacaoTotal(): number {
+		return this.arrecadacaoTotal;
 	}
 
-	public set $concurso(value: number) {
-		this.concurso = value;
-	}
-
-	public get $dataDoSorteio(): Date {
-		return this.dataDoSorteio;
-	}
-
-	public set $dataDoSorteio(value: Date) {
-		this.dataDoSorteio = value;
-	}
-
-	public get $proximoConcurso(): number {
-		return this.proximoConcurso;
-	}
-
-	public set $proximoConcurso(value: number) {
-		this.proximoConcurso = value;
+	public set $arrecadacaoTotal(value: number) {
+		this.arrecadacaoTotal = value;
 	}
 
 	public get $estimativaDePremioParaOProximoConcurso(): number {
@@ -55,36 +68,11 @@ export class ConcursoDTO {
 		this.estimativaDePremioParaOProximoConcurso = value;
 	}
 
-	public get $acumuladoParaOproximoConcurso(): number {
-		return this.acumuladoParaOproximoConcurso;
+	public get $acumuladoParaOProximoConcurso(): number {
+		return this.acumuladoParaOProximoConcurso;
 	}
 
-	public set $acumuladoParaOproximoConcurso(value: number) {
-		this.acumuladoParaOproximoConcurso = value;
+	public set $acumuladoParaOProximoConcurso(value: number) {
+		this.acumuladoParaOProximoConcurso = value;
 	}
-
-	public get $dataDoProximoConcurso(): Date {
-		return this.dataDoProximoConcurso;
-	}
-
-	public set $dataDoProximoConcurso(value: Date) {
-		this.dataDoProximoConcurso = value;
-	}
-	
-	public get $loteria(): Loteria {
-		return this.loteria;
-	}
-
-	public set $loteria(value: Loteria) {
-		this.loteria = value;
-	}
-	
-	public get $rateios(): Array<RateioDTO> {
-		return this.rateios;
-	}
-
-	public set $rateios(value: Array<RateioDTO>) {
-		this.rateios = value;
-	}
-    
 }

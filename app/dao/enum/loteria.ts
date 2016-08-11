@@ -1,8 +1,0 @@
-export enum Loteria {
-	LOTOFACIL, 
-	MEGA_SENA,
-	QUINA,
-	LOTOMANIA,
-	DUPLASENA,
-	TIMEMANIA
-}
