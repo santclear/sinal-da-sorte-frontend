@@ -1,18 +1,14 @@
 import {VolanteDTO} from '../volante-dto';
-import {Time} from '../../enum/time';
+import {Times} from '../../../enum/times';
 
 export class ConcursoTimeManiaDTO extends VolanteDTO {
-	private time: Time;
-	
-    constructor() {
-		super();
-	}
-	
-	public get $time(): Time {
+	private time: Times;
+
+	public get $time(): Times {
 		return this.time;
 	}
 
-	public set $time(value: Time) {
+	public set $time(value: Times) {
 		this.time = value;
-	}  
+	}
 }

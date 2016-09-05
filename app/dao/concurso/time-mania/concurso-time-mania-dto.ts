@@ -1,18 +1,14 @@
 import {ConcursoDTO} from '../concurso-dto';
-import {Time} from '../../../enum/time';
+import {Times} from '../../../enum/times';
 
 export class ConcursoTimeManiaDTO extends ConcursoDTO {
-	private time: Time;
-	
-    constructor() {
-		super();
-	}
-	
-	public get $time(): Time {
+	private time: Times;
+
+	public get $time(): Times {
 		return this.time;
 	}
 
-	public set $time(value: Time) {
+	public set $time(value: Times) {
 		this.time = value;
-	}  
+	}
 }

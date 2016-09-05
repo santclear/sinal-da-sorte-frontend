@@ -1,6 +1,6 @@
-import {EntidadeBDReceptorServico} from './entidade-bd-receptor.servico';
+import {EntidadeBDReceptor} from './entidade-bd-receptor';
 
 // Command
 export interface IComandoSincronizar {
-    execute(id: number, entidadeBDReceptorServico: EntidadeBDReceptorServico): void;
+    execute(id: number, entidadeBDReceptorServico: EntidadeBDReceptor): void;
 }

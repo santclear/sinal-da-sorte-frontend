@@ -1,6 +1,0 @@
-export enum Time {
-	FIGUEIRENSE,
-	AVAI,
-	CORINTHIANS,
-	SAO_PAULO
-}

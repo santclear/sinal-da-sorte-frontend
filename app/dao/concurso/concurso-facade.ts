@@ -1,27 +1,42 @@
 import {ConcursoDAOServico} from './concurso-dao.servico';
 import {ConcursoDTO} from './concurso-dto';
+import {LoteriaDTO} from './../loteria/loteria-dto';
+import {LoteriaFacade} from './../loteria/loteria-facade';
 
 export class ConcursoFacade {
 
     constructor(private concursoDAOServico: ConcursoDAOServico) { }
 
-    salvar(concursoDTO: ConcursoDTO) {
-        this.concursoDAOServico.salvar(concursoDTO);
+    salvar(concurso) {
+        this.concursoDAOServico.salvar(concurso);
     }
 
-    excluir(concursoDTO: ConcursoDTO) {
-        this.concursoDAOServico.excluir(concursoDTO);
+    excluir(concurso) {
+        this.concursoDAOServico.excluir(concurso);
     }
 
-    listarTodos(successCallBack: any): Array<ConcursoDTO> {
+    listarTodos(successCallBack) {
         return null;
     }
 
-    sincronize(concursos: any) {
-        this.concursoDAOServico.sincronize(concursos);
+	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAoENumeroMenorQue(
+		dezena: string, loteriaId: number, numeroConcursoInicial: number, successCallBack) {
+		this.concursoDAOServico.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAoENumeroMenorQue(
+			'%,'+ dezena +',%', loteriaId, numeroConcursoInicial, successCallBack);
+	}
+
+	procurePorLoteriaIdIgualAoENumeroMaiorIgualAoENumeroMenorIgualAo(
+		dezena: string, pLoteria, numeroConcursoInicial: number, numeroConcursoFinal: number, successCallBack) {
+		this.concursoDAOServico.procurePorLoteriaIdIgualAoENumeroMaiorIgualAoENumeroMenorIgualAo(
+			'%,'+ dezena +',%', pLoteria, numeroConcursoInicial, numeroConcursoFinal, successCallBack);
+	}
+
+	// Sincronismo
+    sincronize(parametrosDeServico) {
+        this.concursoDAOServico.sincronize(parametrosDeServico);
     }
 
-    procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loteriaId: number, successCallBack: any) {
-        this.concursoDAOServico.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loteriaId, successCallBack);
+    procurePorNumeroMaiorDesdeQueLoteriaIdIgualAo(loteriaId: number, successCallBack) {
+        this.concursoDAOServico.procurePorNumeroMaiorDesdeQueLoteriaIdIgualAo(loteriaId, successCallBack);
     }
 }

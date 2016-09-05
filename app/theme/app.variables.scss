@@ -4,7 +4,7 @@
 // --------------------------------------------------
 // Makes Ionic Sass functions available to your App
 
-@import 'globals.core';
+@import "globals.core";
 
 // App Shared Variables
 // --------------------------------------------------
@@ -25,51 +25,30 @@
 // Both iOS and MD colors can be further customized if colors
 // are different per mode.
 
-// primary: Violet
-// secondary: Gold
 $colors: (
   primary:    #4b0069,
-  secondary:  #FFD700,
+  secondary:  #ffd700,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  favorite:   #69BB7B
+  favorite:   #69bb7b
 );
 
-// .toolbar, .show-navbar > .toolbar-background{
-//     background: #FFD700; /* For browsers that do not support gradients */
-//     background: -webkit-linear-gradient(left, #FFD700 10%, #551A8B); /* For Safari 5.1 to 6.0 */
-//     background: -o-linear-gradient(right, #FFD700 10%, #551A8B); /* For Opera 11.1 to 12.0 */
-//     background: -moz-linear-gradient(right, #FFD700 10%, #551A8B); /* For Firefox 3.6 to 15 */
-//     background: linear-gradient(to right, #FFD700 60%, #551A8B); /* Standard syntax */
-// }
-// .toolbar, .show-navbar > .toolbar-background{
-//     background: #FFD700; /* For browsers that do not support gradients */
-//     background: -webkit-linear-gradient(left, #7D26CD 10%, #7D26CD); /* For Safari 5.1 to 6.0 */
-//     background: -o-linear-gradient(right, #7D26CD 10%, #7D26CD); /* For Opera 11.1 to 12.0 */
-//     background: -moz-linear-gradient(right, #7D26CD 10%, #7D26CD); /* For Firefox 3.6 to 15 */
-//     background: linear-gradient(to right, #7D26CD 60%, #7D26CD); /* Standard syntax */
-// }
-
-// .toolbar-title {
-//     color: #ffffff !important;
-// }
-chart {
-    display: block;
-}
-.san {
-	display: block;
-	border: 1px solid red;
-	margin-top: 100px;
-	width: 100%;
-	height: 500px;    
-}
-
 .toolbar-title, img {
-    width: 27px;
-    height: 27px;
+    width: 64px;
+    height: 40px;
     vertical-align: middle;
 }
+
+ion-page > ion-content > scroll-content {
+	margin-top: 56px !important;
+}
+
+// .login-container {
+//     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efad62), color-stop(100%,#f7d47c));
+//     background: -webkit-linear-gradient(top, #efad62 0%,#f7d47c 100%);
+// }
+
 /*              escuro		claro
 lotofacil		#930089		#c87fc3
 megasena		#209869		#8fcbb3
@@ -151,14 +130,18 @@ timemania		#02ff02		#99ff99
 
 //Timemania
 .backgroundEscuroTimemania {
-    background-color: #02ff02 !important;
+    // background-color: #02ff02 !important;
+	background-color: #02c302 !important;
 }
 .backgroundClaroTimemania {
-    background-color: #99ff99 !important;
+    // background-color: #99ff99 !important;
+	background-color: #99c399 !important;
 }
 .colorEscuroTimemania {
-    color: #02ff02 !important;
+    // color: #02ff02 !important;
+	color: #02c302 !important;
 }
 .colorClaroTimemania {
-    color: #99ff99 !important;
+    // color: #99ff99 !important;
+	color: #99c399 !important;
 }

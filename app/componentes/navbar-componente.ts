@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {IONIC_DIRECTIVES} from 'ionic-angular';
-import {Cookie} from '../util/cookie';
+import {ConexaoFabrica} from '../dao/util/conexao-fabrica';
 
 @Component({
     selector: "ags-navbar",
@@ -9,13 +9,29 @@ import {Cookie} from '../util/cookie';
     templateUrl: 'build/componentes/navbar-componente.html'
 })
 export class NavBarAgS {
-    private idLoteriaSelecionada: string = "Lotofacil";
+	private idLoteriaSelecionada: number;
+    private sufixoCssLoteriaSelecionada: string = "Lotofacil";
     private nomeLoteriaSelecionada: string = "Lotofácil";
     private caminhoDoIconeAvatarDaLoteriaSelecionada: string = "img/lotofacil.png";
+	private logoSelecionado: string = "img/logo-lotofacil.png";
 
     constructor() {
-        this.idLoteriaSelecionada = Cookie.get('idLoteriaSelecionada');
-        this.nomeLoteriaSelecionada = Cookie.get('nomeLoteriaSelecionada');  
-        this.caminhoDoIconeAvatarDaLoteriaSelecionada = Cookie.get('caminhoDoIconeAvatarDaLoteriaSelecionada');  
+		let bd = ConexaoFabrica.getConexao();
+
+		bd.get('idLoteriaSelecionada').then((idLoteriaSelecionadaCallBack) => {
+			this.idLoteriaSelecionada = idLoteriaSelecionadaCallBack != undefined ? idLoteriaSelecionadaCallBack : 1;
+		});
+		bd.get('sufixoCssLoteriaSelecionada').then((sufixoCssLoteriaSelecionadaCallBack) => {
+			this.sufixoCssLoteriaSelecionada = sufixoCssLoteriaSelecionadaCallBack != undefined ? sufixoCssLoteriaSelecionadaCallBack : "Lotofacil";
+		});
+        bd.get('nomeLoteriaSelecionada').then((nomeLoteriaSelecionadaCallBack) => {
+			this.nomeLoteriaSelecionada = nomeLoteriaSelecionadaCallBack != undefined ? nomeLoteriaSelecionadaCallBack : "Lotofácil";
+		});
+        bd.get('caminhoDoIconeAvatarDaLoteriaSelecionada').then((caminhoDoIconeAvatarDaLoteriaSelecionadaCallBack) => {
+			this.caminhoDoIconeAvatarDaLoteriaSelecionada = caminhoDoIconeAvatarDaLoteriaSelecionadaCallBack != undefined ? caminhoDoIconeAvatarDaLoteriaSelecionadaCallBack : "img/lotofacil.png";
+		});
+		bd.get('logoSelecionado').then((logoSelecionadoCallBack) => {
+			this.logoSelecionado = logoSelecionadoCallBack != undefined ? logoSelecionadoCallBack : "img/logo-lotofacil.png";
+		});
     }
 }

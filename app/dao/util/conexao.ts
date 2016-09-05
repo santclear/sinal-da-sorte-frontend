@@ -1,7 +1,11 @@
 import {Storage, SqlStorage} from 'ionic-angular';
 
 export class Conexao {
-    private static _conexaoSingleton: any = new Storage(SqlStorage);
+    private static _conexaoSingleton: any = new Storage(SqlStorage, {
+			name: 'bdagente',					// the name of the database
+			backupFlag: SqlStorage.BACKUP_LOCAL,// where to store the file
+			existingDatabase: false				// load this as an existing database
+	});
 
     constructor() {
         if (Conexao._conexaoSingleton) {

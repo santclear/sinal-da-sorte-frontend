@@ -1,47 +1,47 @@
 <ion-menu id="menuPaginas" [content]="conteudoDoMenu">
-    <ion-toolbar primary>
-        <ion-title>O que desejas?</ion-title>
-    </ion-toolbar>
+	<ion-toolbar primary>
+		<ion-title>O que desejas?</ion-title>
+	</ion-toolbar>
 
-    <ion-content>
-        <ion-list>
-            <button id="btSelecioneLoteria" ion-item (click)="ativeMenuLoterias()" detail-none [ngClass]="['colorEscuro'+ idLoteriaSelecionada]">
+	<ion-content>
+		<ion-list>
+			<button id="btSelecioneLoteria" ion-item (click)="ativeMenuLoterias()" detail-none [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
                 <ion-avatar item-left>
                     <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}">
                 </ion-avatar>
                 <h1>{{nomeLoteriaSelecionada}}</h1>
             </button>
 
-            <button [attr.id]="'bt'+pagina.id" ion-item *ngFor="let pagina of paginas; let indicePagina = index" (click)="abraAPagina(pagina, indicePagina)" [ngClass]="['colorEscuro'+ idLoteriaSelecionada]">
+			<button [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item *ngFor="let pagina of paginas; let indicePagina = index" (click)="abraAPagina(pagina, indicePagina)" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
                 {{pagina.titulo}}
             </button>
 
-            <ion-list-header></ion-list-header>
-            <!-- FIXME Alterar para a tela de login, quando for implementada -->
-            <button id="btSair" ion-item (click)="abraAPaginaBemVindo()" detail-none>
+			<ion-list-header></ion-list-header>
+			<!-- FIXME Alterar para a tela de login, quando for implementada -->
+			<button id="btSair" ion-item (click)="abraAPaginaBemVindo()" detail-none>
                 <ion-icon name="exit" item-left></ion-icon>
                 <h2>Sair</h2>
             </button>
-        </ion-list>
-    </ion-content>
+		</ion-list>
+	</ion-content>
 </ion-menu>
 
 <ion-menu id="menuLoterias" [content]="conteudoDoMenu">
-    <ion-toolbar secondary>
-        <ion-title>Escolha sua loteria</ion-title>
-    </ion-toolbar>
+	<ion-toolbar secondary>
+		<ion-title>Escolha sua loteria</ion-title>
+	</ion-toolbar>
 
-    <ion-content>
-        <ion-list>
-            <!-- itera a propriedade Array loterias, criada no construtor -->
-            <button [attr.id]="'bt'+loteria.id" ion-item *ngFor="let loteria of loterias; let indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.id]">
+	<ion-content>
+		<ion-list>
+			<!-- itera a propriedade Array loterias, criada no construtor -->
+			<button [attr.id]="'bt'+loteria.sufixoCssLoteria" ion-item *ngFor="let loteria of loterias; let indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.sufixoCssLoteria]">
                 <ion-avatar item-left>
                     <img src="{{loteria.caminhoDoIconeAvatar}}">
                 </ion-avatar>
                 <h2>{{loteria.nome}}</h2>
             </button>
-        </ion-list>
-    </ion-content>
+		</ion-list>
+	</ion-content>
 </ion-menu>
 
-<ion-nav id="nav" [root]="paginaInicial" #conteudoDoMenu swipe-back-enabled="false"></ion-nav>
+<ion-nav id="nav" [root]="paginaInicial" #conteudoDoMenu swipeBackEnabled="false"></ion-nav>

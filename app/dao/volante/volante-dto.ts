@@ -1,4 +1,4 @@
-import {Loteria} from '../enum/loteria';
+import {LoteriaDTO} from '../loteria/loteria-dto';
 
 export class VolanteDTO {
 	private id: number;
@@ -7,7 +7,7 @@ export class VolanteDTO {
     private teimosinha: number;
     private dataDaAposta: Date;
 
-	private loteria: Loteria;
+	private loteria: LoteriaDTO;
 	
     constructor() {}
 	
@@ -50,13 +50,12 @@ export class VolanteDTO {
 	public set $dataDaAposta(value: Date) {
 		this.dataDaAposta = value;
 	}
-    
 
-	public get $loteria(): Loteria {
+	public get $loteria(): LoteriaDTO {
 		return this.loteria;
 	}
 
-	public set $loteria(value: Loteria) {
+	public set $loteria(value: LoteriaDTO) {
 		this.loteria = value;
 	}
 }
