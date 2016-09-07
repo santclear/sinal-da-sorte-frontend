@@ -6,8 +6,8 @@
 			<div>
 				<ion-list>
 					<ion-item>
-						<ion-label>Estatística Selecionada:</ion-label>
-						<ion-select [(ngModel)]="gaming">
+						<ion-label>Tipo de Gráfico:</ion-label>
+						<ion-select [(ngModel)]="tipoDeFrequencia">
 							<ion-option value="nes">Frequência Acumulada</ion-option>
 							<ion-option value="n64">Soma de Dezenas</ion-option>
 							<ion-option value="ps">Atraso Acumulado</ion-option>
@@ -21,7 +21,7 @@
 	</div>
 
 	<div #myChart></div>
-
+	<!--
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 			<div class="col-xs-12 col-sm-7 col-sm-offset-2">
@@ -59,6 +59,44 @@
 			</div>
 		</div>
 	</div>
+-->
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+			<div class="col-xs-12 col-sm-7 col-sm-offset-2">
+				<ion-item>
+					<ion-label>Qtd de concursos no gráfico:</ion-label>
+					<ion-select [(ngModel)]="faixaDeConcurso">
+						<ion-option value="10">10</ion-option>
+						<ion-option value="20">20</ion-option>
+						<ion-option value="30">30</ion-option>
+						<ion-option value="40">40</ion-option>
+						<ion-option value="50">50</ion-option>
+					</ion-select>
+				</ion-item>
+			</div>
+			<ion-item>
+				<ion-range min="1" max="200" [(ngModel)]="saturation" secondary pin="true">
+					<ion-label range-left>1</ion-label>
+					<ion-label range-right>200</ion-label>
+				</ion-range>
+			</ion-item>
+			<div class="col-xs-12 col-sm-7 col-sm-offset-2">
+				<ion-item>
+					<ion-card>
+						<div text-anchor="middle" class="card-title">Concursos selecionados</div>
+						<div class="card-subtitle">{{saturation}} ao {{saturation + 10}}</div>
+					</ion-card>
+				</ion-item>
+			</div>
 
+			<div class="col-xs-12 col-sm-7 col-sm-offset-2">
+				<ion-item>
+					<div padding>
+						<button block (click)="atualizeOGrafico()">Atualizar</button>
+					</div>
+				</ion-item>
+			</div>
+		</div>
+	</div>
 
 </ion-content>

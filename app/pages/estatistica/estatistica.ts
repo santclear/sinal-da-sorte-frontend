@@ -50,8 +50,8 @@ export class EstatisticaPage extends BasePage {
 				concursoFacade.procurePorLoteriaIdIgualAoENumeroMaiorIgualAoENumeroMenorIgualAo(this.dezena, loteriaCallBack, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, (concursosCallBack) => {
 					let rotulosDoEixoX = [];
 					if (this.numeroDoConcursoInicial == concursosCallBack[0].numero) {
-						concursoFacade.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAoENumeroMenorQue(this.dezena, idLoteriaSelecionadaCallBack, this.numeroDoConcursoInicial, (maxCallBack) => {
-							this.renderizeFrequenciaAcumulada(maxCallBack, concursosCallBack, rotulosDoEixoX, this.dezena);
+						concursoFacade.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAoENumeroMenorQue(this.dezena, idLoteriaSelecionadaCallBack, this.numeroDoConcursoInicial, (maiorNumeroCallBack) => {
+							this.renderizeFrequenciaAcumulada(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, this.dezena);
 						});
 					} else {
 						this.renderizeFrequenciaAcumulada(undefined, concursosCallBack, rotulosDoEixoX, this.dezena);
@@ -61,9 +61,9 @@ export class EstatisticaPage extends BasePage {
 		});
 	}
 
-	renderizeFrequenciaAcumulada(maxCallBack, concursosCallBack, rotulosDoEixoX, dezena) {
+	renderizeFrequenciaAcumulada(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena) {
 		let frequencia = [];
-		let acumulador = maxCallBack != undefined? this.numeroDoConcursoInicial - maxCallBack.maior_numero - 1: 0;
+		let acumulador = maiorNumeroCallBack != undefined? this.numeroDoConcursoInicial - maiorNumeroCallBack.maior_numero - 1: 0;
 		let iConcurso = 0;
 
 		for (let iConcurso = 0; iConcurso < concursosCallBack.length; iConcurso++) {

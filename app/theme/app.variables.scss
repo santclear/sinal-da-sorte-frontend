@@ -35,8 +35,8 @@ $colors: (
 );
 
 .toolbar-title, img {
-    width: 64px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     vertical-align: middle;
 }
 
@@ -102,13 +102,15 @@ timemania		#02ff02		#99ff99
 
 // Lotomania
 .backgroundEscuroLotomania {
-    background-color: #f78100 !important;
+    // background-color: #f78100 !important;
+	background-color: #e16e00 !important;
 }
 .backgroundClaroLotomania {
     background-color: #fabf7f !important;
 }
 .colorEscuroLotomania {
-    color: #f78100 !important;
+    // color: #f78100 !important;
+	color: #e16e00 !important;
 }
 .colorClaroLotomania {
     color: #fabf7f !important;
@@ -131,17 +133,17 @@ timemania		#02ff02		#99ff99
 //Timemania
 .backgroundEscuroTimemania {
     // background-color: #02ff02 !important;
-	background-color: #02c302 !important;
+	background-color: #008c00 !important;
 }
 .backgroundClaroTimemania {
     // background-color: #99ff99 !important;
-	background-color: #99c399 !important;
+	background-color: #99ff99 !important;
 }
 .colorEscuroTimemania {
     // color: #02ff02 !important;
-	color: #02c302 !important;
+	color: #008c00 !important;
 }
 .colorClaroTimemania {
     // color: #99ff99 !important;
-	color: #99c399 !important;
+	color: #99ff99 !important;
 }
