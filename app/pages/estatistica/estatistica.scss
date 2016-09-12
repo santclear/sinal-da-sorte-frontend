@@ -4,42 +4,48 @@
 			padding: 0 2.5px 0 0 !important;
 		}
 		ion-card {
+			margin: 0 !important;
+			width: 100% !important;
 			position: relative;
 			text-align: center;
+			background-color: #4b0069;
 		}
 
 		.card-title {
-			// width: 100%;
-			// margin-top: 10px;
-			// color: #333;
-			// font-family: inherit;
-			// font-style: inherit;
-			// line-height: 1;
+			font-family: inherit;
+ 			font-style: inherit;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
 			margin-top: 10px;
-			-webkit-box-flex: 1;
-			min-width: 16px;
-			font-size: inherit;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-			flex: 1 1 0%;
+			font-size: 16px;
+			font-weight: 500;
+			color: white;
 		}
 
 		.card-subtitle {
-			// width: 100%;
-			// margin-bottom: 10px;
-			// color: #333;
-			// font-family: inherit;
-			// font-style: inherit;
-			// line-height: 1;
-			margin-bottom: 10px;
-			-webkit-box-flex: 1;
-			min-width: 16px;
-			font-size: inherit;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-			flex: 1 1 0%;
+			font-family: inherit;
+    		font-style: inherit;
+			-webkit-font-smoothing: antialiased;
+			margin: 10px 0 10px 0;
+			font-size: 18px;
+			font-weight: 500;
+			color: #ffd700;
 		}
 
+		.dezena_destacada {
+			background-color: #ffd700 !important;
+			color: #424242 !important
+		}
+
+		#matriz_de_dezenas {
+			max-width: 350px;
+
+			.espaco_vertical {
+				margin-bottom: 17px;
+			}
+
+			.botao {
+				width: 31px;
+			}
+		} 
 }
