@@ -92,14 +92,14 @@ export class ConcursoDAOServico implements IConcursoDAO {
 			let concursos = [];
 			for (let i in concursosCallBack.res.rows) {
 				if (concursosCallBack.res.rows[i].id != undefined) {
-					let numerosSorteadosTrim = concursosCallBack.res.rows[i].numeros_sorteados;
-					numerosSorteadosTrim = numerosSorteadosTrim.substring(1, numerosSorteadosTrim.length - 1);
-					let numerosSorteadosArray = numerosSorteadosTrim.split(',');
+					let numerosSorteados = concursosCallBack.res.rows[i].numeros_sorteados;
+					let numerosSorteadosSplit = numerosSorteados.split(',');
+					let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
 					let concurso = [{
 						id: concursosCallBack.res.rows[i].id,
 						numero: concursosCallBack.res.rows[i].numero,
 						dataDoSorteio: concursosCallBack.res.rows[i].data_do_sorteio,
-						numerosSorteados: numerosSorteadosArray.sort(function (a, b) { return a - b }),
+						numerosSorteados: numerosSorteadosSort,
 						arrecadacaoTotal: concursosCallBack.res.rows[i].arrecadacao_total,
 						estimativaDePremioParaOProximoConcurso: concursosCallBack.res.rows[i].estimativa_de_premio_para_o_proximo_concurso,
 						acumuladoParaOProximoConcurso: concursosCallBack.res.rows[i].acumulado_para_o_proximo_concurso,

@@ -4,7 +4,7 @@ import {NavBarAgS} from '../../componentes/navbar-componente';
 import {ConcursoDAOServico} from '../../dao/concurso/concurso-dao.servico';
 import {LoteriaDAOServico} from '../../dao/loteria/loteria-dao.servico';
 import {BasePage} from '../base';
-import {NavController} from 'ionic-angular';
+import {NavController, Content} from 'ionic-angular';
 import {ConcursoFacade} from '../../dao/concurso/concurso-facade';
 import {ConexaoFabrica} from '../../dao/util/conexao-fabrica';
 import {LoteriaFacade} from '../../dao/loteria/loteria-facade';
@@ -21,6 +21,7 @@ require('highcharts/modules/exporting')(hcharts);
 })
 export class EstatisticaPage extends BasePage {
     @ViewChild('myChart') canvas: ElementRef;
+
 	private cbxTipoDeGrafico: string;
 	private rgeFaixaDeConcursos: number;
 	private rgeFaixaDeConcursosMin: number;
@@ -144,7 +145,7 @@ export class EstatisticaPage extends BasePage {
 	selecioneDezena(iDezena) {
 		let dezenaFormatada = this.dezenas[iDezena].numero.match(/0\d/) != null ? this.dezenas[iDezena].numero.substring(1) : this.dezenas[iDezena].numero;
 		this.dezena = dezenaFormatada;
-		this.atualizeOGrafico();
+		// this.atualizeOGrafico();
 	}
 
 	cbxTipoDeGraficoAtualize(tipoDeGrafico) {
@@ -159,16 +160,28 @@ export class EstatisticaPage extends BasePage {
 		}
 
 		if (this.rgeFaixaDeConcursos != undefined) {
-			this.numeroDoConcursoFinal = this.extensaoDaFaixaDeConcurso - this.extensaoDaFaixaDeConcursoAnterior + this.rgeFaixaDeConcursos;
-			this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
-			this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
-			this.atualizeOGrafico();
+			this.bd.get('idLoteriaSelecionada').then((idLoteriaSelecionadaCallBack) => {
+				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+				concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualAo(idLoteriaSelecionadaCallBack, (concursoCallBack) => {
+					if (this.rgeFaixaDeConcursos != undefined) {
+						if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursoCallBack.maior_numero) {
+							this.numeroDoConcursoFinal = this.extensaoDaFaixaDeConcurso - this.extensaoDaFaixaDeConcursoAnterior + this.rgeFaixaDeConcursos;
+							this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
+							this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
+						} else {
+							this.numeroDoConcursoFinal = concursoCallBack.maior_numero;
+							this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
+							this.rgeFaixaDeConcursos = concursoCallBack.maior_numero;
+						}
+					}
+				});
+			});
 		}
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
 		this.numeroDoConcursoInicial = concursoFinal.value - this.extensaoDaFaixaDeConcurso;
 		this.numeroDoConcursoFinal = concursoFinal.value;
-		this.atualizeOGrafico();
+		// this.atualizeOGrafico();
 	}
 }

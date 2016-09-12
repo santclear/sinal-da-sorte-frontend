@@ -1,3 +1,6 @@
+import {LoteriaFacade} from './dao/loteria/loteria-facade';
+import {ParametrosDeServicosWeb} from './enum/parametros-de-servicos-web';
+import {ConcursoFacade} from './dao/concurso/concurso-facade';
 import {Component, ViewChild} from '@angular/core';
 import {ConcursoDAOServico} from './dao/concurso/concurso-dao.servico';
 import {LoteriaDAOServico} from './dao/loteria/loteria-dao.servico';
@@ -12,6 +15,7 @@ import {BolaoPage} from './pages/bolao/bolao';
 import {HistoricoDeApostasPage} from './pages/historico-de-apostas/historico-de-apostas';
 import {BemVindoPage} from './pages/bem-vindo/bem-vindo';
 import {StatusBar} from 'ionic-native/dist';
+
 
 @Component({
 	templateUrl: 'build/app.html',
