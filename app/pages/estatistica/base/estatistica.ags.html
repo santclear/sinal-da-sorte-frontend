@@ -1,0 +1,56 @@
+<div class="container-fluid">
+	<div #myChart></div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+			<ion-list>
+				<ion-item>
+					<ion-label>Extensão da faixa de concursos:</ion-label>
+					<ion-select [(ngModel)]="cbxExtensaoDaFaixaDeConcursos" (ionChange)="cbxExtensaoDaFaixaDeConcursosAtualize($event)" cancelText="Cancelar" okText="Confirmar">
+						<ion-option *ngFor="let extensao of extensoesDaFaixaDeConcursos" value="{{extensao.id}}">{{extensao.valor}}</ion-option>
+					</ion-select>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<ion-item>
+		<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" primary pin="true">
+			<ion-label range-left>{{rgeFaixaDeConcursosMin}}</ion-label>
+			<ion-label range-right>{{rgeFaixaDeConcursosMax}}</ion-label>
+		</ion-range>
+	</ion-item>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
+			<ion-item>
+				<ion-card>
+					<div class="card-subtitle">
+						Exibido no gráfico do concurso {{numeroDoConcursoInicial}} ao concurso {{numeroDoConcursoFinal}}
+					</div>
+				</ion-card>
+			</ion-item>
+		</div>
+	</div>
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div id="matriz_de_dezenas" class="center-block">
+			<div class="espaco_vertical"></div>
+			<button class="botaoDaMatrizDeDezenas" [attr.id]="'bt'+ dezena.numero" [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena)">
+				{{dezena.numero}}
+           	</button>
+			<div class="espaco_vertical"></div>
+		</div>
+	</div>
+		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+		<ion-list>
+			<ion-item>
+				<button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico()">
+					Atualizar o Gráfico
+				</button>
+			</ion-item>
+		</ion-list>
+	</div>
+</div>

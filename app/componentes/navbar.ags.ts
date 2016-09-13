@@ -6,7 +6,7 @@ import {ConexaoFabrica} from '../dao/util/conexao-fabrica';
     selector: "ags-navbar",
     directives: [IONIC_DIRECTIVES],
     inputs: ['tituloInput'],
-    templateUrl: 'build/componentes/navbar-componente.html'
+    templateUrl: 'build/componentes/navbar.ags.html'
 })
 export class NavBarAgS {
 	private idLoteriaSelecionada: number;

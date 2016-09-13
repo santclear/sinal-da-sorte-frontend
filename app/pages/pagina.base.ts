@@ -1,5 +1,5 @@
-export abstract class BasePage {
-    private titulo: string;
+export abstract class PaginaBase {
+    protected titulo: string;
 
     constructor() {}
 
