@@ -1,0 +1,130 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-7 col-lg-4"></div>
+		<div class="col-md-5 col-lg-4 col-lg-offset-4">
+			<ion-searchbar [(ngModel)]="iptPesquisaDeAmostraFrequencia" (ionInput)="atualizePesquisaDeFrequencia($event)" placeholder="Pesquise frequência, expl: 0,0,1,2,0"></ion-searchbar>
+		</div>
+	</div>
+
+	<div *ngIf="exibirQuantidadeDeAmostrasDeFrequencia" class="row">
+		<div class="col-md-7 col-lg-4"></div>
+		<div class="col-md-5 col-lg-4 col-lg-offset-4">
+			<div class="row">
+				<div class="col-lg-12">
+					<ion-card>
+						<ion-card-content>
+							<div class="card-subtitle alinha-texto-esquerda selecionavel">
+								E.F.C: {{textoExtensaoDaFaixaDeConcursos}}<br>
+								Qtd encontrada: {{textoQuantidadeDeAmostrasDeFrequencia}}<br>
+								Previsão positiva: {{textoPrevisaoPositiva}}<br>
+								Previsão negativa: {{textoPrevisaoNegativa}}<br>
+							</div>
+						</ion-card-content>
+					</ion-card>
+					<ion-list>
+						<ion-item>
+							<button ion-button block id="btnSalvarPesquisaDeAmostraFrequencia" (click)="salvePesquisaDeAmostraFrequencia()">
+								Salvar
+							</button>
+						</ion-item>
+					</ion-list>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div #grafico></div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+			<ion-list>
+				<ion-item>
+					<ion-label>Extensão da faixa de concursos:</ion-label>
+					<ion-select [(ngModel)]="cbxExtensaoDaFaixaDeConcursos" (ionChange)="cbxExtensaoDaFaixaDeConcursosAtualize($event)" cancelText="Cancelar" okText="Confirmar">
+						<ion-option *ngFor="let extensao of extensoesDaFaixaDeConcursos" value="{{extensao.id}}">{{extensao.valor}}</ion-option>
+					</ion-select>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<ion-item>
+		<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" color="primary" pin="true">
+			<ion-label range-left>
+				<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem"  (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only clear>
+					<ion-icon name="rewind"></ion-icon>
+				</button>
+				<button ion-button id="idDeslocarParaEsquerda" class="sem-margem"  (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear>
+					<ion-icon name="arrow-dropleft-circle"></ion-icon>
+				</button>
+			</ion-label>
+			<ion-label range-right>
+				<button ion-button id="idDeslocarParaEsquerda" class="sem-margem"  (click)="rgeDesloqueParaDireita()" ion-button icon-only clear>
+					<ion-icon name="arrow-dropright-circle"></ion-icon>
+				</button>
+				<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem"  (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only clear>
+					<ion-icon name="fastforward"></ion-icon>
+				</button>
+			</ion-label>
+		</ion-range>
+	</ion-item>
+</div>
+<div class="espaco_vertical"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
+			<ion-card>
+				<ion-card-content>
+					<div class="card-subtitle">
+						Exibido no gráfico do concurso {{numeroDoConcursoInicial}} ao concurso {{numeroDoConcursoFinal}}
+					</div>
+				</ion-card-content>
+			</ion-card>
+		</div>
+	</div>
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div id="matriz_de_dezenas" class="center-block">
+			<div class="espaco_vertical"></div>
+			<button ion-button class="botaoDaMatrizDeDezenas" [attr.id]="'bt'+ dezena.numero" [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena)">
+				{{dezena.numero}}
+           	</button>
+			<div class="espaco_vertical"></div>
+		</div>
+	</div>
+		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+		<ion-list>
+			<ion-item>
+				<button ion-button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico()">
+					Atualizar o Gráfico
+				</button>
+			</ion-item>
+		</ion-list>
+	</div>
+</div>
+<div class="container" *ngIf="exibirPesquisasDeAmostraFrequencia">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th class="selecionavel">Dezena</th>
+				<th class="selecionavel">E.F.C.</th>
+				<th class="selecionavel">Freq. encontradas</th>
+				<th class="selecionavel">Freq. encontradas com previsão positiva</th>
+				<th class="selecionavel">Freq. encontradas com previsão negativa</th>
+				<th class="selecionavel">Freq. pesquisada</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let pesquisaDeAmostraDeFrequencia of pesquisasDeAmostraFrequencia; let iPesquisaDeAmostraDeFrequencia = index">
+				<td class="selecionavel">{{pesquisaDeAmostraDeFrequencia.dezena}}</td>
+				<td class="selecionavel">{{pesquisaDeAmostraDeFrequencia.extensaoDaFaixaDeConcurso}}</td>
+				<td class="selecionavel">{{pesquisaDeAmostraDeFrequencia.amostrasDeFrequenciasEncontrada}}</td>
+				<td class="selecionavel">{{pesquisaDeAmostraDeFrequencia.previsaoPositiva}}</td>
+				<td class="selecionavel">{{pesquisaDeAmostraDeFrequencia.previsaoNegativa}}</td>
+				<td class="selecionavel">{{pesquisaDeAmostraDeFrequencia.amostrasDeFrequenciasPesquisada}}</td>
+				<td><button (click)="excluaPesquisaDeAmostraDeFrequencia(iPesquisaDeAmostraDeFrequencia)" ion-button icon-only clear><ion-icon name="close-circle"></ion-icon></button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

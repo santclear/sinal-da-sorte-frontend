@@ -1,0 +1,125 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+ags-navbar + ion-content > div.scroll-content {
+	margin-top: 56px !important;
+}
+
+.margemSuperior {
+	margin-top: 55px;
+}
+
+
+
+/*              escuro		claro
+lotofacil		#930089		#c87fc3
+megasena		#209869		#8fcbb3
+quina			#260085		#927fc1
+lotomania		#f78100		#fabf7f
+duplasena		#a61324		#d28891
+timemania		#02ff02		#99ff99
+*/
+
+// Lotofácil
+.backgroundEscuroLotofacil {
+    background-color: #930089 !important;
+}
+.backgroundClaroLotofacil {
+    background-color: #c87fc3 !important;
+}
+.colorEscuroLotofacil {
+    color: #930089 !important;
+}
+.colorClaroLotofacil {
+    color: #c87fc3 !important;
+}
+
+// Mega Sena
+.backgroundEscuroMegaSena {
+    background-color: #209869 !important;
+}
+.backgroundClaroMegaSena {
+    background-color: #8fcbb3 !important;
+}
+.colorEscuroMegaSena {
+    color: #209869 !important;
+}
+.colorClaroMegaSena {
+    color: #8fcbb3 !important;
+}
+
+// Quina
+.backgroundEscuroQuina {
+    background-color: #260085 !important;
+}
+.backgroundClaroQuina {
+    background-color: #927fc1 !important;
+}
+.colorEscuroQuina {
+    color: #260085 !important;
+}
+.colorClaroQuina {
+    color: #927fc1 !important;
+}
+
+// Lotomania
+.backgroundEscuroLotomania {
+    // background-color: #f78100 !important;
+	background-color: #e16e00 !important;
+}
+.backgroundClaroLotomania {
+    background-color: #fabf7f !important;
+}
+.colorEscuroLotomania {
+    // color: #f78100 !important;
+	color: #e16e00 !important;
+}
+.colorClaroLotomania {
+    color: #fabf7f !important;
+}
+
+// Dupla Sena
+.backgroundEscuroDuplaSena {
+    background-color: #a61324 !important;
+}
+.backgroundClaroDuplaSena {
+    background-color: #d28891 !important;
+}
+.colorEscuroDuplaSena {
+    color: #a61324 !important;
+}
+.colorClaroDuplaSena {
+    color: #d28891 !important;
+}
+
+//Timemania
+.backgroundEscuroTimemania {
+    // background-color: #02ff02 !important;
+	background-color: #008c00 !important;
+}
+.backgroundClaroTimemania {
+    // background-color: #99ff99 !important;
+	background-color: #99ff99 !important;
+}
+.colorEscuroTimemania {
+    // color: #02ff02 !important;
+	color: #008c00 !important;
+}
+.colorClaroTimemania {
+    // color: #99ff99 !important;
+	color: #99ff99 !important;
+}
