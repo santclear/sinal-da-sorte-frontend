@@ -1,18 +1,18 @@
-import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform, MenuController, LoadingController} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
-import {ConexaoFabrica} from '../dao/util/conexao-fabrica';
-import {BemVindoPage} from '../pages/bem-vindo/bem-vindo';
-import {EstatisticaPage} from '../pages/estatistica/estatistica';
-import {SimuladorPage} from '../pages/simulador/simulador';
-import {FechamentoPage} from '../pages/fechamento/fechamento';
-import {ApostaPage} from '../pages/aposta/aposta';
-import {GruposEspeciaisPage} from '../pages/grupos-especiais/grupos-especiais';
-import {BolaoPage} from '../pages/bolao/bolao';
-import {HistoricoDeApostasPage} from '../pages/historico-de-apostas/historico-de-apostas';
-import {ConcursoDAOServico} from '../dao/concurso/concurso-dao.servico';
-import {ConcursoFacade} from '../dao/concurso/concurso-facade';
-import {ParametrosDeServicosWeb} from '../enum/parametros-de-servicos-web';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular';
+import { StatusBar } from 'ionic-native';
+import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
+import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
+import { EstatisticaPage } from '../pages/estatistica/estatistica';
+import { SimuladorPage } from '../pages/simulador/simulador';
+import { FechamentoPage } from '../pages/fechamento/fechamento';
+import { ApostaPage } from '../pages/aposta/aposta';
+import { GruposEspeciaisPage } from '../pages/grupos-especiais/grupos-especiais';
+import { BolaoPage } from '../pages/bolao/bolao';
+import { HistoricoDeApostasPage } from '../pages/historico-de-apostas/historico-de-apostas';
+import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
+import { ConcursoFacade } from '../dao/concurso/concurso-facade';
+import { ParametrosDeServicosWeb } from '../enum/parametros-de-servicos-web';
 
 
 @Component({
@@ -70,14 +70,13 @@ export class MyApp {
 				nome: 'Lotofácil',
 				caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
 				logo: 'assets/img/logo-lotofacil.png'
-			}).then(() => {
+			}).then(sucesso => {
+				console.log(sucesso)
 				this.paginaInicial = BemVindoPage;
 			});
 		});
 
-
-
-		this.sincronizeOsConcursosDaLoteria(this.loterias[0].parametrosDeServicosWeb);
+		// this.sincronizeOsConcursosDaLoteria(this.loterias[0].parametrosDeServicosWeb);
 	}
 
 	initializeApp() {
@@ -103,11 +102,12 @@ export class MyApp {
 			nome: this.loterias[indiceLoteria].nome,
 			caminhoDoIconeAvatar: this.loterias[indiceLoteria].caminhoDoIconeAvatar,
 			logo: this.loterias[indiceLoteria].logo
-		}).then(() => {
+		}).then(sucesso => {
+			console.log(sucesso)
 			this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 		});
 
-		this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria].parametrosDeServicosWeb);
+		// this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria].parametrosDeServicosWeb);
 
 		this.menuAtivo = 'menuPaginas';
 		this.menu.close();
@@ -125,60 +125,52 @@ export class MyApp {
 	}
 
 	private salveOuAtualizeLoteriaSessao(objLoteriaSessao) {
+
 		// Caso exista a entidade sessão
-		return this.bd.get('sessao').then(sessao => {
-			// Caso já tenha sido inserido um dado de loteria na sessão
-			if (sessao.loteria != undefined) {
-				sessao.loteria.id = objLoteriaSessao.id;
-				sessao.loteria.sufixoCssLoteria = objLoteriaSessao.sufixoCssLoteria;
-				sessao.loteria.nome = objLoteriaSessao.nome;
-				sessao.loteria.caminhoDoIconeAvatar = objLoteriaSessao.caminhoDoIconeAvatar;
-				sessao.loteria.logo = objLoteriaSessao.logo;
-				// Sobrescreve com o novo dado
-				return this.bd.put(sessao);
-			} else {// Se não cria um novo dado de loteria na sessão
-				sessao.push(
-					{
+		return new Promise(resolve => {
+			this.bd.get('sessao').then(sessao => {
+				// Caso já tenha sido inserido um dado de loteria na sessão
+				if (sessao.loteria != undefined) {
+					let novo = {
+						_doc_id_rev: 'sessao::'+sessao._rev,
 						loteria: {
-							id: objLoteriaSessao.id,
-							sufixoCssLoteria: objLoteriaSessao.sufixoCssLoteria,
-							nome: objLoteriaSessao.nome,
-							caminhoDoIconeAvatar: objLoteriaSessao.caminhoDoIconeAvatar,
-							logo: objLoteriaSessao.logo
+							id:  objLoteriaSessao.id,
+							sufixoCssLoteria:  objLoteriaSessao.sufixoCssLoteria,
+							nome:  objLoteriaSessao.nome,
+							caminhoDoIconeAvatar:  objLoteriaSessao.caminhoDoIconeAvatar,
+							logo:  objLoteriaSessao.logo
 						}
 					}
-				);
-				return this.bd.put(sessao);
-			}
-
-		}).then(() => {
-			console.log('Loteria salva com sucesso na sessao => ' + JSON.stringify(objLoteriaSessao));
-			return this.bd.get('sessao');
-		}).catch(err => {// Caso não exista a entidade sessão
-			this.sufixoCssLoteriaSelecionada = objLoteriaSessao.sufixoCssLoteria;
-			this.nomeLoteriaSelecionada = objLoteriaSessao.nome;
-			this.caminhoDoIconeAvatarDaLoteriaSelecionada = objLoteriaSessao.caminhoDoIconeAvatar;
-			let loteria = {
-				id: objLoteriaSessao.id,
-				sufixoCssLoteria: objLoteriaSessao.sufixoCssLoteria,
-				nome: objLoteriaSessao.nome,
-				caminhoDoIconeAvatar: objLoteriaSessao.caminhoDoIconeAvatar,
-				logo: objLoteriaSessao.logo
-			}
-
-			this.bd.bulkDocs([
-				{
-					_id: 'sessao',
-					loteria
+					console.log(novo)
+					// Sobrescreve com o novo dado
+					return this.bd.put(novo);
 				}
-			]).then(sucesso => {
-				console.log('Entidade sessão criada com sucesso. => ' + JSON.stringify(loteria));
-				return this.bd.get('sessao');
-			}).catch(erro => {
-				console.log('Ocorreu um erro ao tentar criar a entidade sessão => ' + erro);
-				return erro;
+			}).then(sucesso => {
+				resolve('Loteria salva com sucesso na sessao => ' + JSON.stringify(objLoteriaSessao));
+			}).catch(err => {// Caso não exista a entidade sessão
+				this.sufixoCssLoteriaSelecionada = objLoteriaSessao.sufixoCssLoteria;
+				this.nomeLoteriaSelecionada = objLoteriaSessao.nome;
+				this.caminhoDoIconeAvatarDaLoteriaSelecionada = objLoteriaSessao.caminhoDoIconeAvatar;
+				let loteria = {
+					id: objLoteriaSessao.id,
+					sufixoCssLoteria: objLoteriaSessao.sufixoCssLoteria,
+					nome: objLoteriaSessao.nome,
+					caminhoDoIconeAvatar: objLoteriaSessao.caminhoDoIconeAvatar,
+					logo: objLoteriaSessao.logo
+				}
+
+				this.bd.bulkDocs([
+					{
+						_id: 'sessao',
+						loteria
+					}
+				]).then(sucesso => {
+					resolve('Entidade sessao criada com sucesso.');
+				}).catch(erro => {
+					console.log(erro);
+				});
 			});
-		});
+		})
 	}
 
 	private sincronizeOsConcursosDaLoteria(parametrosDeServicosWeb: any) {
@@ -192,6 +184,6 @@ export class MyApp {
 		concursoFacade.sincronize(parametrosDeServicosWeb).then(concursos => {
 			loading.dismiss();
 		});
-		
+
 	}
 }
