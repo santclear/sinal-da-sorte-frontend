@@ -78,7 +78,7 @@ export class MyApp {
 			}
 		});
 
-		// this.sincronizeOsConcursosDaLoteria(this.loterias[0].parametrosDeServicosWeb);
+		this.sincronizeOsConcursosDaLoteria(this.loterias[0].parametrosDeServicosWeb);
 	}
 
 	initializeApp() {
@@ -108,7 +108,7 @@ export class MyApp {
 			this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 		});
 
-		// this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria].parametrosDeServicosWeb);
+		this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria].parametrosDeServicosWeb);
 
 		this.menuAtivo = 'menuPaginas';
 		this.menu.close();

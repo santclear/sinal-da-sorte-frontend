@@ -12,6 +12,10 @@ export class ConcursoFacade {
 		return this.concursoDAOServico.salveTodos(concursos);
 	}
 
+	salveOuAtualize(concurso, parametrosDeServico): any {
+		return this.concursoDAOServico.salveOuAtualize(concurso, parametrosDeServico)
+	}
+
     exclua(concurso): void {
         this.concursoDAOServico.exclua(concurso);
     }

@@ -7,11 +7,13 @@ export class ParametrosDeServicosWeb {
 	static readonly CONCURSO_LOTOFACIL = {
 		id: 1,
 		nome: 'Lotofácil',
-        urlConcursos: ParametrosDeServicosWeb.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/1'
+		nomeDoDocumentoNoBD: 'lotofacil',
+        urlDoServico: ParametrosDeServicosWeb.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/1'
     };
 	static readonly CONCURSO_MEGASENA = {
 		id: 2,
 		nome: 'Mega-Sena',
-        urlConcursos: ParametrosDeServicosWeb.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/2'
+		nomeDoDocumentoNoBD: 'megasena',
+        urlDoServico: ParametrosDeServicosWeb.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/2'
     }
 }

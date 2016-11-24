@@ -1,7 +1,7 @@
 export interface IConcursoDAO {
     salve(concurso): void;
 	salveTodos(concursos): any;
-	salveOuAtualize(concurso): any;
+	salveOuAtualize(concurso, parametrosDeServico): any;
     atualize(concurso): void;
     exclua(concurso): void;
     listeTodos(): any;

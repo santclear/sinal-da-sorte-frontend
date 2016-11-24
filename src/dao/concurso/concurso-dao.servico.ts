@@ -32,7 +32,37 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return this.bd.bulkDocs(concursos);
 	}
 
-	salveOuAtualize(concurso): void { }
+	salveOuAtualize(doc, parametrosDeServico): any {
+		return new Promise(resolve => {
+			this.bd.bulkDocs([
+				{
+					_id: parametrosDeServico.nomeDoDocumentoNoBD,
+					concursos: doc
+				}
+			]).then(resultadoQuery => {
+				if (resultadoQuery[0].ok == true) {
+					resolve({ estado: 'criado', novo: { concursos: doc }, antigo: null })
+				} else {
+					this.bd.get(parametrosDeServico.nomeDoDocumentoNoBD).then(concursosAntigo => {
+						let concursoAtualizados = concursosAntigo.concursos.concat(doc);
+						// Caso já tenha sido inserido um dado
+						let concursos = {
+							_id: parametrosDeServico.nomeDoDocumentoNoBD,
+							_rev: concursosAntigo._rev,
+							concursos: concursoAtualizados
+						}
+						// Atualiza com novos dados
+						this.bd.put(concursos);
+						return concursosAntigo;
+					}).then(concursosAntigo => {
+						resolve({ estado: 'atualizado', novo: { concursos: doc }, antigo: concursosAntigo });
+					})
+				}
+			}).catch(erro => {
+				console.log(erro);
+			});
+		});
+	}
 
 	atualize(concurso): void { }
 
@@ -113,7 +143,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 	// Sincronismo
 	sincronize(parametrosDeServico): any {
 		let entidadeBD = new EntidadeBD(this.http);
-		return entidadeBD.sincronize(parametrosDeServico.id, parametrosDeServico.urlConcursos, new ComandoConcurso(this));
+		return entidadeBD.sincronize(parametrosDeServico, new ComandoConcurso(this));
 	}
 
 	procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loteriaId: number): any {
