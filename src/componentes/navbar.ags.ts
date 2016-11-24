@@ -13,61 +13,36 @@ export class NavBarAgS {
 	constructor() {
 		this.bd = ConexaoFabrica.getConexao();
 
-		this.bd.get('sessao').then(sessao => {
-			this.logoSelecionado = sessao.loteria.logo;
-		}).catch(err => {// Caso não exista dados em sessão, salva com dados default
-			this.salveOuAtualizeLoteriaSessao({
-				id: 1,
-				sufixoCssLoteria: 'Lotofacil',
-				nome: 'Lotofácil',
-				caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
-				logo: 'assets/img/logo-lotofacil.png'
-			});
+		this.salveLoteriaSessao({
+			id: 1,
+			sufixoCssLoteria: 'Lotofacil',
+			nome: 'Lotofácil',
+			caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
+			logo: 'assets/img/logo-lotofacil.png'
+		}).then(resultadoQuery => {
+			this.logoSelecionado = resultadoQuery.antigo.loteria.logo;
 		});
 	}
 
-	private salveOuAtualizeLoteriaSessao(objLoteriaSessao) {
-		// Caso exista a entidade sessão
+	private salveLoteriaSessao(objLoteriaSessao): any {
 		return new Promise(resolve => {
-			this.bd.get('sessao').then(sessao => {
-				// Caso já tenha sido inserido um dado de loteria na sessão
-				if (sessao.loteria != undefined) {
-					let novo = {
-						_doc_id_rev: 'sessao::'+sessao._rev,
-						loteria: {
-							id: objLoteriaSessao.id,
-							sufixoCssLoteria: objLoteriaSessao.sufixoCssLoteria,
-							nome: objLoteriaSessao.nome,
-							caminhoDoIconeAvatar: objLoteriaSessao.caminhoDoIconeAvatar,
-							logo: objLoteriaSessao.logo
-						}
-					}
-					// Sobrescreve com o novo dado
-					return this.bd.put(novo);
+			this.bd.bulkDocs([
+				{
+					_id: 'sessao',
+					loteria: objLoteriaSessao
 				}
-
-			}).then(() => {
-				resolve('Loteria salva com sucesso na sessao => ' + JSON.stringify(objLoteriaSessao));
-			}).catch(err => {// Caso não exista a entidade sessão
-				this.logoSelecionado = objLoteriaSessao.logo;
-				let loteria = {
-					id: objLoteriaSessao.id,
-					sufixoCssLoteria: objLoteriaSessao.sufixoCssLoteria,
-					nome: objLoteriaSessao.nome,
-					caminhoDoIconeAvatar: objLoteriaSessao.caminhoDoIconeAvatar,
-					logo: objLoteriaSessao.logo
+			]).then(resultadoQuery => {
+				if (resultadoQuery[0].ok == true) {
+					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
+				} else {
+					this.bd.get('sessao').then(sessao => {
+						resolve({ estado: 'existente', novo: null, antigo: {loteria: sessao.loteria} });
+					}).catch(erro => {
+						console.log(erro);
+					});
 				}
-
-				this.bd.bulkDocs([
-					{
-						_id: 'sessao',
-						loteria
-					}
-				]).then(sucesso => {
-					resolve('Entidade sessao criada com sucesso.');
-				}).catch(erro => {
-					console.log(erro);
-				});
+			}).catch(erro => {
+				console.log(erro);
 			});
 		});
 	}

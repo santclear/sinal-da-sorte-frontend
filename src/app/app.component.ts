@@ -57,23 +57,25 @@ export class MyApp {
 		];
 
 		this.indicePaginaAtual = 6;
-		// Caso exista dados em sessão, pega os dados
-		this.bd.get('sessao').then(sessao => {
-			this.sufixoCssLoteriaSelecionada = sessao.loteria.sufixoCssLoteria;
-			this.nomeLoteriaSelecionada = sessao.loteria.nome;
-			this.caminhoDoIconeAvatarDaLoteriaSelecionada = sessao.loteria.caminhoDoIconeAvatar;
-			this.paginaInicial = BemVindoPage;
-		}).catch(err => {// Caso não exista dados em sessão, salva com dados default
-			this.salveOuAtualizeLoteriaSessao({
-				id: 1,
-				sufixoCssLoteria: 'Lotofacil',
-				nome: 'Lotofácil',
-				caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
-				logo: 'assets/img/logo-lotofacil.png'
-			}).then(sucesso => {
-				console.log(sucesso)
+
+		this.salveLoteriaSessao({
+			id: 1,
+			sufixoCssLoteria: 'Lotofacil',
+			nome: 'Lotofácil',
+			caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
+			logo: 'assets/img/logo-lotofacil.png'
+		}).then(resultadoQuery => {
+			if(resultadoQuery.estado === 'criado') {
+				this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
+				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
+				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
 				this.paginaInicial = BemVindoPage;
-			});
+			} else {
+				this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
+				this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
+				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
+				this.paginaInicial = BemVindoPage;
+			}
 		});
 
 		// this.sincronizeOsConcursosDaLoteria(this.loterias[0].parametrosDeServicosWeb);
@@ -102,8 +104,7 @@ export class MyApp {
 			nome: this.loterias[indiceLoteria].nome,
 			caminhoDoIconeAvatar: this.loterias[indiceLoteria].caminhoDoIconeAvatar,
 			logo: this.loterias[indiceLoteria].logo
-		}).then(sucesso => {
-			console.log(sucesso)
+		}).then(resultadoQuery => {
 			this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 		});
 
@@ -124,53 +125,58 @@ export class MyApp {
 		this.menu.open();
 	}
 
-	private salveOuAtualizeLoteriaSessao(objLoteriaSessao) {
-
-		// Caso exista a entidade sessão
+	private salveLoteriaSessao(objLoteriaSessao): any {
 		return new Promise(resolve => {
-			this.bd.get('sessao').then(sessao => {
-				// Caso já tenha sido inserido um dado de loteria na sessão
-				if (sessao.loteria != undefined) {
-					let novo = {
-						_doc_id_rev: 'sessao::'+sessao._rev,
-						loteria: {
-							id:  objLoteriaSessao.id,
-							sufixoCssLoteria:  objLoteriaSessao.sufixoCssLoteria,
-							nome:  objLoteriaSessao.nome,
-							caminhoDoIconeAvatar:  objLoteriaSessao.caminhoDoIconeAvatar,
-							logo:  objLoteriaSessao.logo
-						}
-					}
-					console.log(novo)
-					// Sobrescreve com o novo dado
-					return this.bd.put(novo);
+			this.bd.bulkDocs([
+				{
+					_id: 'sessao',
+					loteria: objLoteriaSessao
 				}
-			}).then(sucesso => {
-				resolve('Loteria salva com sucesso na sessao => ' + JSON.stringify(objLoteriaSessao));
-			}).catch(err => {// Caso não exista a entidade sessão
-				this.sufixoCssLoteriaSelecionada = objLoteriaSessao.sufixoCssLoteria;
-				this.nomeLoteriaSelecionada = objLoteriaSessao.nome;
-				this.caminhoDoIconeAvatarDaLoteriaSelecionada = objLoteriaSessao.caminhoDoIconeAvatar;
-				let loteria = {
-					id: objLoteriaSessao.id,
-					sufixoCssLoteria: objLoteriaSessao.sufixoCssLoteria,
-					nome: objLoteriaSessao.nome,
-					caminhoDoIconeAvatar: objLoteriaSessao.caminhoDoIconeAvatar,
-					logo: objLoteriaSessao.logo
+			]).then(resultadoQuery => {
+				if (resultadoQuery[0].ok == true) {
+					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
+				} else {
+					this.bd.get('sessao').then(sessao => {
+						resolve({ estado: 'existente', novo: null, antigo: {loteria: sessao.loteria} });
+					}).catch(erro => {
+						console.log(erro);
+					});
 				}
-
-				this.bd.bulkDocs([
-					{
-						_id: 'sessao',
-						loteria
-					}
-				]).then(sucesso => {
-					resolve('Entidade sessao criada com sucesso.');
-				}).catch(erro => {
-					console.log(erro);
-				});
+			}).catch(erro => {
+				console.log(erro);
 			});
-		})
+		});
+	}
+
+	private salveOuAtualizeLoteriaSessao(objLoteriaSessao): any {
+		return new Promise(resolve => {
+			this.bd.bulkDocs([
+				{
+					_id: 'sessao',
+					loteria: objLoteriaSessao
+				}
+			]).then(resultadoQuery => {
+				if (resultadoQuery[0].ok == true) {
+					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
+				} else {
+					this.bd.get('sessao').then(sessao => {
+						// Caso já tenha sido inserido um dado de loteria na sessão
+						let novosDadosDeSessao = {
+							_id: 'sessao',
+							_rev: sessao._rev,
+							loteria: objLoteriaSessao
+						}
+						// Atualiza com novos dados
+						this.bd.put(novosDadosDeSessao);
+						return sessao;
+					}).then(sessaoAntiga => {
+						resolve({ estado: 'atualizado', novo: { loteria: objLoteriaSessao }, antigo: sessaoAntiga });
+					})
+				}
+			}).catch(erro => {
+				console.log(erro);
+			});
+		});
 	}
 
 	private sincronizeOsConcursosDaLoteria(parametrosDeServicosWeb: any) {
