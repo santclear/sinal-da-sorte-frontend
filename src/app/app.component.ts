@@ -12,7 +12,7 @@ import { BolaoPage } from '../pages/bolao/bolao';
 import { HistoricoDeApostasPage } from '../pages/historico-de-apostas/historico-de-apostas';
 import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../dao/concurso/concurso-facade';
-import { ParametrosDeServicosWeb } from '../enum/parametros-de-servicos-web';
+import { Loterias } from '../enum/loterias';
 
 
 @Component({
@@ -48,23 +48,17 @@ export class MyApp {
 		];
 
 		this.loterias = [
-			{ id: 1, sufixoCssLoteria: 'Lotofacil', nome: 'Lotofácil', caminhoDoIconeAvatar: 'assets/img/lotofacil.png', logo: 'assets/img/logo-lotofacil.png', parametrosDeServicosWeb: ParametrosDeServicosWeb.CONCURSO_LOTOFACIL },
-			{ id: 2, sufixoCssLoteria: 'MegaSena', nome: 'Mega Sena', caminhoDoIconeAvatar: 'assets/img/mega-sena.png', logo: 'assets/img/logo-mega-sena.png', parametrosDeServicosWeb: ParametrosDeServicosWeb.CONCURSO_MEGASENA },
-			{ id: 3, sufixoCssLoteria: 'Quina', nome: 'Quina', caminhoDoIconeAvatar: 'assets/img/quina.png', logo: 'assets/img/logo-quina.png', parametrosDeServicosWeb: ParametrosDeServicosWeb.CONCURSO_LOTOFACIL },
-			{ id: 4, sufixoCssLoteria: 'Lotomania', nome: 'Lotomania', caminhoDoIconeAvatar: 'assets/img/lotomania.png', logo: 'assets/img/logo-lotomania.png', parametrosDeServicosWeb: ParametrosDeServicosWeb.CONCURSO_LOTOFACIL },
-			{ id: 5, sufixoCssLoteria: 'DuplaSena', nome: 'Dupla Sena', caminhoDoIconeAvatar: 'assets/img/dupla-sena.png', logo: 'assets/img/logo-dupla-sena.png', parametrosDeServicosWeb: ParametrosDeServicosWeb.CONCURSO_LOTOFACIL },
-			{ id: 6, sufixoCssLoteria: 'Timemania', nome: 'Timemania', caminhoDoIconeAvatar: 'assets/img/timemania.png', logo: 'assets/img/logo-timemania.png', parametrosDeServicosWeb: ParametrosDeServicosWeb.CONCURSO_LOTOFACIL }
+			Loterias.LOTOFACIL,
+			Loterias.MEGASENA,
+			Loterias.QUINA,
+			Loterias.LOTOMANIA,
+			Loterias.TIMEMANIA,
+			Loterias.DUPLASENA
 		];
 
 		this.indicePaginaAtual = 6;
 
-		this.salveLoteriaSessao({
-			id: 1,
-			sufixoCssLoteria: 'Lotofacil',
-			nome: 'Lotofácil',
-			caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
-			logo: 'assets/img/logo-lotofacil.png'
-		}).then(resultadoQuery => {
+		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			if(resultadoQuery.estado === 'criado') {
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
@@ -78,7 +72,7 @@ export class MyApp {
 			}
 		});
 
-		this.sincronizeOsConcursosDaLoteria(this.loterias[0].parametrosDeServicosWeb);
+		this.sincronizeOsConcursosDaLoteria(this.loterias[0]);
 	}
 
 	initializeApp() {
@@ -98,17 +92,11 @@ export class MyApp {
 		this.nomeLoteriaSelecionada = this.loterias[indiceLoteria].nome;
 		this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
 
-		this.salveOuAtualizeLoteriaSessao({
-			id: this.loterias[indiceLoteria].id,
-			sufixoCssLoteria: this.loterias[indiceLoteria].sufixoCssLoteria,
-			nome: this.loterias[indiceLoteria].nome,
-			caminhoDoIconeAvatar: this.loterias[indiceLoteria].caminhoDoIconeAvatar,
-			logo: this.loterias[indiceLoteria].logo
-		}).then(resultadoQuery => {
+		this.salveOuAtualizeLoteriaSessao(this.loterias[indiceLoteria]).then(resultadoQuery => {
 			this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 		});
 
-		this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria].parametrosDeServicosWeb);
+		this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria]);
 
 		this.menuAtivo = 'menuPaginas';
 		this.menu.close();

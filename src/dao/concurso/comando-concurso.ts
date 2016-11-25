@@ -6,28 +6,28 @@ import { ConcursoFacade } from './concurso-facade';
 export class ComandoConcurso implements IComandoSincronizar {
 	constructor(public concursoDAOServico: ConcursoDAOServico) { }
 
-	execute(parametrosDeServico, entidadeBDReceptor: EntidadeBDReceptor): any {
+	execute(loterias, entidadeBDReceptor: EntidadeBDReceptor): any {
 		return new Promise(resolve => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(parametrosDeServico.id);
+			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loterias.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
-				if (concursos.maiorNumero != 0) {
-					resolve(this.baixeResultadosRemoto(concursos.maiorNumero, entidadeBDReceptor, concursoFacade, parametrosDeServico));
+				if (concursos.maiorNumero > 0) {
+					resolve(this.baixeResultadosRemoto(concursos.maiorNumero, entidadeBDReceptor, concursoFacade, loterias));
 				} else {
-					resolve(this.baixeResultadosRemoto(0, entidadeBDReceptor, concursoFacade, parametrosDeServico));
+					resolve(this.baixeResultadosRemoto(0, entidadeBDReceptor, concursoFacade, loterias));
 				}
 			});
 		});
 	}
 
-	private baixeResultadosRemoto(maiorNumeroEntreOsConcursos: number, entidadeBDReceptor: EntidadeBDReceptor, concursoFacade: ConcursoFacade, parametrosDeServico): any {
+	private baixeResultadosRemoto(maiorNumeroEntreOsConcursos: number, entidadeBDReceptor: EntidadeBDReceptor, concursoFacade: ConcursoFacade, loterias): any {
 
 		let resultadosRemotoPromise = entidadeBDReceptor.baixeResultadosRemoto(maiorNumeroEntreOsConcursos);
 
 		let resultadoSalveTodosPromise = new Promise(resolve => {
 			resultadosRemotoPromise.then(concursos => {
 				if (concursos.length > 0) {
-					resolve(concursoFacade.salveOuAtualize(concursos, parametrosDeServico));
+					resolve(concursoFacade.salveOuAtualize(concursos, loterias));
 				} else {
 					resolve(concursos);
 				}

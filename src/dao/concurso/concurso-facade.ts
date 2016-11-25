@@ -25,9 +25,9 @@ export class ConcursoFacade {
     }
 
 	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
-		dezena: string, loteriaId: number, numeroConcursoInicial: number): any {
+		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number): any {
 		return this.concursoDAOServico.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
-			dezena, loteriaId, numeroConcursoInicial);
+			dezena, nomeDoDocumentoNoBD, numeroConcursoInicial);
 	}
 
 	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
@@ -41,7 +41,7 @@ export class ConcursoFacade {
         return this.concursoDAOServico.sincronize(parametrosDeServico);
     }
 
-    procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loteriaId: number): any {
-        return this.concursoDAOServico.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loteriaId);
+    procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(nomeDoDocumentoNoBD: string): any {
+        return this.concursoDAOServico.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(nomeDoDocumentoNoBD);
     }
 }

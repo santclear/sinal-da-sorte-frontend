@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
+import { Loterias } from '../enum/loterias';
 
 @Component({
 	selector: "ags-navbar",
@@ -12,14 +13,8 @@ export class NavBarAgS {
 
 	constructor() {
 		this.bd = ConexaoFabrica.getConexao();
-
-		this.salveLoteriaSessao({
-			id: 1,
-			sufixoCssLoteria: 'Lotofacil',
-			nome: 'Lotofácil',
-			caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
-			logo: 'assets/img/logo-lotofacil.png'
-		}).then(resultadoQuery => {
+		
+		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			this.logoSelecionado = resultadoQuery.antigo.loteria.logo;
 		});
 	}

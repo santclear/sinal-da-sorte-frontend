@@ -34,7 +34,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 		let frequenciasPorConcursos = [];
 		let acumulador = maiorNumeroCallBack != undefined ? this.numeroDoConcursoInicial - maiorNumeroCallBack.maiorNumero - 1 : 0;
 		for (let iConcurso = 0; iConcurso < concursosCallBack.length; iConcurso++) {
-			if (concursosCallBack[iConcurso][0].dezenaEncontrada == 'sim') {
+			if (concursosCallBack[iConcurso].dezenaEncontrada == 'sim') {
 				acumulador++;
 			} else {
 				acumulador = 0;

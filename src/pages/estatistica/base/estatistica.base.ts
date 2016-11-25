@@ -26,7 +26,7 @@ export abstract class EstatisticaBase {
 		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd = ConexaoFabrica.getConexao();
 		this.bd.get('sessao').then((sessao) => {
-			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.id);
+			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
 				this.numeroDoConcursoInicial = concursos.maiorNumero - 10;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
@@ -47,11 +47,11 @@ export abstract class EstatisticaBase {
 	atualizeOGrafico() {
 		this.bd.get('sessao').then(sessao => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(this.dezena, sessao.loteria.id, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal);
+			let concursosPromise = concursoFacade.procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal);
 			concursosPromise.then(concursos => {
 				let rotulosDoEixoX = [];
-				if (this.numeroDoConcursoInicial == concursos.numero) {
-					concursoFacade.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(this.dezena, sessao.loteria.id, this.numeroDoConcursoInicial).then(concursos => {
+				if (this.numeroDoConcursoInicial == concursos.numero) {// FIXME Validar se está errado
+					concursoFacade.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial).then(concursos => {
 						this.renderizeEstatistica(concursos.maiorNumero, concursos, rotulosDoEixoX, this.dezena);
 					});
 				} else {
@@ -88,7 +88,7 @@ export abstract class EstatisticaBase {
 		if (this.rgeFaixaDeConcursos != undefined) {
 			this.bd.get('sessao').then(sessao => {
 				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.id)
+				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD)
 				concursosPromise.then(concursos => {
 					if (this.rgeFaixaDeConcursos != undefined) {
 						if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
