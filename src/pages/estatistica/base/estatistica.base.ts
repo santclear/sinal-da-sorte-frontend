@@ -88,7 +88,7 @@ export abstract class EstatisticaBase {
 		if (this.rgeFaixaDeConcursos != undefined) {
 			this.bd.get('sessao').then(sessao => {
 				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD)
+				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
 				concursosPromise.then(concursos => {
 					if (this.rgeFaixaDeConcursos != undefined) {
 						if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
@@ -101,12 +101,10 @@ export abstract class EstatisticaBase {
 							this.rgeFaixaDeConcursos = concursos.maiorNumero;
 						}
 					}
+					this.atualizeOGrafico();
 				});
-
 			});
 		}
-
-		this.atualizeOGrafico();
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
