@@ -1,19 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
-import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
-import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
-import { EstatisticaPage } from '../pages/estatistica/estatistica';
-import { SimuladorPage } from '../pages/simulador/simulador';
-import { FechamentoPage } from '../pages/fechamento/fechamento';
-import { ApostaPage } from '../pages/aposta/aposta';
-import { GruposEspeciaisPage } from '../pages/grupos-especiais/grupos-especiais';
-import { BolaoPage } from '../pages/bolao/bolao';
-import { HistoricoDeApostasPage } from '../pages/historico-de-apostas/historico-de-apostas';
-import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
-import { ConcursoFacade } from '../dao/concurso/concurso-facade';
-import { Loterias } from '../enum/loterias';
-
+import {Component, ViewChild} from '@angular/core';
+import {Nav, Platform, MenuController, LoadingController} from 'ionic-angular';
+import {StatusBar} from 'ionic-native';
+import {ConexaoFabrica} from '../dao/util/conexao-fabrica';
+import {BemVindoPage} from '../pages/bem-vindo/bem-vindo';
+import {EstatisticaPage} from '../pages/estatistica/estatistica';
+import {SimuladorPage} from '../pages/simulador/simulador';
+import {FechamentoPage} from '../pages/fechamento/fechamento';
+import {ApostaPage} from '../pages/aposta/aposta';
+import {GruposEspeciaisPage} from '../pages/grupos-especiais/grupos-especiais';
+import {BolaoPage} from '../pages/bolao/bolao';
+import {HistoricoDeApostasPage} from '../pages/historico-de-apostas/historico-de-apostas';
+import {ConcursoDAOServico} from '../dao/concurso/concurso-dao.servico';
+import {ConcursoFacade} from '../dao/concurso/concurso-facade';
+import {Loterias} from '../enum/loterias';
 
 @Component({
 	templateUrl: `app.html`,
@@ -37,14 +36,14 @@ export class MyApp {
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.paginas = [
-			{ sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage },
-			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage },
-			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage },
-			{ sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage },
-			{ sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage },
-			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage },
-			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage },
-			{ sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage }
+			{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage},
+			{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage},
+			{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage},
+			{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage},
+			{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage},
+			{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage},
+			{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage},
+			{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage}
 		];
 
 		this.loterias = [
@@ -63,12 +62,12 @@ export class MyApp {
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
-				this.paginaInicial = BemVindoPage;
+				this.paginaInicial = EstatisticaPage;
 			} else {
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
-				this.paginaInicial = BemVindoPage;
+				this.paginaInicial = EstatisticaPage;
 			}
 		});
 
@@ -122,10 +121,10 @@ export class MyApp {
 				}
 			]).then(resultadoQuery => {
 				if (resultadoQuery[0].ok == true) {
-					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
+					resolve({estado: 'criado', novo: {loteria: objLoteriaSessao}, antigo: null})
 				} else {
 					this.bd.get('sessao').then(sessao => {
-						resolve({ estado: 'existente', novo: null, antigo: {loteria: sessao.loteria} });
+						resolve({estado: 'existente', novo: null, antigo: {loteria: sessao.loteria}});
 					}).catch(erro => {
 						console.log(erro);
 					});
@@ -145,7 +144,7 @@ export class MyApp {
 				}
 			]).then(resultadoQuery => {
 				if (resultadoQuery[0].ok == true) {
-					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
+					resolve({estado: 'criado', novo: {loteria: objLoteriaSessao}, antigo: null})
 				} else {
 					this.bd.get('sessao').then(sessao => {
 						// Caso já tenha sido inserido um dado de loteria na sessão
@@ -158,7 +157,7 @@ export class MyApp {
 						this.bd.put(novosDadosDeSessao);
 						return sessao;
 					}).then(sessaoAntiga => {
-						resolve({ estado: 'atualizado', novo: { loteria: objLoteriaSessao }, antigo: sessaoAntiga });
+						resolve({estado: 'atualizado', novo: {loteria: objLoteriaSessao}, antigo: sessaoAntiga});
 					})
 				}
 			}).catch(erro => {

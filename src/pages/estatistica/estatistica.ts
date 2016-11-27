@@ -6,9 +6,20 @@ import {PaginaBase} from '../pagina.base';
     templateUrl: 'estatistica.html'
 })
 export class EstatisticaPage extends PaginaBase {
+	public cbxTipoDeGrafico: string = 'frequenciaAcumulada';
+	public tiposDeGrafico: any;
 
 	constructor() {
 		super();
         this.setTitulo("Estatística");
+
+		this.tiposDeGrafico = [
+			{id: 'frequenciaAcumulada', tipo: 'Frequência Acumulada'},
+			{id: 'frequenciaSomaDezenas', tipo: 'Frequência de Soma de Dezenas'}
+		]
     }
+
+	cbxTipoDeGraficoAtualize(idTipoDeGrafico) {
+		this.cbxTipoDeGrafico = idTipoDeGrafico;
+	}
 }

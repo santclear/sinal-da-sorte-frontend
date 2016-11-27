@@ -9,6 +9,8 @@ import { Loterias } from '../enum/loterias';
 })
 export class NavBarAgS {
 	public logoSelecionado: string;
+	public nomeDaLoteria: string;
+	public sufixoCssLoteriaSelecionada: string;
 	private bd: any;
 
 	constructor() {
@@ -16,6 +18,8 @@ export class NavBarAgS {
 		
 		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			this.logoSelecionado = resultadoQuery.antigo.loteria.logo;
+			this.nomeDaLoteria = resultadoQuery.antigo.loteria.nome;
+			this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 		});
 	}
 

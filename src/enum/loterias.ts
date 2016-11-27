@@ -1,4 +1,4 @@
-export class Loterias {
+export abstract class Loterias {
 	static readonly DOMINIO = 'http://localhost:8084/';
 	static readonly ENTIDADE_LOTERIA = {
 		urlLoterias: Loterias.DOMINIO + 'loterias/procure_por_id_maior_que/0'//FIXME: refatorar 0, talvez criar outro método na classe EntidadeBDServico
@@ -37,6 +37,7 @@ export class Loterias {
 			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
 			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
 			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
+			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
 			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
 			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
 			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
@@ -61,6 +62,7 @@ export class Loterias {
 			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
 			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
 			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
+			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
 			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
 			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
 			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
@@ -123,6 +125,7 @@ export class Loterias {
 			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
 			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
 			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
+			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
 			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
 			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
 			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
@@ -151,6 +154,7 @@ export class Loterias {
 			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
 			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
 			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
+			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
 			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
 			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
 			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},

@@ -16,6 +16,7 @@ export abstract class EstatisticaBase {
 	protected extensaoDaFaixaDeConcursoAnterior: number;
 	public numeroDoConcursoInicial: number;
 	public numeroDoConcursoFinal: number;
+	public sufixoCssLoteria: string;
 	protected dezena: string = '01';
 	protected bd: any;
 	public dezenas = [];
@@ -32,7 +33,8 @@ export abstract class EstatisticaBase {
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
 
 				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
-				this.dezenas = Loterias.LOTOFACIL.dezenas;
+				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
+				this.dezenas = sessao.loteria.dezenas;
 				this.cbxExtensaoDaFaixaDeConcursos = 'id0';
 				this.cbxExtensaoDaFaixaDeConcursosAtualize('id0');
 				this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso + 1;

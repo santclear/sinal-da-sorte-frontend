@@ -1,5 +1,22 @@
 <ags-navbar [tituloInput]="titulo"></ags-navbar>
 
 <ion-content padding class="estatistica">
-	<ags-frequencia-acumulada></ags-frequencia-acumulada>
+	<div class="container-fluid">
+		<div class="col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8">
+			<ion-list>
+				<ion-item>
+					<ion-label>Tipo de gráfico:</ion-label>
+					<ion-select [(ngModel)]="cbxTipoDeGrafico" (ionChange)="cbxTipoDeGraficoAtualize($event)" cancelText="Cancelar" okText="Confirmar">
+						<ion-option *ngFor="let grafico of tiposDeGrafico" value="{{grafico.id}}">{{grafico.tipo}}</ion-option>
+					</ion-select>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
+	<div [ngSwitch]="cbxTipoDeGrafico">
+		<div *ngSwitchCase="'frequenciaAcumulada'">
+			<ags-frequencia-acumulada></ags-frequencia-acumulada>
+		</div>
+		<div *ngSwitchDefault>Frequência de Soma de Dezenas</div>
+	</div>
 </ion-content>

@@ -1,4 +1,7 @@
 pagina-estatistica {
+	.list-md {
+		margin: 0 0 16px 22px !important;
+	}
 	ion-select {
 		max-width: 60% !important;
 		padding: 0 2.5px 0 0 !important;
@@ -51,11 +54,16 @@ pagina-estatistica {
 		color: #424242 !important
 	}
 
-	#matriz_de_dezenas {
+	.matriz_de_dezenas_megasena, .matriz_de_dezenas_quina, .matriz_de_dezenas_lotomania, .matriz_de_dezenas_timemania, .matriz_de_dezenas_duplasena {
 		max-width: 350px;
-		.botaoDaMatrizDeDezenas {
-			width: 31px;
-		}
+	}
+
+	.matriz_de_dezenas_lotofacil {
+		max-width: 175px;
+	}
+
+	.botao_da_matriz_dezenas_megasena, .botao_da_matriz_dezenas_quina, .botao_da_matriz_dezenas_lotomania, .botao_da_matriz_dezenas_timemania, .botao_da_matriz_dezenas_duplasena, .botao_da_matriz_dezenas_lotofacil {
+		width: 31px;
 	}
 
 	.selecionavel {
