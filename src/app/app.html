@@ -12,8 +12,10 @@
                 <h1>{{nomeLoteriaSelecionada}}</h1>
             </button>
 
-			<button [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item *ngFor="let pagina of paginas; let indicePagina = index" (click)="abraAPagina(pagina, indicePagina)" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
-                {{pagina.titulo}}
+			<button [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item item-right icon-left *ngFor="let pagina of paginas; let indicePagina = index" (click)="abraAPagina(pagina, indicePagina)" [ngStyle]="{'color': pagina.cor_texto}">
+                <ion-icon [name]="pagina.icone"></ion-icon>
+				<span>{{pagina.titulo}}</span>
+				<span [ngStyle]="{'display': pagina.exibir_texto}" style="color: #4b0069; float: right">Em breve!</span>
             </button>
 
 			<ion-list-header></ion-list-header>

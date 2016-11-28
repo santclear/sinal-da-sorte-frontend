@@ -35,17 +35,6 @@ export class MyApp {
 
 		this.bd = ConexaoFabrica.getConexao();
 
-		this.paginas = [
-			{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage},
-			{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage},
-			{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage},
-			{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage},
-			{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage},
-			{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage},
-			{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage},
-			{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage}
-		];
-
 		this.loterias = [
 			Loterias.LOTOFACIL,
 			Loterias.MEGASENA,
@@ -63,11 +52,31 @@ export class MyApp {
 				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
 				this.paginaInicial = EstatisticaPage;
+				this.paginas = [
+					{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: resultadoQuery.novo.loteria.cor.escuro, exibir_texto: 'none'},
+					{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: resultadoQuery.novo.loteria.cor.escuro, exibir_texto: 'none'}
+				];
 			} else {
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
 				this.paginaInicial = EstatisticaPage;
+				this.paginas = [
+					{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: resultadoQuery.antigo.loteria.cor.escuro, exibir_texto: 'none'},
+					{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: resultadoQuery.antigo.loteria.cor.escuro, exibir_texto: 'none'}
+				];
 			}
 		});
 
@@ -92,6 +101,16 @@ export class MyApp {
 		this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
 
 		this.salveOuAtualizeLoteriaSessao(this.loterias[indiceLoteria]).then(resultadoQuery => {
+			this.paginas = [
+					{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: resultadoQuery.novo.loteria.cor.escuro, exibir_texto: 'none'},
+					{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'},
+					{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: resultadoQuery.novo.loteria.cor.escuro, exibir_texto: 'none'}
+				];
 			this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 		});
 
