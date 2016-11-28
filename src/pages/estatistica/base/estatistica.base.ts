@@ -54,16 +54,16 @@ export abstract class EstatisticaBase {
 				let rotulosDoEixoX = [];
 				if (this.numeroDoConcursoInicial == concursos.numero) {// FIXME Validar se está errado
 					concursoFacade.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial).then(concursos => {
-						this.renderizeEstatistica(concursos.maiorNumero, concursos, rotulosDoEixoX, this.dezena);
+						this.renderizeEstatistica(concursos.maiorNumero, concursos, rotulosDoEixoX, this.dezena, sessao);
 					});
 				} else {
-					this.renderizeEstatistica(undefined, concursos, rotulosDoEixoX, this.dezena);
+					this.renderizeEstatistica(undefined, concursos, rotulosDoEixoX, this.dezena, sessao);
 				}
 			});
 		});
 	}
 
-	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena);
+	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao);
 
 	destaqueDezena(dezena) {
 		let dezenaFormatada = dezena.numero;

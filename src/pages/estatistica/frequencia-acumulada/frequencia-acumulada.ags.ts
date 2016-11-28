@@ -30,7 +30,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
         super(nav, concursoDAOServico);
     }
 
-	renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena) {
+	renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao) {
 		let frequenciasPorConcursos = [];
 		let acumulador = maiorNumeroCallBack != undefined ? this.numeroDoConcursoInicial - maiorNumeroCallBack.maiorNumero - 1 : 0;
 		for (let iConcurso = 0; iConcurso < concursosCallBack.length; iConcurso++) {
@@ -50,19 +50,12 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 		
 		if(this.iptPesquisaDeAmostraFrequencia != undefined) this.atualizePesquisaDeFrequencia({target: {value: this.iptPesquisaDeAmostraFrequencia}});
 		hcharts.chart(this.canvas.nativeElement, {
-			chart: {
-				zoomType: 'x',
-				events: {
-					load: function () {
-						var self = this;
-						setTimeout(function () {
-							self.reflow();
-						}, 100)
-					}
-				}
-			},
 			title: {
-				text: 'Frequência acumulada da dezena ' + dezena + ', entre o concurso ' + this.numeroDoConcursoInicial + ' e ' + this.numeroDoConcursoFinal
+				text: 'Frequência acumulada da dezena ' + dezena + ', entre o concurso ' + this.numeroDoConcursoInicial + ' e ' + this.numeroDoConcursoFinal,
+				style: {
+					color: sessao.loteria.cor.escuro,
+                	fontWeight: 'bold'
+				}
 			},
 			tooltip: {
 				enabled: true,
@@ -75,20 +68,46 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 			},
 			yAxis: {
 				title: {
-					text: 'Frequência acumulada'
+					text: 'Frequência acumulada',
+					style: {
+						color: sessao.loteria.cor.escuro
+					}
+				},
+				labels: {
+					style: {
+						color: sessao.loteria.cor.escuro
+					}
 				},
 				tickInterval: 1
 			},
 			xAxis: {
 				title: {
-					text: 'Concursos'
+					text: 'Concursos da '+ sessao.loteria.nome,
+					style: {
+						color: sessao.loteria.cor.escuro
+					}
+				},
+				labels: {
+					style: {
+						color: sessao.loteria.cor.escuro
+					}
 				},
 				categories: rotulosDoEixoX
 			},
 			series: [{
 				name: 'Frequência acumulada da dezena ' + dezena,
-				data: frequenciasPorConcursos
+				data: frequenciasPorConcursos,
+				zones: [{
+					color: sessao.loteria.cor.escuro
+				}]
 			}],
+			legend: {
+				enabled: false,
+				itemStyle: {
+					color: sessao.loteria.cor.escuro,
+					fontWeight: 'normal'
+				}
+        	},
 		});
 	}
 

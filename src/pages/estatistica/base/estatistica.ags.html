@@ -18,19 +18,16 @@
 							</div>
 						</ion-card-content>
 					</ion-card>
-					<ion-list>
-						<ion-item>
-							<button ion-button block id="btnSalvarPesquisaDeAmostraFrequencia" (click)="salvePesquisaDeAmostraFrequencia()">
-								Salvar
-							</button>
-						</ion-item>
-					</ion-list>
+					<button ion-button block id="btnSalvarPesquisaDeAmostraFrequencia" (click)="salvePesquisaDeAmostraFrequencia()">
+						Salvar
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div #grafico></div>
 </div>
+<div class="espaco_vertical"></div>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
@@ -89,8 +86,7 @@
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="center-block">
 			<div class="espaco_vertical"></div>
-			<button ion-button [ngClass]="['botao_da_matriz_dezenas_'+ sufixoCssLoteria]" [attr.id]="'bt'+ dezena.numero" [ngClass]="{dezena_destacada: destaqueDezena(dezena)}"
-				*ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena)">
+			<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena)">
 				{{dezena.numero}}
            	</button>
 			<div class="espaco_vertical"></div>

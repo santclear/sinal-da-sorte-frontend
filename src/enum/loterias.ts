@@ -10,6 +10,10 @@ export abstract class Loterias {
 		nomeDoDocumentoNoBD: 'lotofacil',
 		caminhoDoIconeAvatar: 'assets/img/lotofacil.png',
 		logo: 'assets/img/logo-lotofacil.png',
+		cor: {
+			claro: '#c87fc3',
+			escuro: '#930089'
+		},
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/1'
     	},
@@ -28,6 +32,10 @@ export abstract class Loterias {
 		nomeDoDocumentoNoBD: 'megasena',
 		caminhoDoIconeAvatar: 'assets/img/mega-sena.png', 
 		logo: 'assets/img/logo-mega-sena.png',
+		cor: {
+			claro: '#8fcbb3',
+			escuro: '#209869'
+		},
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/2'
     	},
@@ -53,6 +61,10 @@ export abstract class Loterias {
 		nomeDoDocumentoNoBD: 'quina',
 		caminhoDoIconeAvatar: 'assets/img/quina.png', 
 		logo: 'assets/img/logo-quina.png',
+		cor: {
+			claro: '#927fc1',
+			escuro: '#260085'
+		},
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/3'
     	},
@@ -83,6 +95,10 @@ export abstract class Loterias {
 		nomeDoDocumentoNoBD: 'lotomania',
 		caminhoDoIconeAvatar: 'assets/img/lotomania.png', 
 		logo: 'assets/img/logo-lotomania.png',
+		cor: {
+			claro: '#fabf7f',
+			escuro: '#e16e00'
+		},
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/4'
     	},
@@ -116,6 +132,10 @@ export abstract class Loterias {
 		nomeDoDocumentoNoBD: 'timemania',
 		caminhoDoIconeAvatar: 'assets/img/timemania.png', 
 		logo: 'assets/img/logo-timemania.png',
+		cor: {
+			claro: '#99ff99',
+			escuro: '#008c00'
+		},
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/5'
     	},
@@ -145,6 +165,10 @@ export abstract class Loterias {
 		nomeDoDocumentoNoBD: 'duplasena',
 		caminhoDoIconeAvatar: 'assets/img/dupla-sena.png', 
 		logo: 'assets/img/logo-dupla-sena.png',
+		cor: {
+			claro: '#d28891',
+			escuro: '#a61324'
+		},
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/6'
     	},
