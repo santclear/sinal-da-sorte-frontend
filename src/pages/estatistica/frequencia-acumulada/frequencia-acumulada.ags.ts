@@ -30,7 +30,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
         super(nav, concursoDAOServico);
     }
 
-	renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao) {
+	renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao, numeroDoSorteio) {
 		let frequenciasPorConcursos = [];
 		let acumulador = maiorNumeroCallBack != undefined ? this.numeroDoConcursoInicial - maiorNumeroCallBack.maiorNumero - 1 : 0;
 		for (let iConcurso = 0; iConcurso < concursosCallBack.length; iConcurso++) {
@@ -39,8 +39,8 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 			} else {
 				acumulador = 0;
 			}
-			frequenciasPorConcursos.push({ y: acumulador, concurso: concursosCallBack[iConcurso][0] });
-			rotulosDoEixoX.push(concursosCallBack[iConcurso][0].numero)
+			frequenciasPorConcursos.push({ y: acumulador, concurso: concursosCallBack[iConcurso] });
+			rotulosDoEixoX.push(concursosCallBack[iConcurso].numero)
 		}
 		
 		this.frequencia = [];
@@ -60,10 +60,15 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 			tooltip: {
 				enabled: true,
 				formatter: function () {
+					let numerosSorteados = this.point.concurso.sorteios[numeroDoSorteio].numerosSorteados;
+					let numerosSorteadosSplit = numerosSorteados.split(';');
+					let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
+
+
 					return `<b>Data do concurso: </b>` + this.point.concurso.dataDoSorteio +
 						`<br/><b>Concurso: </b>` + this.x +
 						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + dezena + ` foi sorteado)` +
-						`<br/><b>Números sorteados: </b>` + this.point.concurso.numerosSorteados;
+						`<br/><b>Números sorteados: </b>` + numerosSorteadosSort;
 				}
 			},
 			yAxis: {

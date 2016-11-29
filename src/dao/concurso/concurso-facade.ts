@@ -25,15 +25,15 @@ export class ConcursoFacade {
     }
 
 	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
-		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number): any {
+		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
 		return this.concursoDAOServico.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
-			dezena, nomeDoDocumentoNoBD, numeroConcursoInicial);
+			dezena, nomeDoDocumentoNoBD, numeroConcursoInicial, numeroDoSorteio);
 	}
 
 	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
-		dezena: string, pLoteria, numeroConcursoInicial: number, numeroConcursoFinal: number): any {
+		dezena: string, pLoteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
 		return this.concursoDAOServico.procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
-			dezena, pLoteria, numeroConcursoInicial, numeroConcursoFinal);
+			dezena, pLoteria, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
 	}
 
 	// Sincronismo

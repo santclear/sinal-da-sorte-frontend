@@ -6,9 +6,9 @@ export interface IConcursoDAO {
     exclua(concurso): void;
     listeTodos(): any;
 	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
-		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number): any;
+		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any;
 	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
-		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number): any;
+		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any;
 	
 	// Sincronismo
     sincronize(parametrosDeServico): any;

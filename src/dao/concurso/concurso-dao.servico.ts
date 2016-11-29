@@ -72,7 +72,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 	listeTodos(): any { }
 
 	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
-		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number): any {
+		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
 				include_docs: true,
@@ -83,7 +83,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					let concursosFiltrados = lodash.filter(resultadoQuery.rows[0].doc.concursos, function (concurso) {
 						if (concurso.numero < numeroConcursoInicial) {
 							let pattern = new RegExp(dezena, 'g');
-							let match = pattern.exec(concurso.sorteios[0].numerosSorteados);
+							let match = pattern.exec(concurso.sorteios[numeroDoSorteio].numerosSorteados);
 							return match == null;
 						}
 					});
@@ -101,7 +101,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 	}
 
 	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
-		dezena: string, nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number): any {
+		dezena: string, nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
 				include_docs: true,
@@ -114,24 +114,9 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					});
 					let concursosProcessado = [];
 					concursosFiltrados.forEach(concursoFiltrado => {
-						let numerosSorteados = concursoFiltrado.sorteios[0].numerosSorteados;
-						let numerosSorteadosSplit = numerosSorteados.split(';');
-						let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
-						let concurso = [{
-							id: concursoFiltrado.id,
-							numero: concursoFiltrado.numero,
-							dataDoSorteio: concursoFiltrado.dataDoSorteio,
-							numerosSorteados: numerosSorteadosSort,
-							arrecadacaoTotal: concursoFiltrado.arrecadacaoTotal,
-							estimativaDePremioParaOProximoConcurso: concursoFiltrado.estimativaDePremioParaOProximoConcurso,
-							acumuladoParaOProximoConcurso: concursoFiltrado.sorteios[0].rateios[0].acumuladoParaOProximoConcurso,
-							loteria: [{
-								id: concursoFiltrado.loteria.id,
-								nome: concursoFiltrado.loteria.nome
-							}]
-						}];
+						let concurso = concursoFiltrado;
 						let pattern = new RegExp(dezena, 'g');
-						let match = pattern.exec(concursoFiltrado.sorteios[0].numerosSorteados);
+						let match = pattern.exec(concursoFiltrado.sorteios[numeroDoSorteio].numerosSorteados);
 						if (match != null) {
 							concurso['dezenaEncontrada'] = 'sim';
 							concursosProcessado.push(concurso);

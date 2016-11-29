@@ -15,7 +15,7 @@ export abstract class Loterias {
 			escuro: '#930089'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/1'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/1'
     	},
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
@@ -37,7 +37,7 @@ export abstract class Loterias {
 			escuro: '#209869'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/2'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/2'
     	},
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
@@ -66,7 +66,7 @@ export abstract class Loterias {
 			escuro: '#260085'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/3'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/3'
     	},
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
@@ -100,7 +100,7 @@ export abstract class Loterias {
 			escuro: '#e16e00'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/4'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/4'
     	},
 		"dezenas": [
 			{numero: '00'},{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},
@@ -137,7 +137,7 @@ export abstract class Loterias {
 			escuro: '#008c00'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/5'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/5'
     	},
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
@@ -170,7 +170,7 @@ export abstract class Loterias {
 			escuro: '#a61324'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que/6'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/6'
     	},
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
@@ -187,10 +187,10 @@ export abstract class Loterias {
 	};
 	static readonly FAIXA_DE_CONCURSO = {
 		"extensoes": [
-			{id: 'id0', valor: 10}, {id: 'id1', valor: 20}, {id: 'id2', valor: 30}, {id: 'id3', valor: 40}, {id: 'id4', valor: 50}, 
-			{id: 'id5', valor: 60}, {id: 'id6', valor: 70}, {id: 'id7', valor: 80}, {id: 'id8', valor: 90}, {id: 'id9', valor: 100}, 
-			{id: 'id10', valor: 150}, {id: 'id11', valor: 200}, {id: 'id12', valor: 250}, {id: 'id13', valor: 300}, {id: 'id14', valor: 350}, 
-			{id: 'id15', valor: 400}, {id: 'id16', valor: 450}, {id: 'id17', valor: 500}
+			{id: 9, valor: 10}, {id: 19, valor: 20}, {id: 29, valor: 30}, {id: 39, valor: 40}, {id: 49, valor: 50}, 
+			{id: 59, valor: 60}, {id: 69, valor: 70}, {id: 79, valor: 80}, {id: 89, valor: 90}, {id: 99, valor: 100}, 
+			{id: 149, valor: 150}, {id: 199, valor: 200}, {id: 249, valor: 250}, {id: 299, valor: 300}, {id: 349, valor: 350}, 
+			{id: 399, valor: 400}, {id: 449, valor: 450}, {id: 499, valor: 500}
 		]
 	};
 }

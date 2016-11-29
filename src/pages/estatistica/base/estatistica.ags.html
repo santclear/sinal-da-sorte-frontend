@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8">
-			<ion-list [(ngModel)]="rdSorteios" *ngIf="rdSorteiosExibido" class="radio-estilo" radio-group>
+			<ion-list [(ngModel)]="rdSorteios" *ngIf="rdSorteiosExibido" (ionChange)="atualizeOGrafico($event)" class="radio-estilo" radio-group>
 				<ion-item>
 					<ion-label>Sorteio 1</ion-label>
 					<ion-radio value="0" checked="true"></ion-radio>
@@ -96,7 +96,7 @@
 		<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="center-block">
 			<div class="espaco_vertical"></div>
 			<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero"
-				*ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena)">
+				*ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
 				{{dezena.numero}}
            	</button>
 			<div class="espaco_vertical"></div>
@@ -104,7 +104,7 @@
 	</div>
 	<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
 
-		<button ion-button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico()">
+		<button ion-button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
 			Atualizar o Gráfico
 		</button>
 
