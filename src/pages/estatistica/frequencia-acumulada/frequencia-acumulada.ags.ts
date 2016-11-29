@@ -82,7 +82,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 			},
 			xAxis: {
 				title: {
-					text: 'Concursos da '+ sessao.loteria.nome,
+					text: 'Concursos da '+ sessao.loteria.nome +' | '+ rotulosDoEixoX.length +' concursos exibidos.',
 					style: {
 						color: sessao.loteria.cor.escuro
 					}
