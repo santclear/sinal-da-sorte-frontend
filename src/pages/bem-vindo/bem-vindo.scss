@@ -1,3 +1,24 @@
 pagina-bem-vindo {
+	.resultado {
+		font-family: sans-serif;
+		font-size: 45px;
+		font-weight: bold;
+	}
 
+	span {
+		font-family: sans-serif;
+		font-size: 22px;
+		font-weight: normal;
+	}
+
+	.container-botao {
+		margin-left: 0!important;
+	}
+	
+	.botao-da-matriz-dezenas {
+		width: 42px;
+		height: 42px;
+		margin: 5px;
+		padding: 0 0.6rem !important;
+	}
 }
