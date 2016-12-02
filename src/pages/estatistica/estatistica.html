@@ -5,9 +5,9 @@
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8">
 				<ion-list>
-					<ion-item>
-						<ion-label>Tipo de gráfico:</ion-label>
-						<ion-select [(ngModel)]="cbxTipoDeGrafico" (ionChange)="cbxTipoDeGraficoAtualize($event)" cancelText="Cancelar" okText="Confirmar">
+					<ion-item class="fundo-componente">
+						<ion-label color="primary">Tipo de gráfico:</ion-label>
+						<ion-select [(ngModel)]="cbxTipoDeGrafico" (ionChange)="cbxTipoDeGraficoAtualize($event)" cancelText="Cancelar" okText="Confirmar" class="cor-primaria-componente">
 							<ion-option *ngFor="let grafico of tiposDeGrafico" value="{{grafico.id}}">{{grafico.tipo}}</ion-option>
 						</ion-select>
 					</ion-item>
