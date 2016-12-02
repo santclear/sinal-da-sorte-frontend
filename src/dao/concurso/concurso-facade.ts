@@ -36,6 +36,10 @@ export class ConcursoFacade {
 			dezena, pLoteria, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
 	}
 
+	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any {
+		return this.concursoDAOServico.procurePorUnicoConcurso(nomeDoDocumentoNoBD, numeroConcurso);
+	}
+
 	// Sincronismo
     sincronize(parametrosDeServico): any {
         return this.concursoDAOServico.sincronize(parametrosDeServico);

@@ -64,7 +64,6 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 					let numerosSorteadosSplit = numerosSorteados.split(';');
 					let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
 
-
 					return `<b>Data do concurso: </b>` + this.point.concurso.dataDoSorteio +
 						`<br/><b>Concurso: </b>` + this.x +
 						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + dezena + ` foi sorteado)` +

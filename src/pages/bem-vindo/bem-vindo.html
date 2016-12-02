@@ -3,22 +3,22 @@
 <ion-content padding class="pagina-bem-vindo">
 	<div>
 		<h2 class="resultado" color="texto">Resultado
-			<span class="palavra-destacada">concurso 1442 (30/11/2016)</span>
+			<span class="palavra-destacada">concurso {{numeroDoConcurso}} - {{dataDoSorteio}}</span>
 		</h2>
 	</div>
 	<div class="container sem-margem-esquerda">
 		<div *ngIf="exibeDezenasComQuebraDeLinha" class="row">
 			<div class="col-xs-10 col-sm-5 col-md-4 col-lg-3">
-				<button [attr.id]="'bt'+ dezena.numero" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index">
-					{{dezena.numero}}
+				<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index">
+					{{dezena}}
 				</button>
 			</div>
 			<div class="col-xs-2 col-sm-7 col-md-8 col-lg-9"></div>
 		</div>
 		<div *ngIf="!exibeDezenasComQuebraDeLinha" class="row">
 			<div class="col-md-12">
-				<button [attr.id]="'bt'+ dezena.numero" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index">
-					{{dezena.numero}}
+				<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index">
+					{{dezena}}
 				</button>
 			</div>
 		</div>
@@ -27,8 +27,8 @@
 	<div class="container sem-margem-esquerda margem-superior">
 		<div class="row">
 			<div class="col-md-12">
-				<p color="texto"><span class="palavra-destacada">R$ 1.700.000,00</span> (Estimativa de prêmio do próximo concurso 02/12/2016)</p>
-				<p color="texto"><strong>R$ 14.712.203,29</strong> (Acumulado para o Sorteio Especial da Independência)</p>
+				<p color="texto"><span class="palavra-destacada">R$ {{estimativaDePremioParaOProximoConcurso}}</span> (Estimativa de prêmio para o próximo concurso)</p>
+				<p color="texto"><strong>R$ {{acumuladoEspecial}}</strong> ({{labelAcumuladoEspecial}})</p>
 			</div>
 		</div>
 	</div>
@@ -38,7 +38,29 @@
 			<strong color="primary">Seletor de concursos:</strong>
 		</ion-list-header>
 		<ion-item>
-			<ion-range [(ngModel)]="singleValue" color="danger" pin="true"></ion-range>
+			<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)"
+				color="primary" pin="true">
+				<ion-label range-left>
+					<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only
+						clear>
+					<ion-icon name="rewind"></ion-icon>
+				</button>
+					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only
+						clear>
+					<ion-icon name="arrow-dropleft-circle"></ion-icon>
+				</button>
+				</ion-label>
+				<ion-label range-right>
+					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only
+						clear>
+					<ion-icon name="arrow-dropright-circle"></ion-icon>
+				</button>
+					<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only
+						clear>
+					<ion-icon name="fastforward"></ion-icon>
+				</button>
+				</ion-label>
+			</ion-range>
 		</ion-item>
 	</ion-list>
 
@@ -73,7 +95,7 @@
 	<ion-fab right bottom>
 		<button ion-fab color="secondary"><ion-icon name="arrow-dropleft"></ion-icon></button>
 		<ion-fab-list side="left">
-			<button ion-button>Histórico de resultados da Lotofácil</button>
+			<button ion-button>Histórico Lotofácil</button>
 		</ion-fab-list>
 	</ion-fab>
 

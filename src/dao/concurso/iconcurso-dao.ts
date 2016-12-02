@@ -9,6 +9,7 @@ export interface IConcursoDAO {
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any;
 	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
 		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any;
+	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any;
 	
 	// Sincronismo
     sincronize(parametrosDeServico): any;

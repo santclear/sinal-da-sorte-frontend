@@ -138,6 +138,28 @@ export class ConcursoDAOServico implements IConcursoDAO {
 
 	};
 
+	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any {
+		let concursosPromise = new Promise(resolve => {
+			this.bd.allDocs({
+				include_docs: true,
+				startkey: nomeDoDocumentoNoBD,
+				endkey: nomeDoDocumentoNoBD
+			}).then(function (resultadoQuery) {
+				if (resultadoQuery.rows.length > 0) {
+					let concursos = lodash.find(resultadoQuery.rows[0].doc.concursos, function (concurso) {
+						return concurso.numero == numeroConcurso;
+					});
+					resolve(concursos);
+				} else {
+					resolve([]);
+				}
+			}).catch(function (erro) {
+				console.log(erro);
+			});
+		});
+		return concursosPromise;
+	}
+
 	// Sincronismo
 	sincronize(loterias): any {
 		let entidadeBD = new EntidadeBD(this.http);
