@@ -80,11 +80,11 @@ export class ConcursoDAOServico implements IConcursoDAO {
 	private crieFrequenciasTotaisDasDezenas(loterias) {
 		return new Promise(resolve => {
 			let frequenciasTotaisDasDezenas = [];
-			loterias.dezenas.forEach(dezena => {
+			loterias.dezenas.forEach((dezena, i, dezenas) => {
 				let dezenaPromise = this.getFrequenciaTotalDaDezena(loterias.nomeDoDocumentoNoBD, dezena.numero, 0);
 				dezenaPromise.then(dezenaFiltrada => {
 					frequenciasTotaisDasDezenas.push({ numero: dezena.numero, frequenciaTotal: dezenaFiltrada.frequenciaTotal, frequenciaTotalPorCento: dezenaFiltrada.frequenciaTotalPorCento });
-					if(loterias.dezenas.length == Number(dezena.numero)) resolve(lodash.orderBy(frequenciasTotaisDasDezenas, [function (dezena) { return dezena.frequenciaTotalPorCento; }], ['desc']));
+					if(loterias.dezenas.length == Number(i + 1)) resolve(lodash.orderBy(frequenciasTotaisDasDezenas, [function (dezena) { return dezena.frequenciaTotalPorCento; }], ['desc']));
 				});
 			});
 		});
@@ -119,12 +119,12 @@ export class ConcursoDAOServico implements IConcursoDAO {
 
 	exclua(concurso): void { }
 
-	listeTodos(loterias): any {
+	listeTodos(nomeDoDocumentoNoBD): any {
 		return new Promise(resolve => {
 			this.bd.allDocs({
 				include_docs: true,
-				startkey: loterias.nomeDoDocumentoNoBD,
-				endkey: loterias.nomeDoDocumentoNoBD
+				startkey: nomeDoDocumentoNoBD,
+				endkey: nomeDoDocumentoNoBD
 			}).then(function (resultadoQuery) {
 				resolve(resultadoQuery.rows[0].doc);
 			});
