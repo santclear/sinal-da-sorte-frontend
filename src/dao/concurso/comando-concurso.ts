@@ -27,7 +27,11 @@ export class ComandoConcurso implements IComandoSincronizar {
 		let resultadoSalveTodosPromise = new Promise(resolve => {
 			resultadosRemotoPromise.then(concursos => {
 				if (concursos.length > 0) {
-					resolve(concursoFacade.salveOuAtualize(concursos, loterias));
+					concursoFacade.salveOuAtualize(concursos, loterias).then(resultadoSalveOuAtualize => {
+						concursoFacade.atualizeComEstatisticas(loterias, resultadoSalveOuAtualize.estatisticas).then(resultadoAtualizeComEstatisticas => {
+							resolve(resultadoSalveOuAtualize);
+						});
+					});
 				} else {
 					resolve(concursos);
 				}

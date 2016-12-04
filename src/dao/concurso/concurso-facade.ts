@@ -16,12 +16,16 @@ export class ConcursoFacade {
 		return this.concursoDAOServico.salveOuAtualize(concurso, parametrosDeServico)
 	}
 
+	atualizeComEstatisticas(loterias, estatisticas): any {
+		return this.concursoDAOServico.atualizeComEstatisticas(loterias, estatisticas);
+	}
+
     exclua(concurso): void {
         this.concursoDAOServico.exclua(concurso);
     }
 
-    listeTodos(): any {
-        return null;
+    listeTodos(loterias): any {
+        return this.concursoDAOServico.listeTodos(loterias);
     }
 
 	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
@@ -38,6 +42,10 @@ export class ConcursoFacade {
 
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any {
 		return this.concursoDAOServico.procurePorUnicoConcurso(nomeDoDocumentoNoBD, numeroConcurso);
+	}
+
+	getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
+		return this.concursoDAOServico.getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD, dezena, numeroDoSorteio);
 	}
 
 	// Sincronismo

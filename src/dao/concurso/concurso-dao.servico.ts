@@ -42,7 +42,10 @@ export class ConcursoDAOServico implements IConcursoDAO {
 				}
 			]).then(resultadoQuery => {
 				if (resultadoQuery[0].ok == true) {
-					resolve({ estado: 'criado', novo: { concursos: doc }, antigo: null })
+					let frequenciasTotaisDasDezenasPromise = this.crieFrequenciasTotaisDasDezenas(parametrosDeServico);
+					frequenciasTotaisDasDezenasPromise.then(frequenciasTotaisDasDezenas => {
+						resolve({ estado: 'criado', novo: doc, antigo: null, estatisticas: frequenciasTotaisDasDezenas });
+					});
 				} else {
 					this.bd.get(parametrosDeServico.nomeDoDocumentoNoBD).then(concursosAntigo => {
 						let concursoAtualizados = concursosAntigo.concursos.concat(doc);
@@ -56,8 +59,17 @@ export class ConcursoDAOServico implements IConcursoDAO {
 						this.bd.put(concursos);
 						return concursosAntigo;
 					}).then(concursosAntigo => {
-						resolve({ estado: 'atualizado', novo: { concursos: doc }, antigo: concursosAntigo });
-					})
+						this.bd.allDocs({
+							include_docs: true,
+							startkey: parametrosDeServico.nomeDoDocumentoNoBD,
+							endkey: parametrosDeServico.nomeDoDocumentoNoBD
+						}).then(function (resultadoQuery) {
+							let frequenciasTotaisDasDezenasPromise = this.crieFrequenciasTotaisDasDezenas(parametrosDeServico);
+							frequenciasTotaisDasDezenasPromise.then(frequenciasTotaisDasDezenas => {
+								resolve({ estado: 'atualizado', novo: resultadoQuery.rows[0].doc.concursos, antigo: concursosAntigo.concursos, estatisticas: frequenciasTotaisDasDezenas });
+							});
+						});
+					});
 				}
 			}).catch(erro => {
 				console.log(erro);
@@ -65,11 +77,59 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 	}
 
-	atualize(concurso): void { }
+	private crieFrequenciasTotaisDasDezenas(loterias) {
+		return new Promise(resolve => {
+			let frequenciasTotaisDasDezenas = [];
+			loterias.dezenas.forEach(dezena => {
+				let dezenaPromise = this.getFrequenciaTotalDaDezena(loterias.nomeDoDocumentoNoBD, dezena.numero, 0);
+				dezenaPromise.then(dezenaFiltrada => {
+					frequenciasTotaisDasDezenas.push({ numero: dezena.numero, frequenciaTotal: dezenaFiltrada.frequenciaTotal, frequenciaTotalPorCento: dezenaFiltrada.frequenciaTotalPorCento });
+					if(loterias.dezenas.length == Number(dezena.numero)) resolve(lodash.orderBy(frequenciasTotaisDasDezenas, [function (dezena) { return dezena.frequenciaTotalPorCento; }], ['desc']));
+				});
+			});
+		});
+	}
+
+	atualize(concurso): void {}
+
+	atualizeComEstatisticas(parametrosDeServico, estatisticas): any {
+		return new Promise(resolve => {
+			this.bd.get(parametrosDeServico.nomeDoDocumentoNoBD).then(concursosAntigo => {
+					// Caso já tenha sido inserido um dado
+					let concursos = {
+						_id: parametrosDeServico.nomeDoDocumentoNoBD,
+						_rev: concursosAntigo._rev,
+						concursos: concursosAntigo.concursos,
+						estatisticas: estatisticas
+					}
+					// Atualiza com novos dados
+					this.bd.put(concursos);
+					return concursosAntigo;
+			}).then(concursosAntigo => {
+				this.bd.allDocs({
+					include_docs: true,
+					startkey: parametrosDeServico.nomeDoDocumentoNoBD,
+					endkey: parametrosDeServico.nomeDoDocumentoNoBD
+				}).then(function (resultadoQuery) {
+					resolve({ estado: 'atualizado', novo: null, antigo: concursosAntigo.concursos, estatisticas: resultadoQuery.rows[0].doc.estatisticas });
+				});
+			});
+		});
+	}
 
 	exclua(concurso): void { }
 
-	listeTodos(): any { }
+	listeTodos(loterias): any {
+		return new Promise(resolve => {
+			this.bd.allDocs({
+				include_docs: true,
+				startkey: loterias.nomeDoDocumentoNoBD,
+				endkey: loterias.nomeDoDocumentoNoBD
+			}).then(function (resultadoQuery) {
+				resolve(resultadoQuery.rows[0].doc);
+			});
+		});
+	}
 
 	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
@@ -150,6 +210,34 @@ export class ConcursoDAOServico implements IConcursoDAO {
 						return concurso.numero == numeroConcurso;
 					});
 					resolve(concursos);
+				} else {
+					resolve([]);
+				}
+			}).catch(function (erro) {
+				console.log(erro);
+			});
+		});
+		return concursosPromise;
+	}
+
+	getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
+		let concursosPromise = new Promise(resolve => {
+			this.bd.allDocs({
+				include_docs: true,
+				startkey: nomeDoDocumentoNoBD,
+				endkey: nomeDoDocumentoNoBD
+			}).then(function (resultadoQuery) {
+				if (resultadoQuery.rows.length > 0) {
+					let contagemDaDezenaNosConcursos = lodash.countBy(resultadoQuery.rows[0].doc.concursos, function (concurso) {
+						let pattern = new RegExp(dezena, 'g');
+						let match = pattern.exec(concurso.sorteios[numeroDoSorteio].numerosSorteados);
+						return match != null;
+					});
+					
+					let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
+					let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
+					
+					resolve({frequenciaTotal: contagemDaDezenaNosConcursos.true, frequenciaTotalPorCento: frequenciaTotalPorCento});
 				} else {
 					resolve([]);
 				}

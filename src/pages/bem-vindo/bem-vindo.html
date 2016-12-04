@@ -3,23 +3,49 @@
 <ion-content padding class="pagina-bem-vindo">
 	<div>
 		<h2 class="resultado" color="texto">Resultado
-			<span class="palavra-destacada">concurso {{numeroDoConcurso}} - {{dataDoSorteio}}</span>
+			<span class="palavra-destacada">concurso {{numeroDoConcurso | number:'3.'}} - {{dataDoSorteio}}</span>
 		</h2>
 	</div>
+	
 	<div class="container sem-margem-esquerda">
 		<div *ngIf="exibeDezenasComQuebraDeLinha" class="row">
 			<div class="col-xs-10 col-sm-5 col-md-4 col-lg-3">
-				<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index">
+				<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
 					{{dezena}}
 				</button>
 			</div>
 			<div class="col-xs-2 col-sm-7 col-md-8 col-lg-9"></div>
 		</div>
-		<div *ngIf="!exibeDezenasComQuebraDeLinha" class="row">
+
+		<div *ngIf="!exibeDezenasComQuebraDeLinha && !exibeDezenasSorteio2DuplaSena" class="row">
 			<div class="col-md-12">
-				<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index">
+				<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
 					{{dezena}}
 				</button>
+				<button ion-button icon-left clear *ngIf="exibeTimeDoCoracao"  [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
+					<ion-icon class="coracao" name="heart"></ion-icon>
+					<span class="time-coracao">{{timeDoCoracao}}</span>
+				</button>
+			</div>
+		</div>
+
+		<div *ngIf="exibeDezenasSorteio2DuplaSena">
+			<div class="row">
+				<div class="col-md-12">
+					<p class="texto" color="texto"><strong>Sorteio 1:</strong></p>
+					<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
+						{{dezena}}
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p></p>
+					<p class="texto" color="texto"><strong>Sorteio 2:</strong></p>
+					<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenasSorteio2; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
+						{{dezena}}
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -27,8 +53,8 @@
 	<div class="container sem-margem-esquerda margem-superior">
 		<div class="row">
 			<div class="col-md-12">
-				<p color="texto"><span class="palavra-destacada">R$ {{estimativaDePremioParaOProximoConcurso}}</span> (Estimativa de prêmio para o próximo concurso)</p>
-				<p color="texto"><strong>R$ {{acumuladoEspecial}}</strong> ({{labelAcumuladoEspecial}})</p>
+				<p color="texto"><span class="palavra-destacada">{{estimativaDePremioParaOProximoConcurso | currency:'BRL':true}}</span> (Estimativa de prêmio para o próximo concurso)</p>
+				<p color="texto" *ngIf="exibeAcumuladoEspecial"><strong>{{acumuladoEspecial | currency:'BRL':true}}</strong> ({{labelAcumuladoEspecial}})</p>
 			</div>
 		</div>
 	</div>
@@ -41,62 +67,55 @@
 			<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)"
 				color="primary" pin="true">
 				<ion-label range-left>
-					<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only
-						clear>
-					<ion-icon name="rewind"></ion-icon>
-				</button>
-					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only
-						clear>
-					<ion-icon name="arrow-dropleft-circle"></ion-icon>
-				</button>
+					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear>
+						<ion-icon name="arrow-dropleft-circle"></ion-icon>
+					</button>
 				</ion-label>
 				<ion-label range-right>
-					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only
-						clear>
-					<ion-icon name="arrow-dropright-circle"></ion-icon>
-				</button>
-					<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only
-						clear>
-					<ion-icon name="fastforward"></ion-icon>
-				</button>
+					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only clear>
+						<ion-icon name="arrow-dropright-circle"></ion-icon>
+					</button>
 				</ion-label>
 			</ion-range>
 		</ion-item>
 	</ion-list>
 
-	<ion-list>
-		<ion-list-header color="cabecalho">
-			<strong color="primary">Frequência total das dezenas:</strong>
-		</ion-list-header>
-		<ion-item>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Dezena</th>
-						<th>Frequência total</th>
-						<th>%</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>3</td>
-						<td>952</td>
-						<td>23%</td>
-					</tr>
-					<tr>
-						<td>21</td>
-						<td>900</td>
-						<td>22%</td>
-					</tr>
-				</tbody>
-			</table>
-		</ion-item>
-	</ion-list>
+	<div class="container sem-margem-esquerda margem-superior">
+		<div class="row">
+			<div class="col-sm-6 col-md-5 col-lg-4">
+				<ion-list>
+					<ion-list-header color="cabecalho">
+						<strong color="primary">Frequência total das dezenas:</strong>
+					</ion-list-header>
+					<ion-item>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Dezena</th>
+									<th>Frequência total</th>
+									<th>%</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let dezena of frequenciasTotaisDasDezenas; let iDezena = index">
+									<td>{{dezena.numero}}</td>
+									<td>{{dezena.frequenciaTotal}}</td>
+									<td>{{dezena.frequenciaTotalPorCento | number:'.2'}}%</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</ion-item>
+				</ion-list>
+			</div>
+			<div class="col-sm-6 col-md-7 col-lg-8"></div>
+		</div>
+	</div>
+
 	<ion-fab right bottom>
 		<button ion-fab color="secondary"><ion-icon name="arrow-dropleft"></ion-icon></button>
 		<ion-fab-list side="left">
-			<button ion-button>Histórico Lotofácil</button>
+			<button ion-button clear><strong [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]" class="texto">Histórico da {{nomeDaLoteria}}</strong></button>
 		</ion-fab-list>
 	</ion-fab>
-
 </ion-content>

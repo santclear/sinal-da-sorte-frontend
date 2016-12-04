@@ -31,8 +31,6 @@ export class MyApp {
 	private bd: any;
 
 	constructor(public plataforma: Platform, public menu: MenuController, public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
-		this.initializeApp();
-
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.loterias = [
@@ -44,25 +42,28 @@ export class MyApp {
 			Loterias.DUPLASENA
 		];
 
-		this.indicePaginaAtual = 6;
+		this.indicePaginaAtual = 7 // página Bem Vindo;
 
 		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
-			if(resultadoQuery.estado === 'criado') {
-				this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
-				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
-				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
-				this.paginaInicial = BemVindoPage;
-				this.paginas = this.getPaginas(resultadoQuery.novo);
-			} else {
-				this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
-				this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
-				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
-				this.paginaInicial = BemVindoPage;
-				this.paginas = this.getPaginas(resultadoQuery.antigo);
-			}
-		});
+			let resultadoSincronizePromise = this.sincronizeOsConcursosDaLoteria(this.loterias[0]);
+			resultadoSincronizePromise.then(resultadoSincronize => {
+				if(resultadoQuery.estado === 'criado') {
+					this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
+					this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
+					this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
+					this.paginaInicial = BemVindoPage;
+					this.paginas = this.getPaginas(resultadoQuery.novo);
+				} else {
+					this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
+					this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
+					this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
+					this.paginaInicial = BemVindoPage;
+					this.paginas = this.getPaginas(resultadoQuery.antigo);
+				}
 
-		this.sincronizeOsConcursosDaLoteria(this.loterias[0]);
+				this.initializeApp();
+			});
+		});
 	}
 
 	initializeApp() {
@@ -78,22 +79,23 @@ export class MyApp {
 	}
 
 	ativeMenuPaginas(indiceLoteria) {
-		this.sufixoCssLoteriaSelecionada = this.loterias[indiceLoteria].sufixoCssLoteria;
-		this.nomeLoteriaSelecionada = this.loterias[indiceLoteria].nome;
-		this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
+		let resultadoSincronizePromise = this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria]);
+		resultadoSincronizePromise.then(resultadoSincronize => {
+			this.sufixoCssLoteriaSelecionada = this.loterias[indiceLoteria].sufixoCssLoteria;
+			this.nomeLoteriaSelecionada = this.loterias[indiceLoteria].nome;
+			this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.loterias[indiceLoteria].caminhoDoIconeAvatar;
 
-		this.salveOuAtualizeLoteriaSessao(this.loterias[indiceLoteria]).then(resultadoQuery => {
-			this.paginas = this.getPaginas(resultadoQuery.novo);
-			this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
+			this.salveOuAtualizeLoteriaSessao(this.loterias[indiceLoteria]).then(resultadoQuery => {
+				this.paginas = this.getPaginas(resultadoQuery.novo);
+				this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
+			});
+
+			this.menuAtivo = 'menuPaginas';
+			this.menu.close();
+			this.menu.enable(true, 'menuPaginas');
+			this.menu.enable(false, 'menuLoterias');
+			this.menu.open();
 		});
-
-		this.sincronizeOsConcursosDaLoteria(this.loterias[indiceLoteria]);
-
-		this.menuAtivo = 'menuPaginas';
-		this.menu.close();
-		this.menu.enable(true, 'menuPaginas');
-		this.menu.enable(false, 'menuLoterias');
-		this.menu.open();
 	}
 
 	ativeMenuLoterias() {
@@ -159,29 +161,31 @@ export class MyApp {
 	}
 
 	private sincronizeOsConcursosDaLoteria(parametrosDeServicosWeb: any) {
-		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-		let loading = this.loadingCtrl.create({
-			content: 'Por favor aguarde, estou atualizando os resultados da ' + parametrosDeServicosWeb.nome + ' para sua análise...'
-		});
+		return new Promise(resolve => {
+			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+			let loading = this.loadingCtrl.create({
+				content: 'Por favor aguarde, estou atualizando os resultados da ' + parametrosDeServicosWeb.nome + ' para sua análise...'
+			});
 
-		loading.present();
+			loading.present();
 
-		concursoFacade.sincronize(parametrosDeServicosWeb).then(concursos => {
-			loading.dismiss();
-		});
-
+			concursoFacade.sincronize(parametrosDeServicosWeb).then(concursos => {
+				resolve(concursos);
+				loading.dismiss(concursos);
+			});
+		})
 	}
 
 	private getPaginas(estadoSessao) {
 		return [
-					{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'},
-					{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
-					{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
-					{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
-					{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
-					{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
-					{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'},
-					{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'}
-				];
+			{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'},
+			{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
+			{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
+			{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
+			{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
+			{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
+			{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'},
+			{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'}
+		];
 	}
 }

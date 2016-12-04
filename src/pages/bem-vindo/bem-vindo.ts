@@ -1,75 +1,61 @@
-import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
-import { PaginaBase } from '../pagina.base';
-import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
-import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
-import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
-
+import {Component} from '@angular/core';
+import {NavController, MenuController} from 'ionic-angular';
+import {PaginaBase} from '../pagina.base';
+import {ConexaoFabrica} from '../../dao/util/conexao-fabrica';
+import {ConcursoFacade} from '../../dao/concurso/concurso-facade';
+import {ConcursoDAOServico} from '../../dao/concurso/concurso-dao.servico';
+import {Loterias} from '../../enum/loterias';
 
 @Component({
 	selector: 'pagina-bem-vindo',
 	templateUrl: 'bem-vindo.html'
 })
 export class BemVindoPage extends PaginaBase {
-	public numeroDoConcurso;
-	public dataDoSorteio;
-	public dezenas = [];
-	public exibeDezenasComQuebraDeLinha: boolean;
-	public estimativaDePremioParaOProximoConcurso;
-	public acumuladoEspecial;
-	public labelAcumuladoEspecial;
-	public rgeFaixaDeConcursos: number;
-	public numeroDoConcursoInicial: number;
-	public numeroDoConcursoFinal: number;
-	public rgeFaixaDeConcursosMin: number;
-	public rgeFaixaDeConcursosMax: number;
-	public extensaoDaFaixaDeConcurso: number;
-	public bd;
+	private numeroDoConcurso;
+	private dataDoSorteio;
+	private dezenas = [];
+	private dezenasSorteio2 = [];
+	private exibeDezenasComQuebraDeLinha: boolean;
+	private exibeAcumuladoEspecial: boolean;
+	private exibeTimeDoCoracao: boolean;
+	private exibeDezenasSorteio2DuplaSena: boolean;
+	private timeDoCoracao: string;
+	private sufixoCssLoteriaSelecionada: string;
+	private nomeDaLoteria: string;
+	private estimativaDePremioParaOProximoConcurso;
+	private acumuladoEspecial;
+	private labelAcumuladoEspecial;
+	private rgeFaixaDeConcursos: number;
+	private numeroDoConcursoInicial: number;
+	private numeroDoConcursoFinal: number;
+	private rgeFaixaDeConcursosMin: number = 1;
+	private rgeFaixaDeConcursosMax: number;
+	private extensaoDaFaixaDeConcurso: number;
+	private frequenciasTotaisDasDezenas = [];
+	private bd;
 
-	constructor(public nav: NavController, private menu: MenuController, public concursoDAOServico: ConcursoDAOServico) {
+	constructor(private nav: NavController, private menu: MenuController, private concursoDAOServico: ConcursoDAOServico) {
 		super();
 		this.setTitulo("Bem Vindo");
 
 		this.bd = ConexaoFabrica.getConexao();
 
-		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd.get('sessao').then((sessao) => {
+			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
-				let concursoPromise = concursoFacade.procurePorUnicoConcurso(sessao.loteria.nomeDoDocumentoNoBD, concursos.maiorNumero);
-				concursoPromise.then(concurso => {
-					this.numeroDoConcurso = concurso.numero;
-					this.dataDoSorteio = concurso.dataDoSorteio;
-					let numerosSorteados = concurso.sorteios[0].numerosSorteados;
-					let numerosSorteadosSplit = numerosSorteados.split(';');
-					this.dezenas = numerosSorteadosSplit.sort(function (a, b) { return a - b });
-					console.log(this.dezenas)
-					this.estimativaDePremioParaOProximoConcurso = concurso.estimativaDePremioParaOProximoConcurso;
-					this.acumuladoEspecial = concurso.acumuladoEspecial;
-					this.labelAcumuladoEspecial = sessao.loteria.labelAcumuladoEspecial;
-					
-					this.numeroDoConcursoInicial = concursos.maiorNumero -9;
-					this.numeroDoConcursoFinal = concursos.maiorNumero;
-					this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
-					this.rgeFaixaDeConcursosMax = this.numeroDoConcursoFinal;
-					this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
-				});
+				this.atualizeResultados(sessao, concursoFacade, concursos.maiorNumero);
+				this.rgeFaixaDeConcursos = concursos.maiorNumero;
+				this.rgeFaixaDeConcursosMax = concursos.maiorNumero;
+			});
+
+			concursosPromise = concursoFacade.listeTodos(sessao.loteria.nomeDoDocumentoNoBD);
+			concursosPromise.then(concursos => {
+				this.frequenciasTotaisDasDezenas = concursos.estatisticas;
 			});
 		});
 
-
-		this.exibeDezenasComQuebraDeLinha = true;
-
-		this.dezenas = [
-			{ numero: '01' }, { numero: '02' }, { numero: '03' }, { numero: '04' }, { numero: '05' },
-			{ numero: '06' }, { numero: '07' }, { numero: '08' }, { numero: '09' }, { numero: '10' },
-			{ numero: '11' }, { numero: '12' }, { numero: '13' }, { numero: '14' }, { numero: '15' },
-		];
-
-
 		// this.menu.open();
-
-
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
@@ -81,6 +67,14 @@ export class BemVindoPage extends PaginaBase {
 		} else {
 			this.numeroDoConcursoFinal = concursoFinal.value;
 		}
+
+		this.bd.get('sessao').then((sessao) => {
+			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+			concursosPromise.then(concursos => {
+				this.atualizeResultados(sessao, concursoFacade, concursoFinal.value);
+			});
+		});
 	}
 
 	rgeDesloqueParaEsquerda() {
@@ -88,6 +82,13 @@ export class BemVindoPage extends PaginaBase {
 			this.numeroDoConcursoInicial--;
 			this.numeroDoConcursoFinal--;
 			this.rgeFaixaDeConcursos--;
+			this.bd.get('sessao').then((sessao) => {
+				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+				concursosPromise.then(concursos => {
+					this.atualizeResultados(sessao, concursoFacade, this.rgeFaixaDeConcursos);
+				});
+			});
 		}
 	}
 
@@ -96,32 +97,70 @@ export class BemVindoPage extends PaginaBase {
 			this.numeroDoConcursoInicial++;
 			this.numeroDoConcursoFinal++;
 			this.rgeFaixaDeConcursos++;
+			this.bd.get('sessao').then((sessao) => {
+				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+				concursosPromise.then(concursos => {
+					this.atualizeResultados(sessao, concursoFacade, this.rgeFaixaDeConcursos);
+				});
+			});
 		}
 	}
 
-	rgeDesloqueParaEsquerdaEFC() {
-		let subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso
-		if (subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso >= this.rgeFaixaDeConcursosMin) {
-			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial - this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursos - this.extensaoDaFaixaDeConcurso;
-		} else {
-			this.numeroDoConcursoInicial = this.rgeFaixaDeConcursosMin - this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMin;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMin;
-		}
+	valideSeLotofacilOuLotomania(sessao) {
+		return	sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOFACIL.nomeDoDocumentoNoBD || 
+				sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOMANIA.nomeDoDocumentoNoBD ? true : false;
 	}
 
-	rgeDesloqueParaDireitaEFC() {
-		let sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso = this.numeroDoConcursoFinal + this.extensaoDaFaixaDeConcurso;
-		if (sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso <= this.rgeFaixaDeConcursosMax) {
-			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial + this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursos + this.extensaoDaFaixaDeConcurso;
-		} else {
-			this.numeroDoConcursoInicial = this.rgeFaixaDeConcursosMax - this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMax;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMax;
-		}
+	valideSeDiferenteDeLotomaniaETimemania(sessao) {
+		return	sessao.loteria.nomeDoDocumentoNoBD !== Loterias.LOTOMANIA.nomeDoDocumentoNoBD && 
+				sessao.loteria.nomeDoDocumentoNoBD !== Loterias.TIMEMANIA.nomeDoDocumentoNoBD ? true : false;
+	}
+
+	valideSeTimemania(sessao) {
+		return sessao.loteria.nomeDoDocumentoNoBD === Loterias.TIMEMANIA.nomeDoDocumentoNoBD;
+	}
+
+	valideSeDuplaSena(sessao) {
+		return sessao.loteria.nomeDoDocumentoNoBD === Loterias.DUPLASENA.nomeDoDocumentoNoBD;
+	}
+
+	ordeneDezenasEmOrdemCrescente(numerosSorteados: string) {
+		let numerosSorteadosSplit = numerosSorteados.split(';');
+		return numerosSorteadosSplit.sort(function (a: any, b: any) { return a - b });
+	}
+
+	atualizeResultados(sessao, concursoFacade, numeroDoConcurso) {
+		let concursoPromise = concursoFacade.procurePorUnicoConcurso(sessao.loteria.nomeDoDocumentoNoBD, numeroDoConcurso);
+		concursoPromise.then(concurso => {
+			this.numeroDoConcurso = concurso.numero;
+			this.dataDoSorteio = concurso.dataDoSorteio;
+
+			this.sufixoCssLoteriaSelecionada = sessao.loteria.sufixoCssLoteria;
+			this.nomeDaLoteria = sessao.loteria.nome;
+					
+			this.dezenas = this.ordeneDezenasEmOrdemCrescente(concurso.sorteios[0].numerosSorteados);
+			if(this.valideSeDuplaSena(sessao)) {
+				this.dezenasSorteio2 = this.ordeneDezenasEmOrdemCrescente(concurso.sorteios[1].numerosSorteados);
+				this.exibeDezenasSorteio2DuplaSena = true;
+			} else {
+				this.exibeDezenasSorteio2DuplaSena = false;
+			}
+
+			if(this.valideSeTimemania(sessao)) {
+				this.timeDoCoracao = this.dezenas[this.dezenas.length - 1];
+				this.dezenas.pop();
+				this.exibeTimeDoCoracao = true;
+			} else {
+				this.exibeTimeDoCoracao = false;
+			}
+					
+			this.exibeDezenasComQuebraDeLinha = this.valideSeLotofacilOuLotomania(sessao);
+			this.exibeAcumuladoEspecial = this.valideSeDiferenteDeLotomaniaETimemania(sessao);
+
+			this.estimativaDePremioParaOProximoConcurso = concurso.estimativaDePremioParaOProximoConcurso;
+			this.acumuladoEspecial = concurso.acumuladoEspecial;
+			this.labelAcumuladoEspecial = sessao.loteria.labelAcumuladoEspecial;
+		});
 	}
 }

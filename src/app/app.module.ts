@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
 import {IonicApp, IonicModule} from 'ionic-angular';
 import {MyApp} from './app.component';
 import {NavBarAgS} from '../componentes/navbar.ags';
@@ -44,6 +44,6 @@ import {HistoricoDeApostasPage} from '../pages/historico-de-apostas/historico-de
 		BolaoPage,
 		HistoricoDeApostasPage
 	],
-	providers: [ConcursoDAOServico]
+	providers: [ConcursoDAOServico, { provide: LOCALE_ID, useValue: "pt-BR" }]
 })
 export class AppModule { }
