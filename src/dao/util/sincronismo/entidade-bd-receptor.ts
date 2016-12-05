@@ -12,6 +12,8 @@ export class EntidadeBDReceptor {
     }
 
     public baixeResultadosRemoto(valorFinal: number): any {
+		// this.urlDoServico = 'http://localhost:8084/concursos/procure_por_loteria_id_igual_a_e_numero_menor_que_e_sorteio_numero_igual_a/1'
+		// valorFinal = 10;
 		let concursosPromise = new Promise(resolve => {
 			this.http.get(this.urlDoServico +'&'+ valorFinal)
             .toPromise()
