@@ -120,6 +120,33 @@ export class ConcursoDAOServico implements IConcursoDAO {
 
 	atualize(concurso): void {}
 
+	/*
+		select c.numero num1, (
+				select
+					-- count(lot.nome)
+					count(conc.numero)
+					-- conc.data_do_sorteio,
+					-- lot.nome,
+					-- sort.numeros_sorteados
+				from concurso conc
+				join sorteio sort
+					on conc.id = sort.id
+				join loteria lot
+					on conc.loteria_id = lot.id
+				where
+					lot.nome = 'Lotofácil'
+					-- and sort.numeros_sorteados like concat('%', num1 ,'%')
+					and sort.numeros_sorteados like concat('%', IF(num1 < 10, concat('0', num1) , num1) ,'%')
+					
+		) count
+
+		from concurso c
+		where
+			c.loteria_id = 1
+			and c.numero >= 1
+			and c.numero <= 25
+		order by count desc;
+	*/
 	atualizeComEstatisticas(parametrosDeServico, estatisticas): any {
 		return new Promise(resolve => {
 			this.bd.get(parametrosDeServico.nomeDoDocumentoNoBD).then(concursosAntigo => {
