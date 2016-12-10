@@ -91,16 +91,16 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Dezena</th>
-									<th>Frequência total</th>
-									<th>%</th>
+									<th class="selecionavel">Dezena</th>
+									<th class="selecionavel">Frequência total</th>
+									<th class="selecionavel">%</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let dezena of frequenciasTotaisDasDezenas; let iDezena = index">
-									<td>{{dezena.numero}}</td>
-									<td>{{dezena.frequenciaTotal}}</td>
-									<td>{{dezena.frequenciaTotalPorCento | number:'.2'}}%</td>
+								<tr *ngFor="let calculo of frequenciasTotaisDasDezenas; let iDezena = index">
+									<td class="selecionavel">{{calculo.dezena}}</td>
+									<td class="selecionavel">{{calculo.frequencia}}</td>
+									<td class="selecionavel">{{calculo.frequenciaPorCento | number:'.2'}}%</td>
 								</tr>
 								
 							</tbody>

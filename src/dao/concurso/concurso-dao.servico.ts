@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import { IConcursoDAO } from './iconcurso-dao';
-import { ConexaoFabrica } from '../util/conexao-fabrica';
-import { EntidadeBD } from '../util/sincronismo/entidade-bd';
-import { ComandoConcurso } from './comando-concurso';
-import { Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
+import {IConcursoDAO} from './iconcurso-dao';
+import {ConexaoFabrica} from '../util/conexao-fabrica';
+import {EntidadeBD} from '../util/sincronismo/entidade-bd';
+import {ComandoConcurso} from './comando-concurso';
+import {Loterias} from '../../enum/loterias';
 import lodash from 'lodash';
+
 
 @Injectable()
 export class ConcursoDAOServico implements IConcursoDAO {
@@ -33,41 +35,38 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return this.bd.bulkDocs(concursos);
 	}
 
-	salveOuAtualize(doc, loterias): any {
+	salveOuAtualize(concursosNovos, loteria): any {
 		return new Promise(resolve => {
-			this.bd.bulkDocs([
-				{
-					_id: loterias.nomeDoDocumentoNoBD,
-					concursos: doc
-				}
-			]).then(resultadoQuery => {
-				if (resultadoQuery[0].ok == true) {
-					let frequenciasTotaisDasDezenasPromise = this.crieFrequenciasTotaisDasDezenas(loterias);
-					frequenciasTotaisDasDezenasPromise.then(frequenciasTotaisDasDezenas => {
-						resolve({ estado: 'criado', novo: doc, antigo: null, estatisticas: frequenciasTotaisDasDezenas });
-					});
-				} else {
-					this.bd.get(loterias.nomeDoDocumentoNoBD).then(concursosAntigo => {
-						let concursoAtualizados = concursosAntigo.concursos.concat(doc);
-						// Caso já tenha sido inserido um dado
-						let concursos = {
-							_id: loterias.nomeDoDocumentoNoBD,
-							_rev: concursosAntigo._rev,
-							concursos: concursoAtualizados,
-							estatisticas: concursosAntigo.estatisticas
-						}
-						// Atualiza com novos dados
-						this.bd.put(concursos);
-						return concursosAntigo;
-					}).then(concursosAntigo => {
-						let frequenciasTotaisDasDezenasPromise = this.crieFrequenciasTotaisDasDezenas(loterias);
-						frequenciasTotaisDasDezenasPromise.then(frequenciasTotaisDasDezenas => {
-							resolve({ estado: 'atualizado', estatisticas: frequenciasTotaisDasDezenas });
-						});
-					});
-				}
-			}).catch(erro => {
-				console.log(erro);
+			this.calculeFrequenciasTotaisDasDezenas(loteria.id, loteria.dezenas[0].numero, loteria.dezenas[loteria.dezenas.length - 1].numero).then(estatisticas => {
+				this.bd.bulkDocs([
+					{
+						_id: loteria.nomeDoDocumentoNoBD,
+						concursos: concursosNovos,
+						estatisticas: estatisticas
+					}
+				]).then(resultadoQuery => {
+					if (resultadoQuery[0].ok == true) {
+						resolve({ estado: 'criado', novo: { concursos: concursosNovos, estatisticas: estatisticas }, antigo: { concursos: null, estatisticas: null } })
+					} else {
+						this.bd.get(loteria.nomeDoDocumentoNoBD).then(concursosAntigo => {
+							let concursoAtualizados = concursosAntigo.concursos.concat(concursosNovos);
+							// Caso já tenha sido inserido um dado
+							let concursos = {
+								_id: loteria.nomeDoDocumentoNoBD,
+								_rev: concursosAntigo._rev,
+								concursos: concursoAtualizados,
+								estatisticas: estatisticas
+							}
+							// Atualiza com novos dados
+							this.bd.put(concursos);
+							return {novo: { concursos: concursoAtualizados, estatisticas: estatisticas }, antigo: { concursos: concursosAntigo.concursos, estatisticas: concursosAntigo.estatisticas }};
+						}).then(concursos => {
+							resolve({ estado: 'atualizado', concursos});
+						})
+					}
+				}).catch(erro => {
+					console.log(erro);
+				});
 			});
 		});
 	}
@@ -83,9 +82,6 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					if(loterias.dezenas.length == Number(i + 1)) resolve(lodash.orderBy(frequenciasTotaisDasDezenas, [function (dezena) { return dezena.frequenciaTotalPorCento; }], ['desc']));
 				});
 			});
-			// let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
-			// for para toda as dezenas do objeto estatistica
-				// let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
 		});
 	}
 
@@ -120,33 +116,6 @@ export class ConcursoDAOServico implements IConcursoDAO {
 
 	atualize(concurso): void {}
 
-	/*
-		select c.numero num1, (
-				select
-					-- count(lot.nome)
-					count(conc.numero)
-					-- conc.data_do_sorteio,
-					-- lot.nome,
-					-- sort.numeros_sorteados
-				from concurso conc
-				join sorteio sort
-					on conc.id = sort.id
-				join loteria lot
-					on conc.loteria_id = lot.id
-				where
-					lot.nome = 'Lotofácil'
-					-- and sort.numeros_sorteados like concat('%', num1 ,'%')
-					and sort.numeros_sorteados like concat('%', IF(num1 < 10, concat('0', num1) , num1) ,'%')
-					
-		) count
-
-		from concurso c
-		where
-			c.loteria_id = 1
-			and c.numero >= 1
-			and c.numero <= 25
-		order by count desc;
-	*/
 	atualizeComEstatisticas(parametrosDeServico, estatisticas): any {
 		return new Promise(resolve => {
 			this.bd.get(parametrosDeServico.nomeDoDocumentoNoBD).then(concursosAntigo => {
@@ -274,6 +243,21 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 		return concursosPromise;
 	}
+
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroConcursoInicial: number, numeroConcursoFinal: number) {
+		return new Promise(resolve => {
+			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId +'&'+ numeroConcursoInicial +'&'+ numeroConcursoFinal)
+            .toPromise()
+            .then(response => {
+                resolve(response.json());
+            }).catch(this.handleError);
+		});
+	}
+
+	private handleError(error: any): any {
+        console.error('Erro ao tentar obter o serviço ', error);
+        return Promise.reject(error.message || error);
+    }
 
 	// Sincronismo
 	sincronize(loterias): any {

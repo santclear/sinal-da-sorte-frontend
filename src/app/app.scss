@@ -40,7 +40,11 @@ td {
 	width: 28px !important;
 }
 
-
+.selecionavel {
+	-webkit-user-select: all !important;
+	-moz-user-select: all !important;
+	-ms-user-select: all !important;
+}
 
 /*              escuro		claro
 lotofacil		#930089		#c87fc3
