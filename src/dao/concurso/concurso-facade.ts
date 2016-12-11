@@ -28,15 +28,15 @@ export class ConcursoFacade {
         return this.concursoDAOServico.listeTodos(loterias);
     }
 
-	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
+	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
-		return this.concursoDAOServico.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
+		return this.concursoDAOServico.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
 			dezena, nomeDoDocumentoNoBD, numeroConcursoInicial, numeroDoSorteio);
 	}
 
-	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
+	procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 		dezena: string, pLoteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
-		return this.concursoDAOServico.procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
+		return this.concursoDAOServico.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 			dezena, pLoteria, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
 	}
 
@@ -44,8 +44,8 @@ export class ConcursoFacade {
 		return this.concursoDAOServico.procurePorUnicoConcurso(nomeDoDocumentoNoBD, numeroConcurso);
 	}
 
-	getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
-		return this.concursoDAOServico.getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD, dezena, numeroDoSorteio);
+	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
+		return this.concursoDAOServico.procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD, dezena, numeroDoSorteio);
 	}
 
 	// Sincronismo
@@ -53,7 +53,7 @@ export class ConcursoFacade {
         return this.concursoDAOServico.sincronize(parametrosDeServico);
     }
 
-    procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(nomeDoDocumentoNoBD: string): any {
-        return this.concursoDAOServico.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(nomeDoDocumentoNoBD);
+    procurePorNumeroDoUltimoConcursoSorteado(nomeDoDocumentoNoBD: string): any {
+        return this.concursoDAOServico.procurePorNumeroDoUltimoConcursoSorteado(nomeDoDocumentoNoBD);
     }
 }

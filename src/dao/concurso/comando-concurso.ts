@@ -9,7 +9,7 @@ export class ComandoConcurso implements IComandoSincronizar {
 	execute(loteria, entidadeBDReceptor: EntidadeBDReceptor): any {
 		return new Promise(resolve => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(loteria.nomeDoDocumentoNoBD);
+			let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
 				if (concursos.maiorNumero > 0) {
 					resolve(this.baixeResultadosRemoto(concursos.maiorNumero, entidadeBDReceptor, concursoFacade, loteria));

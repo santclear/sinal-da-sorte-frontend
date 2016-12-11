@@ -6,15 +6,15 @@ export interface IConcursoDAO {
 	atualizeComEstatisticas(loterias, estatisticas): any;
     exclua(concurso): void;
     listeTodos(loterias): any;
-	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
+	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any;
-	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
+	procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any;
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any;
 
-	getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any;
+	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any;
 	
 	// Sincronismo
     sincronize(parametrosDeServico): any;
-    procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(nomeDoDocumentoNoBD: string): any;
+    procurePorNumeroDoUltimoConcursoSorteado(nomeDoDocumentoNoBD: string): any;
 }

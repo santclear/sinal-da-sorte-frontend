@@ -76,7 +76,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 			let frequenciasTotaisDasDezenas = [];
 			// dezenas que foram sorteadas
 			loterias.dezenas.forEach((dezena, i, dezenas) => {
-				let dezenaPromise = this.getFrequenciaTotalDaDezena(loterias.nomeDoDocumentoNoBD, dezena.numero, 0);
+				let dezenaPromise = this.procurePorFrequenciaTotalDaDezena(loterias.nomeDoDocumentoNoBD, dezena.numero, 0);
 				dezenaPromise.then(dezenaFiltrada => {
 					frequenciasTotaisDasDezenas.push({ numero: dezena.numero, frequenciaTotal: dezenaFiltrada.frequenciaTotal, frequenciaTotalPorCento: dezenaFiltrada.frequenciaTotalPorCento });
 					if(loterias.dezenas.length == Number(i + 1)) resolve(lodash.orderBy(frequenciasTotaisDasDezenas, [function (dezena) { return dezena.frequenciaTotalPorCento; }], ['desc']));
@@ -85,7 +85,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 	}
 
-	getFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
+	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
 				include_docs: true,
@@ -155,7 +155,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 	}
 
-	procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(
+	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
@@ -184,7 +184,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return concursosPromise;
 	}
 
-	procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(
+	procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 		dezena: string, nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
@@ -265,7 +265,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return entidadeBD.sincronize(loterias, new ComandoConcurso(this));
 	}
 
-	procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(nomeDoDocumentoNoBD: string): any {
+	procurePorNumeroDoUltimoConcursoSorteado(nomeDoDocumentoNoBD: string): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
 				include_docs: true,

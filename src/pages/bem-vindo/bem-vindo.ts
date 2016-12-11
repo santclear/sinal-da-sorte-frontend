@@ -42,7 +42,7 @@ export class BemVindoPage extends PaginaBase {
 
 		this.bd.get('sessao').then((sessao) => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+			let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
 				this.atualizeResultados(sessao, concursoFacade, concursos.maiorNumero);
 				this.rgeFaixaDeConcursos = concursos.maiorNumero;
@@ -70,7 +70,7 @@ export class BemVindoPage extends PaginaBase {
 
 		this.bd.get('sessao').then((sessao) => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+			let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
 				this.atualizeResultados(sessao, concursoFacade, concursoFinal.value);
 			});
@@ -84,7 +84,7 @@ export class BemVindoPage extends PaginaBase {
 			this.rgeFaixaDeConcursos--;
 			this.bd.get('sessao').then((sessao) => {
 				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+				let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 				concursosPromise.then(concursos => {
 					this.atualizeResultados(sessao, concursoFacade, this.rgeFaixaDeConcursos);
 				});
@@ -99,7 +99,7 @@ export class BemVindoPage extends PaginaBase {
 			this.rgeFaixaDeConcursos++;
 			this.bd.get('sessao').then((sessao) => {
 				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+				let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 				concursosPromise.then(concursos => {
 					this.atualizeResultados(sessao, concursoFacade, this.rgeFaixaDeConcursos);
 				});

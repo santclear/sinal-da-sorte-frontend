@@ -29,7 +29,7 @@ export abstract class EstatisticaBase {
 		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd = ConexaoFabrica.getConexao();
 		this.bd.get('sessao').then((sessao) => {
-			let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+			let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
 				this.numeroDoConcursoInicial = concursos.maiorNumero -9;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
@@ -51,11 +51,11 @@ export abstract class EstatisticaBase {
 	atualizeOGrafico(numeroDoSorteio: number) {
 		this.bd.get('sessao').then(sessao => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorLoteriaIdIgualAoENumeroMaiorIgualAENumeroMenorIgualA(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
+			let concursosPromise = concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
 			concursosPromise.then(concursos => {
 				let rotulosDoEixoX = [];
 				if (this.numeroDoConcursoInicial == concursos.numero) {// FIXME Validar se está errado
-					concursoFacade.procureMaiorNumeroDesdeQueNumerosSorteadosNaoComoELoteriaIdIgualAENumeroMenorQue(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, numeroDoSorteio).then(concursos => {
+					concursoFacade.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, numeroDoSorteio).then(concursos => {
 						this.renderizeEstatistica(concursos.maiorNumero, concursos, rotulosDoEixoX, this.dezena, sessao, numeroDoSorteio);
 					});
 				} else {
@@ -92,7 +92,7 @@ export abstract class EstatisticaBase {
 		if (this.rgeFaixaDeConcursos != undefined) {
 			this.bd.get('sessao').then(sessao => {
 				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-				let concursosPromise = concursoFacade.procurePorNumeroMaiorDesdeQueLoteriaIdIgualA(sessao.loteria.nomeDoDocumentoNoBD);
+				let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 				concursosPromise.then(concursos => {
 					if (this.rgeFaixaDeConcursos != undefined) {
 						if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
@@ -149,6 +149,7 @@ export abstract class EstatisticaBase {
 			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMin;
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMin;
 		}
+		this.atualizeOGrafico(this.rdSorteios);
 	}
 
 	rgeDesloqueParaDireitaEFC() {
@@ -162,5 +163,6 @@ export abstract class EstatisticaBase {
 			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMax;
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMax;
 		}
+		this.atualizeOGrafico(this.rdSorteios)
 	}
 }
