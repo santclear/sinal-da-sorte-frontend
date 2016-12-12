@@ -1,7 +1,7 @@
 export interface IConcursoDAO {
     salve(concurso): void;
 	salveTodos(concursos): any;
-	salveOuAtualize(concurso, parametrosDeServico): any;
+	salveOuAtualize(concurso, loteria, estatisticas): any;
     atualize(concurso): void;
 	atualizeComEstatisticas(loterias, estatisticas): any;
     exclua(concurso): void;
@@ -11,10 +11,11 @@ export interface IConcursoDAO {
 	procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any;
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any;
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number): any
 
 	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any;
 	
 	// Sincronismo
-    sincronize(parametrosDeServico): any;
+    sincronize(loteria): any;
     procurePorNumeroDoUltimoConcursoSorteado(nomeDoDocumentoNoBD: string): any;
 }

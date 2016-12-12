@@ -35,38 +35,72 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return this.bd.bulkDocs(concursos);
 	}
 
-	salveOuAtualize(concursosNovos, loteria): any {
+	// salveOuAtualize(concursosNovos, loteria): any {
+	// 	return new Promise(resolve => {
+	// 		this.calculeFrequenciasTotaisDasDezenas(loteria.id).then(estatisticas => {
+	// 			this.bd.bulkDocs([
+	// 				{
+	// 					_id: loteria.nomeDoDocumentoNoBD,
+	// 					concursos: concursosNovos,
+	// 					estatisticas: estatisticas
+	// 				}
+	// 			]).then(resultadoQuery => {
+	// 				if (resultadoQuery[0].ok == true) {
+	// 					resolve({ estado: 'criado', novo: { concursos: concursosNovos, estatisticas: estatisticas }, antigo: { concursos: null, estatisticas: null } })
+	// 				} else {
+	// 					this.bd.get(loteria.nomeDoDocumentoNoBD).then(concursosAntigo => {
+	// 						let concursoAtualizados = concursosAntigo.concursos.concat(concursosNovos);
+	// 						// Caso já tenha sido inserido um dado
+	// 						let concursos = {
+	// 							_id: loteria.nomeDoDocumentoNoBD,
+	// 							_rev: concursosAntigo._rev,
+	// 							concursos: concursoAtualizados,
+	// 							estatisticas: estatisticas
+	// 						}
+	// 						// Atualiza com novos dados
+	// 						this.bd.put(concursos);
+	// 						return {novo: { concursos: concursoAtualizados, estatisticas: estatisticas }, antigo: { concursos: concursosAntigo.concursos, estatisticas: concursosAntigo.estatisticas }};
+	// 					}).then(concursos => {
+	// 						resolve({ estado: 'atualizado', concursos});
+	// 					})
+	// 				}
+	// 			}).catch(erro => {
+	// 				console.log(erro);
+	// 			});
+	// 		});
+	// 	});
+	// }
+
+	salveOuAtualize(concursosNovos, loteria, estatisticas): any {
 		return new Promise(resolve => {
-			this.calculeFrequenciasTotaisDasDezenas(loteria.id).then(estatisticas => {
-				this.bd.bulkDocs([
-					{
-						_id: loteria.nomeDoDocumentoNoBD,
-						concursos: concursosNovos,
-						estatisticas: estatisticas
-					}
-				]).then(resultadoQuery => {
-					if (resultadoQuery[0].ok == true) {
-						resolve({ estado: 'criado', novo: { concursos: concursosNovos, estatisticas: estatisticas }, antigo: { concursos: null, estatisticas: null } })
-					} else {
-						this.bd.get(loteria.nomeDoDocumentoNoBD).then(concursosAntigo => {
-							let concursoAtualizados = concursosAntigo.concursos.concat(concursosNovos);
-							// Caso já tenha sido inserido um dado
-							let concursos = {
-								_id: loteria.nomeDoDocumentoNoBD,
-								_rev: concursosAntigo._rev,
-								concursos: concursoAtualizados,
-								estatisticas: estatisticas
-							}
-							// Atualiza com novos dados
-							this.bd.put(concursos);
-							return {novo: { concursos: concursoAtualizados, estatisticas: estatisticas }, antigo: { concursos: concursosAntigo.concursos, estatisticas: concursosAntigo.estatisticas }};
-						}).then(concursos => {
-							resolve({ estado: 'atualizado', concursos});
-						})
-					}
-				}).catch(erro => {
-					console.log(erro);
-				});
+			this.bd.bulkDocs([
+				{
+					_id: loteria.nomeDoDocumentoNoBD,
+					concursos: concursosNovos,
+					estatisticas: estatisticas
+				}
+			]).then(resultadoQuery => {
+				if (resultadoQuery[0].ok == true) {
+					resolve({ estado: 'criado', novo: { concursos: concursosNovos, estatisticas: estatisticas }, antigo: { concursos: null, estatisticas: null } })
+				} else {
+					this.bd.get(loteria.nomeDoDocumentoNoBD).then(concursosAntigo => {
+						let concursoAtualizados = concursosAntigo.concursos.concat(concursosNovos);
+						// Caso já tenha sido inserido um dado
+						let concursos = {
+							_id: loteria.nomeDoDocumentoNoBD,
+							_rev: concursosAntigo._rev,
+							concursos: concursoAtualizados,
+							estatisticas: estatisticas
+						}
+						// Atualiza com novos dados
+						this.bd.put(concursos);
+						return { novo: { concursos: concursoAtualizados, estatisticas: estatisticas }, antigo: { concursos: concursosAntigo.concursos, estatisticas: concursosAntigo.estatisticas } };
+					}).then(concursos => {
+						resolve({ estado: 'atualizado', concursos });
+					})
+				}
+			}).catch(erro => {
+				console.log(erro);
 			});
 		});
 	}
@@ -244,7 +278,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return concursosPromise;
 	}
 
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number) {
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number): any {
 		return new Promise(resolve => {
 			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId)
             .toPromise()
