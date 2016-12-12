@@ -28,9 +28,9 @@ export class ConcursoFacade {
         return this.concursoDAOServico.listeTodos(loterias);
     }
 
-	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
+	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorQueONumeroDoConcursoInicialEPegueOUltimo(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
-		return this.concursoDAOServico.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
+		return this.concursoDAOServico.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorQueONumeroDoConcursoInicialEPegueOUltimo(
 			dezena, nomeDoDocumentoNoBD, numeroConcursoInicial, numeroDoSorteio);
 	}
 

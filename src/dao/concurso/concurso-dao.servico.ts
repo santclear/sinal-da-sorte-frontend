@@ -37,7 +37,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 
 	salveOuAtualize(concursosNovos, loteria): any {
 		return new Promise(resolve => {
-			this.calculeFrequenciasTotaisDasDezenas(loteria.id, loteria.dezenas[0].numero, loteria.dezenas[loteria.dezenas.length - 1].numero).then(estatisticas => {
+			this.calculeFrequenciasTotaisDasDezenas(loteria.id).then(estatisticas => {
 				this.bd.bulkDocs([
 					{
 						_id: loteria.nomeDoDocumentoNoBD,
@@ -155,7 +155,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 	}
 
-	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
+	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorQueONumeroDoConcursoInicialEPegueOUltimo(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any {
 		let concursosPromise = new Promise(resolve => {
 			this.bd.allDocs({
@@ -244,9 +244,9 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return concursosPromise;
 	}
 
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroConcursoInicial: number, numeroConcursoFinal: number) {
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number) {
 		return new Promise(resolve => {
-			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId +'&'+ numeroConcursoInicial +'&'+ numeroConcursoFinal)
+			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId)
             .toPromise()
             .then(response => {
                 resolve(response.json());

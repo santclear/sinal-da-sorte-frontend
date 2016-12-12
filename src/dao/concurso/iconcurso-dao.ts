@@ -6,7 +6,7 @@ export interface IConcursoDAO {
 	atualizeComEstatisticas(loterias, estatisticas): any;
     exclua(concurso): void;
     listeTodos(loterias): any;
-	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(
+	procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorQueONumeroDoConcursoInicialEPegueOUltimo(
 		dezena: string, nomeDoDocumentoNoBD: string, numeroConcursoInicial: number, numeroDoSorteio: number): any;
 	procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any;

@@ -55,7 +55,7 @@ export abstract class EstatisticaBase {
 			concursosPromise.then(concursos => {
 				let rotulosDoEixoX = [];
 				if (this.numeroDoConcursoInicial == concursos.numero) {// FIXME Validar se está errado
-					concursoFacade.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorNumeroConcursoInicialEPegueOUltimo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, numeroDoSorteio).then(concursos => {
+					concursoFacade.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorQueONumeroDoConcursoInicialEPegueOUltimo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, numeroDoSorteio).then(concursos => {
 						this.renderizeEstatistica(concursos.maiorNumero, concursos, rotulosDoEixoX, this.dezena, sessao, numeroDoSorteio);
 					});
 				} else {
