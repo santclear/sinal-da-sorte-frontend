@@ -278,9 +278,10 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return concursosPromise;
 	}
 
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number): any {
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any {
+
 		return new Promise(resolve => {
-			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId)
+			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId +'&'+ numeroDoSorteio)
             .toPromise()
             .then(response => {
                 resolve(response.json());

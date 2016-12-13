@@ -30,7 +30,7 @@ export class ComandoConcurso implements IComandoSincronizar {
 		let resultadoSalveTodosPromise = new Promise(resolve => {
 			resultadosRemotoPromise.then(concursos => {
 				if (concursos.length > 0) {
-					let estatisticasPromise = this.calculeFrequenciasTotaisDasDezenas(loteria.id, concursos.sorteios.length);
+					let estatisticasPromise = this.calculeFrequenciasTotaisDasDezenas(loteria.id, concursos[0].sorteios.length);
 					estatisticasPromise.then(estatisticas => {
 						this.concursoFacade.salveOuAtualize(concursos, loteria, estatisticas).then(resultadoSalveOuAtualize => {
 							resolve(resultadoSalveOuAtualize);
@@ -47,15 +47,20 @@ export class ComandoConcurso implements IComandoSincronizar {
 
 	private calculeFrequenciasTotaisDasDezenas(loteriaId: number, quantideDeSorteios: number): any {
 		return new Promise(resolve => {
+			let estatisticasPromise = [];
 			let estatisticas = [];
-			let numeroDoSorteio = 1;
-			while(numeroDoSorteio <= quantideDeSorteios) {
-				this.concursoFacade.calculeFrequenciasTotaisDasDezenas(loteriaId, numeroDoSorteio).then(resultado => {
-					estatisticas.push(resultado);
-					numeroDoSorteio++;
-					if(numeroDoSorteio > quantideDeSorteios) resolve(estatisticas);
-				});
+			var numeroDoSorteio = 1;
+			
+			for(; numeroDoSorteio <= quantideDeSorteios; numeroDoSorteio++) {
+				estatisticasPromise.push(this.concursoFacade.calculeFrequenciasTotaisDasDezenas(loteriaId, numeroDoSorteio));
 			}
+
+			estatisticasPromise.forEach((estatisticaPromise, i, array) => {
+				estatisticaPromise.then(resultado => {
+					estatisticas.push(resultado);
+					if(array.length == estatisticas.length) resolve(estatisticas);
+				})
+			});
 		});
 	}
 }

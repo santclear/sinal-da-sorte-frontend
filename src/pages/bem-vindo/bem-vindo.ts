@@ -31,7 +31,7 @@ export class BemVindoPage extends PaginaBase {
 	private rgeFaixaDeConcursosMin: number = 1;
 	private rgeFaixaDeConcursosMax: number;
 	private extensaoDaFaixaDeConcurso: number;
-	private frequenciasTotaisDasDezenas = [];
+	private sorteios = [];
 	private bd;
 
 	constructor(private nav: NavController, private menu: MenuController, private concursoDAOServico: ConcursoDAOServico) {
@@ -51,7 +51,7 @@ export class BemVindoPage extends PaginaBase {
 
 			concursosPromise = concursoFacade.listeTodos(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
-				this.frequenciasTotaisDasDezenas = concursos.estatisticas;
+				this.sorteios = concursos.estatisticas;
 			});
 		});
 

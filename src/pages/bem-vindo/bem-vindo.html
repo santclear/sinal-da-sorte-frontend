@@ -82,10 +82,10 @@
 
 	<div class="container sem-margem-esquerda margem-superior">
 		<div class="row">
-			<div class="col-sm-6 col-md-5 col-lg-4">
+			<div *ngFor="let estatisticas of sorteios; let iDezena = index" class="col-sm-6 col-md-6 col-lg-6">
 				<ion-list>
 					<ion-list-header color="cabecalho">
-						<strong color="primary">Frequência total das dezenas:</strong>
+						<strong color="primary">Frequência total das dezenas <span *ngIf="exibeDezenasSorteio2DuplaSena">do sorteio {{iDezena + 1}}</span>:</strong>
 					</ion-list-header>
 					<ion-item>
 						<table class="table table-striped">
@@ -97,18 +97,16 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let calculo of frequenciasTotaisDasDezenas; let iDezena = index">
-									<td class="selecionavel">{{calculo.dezena}}</td>
-									<td class="selecionavel">{{calculo.frequencia}}</td>
-									<td class="selecionavel">{{calculo.frequenciaPorCento | number:'.2'}}%</td>
+								<tr *ngFor="let estatistica of estatisticas">
+									<td class="selecionavel">{{estatistica.dezena}}</td>
+									<td class="selecionavel">{{estatistica.frequencia}}</td>
+									<td class="selecionavel">{{estatistica.frequenciaPorCento | number:'.2'}}%</td>
 								</tr>
-								
 							</tbody>
 						</table>
 					</ion-item>
 				</ion-list>
 			</div>
-			<div class="col-sm-6 col-md-7 col-lg-8"></div>
 		</div>
 	</div>
 

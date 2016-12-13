@@ -44,8 +44,8 @@ export class ConcursoFacade {
 		return this.concursoDAOServico.procurePorUnicoConcurso(nomeDoDocumentoNoBD, numeroConcurso);
 	}
 
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number): any {
-		return this.concursoDAOServico.calculeFrequenciasTotaisDasDezenas(loteriaId);
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any {
+		return this.concursoDAOServico.calculeFrequenciasTotaisDasDezenas(loteriaId, numeroDoSorteio);
 	}
 
 	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {

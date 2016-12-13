@@ -11,7 +11,7 @@ export interface IConcursoDAO {
 	procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
 		dezena: string, loteria, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any;
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any;
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number): any
+	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any
 
 	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any;
 	
