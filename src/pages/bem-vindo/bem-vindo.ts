@@ -5,6 +5,7 @@ import {ConexaoFabrica} from '../../dao/util/conexao-fabrica';
 import {ConcursoFacade} from '../../dao/concurso/concurso-facade';
 import {ConcursoDAOServico} from '../../dao/concurso/concurso-dao.servico';
 import {Loterias} from '../../enum/loterias';
+import lodash from 'lodash';
 
 @Component({
 	selector: 'pagina-bem-vindo',
@@ -14,11 +15,15 @@ export class BemVindoPage extends PaginaBase {
 	private numeroDoConcurso;
 	private dataDoSorteio;
 	private dezenas = [];
+	private sorteios = [];
+	private dezenasEmOrdemCrescente = [];
+	private cidadesEEstatadosDosGanhadoresDoPremioPrincipal = [];
 	private dezenasSorteio2 = [];
 	private exibeDezenasComQuebraDeLinha: boolean;
 	private exibeAcumuladoEspecial: boolean;
 	private exibeTimeDoCoracao: boolean;
 	private exibeDezenasSorteio2DuplaSena: boolean;
+	private exibeGanhadoresDoPremioPrincipal: boolean;
 	private timeDoCoracao: string;
 	private sufixoCssLoteriaSelecionada: string;
 	private nomeDaLoteria: string;
@@ -31,7 +36,7 @@ export class BemVindoPage extends PaginaBase {
 	private rgeFaixaDeConcursosMin: number = 1;
 	private rgeFaixaDeConcursosMax: number;
 	private extensaoDaFaixaDeConcurso: number;
-	private sorteios = [];
+	private estatisticasDosSorteios = [];
 	private bd;
 
 	constructor(private nav: NavController, private menu: MenuController, private concursoDAOServico: ConcursoDAOServico) {
@@ -47,11 +52,6 @@ export class BemVindoPage extends PaginaBase {
 				this.atualizeResultados(sessao, concursoFacade, concursos.maiorNumero);
 				this.rgeFaixaDeConcursos = concursos.maiorNumero;
 				this.rgeFaixaDeConcursosMax = concursos.maiorNumero;
-			});
-
-			concursosPromise = concursoFacade.listeTodos(sessao.loteria.nomeDoDocumentoNoBD);
-			concursosPromise.then(concursos => {
-				this.sorteios = concursos.estatisticas;
 			});
 		});
 
@@ -147,6 +147,20 @@ export class BemVindoPage extends PaginaBase {
 				this.exibeDezenasSorteio2DuplaSena = false;
 			}
 
+			this.sorteios = concurso.sorteios;
+			concurso.sorteios.forEach(sorteio => {
+				this.dezenasEmOrdemCrescente.push(this.ordeneDezenasEmOrdemCrescente(sorteio.numerosSorteados));
+			});
+
+			let cidadesDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.cidade.split(';'), ' ');
+			let ufsDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.uf.split(';'), ' ');
+			this.cidadesEEstatadosDosGanhadoresDoPremioPrincipal = [];
+			cidadesDosGanhadoresDoPremioPrincipal.forEach((cidadeDoGanhadorDoPremioPrincipal, i, array) => {
+				this.cidadesEEstatadosDosGanhadoresDoPremioPrincipal.push(lodash.toUpper(cidadeDoGanhadorDoPremioPrincipal) +'/'+ lodash.upperCase(ufsDosGanhadoresDoPremioPrincipal[i]));
+				this.exibeGanhadoresDoPremioPrincipal = true;
+			});
+			if(cidadesDosGanhadoresDoPremioPrincipal.length == 0) this.exibeGanhadoresDoPremioPrincipal = false;
+
 			if(this.valideSeTimemania(sessao)) {
 				this.timeDoCoracao = this.dezenas[this.dezenas.length - 1];
 				this.dezenas.pop();
@@ -161,6 +175,11 @@ export class BemVindoPage extends PaginaBase {
 			this.estimativaDePremioParaOProximoConcurso = concurso.estimativaDePremioParaOProximoConcurso;
 			this.acumuladoEspecial = concurso.acumuladoEspecial;
 			this.labelAcumuladoEspecial = sessao.loteria.labelAcumuladoEspecial;
+
+			let concursosPromise = concursoFacade.listeTodos(sessao.loteria.nomeDoDocumentoNoBD);
+			concursosPromise.then(concursos => {
+				this.estatisticasDosSorteios = concursos.estatisticas;
+			});
 		});
 	}
 }
