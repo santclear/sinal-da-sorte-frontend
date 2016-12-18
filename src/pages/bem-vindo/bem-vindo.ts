@@ -15,9 +15,10 @@ export class BemVindoPage extends PaginaBase {
 	private numeroDoConcurso;
 	private dataDoSorteio;
 	private dezenas = [];
-	private sorteios = [];
+	private sorteios: any = [];
 	private dezenasEmOrdemCrescente = [];
-	private cidadesEEstatadosDosGanhadoresDoPremioPrincipal = [];
+	private tiposDeAcertos = [];
+	private cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
 	private dezenasSorteio2 = [];
 	private exibeDezenasComQuebraDeLinha: boolean;
 	private exibeAcumuladoEspecial: boolean;
@@ -27,6 +28,10 @@ export class BemVindoPage extends PaginaBase {
 	private timeDoCoracao: string;
 	private sufixoCssLoteriaSelecionada: string;
 	private nomeDaLoteria: string;
+	private tipoDoPremioPrincipal;
+	private valorDoPremioPrincipal;
+	private numeroDeGanhadoresDoPremioPrincipal;
+	private acumuladoParaOProximoConcurso;
 	private estimativaDePremioParaOProximoConcurso;
 	private acumuladoEspecial;
 	private labelAcumuladoEspecial;
@@ -147,19 +152,49 @@ export class BemVindoPage extends PaginaBase {
 				this.exibeDezenasSorteio2DuplaSena = false;
 			}
 
+			this.tiposDeAcertos = sessao.loteria.tiposDeAcertos;
 			this.sorteios = concurso.sorteios;
+			this.sorteios.forEach((sorteio, i, sorteios) => {
+				let rateiosAtualizados = [];
+				sorteio.rateios.forEach((rateio, j, rateios) => {
+					let rateioAtualizado = rateio;
+					rateioAtualizado['tipoDePremio'] = sessao.loteria.tiposDeAcertos[j];
+					rateiosAtualizados.push(rateioAtualizado);
+					if(i == 0 && j == 0) {
+						this.tipoDoPremioPrincipal = sessao.loteria.tiposDeAcertos[j];
+						this.valorDoPremioPrincipal = rateio.rateio;
+						this.numeroDeGanhadoresDoPremioPrincipal = rateio.numeroDeGanhadores;
+						this.acumuladoParaOProximoConcurso = rateio.acumuladoParaOProximoConcurso;
+					}
+				});
+				this.sorteios[i]['rateios'] = rateiosAtualizados;
+			});
+			
 			concurso.sorteios.forEach(sorteio => {
 				this.dezenasEmOrdemCrescente.push(this.ordeneDezenasEmOrdemCrescente(sorteio.numerosSorteados));
 			});
+			
 
-			let cidadesDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.cidade.split(';'), ' ');
-			let ufsDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.uf.split(';'), ' ');
-			this.cidadesEEstatadosDosGanhadoresDoPremioPrincipal = [];
+			let cidadesDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.cidade.split(';'), '');
+			let ufsDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.uf.split(';'), '');
+			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
 			cidadesDosGanhadoresDoPremioPrincipal.forEach((cidadeDoGanhadorDoPremioPrincipal, i, array) => {
-				this.cidadesEEstatadosDosGanhadoresDoPremioPrincipal.push(lodash.toUpper(cidadeDoGanhadorDoPremioPrincipal) +'/'+ lodash.upperCase(ufsDosGanhadoresDoPremioPrincipal[i]));
+				cidadeDoGanhadorDoPremioPrincipal = lodash.lowerCase(cidadeDoGanhadorDoPremioPrincipal);
+				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push(lodash.startCase(cidadeDoGanhadorDoPremioPrincipal) +'/'+ lodash.upperCase(ufsDosGanhadoresDoPremioPrincipal[i]));
 				this.exibeGanhadoresDoPremioPrincipal = true;
 			});
-			if(cidadesDosGanhadoresDoPremioPrincipal.length == 0) this.exibeGanhadoresDoPremioPrincipal = false;
+			let mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal = new Map();
+			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.forEach(cidadeEEstatadoDoGanhadoreDoPremioPrincipal => {
+				let cidadeEEstatadoEncontrado: number = mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.get(cidadeEEstatadoDoGanhadoreDoPremioPrincipal);
+				mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.set(cidadeEEstatadoDoGanhadoreDoPremioPrincipal, cidadeEEstatadoEncontrado != undefined ? cidadeEEstatadoEncontrado + 1: 1);
+			});
+			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
+			mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.forEach((valor, chave) => {
+				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push({quantidade: valor, nome: chave})
+			});
+			
+			if(this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.length == 0) this.exibeGanhadoresDoPremioPrincipal = false;
+			
 
 			if(this.valideSeTimemania(sessao)) {
 				this.timeDoCoracao = this.dezenas[this.dezenas.length - 1];

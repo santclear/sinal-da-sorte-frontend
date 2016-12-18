@@ -19,7 +19,10 @@ export class EntidadeBDReceptor {
             .toPromise()
             .then(response => {
                 resolve(response.json());
-            }).catch(this.handleError);
+            }).catch(erro => {
+				this.handleError(erro);
+				resolve({estado: 'erro'});
+			});
 		});
 
 		return concursosPromise;

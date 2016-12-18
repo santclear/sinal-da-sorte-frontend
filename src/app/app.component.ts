@@ -178,14 +178,14 @@ export class MyApp {
 
 	private getPaginas(estadoSessao) {
 		return [
+			{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'},
 			{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'},
 			{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
 			{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
 			{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
 			{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
 			{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'}
+			{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'}
 		];
 	}
 }

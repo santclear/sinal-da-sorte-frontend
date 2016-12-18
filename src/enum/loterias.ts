@@ -18,6 +18,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/1'
     	},
+		tiposDeAcertos: ['15 Números','14 Números','13 Números','12 Números','11 Números'],
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
 			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
@@ -41,6 +42,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/2'
     	},
+		tiposDeAcertos: ['Sena','Quina','Quadra'],
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
 			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
@@ -71,6 +73,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/3'
     	},
+		tiposDeAcertos: ['Quina','Quadra','Terno','Duque'],
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
 			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
@@ -106,6 +109,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/4'
     	},
+		tiposDeAcertos: ['20 Números','19 Números','18 Números','17 Números','16 Números','Nenhum número'],
 		"dezenas": [
 			{numero: '00'},{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},
 			{numero: '05'},{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},
@@ -144,6 +148,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/5'
     	},
+		tiposDeAcertos: ['7 Números','6 Números','5 Números','4 Números','3 Números','Time do Coração'],
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
 			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
@@ -178,6 +183,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/6'
     	},
+		tiposDeAcertos: ['Sena','Quina','Quadra','Terno'],
 		"dezenas": [
 			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
 			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
