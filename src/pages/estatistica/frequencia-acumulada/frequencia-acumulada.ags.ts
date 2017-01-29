@@ -1,6 +1,6 @@
 import {ViewChild, ElementRef} from '@angular/core';
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, LoadingController} from 'ionic-angular';
 import {ConcursoDAOServico} from '../../../dao/concurso/concurso-dao.servico';
 import {EstatisticaBase} from '../base/estatistica.base';
 
@@ -25,22 +25,29 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 
 	public pesquisasDeAmostraFrequencia: any = [];
 	public exibirPesquisasDeAmostraFrequencia: boolean = false;
+	private frequenciaAbsolutaTotal;
+	private ausenciaAbsolutaTotal;
 
-	constructor(protected nav: NavController, protected concursoDAOServico: ConcursoDAOServico) {
-        super(nav, concursoDAOServico);
+	constructor(protected nav: NavController, protected concursoDAOServico: ConcursoDAOServico, protected loadingCtrl: LoadingController) {
+        super(nav, concursoDAOServico, loadingCtrl);
     }
 
-	renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao, numeroDoSorteio) {
+	renderizeEstatistica(maiorNumero, concursos, rotulosDoEixoX, dezena, sessao, numeroDoSorteio) {
 		let frequenciasPorConcursos = [];
-		let acumulador = maiorNumeroCallBack != undefined ? this.numeroDoConcursoInicial - maiorNumeroCallBack.maiorNumero - 1 : 0;
-		for (let iConcurso = 0; iConcurso < concursosCallBack.length; iConcurso++) {
-			if (concursosCallBack[iConcurso].dezenaEncontrada == 'sim') {
+		// let acumulador = maiorNumero != undefined ? this.numeroDoConcursoInicial - maiorNumero.maiorNumero - 1 : 0;
+		let acumulador = 0;
+		this.frequenciaAbsolutaTotal = 0;
+		this.ausenciaAbsolutaTotal = 0;
+		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
+			if (concursos[iConcurso].dezenaEncontrada == 'sim') {
 				acumulador++;
+				this.frequenciaAbsolutaTotal++;
 			} else {
 				acumulador = 0;
+				this.ausenciaAbsolutaTotal++;
 			}
-			frequenciasPorConcursos.push({ y: acumulador, concurso: concursosCallBack[iConcurso] });
-			rotulosDoEixoX.push(concursosCallBack[iConcurso].numero)
+			frequenciasPorConcursos.push({ y: acumulador, concurso: concursos[iConcurso] });
+			rotulosDoEixoX.push(concursos[iConcurso].numero)
 		}
 		
 		this.frequencia = [];
@@ -118,8 +125,8 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 	atualizePesquisaDeFrequencia(amostraDeFrequenciaEv) {
 		let frequencia = JSON.stringify(this.frequencia).replace('[','').replace(']','');
 		
-		if(amostraDeFrequenciaEv.target.value != '') {
-			let amostraDeFrequencia = amostraDeFrequenciaEv.target.value;
+		let amostraDeFrequencia = amostraDeFrequenciaEv.target.value;
+		if(amostraDeFrequencia != '' && amostraDeFrequencia != undefined) {
 			let tamanhoDaAmostraDeFrequencia = amostraDeFrequencia.length;
 			let valorDaUtimaPosicaoDaStringAmostraDeFrequencia = amostraDeFrequencia.substring(tamanhoDaAmostraDeFrequencia - 1);
 			let previsaoPositiva;
@@ -192,5 +199,9 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 		if(this.pesquisasDeAmostraFrequencia.length < 1) {
 			this.exibirPesquisasDeAmostraFrequencia = false;
 		}
+	}
+
+	cancelePesquisaDeAmostraDeFrequencia() {
+		this.exibirPesquisasDeAmostraFrequencia = false;
 	}
 }

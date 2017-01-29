@@ -1,7 +1,31 @@
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-7 col-lg-4"></div>
+		<div class="col-md-5 col-lg-4 col-lg-offset-4">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="selecionavel text-center">Frequência total</th>
+								<th class="selecionavel text-center">Ausência total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center">{{frequenciaAbsolutaTotal}}</td>
+								<td class="text-center">{{ausenciaAbsolutaTotal}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
 		<div class="col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8">
-			<ion-list [(ngModel)]="rdSorteios" *ngIf="rdSorteiosExibido" (ionChange)="atualizeOGrafico($event)" radio-group>
+			<ion-list [(ngModel)]="rdSorteios" *ngIf="isDuplasena" (ionChange)="atualizeOGrafico($event)" radio-group>
 				<ion-item>
 					<ion-label>Sorteios 1</ion-label>
 					<ion-radio value="0" checked="true"></ion-radio>
@@ -11,10 +35,11 @@
 					<ion-radio value="1"></ion-radio>
 				</ion-item>
 			</ion-list>
-			<ion-searchbar [(ngModel)]="iptPesquisaDeAmostraFrequencia" (ionInput)="atualizePesquisaDeFrequencia($event)" placeholder="Pesquise frequência, expl: 0,0,1,2,0"></ion-searchbar>
+			<!--<ion-searchbar [(ngModel)]="iptPesquisaDeAmostraFrequencia" (ionInput)="atualizePesquisaDeFrequencia($event)" (ionCancel)="cancelePesquisaDeAmostraDeFrequencia()" placeholder="Pesquise frequência, expl: 0,0,1,2,0"></ion-searchbar>-->
 		</div>
 	</div>
-	<div *ngIf="exibirQuantidadeDeAmostrasDeFrequencia" class="row">
+	
+	<!--<div *ngIf="exibirQuantidadeDeAmostrasDeFrequencia" class="row">
 		<div class="col-md-7 col-lg-4"></div>
 		<div class="col-md-5 col-lg-4 col-lg-offset-4">
 			<div class="row">
@@ -33,7 +58,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
+	
 	<div #grafico></div>
 </div>
 <div class="espaco_vertical"></div>
@@ -60,22 +86,18 @@
 			<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)"
 				color="primary" pin="true">
 				<ion-label range-left>
-					<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only
-						clear>
+					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only clear>
 					<ion-icon name="rewind"></ion-icon>
 				</button>
-					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only
-						clear>
+					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear>
 					<ion-icon name="arrow-dropleft-circle"></ion-icon>
 				</button>
 				</ion-label>
 				<ion-label range-right>
-					<button ion-button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only
-						clear>
+					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only clear>
 					<ion-icon name="arrow-dropright-circle"></ion-icon>
 				</button>
-					<button ion-button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only
-						clear>
+				<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only clear>
 					<ion-icon name="fastforward"></ion-icon>
 				</button>
 				</ion-label>
@@ -83,8 +105,8 @@
 		</ion-item>
 	</ion-list>
 </div>
-<div class="espaco_vertical"></div>
 <div class="container">
+	<!--
 	<div class="row">
 		<div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
 			<ion-card>
@@ -96,22 +118,76 @@
 			</ion-card>
 		</div>
 	</div>
-	<div class="col-sm-12 col-md-12 col-lg-12">
-		<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="center-block">
-			<div class="espaco_vertical"></div>
-			<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero"
-				*ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
-				{{dezena.numero}}
-           	</button>
-			<div class="espaco_vertical"></div>
+	-->
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="center-block">
+				<div class="espaco_vertical"></div>
+				<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero"
+					*ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
+					{{dezena.numero}}
+				</button>
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+	<div class="espaco_vertical"></div>
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+			<button ion-button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
+				Atualizar o Gráfico
+			</button>
+		</div>
+	</div>
+	<div class="espaco_vertical"></div>
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+			<ion-list>
+				<ion-item class="fundo-componente">
+					<ion-label color="primary">Mais estatísticas</ion-label>
+					<ion-toggle [(ngModel)]="toggleMostrarMaisEstatisticas" (ionChange)="toggleMostreMaisEstatisticas($event)" checked="false"></ion-toggle>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" *ngIf="toggleMostrarMaisEstatisticasChecked">
+			<ion-list>
+				<ion-list-header color="cabecalho">
+					<strong color="primary">Frequência das dezenas</strong>
+				</ion-list-header>
+				<ion-item>
+					<div class="panel panel-default table-responsive">
 
-		<button ion-button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
-			Atualizar o Gráfico
-		</button>
+						<table class="table table-striped tabela" [mfData]="frequenciasSorteio" #mf="mfDataTable"
+							[mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+							<thead>
+							<tr>
+								<th></th>
+								<th>
+									<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
+								</th>
+								<th>
+									<mfDefaultSorter by="frequenciaTotal">Frequência total</mfDefaultSorter>
+								</th>
+								<th>
+									<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr *ngFor="let item of mf.data">
+								<td></td>
+								<td>{{item.dezena}}</td>
+								<td>{{item.frequenciaTotal}}</td>
+								<td>{{item.ausenciaTotal}}</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
 
+				</ion-item>
+			</ion-list>
+		</div>
 	</div>
 </div>
 <div class="container" *ngIf="exibirPesquisasDeAmostraFrequencia">

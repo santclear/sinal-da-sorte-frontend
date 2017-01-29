@@ -51,6 +51,35 @@ td {
 	-ms-user-select: all !important;
 }
 
+.margem-esquerda {
+	margin-left: 5px;
+}
+
+ion-card-content {
+	background-color: #eee;;
+}
+
+.card-subtitle {
+	color: #4b0069;
+}
+
+.card-title {
+	color: white;
+}
+
+.quandro-informativo td {
+	color: #4b0069;
+	font-size: 16px;
+}
+
+.quandro-informativo span {
+	color: #4b0069;
+	margin-left: 5px;
+}
+
+.tabela th, .tabela td {
+	text-align: center;
+}
 /*              escuro		claro
 lotofacil		#930089		#c87fc3
 megasena		#209869		#8fcbb3

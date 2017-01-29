@@ -5,41 +5,12 @@ pagina-estatistica {
 		padding: 0 2.5px 0 0 !important;
 	}
 
-	ion-card-content {
-		margin: 0 !important;
-		width: 100% !important;
-		position: relative;
-		text-align: center;
-		background-color: #4b0069;
-	}
-
 	ion-icon {
 		min-height: 0;
 	}
 
 	ion-label {
 		white-space: normal;
-	}
-
-	.card-title {
-		font-family: inherit;
-		font-style: inherit;
-		line-height: 1;
-		-webkit-font-smoothing: antialiased;
-		margin-top: 10px;
-		font-size: 16px;
-		font-weight: 500;
-		color: white;
-	}
-
-	.card-subtitle {
-		font-family: inherit;
-   		font-style: inherit;
-		-webkit-font-smoothing: antialiased;
-		margin: 10px 0 10px 0;
-		font-size: 18px;
-		font-weight: 500;
-		color: #ffd700;
 	}
 
 	.alinha-texto-esquerda {

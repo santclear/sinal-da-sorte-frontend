@@ -1,4 +1,4 @@
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
@@ -18,24 +18,32 @@ export abstract class EstatisticaBase {
 	public numeroDoConcursoFinal: number;
 	public sufixoCssLoteria: string;
 	public rdSorteios: number = 0;
-	public rdSorteiosExibido: boolean = false;
+	public isDuplasena: boolean = false;
 	protected dezena: string = '01';
 	protected bd: any;
-	public dezenas = [];
+	public dezenas: any = [];
+	private concursoFacade: ConcursoFacade;
+	private frequenciasSorteio: any = [];
+	private toggleMostrarMaisEstatisticasChecked: boolean = false;
 
-	constructor(protected nav: NavController, protected concursoDAOServico: ConcursoDAOServico) { }
+	public filterQuery = "";
+	public rowsOnPage = 100;
+	public sortBy = "total";
+	public sortOrder = "asc";
+
+	constructor(protected nav: NavController, protected concursoDAOServico: ConcursoDAOServico, protected loadingCtrl: LoadingController) { }
 
 	ngAfterViewInit() {
-		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+		this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd = ConexaoFabrica.getConexao();
 		this.bd.get('sessao').then((sessao) => {
-			let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+			let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
 				this.numeroDoConcursoInicial = concursos.maiorNumero -9;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
 				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
 				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
-				this.rdSorteiosExibido = this.sufixoCssLoteria === 'duplasena' ? true : false;
+				this.isDuplasena = this.sufixoCssLoteria === 'duplasena' ? true : false;
 				this.rdSorteios = 0;
 				this.dezenas = sessao.loteria.dezenas;
 				this.cbxExtensaoDaFaixaDeConcursosAtualize(this.cbxExtensaoDaFaixaDeConcursos);
@@ -50,19 +58,14 @@ export abstract class EstatisticaBase {
 
 	atualizeOGrafico(numeroDoSorteio: number) {
 		this.bd.get('sessao').then(sessao => {
-			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-			let concursosPromise = concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
+			let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
 			concursosPromise.then(concursos => {
 				let rotulosDoEixoX = [];
-				if (this.numeroDoConcursoInicial == concursos.numero) {// FIXME Validar se está errado
-					concursoFacade.procurePorConcursosQueNaoContenhamADezenaEONumeroSejaMenorQueONumeroDoConcursoInicialEPegueOUltimo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, numeroDoSorteio).then(concursos => {
-						this.renderizeEstatistica(concursos.maiorNumero, concursos, rotulosDoEixoX, this.dezena, sessao, numeroDoSorteio);
-					});
-				} else {
 					this.renderizeEstatistica(undefined, concursos, rotulosDoEixoX, this.dezena, sessao, numeroDoSorteio);
-				}
 			});
 		});
+		console.log(this.toggleMostrarMaisEstatisticasChecked)
+		if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(this.rdSorteios);
 	}
 
 	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao, numeroDoSorteio);
@@ -91,8 +94,7 @@ export abstract class EstatisticaBase {
 
 		if (this.rgeFaixaDeConcursos != undefined) {
 			this.bd.get('sessao').then(sessao => {
-				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-				let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+				let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 				concursosPromise.then(concursos => {
 					if (this.rgeFaixaDeConcursos != undefined) {
 						if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
@@ -164,5 +166,34 @@ export abstract class EstatisticaBase {
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMax;
 		}
 		this.atualizeOGrafico(this.rdSorteios)
+	}
+	
+	toggleMostreMaisEstatisticas(toggleMostrarMaisEstatisticas) {
+		this.toggleMostrarMaisEstatisticasChecked = toggleMostrarMaisEstatisticas.checked;
+		if(toggleMostrarMaisEstatisticas.checked) {
+			this.atualizeFrequênciasDasDezenas(this.rdSorteios);
+		}
+	}
+
+	atualizeFrequênciasDasDezenas(numeroDoSorteio: number): any {
+		let loading = this.loadingCtrl.create({
+			content: 'Por favor aguarde, carregando estatísticas para sua análise...'
+		});
+		loading.present();
+		this.bd.get('sessao').then(sessao => {
+			this.frequenciasSorteio = [];
+			this.dezenas.forEach(dezena => {
+				this.concursoFacade.calculeFrequenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena.numero, numeroDoSorteio, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal).then(frequencia => {
+					this.concursoFacade.calculeAusenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena.numero, numeroDoSorteio, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal).then(ausencia => {
+						this.frequenciasSorteio.push({
+							dezena: dezena.numero, 
+							frequenciaTotal: frequencia.total===undefined?0:frequencia.total,
+							ausenciaTotal: ausencia.total===undefined?0:ausencia.total
+						});
+						loading.dismiss();
+					});
+				});
+			});
+		});
 	}
 }

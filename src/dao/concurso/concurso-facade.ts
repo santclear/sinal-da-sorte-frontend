@@ -48,8 +48,12 @@ export class ConcursoFacade {
 		return this.concursoDAOServico.calculeFrequenciasTotaisDasDezenas(loteriaId, numeroDoSorteio);
 	}
 
-	procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
-		return this.concursoDAOServico.procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD, dezena, numeroDoSorteio);
+	calculeFrequenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number, numeroConcursoInicial: number, numeroConcursoFinal: number): any {
+		return this.concursoDAOServico.calculeFrequenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD, dezena, numeroDoSorteio, numeroConcursoInicial, numeroConcursoFinal);
+	}
+
+	calculeAusenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number, numeroConcursoInicial: number, numeroConcursoFinal: number): any {
+		return this.concursoDAOServico.calculeAusenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD, dezena, numeroDoSorteio, numeroConcursoInicial, numeroConcursoFinal);
 	}
 
 	// Sincronismo
