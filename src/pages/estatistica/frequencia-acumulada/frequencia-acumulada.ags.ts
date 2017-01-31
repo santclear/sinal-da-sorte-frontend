@@ -27,33 +27,28 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 	public exibirPesquisasDeAmostraFrequencia: boolean = false;
 	private frequenciaAbsolutaTotal;
 	private ausenciaAbsolutaTotal;
+	private acumuloRemanescente;
+	private ausenciaRemanescente;
 
 	constructor(protected nav: NavController, protected concursoDAOServico: ConcursoDAOServico, protected loadingCtrl: LoadingController) {
         super(nav, concursoDAOServico, loadingCtrl);
     }
 
-	renderizeEstatistica(maiorNumero, concursos, rotulosDoEixoX, dezena, sessao, numeroDoSorteio) {
+	renderizeEstatistica(maiorNumero, concursos, dezena, sessao, numeroDoSorteio) {
 		let frequenciasPorConcursos = [];
+		let rotulosDoEixoX = [];
 		// let acumulador = maiorNumero != undefined ? this.numeroDoConcursoInicial - maiorNumero.maiorNumero - 1 : 0;
-		let acumulador = 0;
-		this.frequenciaAbsolutaTotal = 0;
-		this.ausenciaAbsolutaTotal = 0;
-		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
-			if (concursos[iConcurso].dezenaEncontrada == 'sim') {
-				acumulador++;
-				this.frequenciaAbsolutaTotal++;
-			} else {
-				acumulador = 0;
-				this.ausenciaAbsolutaTotal++;
-			}
-			frequenciasPorConcursos.push({ y: acumulador, concurso: concursos[iConcurso] });
-			rotulosDoEixoX.push(concursos[iConcurso].numero)
-		}
 		
-		this.frequencia = [];
-		frequenciasPorConcursos.forEach(frequenciaPorConcurso => {
-			this.frequencia.push(frequenciaPorConcurso.y);
-		});
+		this.frequenciaAbsolutaTotal = this.calculeFrequenciaAbsolutaTotal(concursos);
+		this.ausenciaAbsolutaTotal = this.calculeAusenciaAbsolutaTotal(concursos);
+
+		frequenciasPorConcursos = this.crieObjetoComPontosDoPlanoCartesiano(concursos);
+		rotulosDoEixoX = this.crieObjetoComRotulosDoGrafico(concursos);
+		
+		this.frequencia = this.crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos);
+		
+		this.acumuloRemanescente = this.procurePorAcumuloRemanescente(this.frequencia);
+		this.ausenciaRemanescente = this.calculeAusenciaRemanescente(this.frequencia);
 		
 		if(this.iptPesquisaDeAmostraFrequencia != undefined) this.atualizePesquisaDeFrequencia({target: {value: this.iptPesquisaDeAmostraFrequencia}});
 		hcharts.chart(this.canvas.nativeElement, {
@@ -203,5 +198,127 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 
 	cancelePesquisaDeAmostraDeFrequencia() {
 		this.exibirPesquisasDeAmostraFrequencia = false;
+	}
+
+	toggleMostreMaisEstatisticas(toggleMostrarMaisEstatisticas) {
+		this.toggleMostrarMaisEstatisticasChecked = toggleMostrarMaisEstatisticas.checked;
+		if(toggleMostrarMaisEstatisticas.checked) {
+			this.atualizeFrequênciasDasDezenas(this.rdSorteios);
+		}
+	}
+
+	atualizeFrequênciasDasDezenas(numeroDoSorteio: number) {
+		let loading = this.loadingCtrl.create({
+			content: 'Por favor aguarde, carregando estatísticas para sua análise...'
+		});
+		loading.present();
+		this.bd.get('sessao').then(sessao => {
+			this.frequenciasSorteio = [];
+			this.dezenas.forEach((dezena, i, dezenas) => {
+				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(dezena.numero, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
+				let frequenciaPromise = this.concursoFacade.calculeFrequenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena.numero, numeroDoSorteio, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal);
+				let	ausenciaPromise = this.concursoFacade.calculeAusenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena.numero, numeroDoSorteio, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal);	
+				
+				concursosPromise.then(concursos => {
+					let frequenciasPorConcursos = this.crieObjetoComPontosDoPlanoCartesiano(concursos);
+					let frequenciasAcumuladas = this.crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos);
+					let acumuloRemanescente: number = this.procurePorAcumuloRemanescente(frequenciasAcumuladas);
+					let ausenciaRemanescente: number = this.calculeAusenciaRemanescente(frequenciasAcumuladas);
+					
+					frequenciaPromise.then(frequencia => {
+						ausenciaPromise.then(ausencia => {
+							this.frequenciasSorteio.push({
+								dezena: dezena.numero, 
+								frequenciaTotal: frequencia.total===undefined?0:frequencia.total,
+								ausenciaTotal: ausencia.total===undefined?0:ausencia.total,
+								acumuloRemanescente: acumuloRemanescente,
+								ausenciaRemanescente: ausenciaRemanescente
+							});
+						});
+					});
+					loading.dismiss();
+				});
+			});
+		});
+	}
+
+	private calculeFrequenciaAbsolutaTotal(concursos: any): number {
+		let frequenciaAbsolutaTotal: number = 0;
+		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
+			if (concursos[iConcurso].dezenaEncontrada === 'sim') frequenciaAbsolutaTotal++;
+		}
+
+		return frequenciaAbsolutaTotal;
+	}
+
+	private calculeAusenciaAbsolutaTotal(concursos: any): number {
+		let ausenciaAbsolutaTotal: number = 0;
+		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
+			if (concursos[iConcurso].dezenaEncontrada !== 'sim') ausenciaAbsolutaTotal++;
+		}
+
+		return ausenciaAbsolutaTotal;
+	}
+
+	private crieObjetoComPontosDoPlanoCartesiano(concursos: any): { y: number, concurso: any }[] {
+		let frequenciasPorConcursos = [];
+		let acumulador = 0;
+		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
+			if (concursos[iConcurso].dezenaEncontrada == 'sim') {
+				acumulador++;
+			} else {
+				acumulador = 0;
+			}
+			frequenciasPorConcursos.push({ y: acumulador, concurso: concursos[iConcurso] });
+		}
+
+		return frequenciasPorConcursos;
+	}
+
+	private crieObjetoComRotulosDoGrafico(concursos: any): number[] {
+		let rotulosDoEixoX = [];
+
+		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
+			rotulosDoEixoX.push(concursos[iConcurso].numero);
+		}
+
+		return rotulosDoEixoX;
+	}
+
+	private crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos): number[] {
+		let frequencia = [];
+		
+		frequenciasPorConcursos.forEach(frequenciaPorConcurso => {
+			frequencia.push(frequenciaPorConcurso.y);
+		});
+
+		return frequencia;
+	}
+
+	private procurePorAcumuloRemanescente(frequenciasAcumuladas): number {
+		let acumuloRemanescente: number = 0;
+		
+		for(let i = frequenciasAcumuladas.length - 1; i >= 0; i--) {
+			if(frequenciasAcumuladas[i] !== 0) {
+				acumuloRemanescente = frequenciasAcumuladas[i];
+			}
+			break;
+		}
+
+		return acumuloRemanescente;
+	}
+
+	private calculeAusenciaRemanescente(frequenciasAcumuladas): number {
+		let ausenciaRemanescente: number = 0;
+
+		for(let i = frequenciasAcumuladas.length - 1; i >= 0; i--) {
+			if(frequenciasAcumuladas[i] === 0) {
+				ausenciaRemanescente++;
+			} else {
+				break;
+			}
+		}
+
+		return ausenciaRemanescente;
 	}
 }

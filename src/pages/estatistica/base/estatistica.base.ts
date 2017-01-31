@@ -14,17 +14,17 @@ export abstract class EstatisticaBase {
 	public extensoesDaFaixaDeConcursos: any;
 	protected extensaoDaFaixaDeConcurso: number;
 	protected extensaoDaFaixaDeConcursoAnterior: number;
-	public numeroDoConcursoInicial: number;
-	public numeroDoConcursoFinal: number;
+	protected numeroDoConcursoInicial: number;
+	protected numeroDoConcursoFinal: number;
 	public sufixoCssLoteria: string;
 	public rdSorteios: number = 0;
 	public isDuplasena: boolean = false;
 	protected dezena: string = '01';
 	protected bd: any;
 	public dezenas: any = [];
-	private concursoFacade: ConcursoFacade;
-	private frequenciasSorteio: any = [];
-	private toggleMostrarMaisEstatisticasChecked: boolean = false;
+	protected concursoFacade: ConcursoFacade;
+	protected frequenciasSorteio: any = [];
+	protected toggleMostrarMaisEstatisticasChecked: boolean = false;
 
 	public filterQuery = "";
 	public rowsOnPage = 100;
@@ -60,15 +60,14 @@ export abstract class EstatisticaBase {
 		this.bd.get('sessao').then(sessao => {
 			let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
 			concursosPromise.then(concursos => {
-				let rotulosDoEixoX = [];
-					this.renderizeEstatistica(undefined, concursos, rotulosDoEixoX, this.dezena, sessao, numeroDoSorteio);
+				this.renderizeEstatistica(undefined, concursos, this.dezena, sessao, numeroDoSorteio);
 			});
 		});
-		console.log(this.toggleMostrarMaisEstatisticasChecked)
 		if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(this.rdSorteios);
 	}
 
-	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, rotulosDoEixoX, dezena, sessao, numeroDoSorteio);
+	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, dezena, sessao, numeroDoSorteio);
+	abstract atualizeFrequênciasDasDezenas(rdSorteios: number);
 
 	destaqueDezena(dezena) {
 		let dezenaFormatada = dezena.numero;
@@ -130,6 +129,7 @@ export abstract class EstatisticaBase {
 			this.numeroDoConcursoFinal--;
 			this.rgeFaixaDeConcursos--;
 		}
+		this.atualizeOGrafico(this.rdSorteios);
 	}
 
 	rgeDesloqueParaDireita() {
@@ -138,6 +138,7 @@ export abstract class EstatisticaBase {
 			this.numeroDoConcursoFinal++;
 			this.rgeFaixaDeConcursos++;
 		}
+		this.atualizeOGrafico(this.rdSorteios);
 	}
 
 	rgeDesloqueParaEsquerdaEFC() {
@@ -166,34 +167,5 @@ export abstract class EstatisticaBase {
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMax;
 		}
 		this.atualizeOGrafico(this.rdSorteios)
-	}
-	
-	toggleMostreMaisEstatisticas(toggleMostrarMaisEstatisticas) {
-		this.toggleMostrarMaisEstatisticasChecked = toggleMostrarMaisEstatisticas.checked;
-		if(toggleMostrarMaisEstatisticas.checked) {
-			this.atualizeFrequênciasDasDezenas(this.rdSorteios);
-		}
-	}
-
-	atualizeFrequênciasDasDezenas(numeroDoSorteio: number): any {
-		let loading = this.loadingCtrl.create({
-			content: 'Por favor aguarde, carregando estatísticas para sua análise...'
-		});
-		loading.present();
-		this.bd.get('sessao').then(sessao => {
-			this.frequenciasSorteio = [];
-			this.dezenas.forEach(dezena => {
-				this.concursoFacade.calculeFrequenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena.numero, numeroDoSorteio, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal).then(frequencia => {
-					this.concursoFacade.calculeAusenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena.numero, numeroDoSorteio, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal).then(ausencia => {
-						this.frequenciasSorteio.push({
-							dezena: dezena.numero, 
-							frequenciaTotal: frequencia.total===undefined?0:frequencia.total,
-							ausenciaTotal: ausencia.total===undefined?0:ausencia.total
-						});
-						loading.dismiss();
-					});
-				});
-			});
-		});
 	}
 }

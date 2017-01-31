@@ -9,12 +9,16 @@
 							<tr>
 								<th class="selecionavel text-center">Frequência total</th>
 								<th class="selecionavel text-center">Ausência total</th>
+								<th class="selecionavel text-center">Acúmulo remanescente</th>
+								<th class="selecionavel text-center">Ausência remanescente</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td class="text-center">{{frequenciaAbsolutaTotal}}</td>
 								<td class="text-center">{{ausenciaAbsolutaTotal}}</td>
+								<td class="text-center">{{acumuloRemanescente}}</td>
+								<td class="text-center">{{ausenciaRemanescente}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -172,6 +176,12 @@
 								<th>
 									<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
 								</th>
+								<th>
+									<mfDefaultSorter by="ausenciaTotal">Acúmulo remanescente</mfDefaultSorter>
+								</th>
+								<th>
+									<mfDefaultSorter by="ausenciaTotal">Ausência remanescente</mfDefaultSorter>
+								</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -180,6 +190,8 @@
 								<td>{{item.dezena}}</td>
 								<td>{{item.frequenciaTotal}}</td>
 								<td>{{item.ausenciaTotal}}</td>
+								<td>{{item.acumuloRemanescente}}</td>
+								<td>{{item.ausenciaRemanescente}}</td>
 							</tr>
 							</tbody>
 						</table>
