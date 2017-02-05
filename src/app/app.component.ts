@@ -1,18 +1,18 @@
-import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform, MenuController, LoadingController} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
-import {ConexaoFabrica} from '../dao/util/conexao-fabrica';
-import {BemVindoPage} from '../pages/bem-vindo/bem-vindo';
-import {EstatisticaPage} from '../pages/estatistica/estatistica';
-import {SimuladorPage} from '../pages/simulador/simulador';
-import {FechamentoPage} from '../pages/fechamento/fechamento';
-import {ApostaPage} from '../pages/aposta/aposta';
-import {GruposEspeciaisPage} from '../pages/grupos-especiais/grupos-especiais';
-import {BolaoPage} from '../pages/bolao/bolao';
-import {HistoricoDeApostasPage} from '../pages/historico-de-apostas/historico-de-apostas';
-import {ConcursoDAOServico} from '../dao/concurso/concurso-dao.servico';
-import {ConcursoFacade} from '../dao/concurso/concurso-facade';
-import {Loterias} from '../enum/loterias';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular';
+import { StatusBar, Splashscreen } from 'ionic-native';
+import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
+import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
+import { EstatisticaPage } from '../pages/estatistica/estatistica';
+import { SimuladorPage } from '../pages/simulador/simulador';
+import { FechamentoPage } from '../pages/fechamento/fechamento';
+import { ApostaPage } from '../pages/aposta/aposta';
+import { GruposEspeciaisPage } from '../pages/grupos-especiais/grupos-especiais';
+import { BolaoPage } from '../pages/bolao/bolao';
+import { HistoricoDeApostasPage } from '../pages/historico-de-apostas/historico-de-apostas';
+import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
+import { ConcursoFacade } from '../dao/concurso/concurso-facade';
+import { Loterias } from '../enum/loterias';
 
 @Component({
 	templateUrl: `app.html`,
@@ -42,22 +42,22 @@ export class MyApp {
 			Loterias.DUPLASENA
 		];
 
-		this.indicePaginaAtual = 7 // página Bem Vindo;
+		this.indicePaginaAtual = 0 // página Bem Vindo;
 
 		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			let resultadoSincronizePromise = this.sincronizeOsConcursosDaLoteria(this.loterias[0]);
 			resultadoSincronizePromise.then(resultadoSincronize => {
-				if(resultadoQuery.estado === 'criado') {
+				if (resultadoQuery.estado === 'criado') {
 					this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
 					this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
 					this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
-					this.paginaInicial = BemVindoPage;
+					this.paginaInicial = EstatisticaPage;
 					this.paginas = this.getPaginas(resultadoQuery.novo);
 				} else {
 					this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 					this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
 					this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
-					this.paginaInicial = BemVindoPage;
+					this.paginaInicial = EstatisticaPage;
 					this.paginas = this.getPaginas(resultadoQuery.antigo);
 				}
 
@@ -65,10 +65,11 @@ export class MyApp {
 			});
 		});
 	}
-
+	
 	initializeApp() {
 		this.plataforma.ready().then(() => {
 			StatusBar.styleDefault();
+			Splashscreen.hide();
 		});
 	}
 
@@ -91,19 +92,25 @@ export class MyApp {
 			});
 
 			this.menuAtivo = 'menuPaginas';
-			this.menu.close();
-			this.menu.enable(true, 'menuPaginas');
-			this.menu.enable(false, 'menuLoterias');
-			this.menu.open();
+			this.menu.close().then(() => {
+				this.menu.enable(true, 'menuPaginas');
+				this.menu.enable(false, 'menuLoterias');
+				this.menu.open();
+			}).catch(erro => {
+				console.log(erro);
+			});
 		});
 	}
 
 	ativeMenuLoterias() {
 		this.menuAtivo = 'menuLoterias';
-		this.menu.close();
-		this.menu.enable(false, 'menuPaginas');
-		this.menu.enable(true, 'menuLoterias');
-		this.menu.open();
+		this.menu.close().then(() => {
+			this.menu.enable(false, 'menuPaginas');
+			this.menu.enable(true, 'menuLoterias');
+			this.menu.open();
+		}).catch(erro => {
+			console.log(erro);
+		});
 	}
 
 	private salveLoteriaSessao(objLoteriaSessao): any {
@@ -115,10 +122,10 @@ export class MyApp {
 				}
 			]).then(resultadoQuery => {
 				if (resultadoQuery[0].ok == true) {
-					resolve({estado: 'criado', novo: {loteria: objLoteriaSessao}, antigo: null})
+					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
 				} else {
 					this.bd.get('sessao').then(sessao => {
-						resolve({estado: 'existente', novo: null, antigo: {loteria: sessao.loteria}});
+						resolve({ estado: 'existente', novo: null, antigo: { loteria: sessao.loteria } });
 					}).catch(erro => {
 						console.log(erro);
 					});
@@ -138,7 +145,7 @@ export class MyApp {
 				}
 			]).then(resultadoQuery => {
 				if (resultadoQuery[0].ok == true) {
-					resolve({estado: 'criado', novo: {loteria: objLoteriaSessao}, antigo: null})
+					resolve({ estado: 'criado', novo: { loteria: objLoteriaSessao }, antigo: null })
 				} else {
 					this.bd.get('sessao').then(sessao => {
 						// Caso já tenha sido inserido um dado de loteria na sessão
@@ -151,7 +158,7 @@ export class MyApp {
 						this.bd.put(novosDadosDeSessao);
 						return sessao;
 					}).then(sessaoAntiga => {
-						resolve({estado: 'atualizado', novo: {loteria: objLoteriaSessao}, antigo: sessaoAntiga});
+						resolve({ estado: 'atualizado', novo: { loteria: objLoteriaSessao }, antigo: sessaoAntiga });
 					})
 				}
 			}).catch(erro => {
@@ -177,15 +184,16 @@ export class MyApp {
 	}
 
 	private getPaginas(estadoSessao) {
+		let cor = ''+ estadoSessao.loteria.cor.escuro +'';
 		return [
-			{sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'},
-			{sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', cor_texto: estadoSessao.loteria.cor.escuro, exibir_texto: 'none'},
-			{sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', cor_texto: '#bbb', exibir_texto: 'inline'},
-			{sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', cor_texto: '#bbb', exibir_texto: 'inline'}
+			{ sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', corTexto: cor, exibir_texto: 'none' },
+			{ sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', corTexto: cor, exibir_texto: 'none' },
+			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: SimuladorPage, icone: 'ios-car', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: FechamentoPage, icone: 'md-lock', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: ApostaPage, icone: 'md-cash', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', corTexto: '#bbb', exibir_texto: 'inline' }
 		];
 	}
 }

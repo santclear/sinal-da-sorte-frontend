@@ -1,49 +1,41 @@
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-7 col-lg-4"></div>
-		<div class="col-md-5 col-lg-4 col-lg-offset-4">
-			<div class="row">
-				<div class="col-md-12">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th class="selecionavel text-center">Frequência total</th>
-								<th class="selecionavel text-center">Ausência total</th>
-								<th class="selecionavel text-center">Acúmulo remanescente</th>
-								<th class="selecionavel text-center">Ausência remanescente</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="text-center">{{frequenciaAbsolutaTotal}}</td>
-								<td class="text-center">{{ausenciaAbsolutaTotal}}</td>
-								<td class="text-center">{{acumuloRemanescente}}</td>
-								<td class="text-center">{{ausenciaRemanescente}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-md-4 col-md-offset-8 col-lg-4 col-lg-offset-8">
-			<ion-list [(ngModel)]="rdSorteios" *ngIf="isDuplasena" (ionChange)="atualizeOGrafico($event)" radio-group>
-				<ion-item>
-					<ion-label>Sorteios 1</ion-label>
-					<ion-radio value="0" checked="true"></ion-radio>
-				</ion-item>
-				<ion-item>
-					<ion-label>Sorteios 2</ion-label>
-					<ion-radio value="1"></ion-radio>
-				</ion-item>
-			</ion-list>
-			<!--<ion-searchbar [(ngModel)]="iptPesquisaDeAmostraFrequencia" (ionInput)="atualizePesquisaDeFrequencia($event)" (ionCancel)="cancelePesquisaDeAmostraDeFrequencia()" placeholder="Pesquise frequência, expl: 0,0,1,2,0"></ion-searchbar>-->
-		</div>
-	</div>
-	
-	<!--<div *ngIf="exibirQuantidadeDeAmostrasDeFrequencia" class="row">
+<div class="clear-alinhar-direita"></div>
+<!--<div class="alinhar-direita">
+	<table>
+		<thead>
+			<tr>
+				<th class="selecionavel">Frequência total</th>
+				<th class="selecionavel">Ausência total</th>
+				<th class="selecionavel">Acúmulo remanescente</th>
+				<th class="selecionavel">Ausência remanescente</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>{{frequenciaAbsolutaTotal}}</td>
+				<td>{{ausenciaAbsolutaTotal}}</td>
+				<td>{{acumuloRemanescente}}</td>
+				<td>{{ausenciaRemanescente}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>-->
+<div class="select-largura-maxima alinhar-direita">
+	<ion-list [(ngModel)]="rdSorteios" *ngIf="isDuplasena" (ionChange)="atualizeOGrafico($event)" radio-group>
+		<ion-item>
+			<ion-label>Sorteios 1</ion-label>
+			<ion-radio value="0" checked="true"></ion-radio>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Sorteios 2</ion-label>
+			<ion-radio value="1"></ion-radio>
+		</ion-item>
+	</ion-list>
+</div>
+<!--<ion-searchbar [(ngModel)]="iptPesquisaDeAmostraFrequencia" (ionInput)="atualizePesquisaDeFrequencia($event)" (ionCancel)="cancelePesquisaDeAmostraDeFrequencia()" placeholder="Pesquise frequência, expl: 0,0,1,2,0"></ion-searchbar>-->
+
+<!--<div *ngIf="exibirQuantidadeDeAmostrasDeFrequencia" class="row">
 		<div class="col-md-7 col-lg-4"></div>
 		<div class="col-md-5 col-lg-4 col-lg-offset-4">
 			<div class="row">
@@ -63,54 +55,61 @@
 			</div>
 		</div>
 	</div>-->
-	
-	<div #grafico></div>
-</div>
+<div class="clear-alinhar-direita"></div>
+<div #grafico></div>
+
 <div class="espaco_vertical"></div>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
-			<ion-list>
-				<ion-item class="fundo-componente">
-					<ion-label color="primary">Extensão da faixa de concursos:</ion-label>
-					<ion-select [(ngModel)]="cbxExtensaoDaFaixaDeConcursos" (ionChange)="cbxExtensaoDaFaixaDeConcursosAtualize($event)" cancelText="Cancelar" okText="Confirmar" class="cor-primaria-componente">
-						<ion-option *ngFor="let extensao of extensoesDaFaixaDeConcursos" value="{{extensao.id}}">{{extensao.valor}}</ion-option>
-					</ion-select>
-				</ion-item>
-			</ion-list>
-		</div>
-	</div>
-</div>
-<div class="container-fluid">
+
+<div class="select-largura-maxima margem-automatica">
 	<ion-list>
-		<ion-list-header color="cabecalho">
-			<strong color="primary">Seletor de faixa de concursos:</strong>
-		</ion-list-header>
-		<ion-item>
-			<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)"
-				color="primary" pin="true">
-				<ion-label range-left>
-					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only clear>
-					<ion-icon name="rewind"></ion-icon>
-				</button>
-					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear>
-					<ion-icon name="arrow-dropleft-circle"></ion-icon>
-				</button>
-				</ion-label>
-				<ion-label range-right>
-					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only clear>
-					<ion-icon name="arrow-dropright-circle"></ion-icon>
-				</button>
-				<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only clear>
-					<ion-icon name="fastforward"></ion-icon>
-				</button>
-				</ion-label>
-			</ion-range>
+		<ion-item class="fundo-componente">
+			<ion-label color="primary">Faixa de concursos:</ion-label>
+
+			<ion-select [(ngModel)]="cbxExtensaoDaFaixaDeConcursos" (ionChange)="cbxExtensaoDaFaixaDeConcursosAtualize($event)" cancelText="Cancelar"
+				okText="Confirmar" class="cor-primaria-componente">
+				<ion-option *ngFor="let extensao of extensoesDaFaixaDeConcursos" value="{{extensao.id}}">{{extensao.valor}}</ion-option>
+				</ion-select>
 		</ion-item>
 	</ion-list>
 </div>
-<div class="container">
-	<!--
+
+
+<ion-list>
+	<ion-list-header class="centralizar-texto" color="cabecalho">
+		<strong color="primary">Seletor de faixa de concursos:</strong>
+	</ion-list-header>
+
+	<ion-item>
+		<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" color="primary" pin="true">
+			<ion-label range-left>
+				<div class="label-botao-controle-largura">
+					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC()" ion-button icon-only clear>
+						<ion-icon name="rewind"></ion-icon>
+					</button>
+					
+					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear>
+						<ion-icon name="arrow-dropleft-circle"></ion-icon>
+					</button>
+				</div>
+			</ion-label>
+			
+			<ion-label range-right>
+				<div class="label-botao-controle-largura">
+					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita()" ion-button icon-only clear>
+						<ion-icon name="arrow-dropright-circle"></ion-icon>
+					</button>
+					
+					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC()" ion-button icon-only clear>
+						<ion-icon name="fastforward"></ion-icon>
+					</button>
+				</div>
+			</ion-label>
+		</ion-range>
+	</ion-item>
+</ion-list>
+
+
+<!--
 	<div class="row">
 		<div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
 			<ion-card>
@@ -123,87 +122,78 @@
 		</div>
 	</div>
 	-->
-	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="center-block">
-				<div class="espaco_vertical"></div>
-				<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero"
-					*ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
-					{{dezena.numero}}
-				</button>
-			</div>
-		</div>
-	</div>
-	<div class="espaco_vertical"></div>
-	<div class="row">
-		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
-			<button ion-button block id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
-				Atualizar o Gráfico
-			</button>
-		</div>
-	</div>
-	<div class="espaco_vertical"></div>
-	<div class="row">
-		<div class="col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
-			<ion-list>
-				<ion-item class="fundo-componente">
-					<ion-label color="primary">Mais estatísticas</ion-label>
-					<ion-toggle [(ngModel)]="toggleMostrarMaisEstatisticas" (ionChange)="toggleMostreMaisEstatisticas($event)" checked="false"></ion-toggle>
-				</ion-item>
-			</ion-list>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12" *ngIf="toggleMostrarMaisEstatisticasChecked">
-			<ion-list>
-				<ion-list-header color="cabecalho">
-					<strong color="primary">Frequência das dezenas</strong>
-				</ion-list-header>
-				<ion-item>
-					<div class="panel panel-default table-responsive">
 
-						<table class="table table-striped tabela" [mfData]="frequenciasSorteio" #mf="mfDataTable"
-							[mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
-							<thead>
-							<tr>
-								<th></th>
-								<th>
-									<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
-								</th>
-								<th>
-									<mfDefaultSorter by="frequenciaTotal">Frequência total</mfDefaultSorter>
-								</th>
-								<th>
-									<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
-								</th>
-								<th>
-									<mfDefaultSorter by="ausenciaTotal">Acúmulo remanescente</mfDefaultSorter>
-								</th>
-								<th>
-									<mfDefaultSorter by="ausenciaTotal">Ausência remanescente</mfDefaultSorter>
-								</th>
-							</tr>
-							</thead>
-							<tbody>
-							<tr *ngFor="let item of mf.data">
-								<td></td>
-								<td>{{item.dezena}}</td>
-								<td>{{item.frequenciaTotal}}</td>
-								<td>{{item.ausenciaTotal}}</td>
-								<td>{{item.acumuloRemanescente}}</td>
-								<td>{{item.ausenciaRemanescente}}</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-
-				</ion-item>
-			</ion-list>
-		</div>
-	</div>
+<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="margem-automatica">
+	<div id="teste" class="espaco_vertical"></div>
+	
+	<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
+		{{dezena.numero}}
+	</button>
 </div>
-<div class="container" *ngIf="exibirPesquisasDeAmostraFrequencia">
-	<table class="table table-bordered">
+
+<div class="espaco_vertical"></div>
+
+<div class="margem-automatica centralizar-texto">
+	<button ion-button id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
+		Atualizar o Gráfico
+	</button>
+</div>
+
+<div class="espaco_vertical"></div>
+
+<div class="select-largura-maxima margem-automatica">
+	<ion-list>
+		<ion-item class="fundo-componente">
+			<ion-label color="primary">Mais estatísticas</ion-label>
+			<ion-toggle [(ngModel)]="toggleMostrarMaisEstatisticas" (ionChange)="toggleMostreMaisEstatisticas($event)"></ion-toggle>
+		</ion-item>
+	</ion-list>
+</div>
+
+<div *ngIf="toggleMostrarMaisEstatisticasChecked">
+	<ion-list>
+		<ion-list-header color="cabecalho">
+			<strong color="primary">Frequência das dezenas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+		</ion-list-header>
+		
+		<ion-item>
+			<div class="container-tabela margem-automatica">
+				<table [mfData]="frequenciasSorteio" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+					<tr>
+						<th></th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="frequenciaTotal">Frequência total</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="ausenciaTotal">Acúmulo remanescente</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="ausenciaTotal">Ausência remanescente</mfDefaultSorter>
+						</th>
+					</tr>
+
+					<tr *ngFor="let item of mf.data">
+						<td></td>
+						<td class="selecionavel">{{item.dezena}}</td>
+						<td class="selecionavel">{{item.frequenciaTotal}}</td>
+						<td class="selecionavel">{{item.ausenciaTotal}}</td>
+						<td class="selecionavel">{{item.acumuloRemanescente}}</td>
+						<td class="selecionavel">{{item.ausenciaRemanescente}}</td>
+					</tr>
+				</table>
+			</div>
+		</ion-item>
+	</ion-list>
+</div>
+
+<!--<div *ngIf="exibirPesquisasDeAmostraFrequencia">
+	<table>
 		<thead>
 			<tr>
 				<th class="selecionavel">Dezena</th>
@@ -227,4 +217,4 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
+</div>-->

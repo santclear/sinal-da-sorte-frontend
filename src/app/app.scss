@@ -19,9 +19,9 @@ ags-navbar + ion-content > div.scroll-content {
 	margin-top: 56px !important;
 }
 
-.margemSuperior {
-	margin-top: 55px;
-}
+// .margemSuperior {
+// 	margin-top: 55px;
+// }
 
 .cor-primaria-componente, th {
 	color: #4b0069!important;
@@ -42,7 +42,6 @@ td {
 
 .sem-margem {
 	margin: 0 !important;
-	width: 28px !important;
 }
 
 .selecionavel {
@@ -78,6 +77,42 @@ ion-card-content {
 }
 
 .tabela th, .tabela td {
+	text-align: center;
+}
+
+.largura-botao-controle {
+	width: 21px !important;
+}
+
+.label-botao-controle-altura {
+	height: 29px !important;
+}
+
+.label-botao-controle-largura .button-inner {
+	width: 28px;
+}
+
+.espaco_vertical {
+	margin-bottom: 17px;
+}
+
+.select-largura-maxima {
+	width: 270px;
+}
+
+.alinhar-direita {
+	float: right;
+}
+
+.clear-alinhar-direita {
+	clear: right;
+}
+
+.margem-automatica {
+	margin: auto;
+}
+
+.centralizar-texto {
 	text-align: center;
 }
 /*              escuro		claro

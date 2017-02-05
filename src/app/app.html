@@ -1,8 +1,9 @@
 <ion-menu id="menuPaginas" [content]="conteudoDoMenu">
-	<ion-toolbar color="primary">
-		<ion-title>O que desejas?</ion-title>
-	</ion-toolbar>
-
+	<ion-header>
+		<ion-toolbar color="primary">
+			<ion-title>O que desejas?</ion-title>
+		</ion-toolbar>
+	</ion-header>
 	<ion-content>
 		<ion-list>
 			<button id="btSelecioneLoteria" ion-item (click)="ativeMenuLoterias()" detail-none [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada, 'margemSuperior']">
@@ -11,14 +12,13 @@
                 </ion-avatar>
                 <h1>{{nomeLoteriaSelecionada}}</h1>
             </button>
-
-			<button [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item item-right icon-left *ngFor="let pagina of paginas; let indicePagina = index" (click)="abraAPagina(pagina, indicePagina)" [ngStyle]="{'color': pagina.cor_texto}">
+			<button [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item icon-left *ngFor="let pagina of paginas; let indicePagina = index" [ngStyle]="{'color': pagina.corTexto}" (click)="abraAPagina(pagina, indicePagina)">             
                 <ion-icon [name]="pagina.icone"></ion-icon>
 				<span>{{pagina.titulo}}</span>
 				<span [ngStyle]="{'display': pagina.exibir_texto}" style="color: #aaa; float: right; font-weight: bold">Em breve!</span>
             </button>
 
-			<ion-list-header></ion-list-header>
+			<!--<ion-list-header></ion-list-header>-->
 			<!-- FIXME Alterar para a tela de login, quando for implementada -->
 			<!--<button id="btSair" ion-item (click)="abraAPaginaBemVindo()" ion-button icon-left detail-none>
                 <ion-icon name="exit" item-left></ion-icon>
@@ -29,9 +29,11 @@
 </ion-menu>
 
 <ion-menu id="menuLoterias" [content]="conteudoDoMenu">
-	<ion-toolbar color="secondary">
-		<ion-title>Escolha sua loteria</ion-title>
-	</ion-toolbar>
+	<ion-header>
+		<ion-toolbar color="secondary">
+			<ion-title>Escolha sua loteria</ion-title>
+		</ion-toolbar>
+	</ion-header>
 
 	<ion-content>
 		<ion-list>
@@ -47,4 +49,4 @@
 	</ion-content>
 </ion-menu>
 
-<ion-nav id="nav" [root]="paginaInicial" #conteudoDoMenu swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="paginaInicial" #conteudoDoMenu swipeBackEnabled="false"></ion-nav>

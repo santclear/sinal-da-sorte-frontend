@@ -15,7 +15,7 @@ export class EstatisticaPage extends PaginaBase {
 
 		this.tiposDeGrafico = [
 			{id: 'frequenciaAcumulada', tipo: 'Acumulado'},
-			{id: 'frequenciaSomaDezenas', tipo: 'Soma de dezenas'}
+			{id: 'frequenciaSomaDezenas', tipo: 'Soma dezenas'}
 		]
     }
 

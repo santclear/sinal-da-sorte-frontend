@@ -38,4 +38,35 @@ pagina-bem-vindo {
 		font-size: 14pt;
 		padding: 0 0.6rem !important;
 	}
+
+	.dezenas-sorteadas {
+		max-width: 260px;
+	}
+
+	.container-tabela {
+		overflow-x: auto;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 400px;
+	}
+
+	th {
+		text-align: left;
+		padding: 0 0 12px 0;
+	}
+
+	tr:nth-child(even){
+		background-color: #eee
+	}
+
+	tr:hover {
+		background-color: #ccc
+	}
+
+	td {
+		text-align: left;
+		padding: 0 0 8px 0;
+	}
 }

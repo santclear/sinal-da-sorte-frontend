@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {NavController, LoadingController} from 'ionic-angular';
 import {ConcursoDAOServico} from '../../../dao/concurso/concurso-dao.servico';
 import {EstatisticaBase} from '../base/estatistica.base';
+import lodash from 'lodash';
 
 declare var require: any;
 var hcharts = require('highcharts');
@@ -12,7 +13,7 @@ require('highcharts/modules/exporting')(hcharts);
 	selector: 'ags-frequencia-acumulada',
     templateUrl: '../base/estatistica.ags.html'
 })
-export class FrequenciaAcumuladaAgs extends EstatisticaBase {
+export class FrequenciaSomaDezenasAgs extends EstatisticaBase {
 	@ViewChild('grafico') canvas: ElementRef;
 
 	private frequencia: any = [];
@@ -38,7 +39,6 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 	renderizeEstatistica(maiorNumero, concursos, dezena, sessao, numeroDoSorteio) {
 		let frequenciasPorConcursos = [];
 		let rotulosDoEixoX = [];
-		// let acumulador = maiorNumero != undefined ? this.numeroDoConcursoInicial - maiorNumero.maiorNumero - 1 : 0;
 		
 		this.frequenciaAbsolutaTotal = this.calculeFrequenciaAbsolutaTotal(concursos);
 		this.ausenciaAbsolutaTotal = this.calculeAusenciaAbsolutaTotal(concursos);
@@ -60,7 +60,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 	configureOGrafico(sessao, dezena, numeroDoSorteio, rotulosDoEixoX, frequenciasPorConcursos): void {
 		hcharts.chart(this.canvas.nativeElement, {
 			title: {
-				text: 'Frequência acumulada da dezena ' + dezena + ', entre o concurso ' + this.numeroDoConcursoInicial + ' e ' + this.numeroDoConcursoFinal,
+				text: 'Soma das dezenas no período, entre o concurso ' + this.numeroDoConcursoInicial + ' e ' + this.numeroDoConcursoFinal,
 				style: {
 					color: sessao.loteria.cor.escuro,
                 	fontWeight: 'bold'
@@ -75,13 +75,13 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 
 					return `<b>Data do concurso: </b>` + this.point.concurso.dataDoSorteio +
 						`<br/><b>Concurso: </b>` + this.x +
-						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + dezena + ` foi sorteado)` +
+						`<br/><b>Soma das dezenas: </b>` + this.y + ` (Somatório das dezenas do concurso ` + this.x + ` )` +
 						`<br/><b>Números sorteados: </b>` + numerosSorteadosSort;
 				}
 			},
 			yAxis: {
 				title: {
-					text: 'Frequência acumulada',
+					text: 'Soma das dezenas no período',
 					style: {
 						color: sessao.loteria.cor.escuro
 					}
@@ -241,9 +241,9 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 								acumuloRemanescente: acumuloRemanescente,
 								ausenciaRemanescente: ausenciaRemanescente
 							});
-							if(i == dezenas.length - 1) loading.dismiss();
 						});
 					});
+					loading.dismiss();
 				});
 			});
 		});
@@ -269,14 +269,11 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase {
 
 	private crieObjetoComPontosDoPlanoCartesiano(concursos: any): { y: number, concurso: any }[] {
 		let frequenciasPorConcursos = [];
-		let acumulador = 0;
 		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
-			if (concursos[iConcurso].dezenaEncontrada == 'sim') {
-				acumulador++;
-			} else {
-				acumulador = 0;
-			}
-			frequenciasPorConcursos.push({ y: acumulador, concurso: concursos[iConcurso] });
+			let dezenas = concursos[iConcurso].sorteios[0].numerosSorteados.split(';').map(Number);
+			let somaDezenas: number = lodash.sum(dezenas);
+			
+			frequenciasPorConcursos.push({ y: somaDezenas, concurso: concursos[iConcurso] });
 		}
 
 		return frequenciasPorConcursos;

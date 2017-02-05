@@ -24,14 +24,13 @@ export abstract class EstatisticaBase {
 	public dezenas: any = [];
 	protected concursoFacade: ConcursoFacade;
 	protected frequenciasSorteio: any = [];
-	protected toggleMostrarMaisEstatisticasChecked: boolean = false;
 
 	public filterQuery = "";
 	public rowsOnPage = 100;
 	public sortBy = "total";
 	public sortOrder = "asc";
 
-	constructor(protected nav: NavController, protected concursoDAOServico: ConcursoDAOServico, protected loadingCtrl: LoadingController) { }
+	constructor(public nav: NavController, public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) { }
 
 	ngAfterViewInit() {
 		this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
@@ -63,11 +62,9 @@ export abstract class EstatisticaBase {
 				this.renderizeEstatistica(undefined, concursos, this.dezena, sessao, numeroDoSorteio);
 			});
 		});
-		if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(this.rdSorteios);
 	}
 
 	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, dezena, sessao, numeroDoSorteio);
-	abstract atualizeFrequênciasDasDezenas(rdSorteios: number);
 
 	destaqueDezena(dezena) {
 		let dezenaFormatada = dezena.numero;

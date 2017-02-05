@@ -1,5 +1,5 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
+import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { NavBarAgS } from '../componentes/navbar.ags';
 import { FrequenciaAcumuladaAgs } from '../pages/estatistica/frequencia-acumulada/frequencia-acumulada.ags';
@@ -46,6 +46,6 @@ import { DataTableModule } from "angular2-datatable";
 		BolaoPage,
 		HistoricoDeApostasPage
 	],
-	providers: [ConcursoDAOServico, { provide: LOCALE_ID, useValue: "pt-BR" }]
+	providers: [ConcursoDAOServico, { provide: ErrorHandler, useClass: IonicErrorHandler}, { provide: LOCALE_ID, useValue: "pt-BR" }]
 })
 export class AppModule { }

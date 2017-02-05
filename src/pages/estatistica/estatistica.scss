@@ -35,7 +35,31 @@ pagina-estatistica {
 		width: 31px;
 	}
 
-	.espaco_vertical {
-		margin-bottom: 17px;
+	.container-tabela {
+		overflow-x: auto;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th {
+		white-space: nowrap;
+		text-align: center;
+		padding: 0 5px 12px 5px;
+	}
+
+	tr:nth-child(even){
+		background-color: #eee
+	}
+
+	tr:hover {
+		background-color: #ccc
+	}
+
+	td {
+		text-align: center;
+		padding: 0 0 8px 0;
 	}
 }
