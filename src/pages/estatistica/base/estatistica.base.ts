@@ -118,6 +118,8 @@ export abstract class EstatisticaBase {
 		} else {
 			this.numeroDoConcursoFinal = concursoFinal.value;
 		}
+
+		this.atualizeOGrafico(this.rdSorteios);
 	}
 
 	rgeDesloqueParaEsquerda() {

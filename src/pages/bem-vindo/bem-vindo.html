@@ -76,14 +76,14 @@
 			
 			<ion-item>
 				<div class="container-tabela">
-					<table>
+					<table [mfData]="sorteio.rateios" #mfRateios="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 						<tr>
-							<th class="selecionavel">Tipo</th>
-							<th class="selecionavel">Ganhadores</th>
-							<th class="selecionavel">Valor do rateio</th>
+							<th class="selecionavel"><mfDefaultSorter by="tipoDePremio">Tipo</mfDefaultSorter></th>
+							<th class="selecionavel"><mfDefaultSorter by="numeroDeGanhadores">Ganhadores</mfDefaultSorter></th>
+							<th class="selecionavel"><mfDefaultSorter by="rateio">Valor do rateio</mfDefaultSorter></th>
 						</tr>
 
-						<tr *ngFor="let rateio of sorteio.rateios; let iRateio = index">
+						<tr *ngFor="let rateio of mfRateios.data; let iRateio = index">
 							<td class="selecionavel">{{rateio.tipoDePremio}}</td>
 							<td class="selecionavel">{{rateio.numeroDeGanhadores}}</td>
 							<td class="selecionavel">{{rateio.rateio | currency:'BRL':true}}</td>
@@ -118,14 +118,14 @@
 			
 			<ion-item>
 				<div class="container-tabela">
-					<table>
+					<table [mfData]="estatisticas" #mfFrequenciaTotal="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 						<tr>
-							<th class="selecionavel">Dezena</th>
-							<th class="selecionavel">Frequência total</th>
-							<th class="selecionavel">%</th>
+							<th class="selecionavel"><mfDefaultSorter by="dezena">Dezena</mfDefaultSorter></th>
+							<th class="selecionavel"><mfDefaultSorter by="frequencia">Frequência total</mfDefaultSorter></th>
+							<th class="selecionavel"><mfDefaultSorter by="frequenciaPorCento">%</mfDefaultSorter></th>
 						</tr>
 
-						<tr *ngFor="let estatistica of estatisticas">
+						<tr *ngFor="let estatistica of mfFrequenciaTotal.data">
 							<td class="selecionavel">{{estatistica.dezena}}</td>
 							<td class="selecionavel">{{estatistica.frequencia}}</td>
 							<td class="selecionavel">{{estatistica.frequenciaPorCento | number:'.2'}}%</td>

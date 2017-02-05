@@ -44,6 +44,11 @@ export class BemVindoPage extends PaginaBase {
 	private estatisticasDosSorteios = [];
 	private bd;
 
+	public filterQuery = "";
+	public rowsOnPage = 100;
+	public sortBy = "total";
+	public sortOrder = "asc";
+
 	constructor(private nav: NavController, private menu: MenuController, private concursoDAOServico: ConcursoDAOServico) {
 		super();
 		this.setTitulo("Bem Vindo");
