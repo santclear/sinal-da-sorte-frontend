@@ -73,7 +73,6 @@
 	</ion-list>
 </div>
 
-
 <ion-list>
 	<ion-list-header class="centralizar-texto" color="cabecalho">
 		<strong color="primary">Seletor de faixa de concursos:</strong>
@@ -106,8 +105,8 @@
 			</ion-label>
 		</ion-range>
 	</ion-item>
+	<ion-item></ion-item>
 </ion-list>
-
 
 <!--
 	<div class="row">
@@ -124,8 +123,6 @@
 	-->
 
 <div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="margem-automatica">
-	<div id="teste" class="espaco_vertical"></div>
-	
 	<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena.numero" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
 		{{dezena.numero}}
 	</button>
@@ -171,10 +168,10 @@
 							<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
 						</th>
 						<th class="selecionavel">
-							<mfDefaultSorter by="ausenciaTotal">Acúmulo remanescente</mfDefaultSorter>
+							<mfDefaultSorter by="acumuloRemanescente">Acúmulo remanescente</mfDefaultSorter>
 						</th>
 						<th class="selecionavel">
-							<mfDefaultSorter by="ausenciaTotal">Ausência remanescente</mfDefaultSorter>
+							<mfDefaultSorter by="ausenciaRemanescente">Ausência remanescente</mfDefaultSorter>
 						</th>
 					</tr>
 

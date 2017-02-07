@@ -71,11 +71,6 @@ export abstract class EstatisticaBase {
 		return dezenaFormatada == this.dezena;
 	}
 
-	selecioneDezena(iDezena, rdSorteios) {
-		let dezenaFormatada = this.dezenas[iDezena].numero;
-		this.dezena = dezenaFormatada;
-		this.atualizeOGrafico(rdSorteios);
-	}
 
 	cbxTipoDeGraficoAtualize(tipoDeGrafico) {
 
@@ -92,21 +87,31 @@ export abstract class EstatisticaBase {
 			this.bd.get('sessao').then(sessao => {
 				let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 				concursosPromise.then(concursos => {
-					if (this.rgeFaixaDeConcursos != undefined) {
-						if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
-							this.numeroDoConcursoFinal = this.extensaoDaFaixaDeConcurso - this.extensaoDaFaixaDeConcursoAnterior + this.rgeFaixaDeConcursos;
-							this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
-							this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
-						} else {
-							this.numeroDoConcursoFinal = concursos.maiorNumero;
-							this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
-							this.rgeFaixaDeConcursos = concursos.maiorNumero;
-						}
-					}
-					this.atualizeOGrafico(this.rdSorteios);
+					this.atualizeRotulosDoRgeFaixaDeConcursos(concursos);
 				});
 			});
 		}
+	}
+
+	atualizeRotulosDoRgeFaixaDeConcursos(concursos) {
+		if (this.rgeFaixaDeConcursos != undefined) {
+			if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
+				this.numeroDoConcursoFinal = this.extensaoDaFaixaDeConcurso - this.extensaoDaFaixaDeConcursoAnterior + this.rgeFaixaDeConcursos;
+				this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
+				this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
+			} else {
+				this.numeroDoConcursoFinal = concursos.maiorNumero;
+				this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
+				this.rgeFaixaDeConcursos = concursos.maiorNumero;
+			}
+		}
+		this.atualizeOGrafico(this.rdSorteios);
+	}
+
+	selecioneDezena(iDezena, rdSorteios) {
+		let dezenaFormatada = this.dezenas[iDezena].numero;
+		this.dezena = dezenaFormatada;
+		this.atualizeOGrafico(rdSorteios);
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {

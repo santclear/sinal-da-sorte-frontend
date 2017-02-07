@@ -20,7 +20,7 @@ export class EntidadeBDReceptor {
             .then(response => {
                 resolve(response.json());
             }).catch(erro => {
-				this.handleError(erro);
+				// this.handleError(erro);
 				resolve({estado: 'erro'});
 			});
 		});
@@ -28,7 +28,7 @@ export class EntidadeBDReceptor {
 		return concursosPromise;
     }
 
-    private handleError(error: any): any {
+    public handleError(error: any): any {
         console.error('Erro ao tentar obter o serviço ', error);
         return Promise.reject(error.message || error);
     }

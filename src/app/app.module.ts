@@ -2,7 +2,9 @@ import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { NavBarAgS } from '../componentes/navbar.ags';
+// import { EstatisticaAgs } from '../pages/estatistica/base/estatistica.ags';
 import { FrequenciaAcumuladaAgs } from '../pages/estatistica/frequencia-acumulada/frequencia-acumulada.ags';
+import { FrequenciaSomaDezenasAgs } from '../pages/estatistica/frequencia-soma-dezenas/frequencia-soma-dezenas.ags';
 import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
 import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { EstatisticaPage } from '../pages/estatistica/estatistica';
@@ -18,7 +20,9 @@ import { DataTableModule } from "angular2-datatable";
 	declarations: [
 		MyApp,
 		NavBarAgS,
+		// EstatisticaAgs,
 		FrequenciaAcumuladaAgs,
+		FrequenciaSomaDezenasAgs,
 		BemVindoPage,
 		EstatisticaPage,
 		SimuladorPage,
@@ -36,7 +40,9 @@ import { DataTableModule } from "angular2-datatable";
 	entryComponents: [
 		MyApp,
 		NavBarAgS,
+		// EstatisticaAgs,
 		FrequenciaAcumuladaAgs,
+		FrequenciaSomaDezenasAgs,
 		BemVindoPage,
 		EstatisticaPage,
 		SimuladorPage,
@@ -46,6 +52,6 @@ import { DataTableModule } from "angular2-datatable";
 		BolaoPage,
 		HistoricoDeApostasPage
 	],
-	providers: [ConcursoDAOServico, { provide: ErrorHandler, useClass: IonicErrorHandler}, { provide: LOCALE_ID, useValue: "pt-BR" }]
+	providers: [ConcursoDAOServico, { provide: ErrorHandler, useClass: IonicErrorHandler }, { provide: LOCALE_ID, useValue: "pt-BR" }]
 })
 export class AppModule { }
