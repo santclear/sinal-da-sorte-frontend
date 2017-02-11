@@ -7,9 +7,8 @@
 	(rgeDesloqueParaDireitaEFCOutput)="rgeDesloqueParaDireitaEFC($event)"
 	(toggleMostreMaisEstatisticasOutput)="toggleMostreMaisEstatisticas($event)"
 	(atualizeOGraficoOutput)="atualizeOGrafico($event)"
-	(selecioneDezenaOutput)="selecioneDezena($event)">
-	
-</ags-estatistica>
+	(selecioneDezenaOutput)="selecioneDezena($event)"></ags-estatistica>
+
 <div *ngIf="toggleMostrarMaisEstatisticasChecked">
 	<ion-list>
 		<ion-list-header color="cabecalho">
@@ -20,7 +19,6 @@
 			<div class="container-tabela margem-automatica">
 				<table [mfData]="frequenciasSorteio" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 					<tr>
-						<th></th>
 						<th class="selecionavel">
 							<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
 						</th>
@@ -39,7 +37,6 @@
 					</tr>
 
 					<tr *ngFor="let item of mf.data">
-						<td></td>
 						<td class="selecionavel">{{item.dezena}}</td>
 						<td class="selecionavel">{{item.frequenciaTotal}}</td>
 						<td class="selecionavel">{{item.ausenciaTotal}}</td>

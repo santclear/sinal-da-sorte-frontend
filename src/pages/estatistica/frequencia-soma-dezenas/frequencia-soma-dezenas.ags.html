@@ -7,4 +7,42 @@
 	(rgeDesloqueParaDireitaEFCOutput)="rgeDesloqueParaDireitaEFC($event)"
 	(toggleMostreMaisEstatisticasOutput)="toggleMostreMaisEstatisticas($event)"
 	(atualizeOGraficoOutput)="atualizeOGrafico($event)"
-	(selecioneDezenaOutput)="selecioneDezena($event)">
+	(selecioneDezenaOutput)="selecioneDezena($event)"></ags-estatistica>
+
+<div *ngIf="toggleMostrarMaisEstatisticasChecked">
+	<ion-list>
+		<ion-list-header color="cabecalho">
+			<strong color="primary">Soma das dezenas em cada concurso<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+		</ion-list-header>
+		
+		<ion-item>
+			<div class="container-tabela margem-automatica">
+				<table [mfData]="somaDasDezenasEmCadaConcurso" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+					<tr>
+						<th class="selecionavel">
+							<mfDefaultSorter by="concurso">Concurso</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="soma">Soma</mfDefaultSorter>
+						</th>
+					</tr>
+
+					<tr *ngFor="let item of mf.data">
+						<td class="selecionavel">{{item.concurso}}</td>
+						<td class="selecionavel">{{item.soma}}</td>
+					</tr>
+				</table>
+				<div class="espaco_vertical"></div>
+				<table class="container-tabela margem-automatica">
+					<th colspan="2">
+						Média da soma das dezenas em cada concurso
+					</th>
+					<tr>
+						<td>Média</td>
+						<td>{{mediaDaSomaDasDezenasEmCadaConcurso}}</td>
+					</tr>
+				</table>
+			</div>
+		</ion-item>
+	</ion-list>
+</div>

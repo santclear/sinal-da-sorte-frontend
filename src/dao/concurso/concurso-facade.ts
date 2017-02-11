@@ -40,6 +40,12 @@ export class ConcursoFacade {
 			dezena, pLoteria, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
 	}
 
+	procurePorConcursosDentroDoIntervalo(
+		nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
+		return this.concursoDAOServico.procurePorConcursosDentroDoIntervalo(
+			nomeDoDocumentoNoBD, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
+	}
+
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any {
 		return this.concursoDAOServico.procurePorUnicoConcurso(nomeDoDocumentoNoBD, numeroConcurso);
 	}

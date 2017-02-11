@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { NavController, LoadingController, Range} from 'ionic-angular';
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { LoadingController, Range} from 'ionic-angular';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
@@ -195,7 +195,8 @@ export class EstatisticaAgs {
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal,
 			rdSorteios: this.rdSorteios,
-			dezenas: this.dezenas})
+			dezenas: this.dezenas
+		})
 	}
 
 	atualizeOGrafico(rdSorteios: number): void {
@@ -206,7 +207,8 @@ export class EstatisticaAgs {
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
 			rdSorteios: this.rdSorteios,
-			dezenas: this.dezenas})
+			dezenas: this.dezenas
+		})
 	}
 
 	atualizeRotulosDoRgeFaixaDeConcursos(concursos: any): void {

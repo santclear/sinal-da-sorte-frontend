@@ -15,8 +15,7 @@ require('highcharts/modules/exporting')(hcharts);
 export class FrequenciaAcumuladaAgs extends EstatisticaBase implements EstatisticaI {
 
 	private frequencia: number[] = [];
-
-	private exibirPesquisasDeAmostraFrequencia: boolean = false;
+	
 	private frequenciaAbsolutaTotal: number;
 	private ausenciaAbsolutaTotal: number;
 	private acumuloRemanescente: number;
@@ -24,13 +23,17 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 
 	private frequenciasSorteio: any = [];
 
-	private filterQuery: string = '';
-	private rowsOnPage: number = 100;
-	private sortBy: string = 'total';
-	private sortOrder: string = 'asc';
+	private filterQuery: string;
+	private rowsOnPage: number;
+	private sortBy: string;
+	private sortOrder: string;
 
 	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
 		super(concursoDAOServico, loadingCtrl);
+		this.filterQuery = '';
+		this.rowsOnPage = 100;
+		this.sortBy = 'total';
+		this.sortOrder = 'asc';
     }
 
 	configureEstatistica(canvas: ElementRef, concursos: any, dezena: string, sessao: any, numeroDoSorteio: number, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, dezenas: string[]): void {
@@ -81,7 +84,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 
 					return `<b>Data do concurso: </b>` + this.point.concurso.dataDoSorteio +
 						`<br/><b>Concurso: </b>` + this.x +
-						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + dezena + ` foi sorteado)` +
+						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + this.dezena + ` foi sorteado)` +
 						`<br/><b>Números sorteados: </b>` + numerosSorteadosSort;
 				}
 			},
