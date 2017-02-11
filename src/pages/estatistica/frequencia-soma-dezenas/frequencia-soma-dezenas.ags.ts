@@ -3,16 +3,17 @@ import { LoadingController } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { EstatisticaBase } from '../base/estatistica.base';
 import { EstatisticaI } from '../base/estatistica.i';
+import lodash from 'lodash';
 
 declare var require: any;
 var hcharts = require('highcharts');
 require('highcharts/modules/exporting')(hcharts);
 
 @Component({
-	selector: 'ags-frequencia-acumulada',
-    templateUrl: 'frequencia-acumulada.ags.html'
+	selector: 'ags-frequencia-soma-dezenas',
+    templateUrl: 'frequencia-soma-dezenas.ags.html'
 })
-export class FrequenciaAcumuladaAgs extends EstatisticaBase implements EstatisticaI {
+export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements EstatisticaI {
 
 	private frequencia: number[] = [];
 
@@ -34,8 +35,8 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
     }
 
 	configureEstatistica(canvas: ElementRef, concursos: any, dezena: string, sessao: any, numeroDoSorteio: number, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, dezenas: string[]): void {
-		let frequenciasPorConcursos: { y: number, concurso: any }[] = [];
-		let rotulosDoEixoX: number[] = [];
+		let frequenciasPorConcursos = [];
+		let rotulosDoEixoX = [];
 		
 		this.frequenciaAbsolutaTotal = this.calculeFrequenciaAbsolutaTotal(concursos);
 		this.ausenciaAbsolutaTotal = this.calculeAusenciaAbsolutaTotal(concursos);
@@ -48,7 +49,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		this.acumuloRemanescente = this.procurePorAcumuloRemanescente(this.frequencia);
 		this.ausenciaRemanescente = this.calculeAusenciaRemanescente(this.frequencia);
 		
-		if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(dezena, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio, dezenas);
+		// if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(dezena, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio, dezenas);
 		// if(this.iptPesquisaDeAmostraFrequencia != undefined) this.atualizePesquisaDeFrequencia({target: {value: this.iptPesquisaDeAmostraFrequencia}});
 		
 		this.configureOGrafico(sessao, canvas, dezena, numeroDoSorteio, rotulosDoEixoX, frequenciasPorConcursos, numeroDoConcursoInicial, numeroDoConcursoFinal);
@@ -66,7 +67,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		
 		hcharts.chart(canvas.nativeElement, {
 			title: {
-				text: 'Frequência acumulada da dezena ' + dezena + ', entre o concurso ' + numeroDoConcursoInicial + ' e ' + numeroDoConcursoFinal,
+				text: 'Soma das dezenas no período, entre o concurso ' + numeroDoConcursoInicial + ' e ' + numeroDoConcursoFinal,
 				style: {
 					color: sessao.loteria.cor.escuro,
                 	fontWeight: 'bold'
@@ -81,13 +82,13 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 
 					return `<b>Data do concurso: </b>` + this.point.concurso.dataDoSorteio +
 						`<br/><b>Concurso: </b>` + this.x +
-						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + dezena + ` foi sorteado)` +
+						`<br/><b>Soma das dezenas: </b>` + this.y + ` (Somatório das dezenas do concurso ` + this.x + ` )` +
 						`<br/><b>Números sorteados: </b>` + numerosSorteadosSort;
 				}
 			},
 			yAxis: {
 				title: {
-					text: 'Frequência acumulada',
+					text: 'Soma das dezenas no período',
 					style: {
 						color: sessao.loteria.cor.escuro
 					}
@@ -184,22 +185,19 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 	}
 
 	private crieObjetoComPontosDoPlanoCartesiano(concursos: any): { y: number, concurso: any }[] {
-		let frequenciasPorConcursos: { y: number, concurso: any }[] = [];
-		let acumulador = 0;
+		let frequenciasPorConcursos = [];
 		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
-			if (concursos[iConcurso].dezenaEncontrada == 'sim') {
-				acumulador++;
-			} else {
-				acumulador = 0;
-			}
-			frequenciasPorConcursos.push({ y: acumulador, concurso: concursos[iConcurso] });
+			let dezenas = concursos[iConcurso].sorteios[0].numerosSorteados.split(';').map(Number);
+			let somaDezenas: number = lodash.sum(dezenas);
+			
+			frequenciasPorConcursos.push({ y: somaDezenas, concurso: concursos[iConcurso] });
 		}
 
 		return frequenciasPorConcursos;
 	}
 
 	private crieObjetoComRotulosDoGrafico(concursos: any): number[] {
-		let rotulosDoEixoX: number[] = [];
+		let rotulosDoEixoX = [];
 
 		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
 			rotulosDoEixoX.push(concursos[iConcurso].numero);
@@ -208,8 +206,8 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		return rotulosDoEixoX;
 	}
 
-	private crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos: { y: number, concurso: any }[]): number[] {
-		let frequencia: number[] = [];
+	private crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos): number[] {
+		let frequencia = [];
 		
 		frequenciasPorConcursos.forEach(frequenciaPorConcurso => {
 			frequencia.push(frequenciaPorConcurso.y);
@@ -218,7 +216,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		return frequencia;
 	}
 
-	private procurePorAcumuloRemanescente(frequenciasAcumuladas: number[]): number {
+	private procurePorAcumuloRemanescente(frequenciasAcumuladas): number {
 		let acumuloRemanescente: number = 0;
 		
 		for(let i = frequenciasAcumuladas.length - 1; i >= 0; i--) {
@@ -231,7 +229,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		return acumuloRemanescente;
 	}
 
-	private calculeAusenciaRemanescente(frequenciasAcumuladas: number[]): number {
+	private calculeAusenciaRemanescente(frequenciasAcumuladas): number {
 		let ausenciaRemanescente: number = 0;
 
 		for(let i = frequenciasAcumuladas.length - 1; i >= 0; i--) {
@@ -244,75 +242,4 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 
 		return ausenciaRemanescente;
 	}
-
-	// atualizePesquisaDeFrequencia(amostraDeFrequenciaEv) {
-	// 	let frequencia = JSON.stringify(this.frequencia).replace('[','').replace(']','');
-		
-	// 	let amostraDeFrequencia = amostraDeFrequenciaEv.target.value;
-	// 	if(amostraDeFrequencia != '' && amostraDeFrequencia != undefined) {
-	// 		let tamanhoDaAmostraDeFrequencia = amostraDeFrequencia.length;
-	// 		let valorDaUtimaPosicaoDaStringAmostraDeFrequencia = amostraDeFrequencia.substring(tamanhoDaAmostraDeFrequencia - 1);
-	// 		let previsaoPositiva;
-	// 		let previsaoNegativa;
-	// 		let somaPrevisaoPositiva: number;
-			
-	// 		if(valorDaUtimaPosicaoDaStringAmostraDeFrequencia == ',') {
-	// 			let valorDaPenultimaPosicaoDaStringAmostraDeFrequencia: number = amostraDeFrequencia.substring(tamanhoDaAmostraDeFrequencia - 2, tamanhoDaAmostraDeFrequencia - 1);
-	// 			somaPrevisaoPositiva = Number(valorDaPenultimaPosicaoDaStringAmostraDeFrequencia) + 1;
-	// 			previsaoPositiva = amostraDeFrequencia +''+ somaPrevisaoPositiva;
-	// 			previsaoNegativa = amostraDeFrequencia + '0';
-	// 		} else {
-	// 			somaPrevisaoPositiva = Number(valorDaUtimaPosicaoDaStringAmostraDeFrequencia) + 1;
-	// 			previsaoPositiva = amostraDeFrequencia +','+ somaPrevisaoPositiva;
-	// 			previsaoNegativa = amostraDeFrequencia + ',0';
-	// 		}
-			
-	// 		let regexAmostraDeFrequencia = new RegExp("(?=("+ amostraDeFrequencia +"))", "g");
-	// 		let regexPrevisaoPositiva = new RegExp("(?=("+ previsaoPositiva +"))", "g");
-	// 		let regexPrevisaoNegativa = new RegExp("(?=("+ previsaoNegativa +"))", "g");
-	// 		let matchAmostraDeFrequencia = frequencia.match(regexAmostraDeFrequencia);
-	// 		let matchPrevisaoPositiva = frequencia.match(regexPrevisaoPositiva);
-	// 		let matchPrevisaoNegativa = frequencia.match(regexPrevisaoNegativa);
-
-	// 		this.textoExtensaoDaFaixaDeConcursos = '';
-	// 		this.textoQuantidadeDeAmostrasDeFrequencia = '';
-	// 		this.textoPrevisaoPositiva = '';
-	// 		this.textoPrevisaoNegativa = '';
-	// 		this.textoExtensaoDaFaixaDeConcursos = ''+ this.extensaoDaFaixaDeConcurso;
-
-	// 		if(matchAmostraDeFrequencia != null) this.textoQuantidadeDeAmostrasDeFrequencia = ''+ matchAmostraDeFrequencia.length;
-	// 		else this.textoQuantidadeDeAmostrasDeFrequencia = ''+ 0;
-			
-	// 		if(matchPrevisaoPositiva != null) this.textoPrevisaoPositiva = ''+ matchPrevisaoPositiva.length;
-	// 		else this.textoPrevisaoPositiva = ''+ 0;
-			
-	// 		if(matchPrevisaoNegativa != null) this.textoPrevisaoNegativa = ''+ matchPrevisaoNegativa.length;
-	// 		else this.textoPrevisaoNegativa = ''+ 0;
-	// 	}
-	// }
-
-	// salvePesquisaDeAmostraFrequencia() {
-	// 	let pesquisaDeAmostraDeFrequencia = {
-	// 		dezena: this.dezena,
-	// 		extensaoDaFaixaDeConcurso: this.extensaoDaFaixaDeConcurso,
-	// 		amostrasDeFrequenciasEncontrada: this.textoQuantidadeDeAmostrasDeFrequencia,
-	// 		previsaoPositiva: this.textoPrevisaoPositiva,
-	// 		previsaoNegativa: this.textoPrevisaoNegativa,
-	// 		amostrasDeFrequenciasPesquisada: this.iptPesquisaDeAmostraFrequencia,
-	// 	};
-
-	// 	this.pesquisasDeAmostraFrequencia.push(pesquisaDeAmostraDeFrequencia);
-	// 	this.exibirPesquisasDeAmostraFrequencia = true;
-	// }
-
-	// excluaPesquisaDeAmostraDeFrequencia(iPesquisaDeAmostraDeFrequencia) {
-	// 	this.pesquisasDeAmostraFrequencia.splice(iPesquisaDeAmostraDeFrequencia, 1);
-	// 	if(this.pesquisasDeAmostraFrequencia.length < 1) {
-	// 		this.exibirPesquisasDeAmostraFrequencia = false;
-	// 	}
-	// }
-
-	// cancelePesquisaDeAmostraDeFrequencia() {
-	// 	this.exibirPesquisasDeAmostraFrequencia = false;
-	// }
 }

@@ -19,12 +19,12 @@ export abstract class Loterias {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/1'
     	},
 		tiposDeAcertos: ['15 Números','14 Números','13 Números','12 Números','11 Números'],
-		"dezenas": [
-			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
-			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
-			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
-			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
-			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'}
+		dezenas: [
+			'01','02','03','04','05',
+			'06','07','08','09','10',
+			'11','12','13','14','15',
+			'16','17','18','19','20',
+			'21','22','23','24','25'
 		]
 	};
 	static readonly MEGASENA = {
@@ -43,19 +43,19 @@ export abstract class Loterias {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/2'
     	},
 		tiposDeAcertos: ['Sena','Quina','Quadra'],
-		"dezenas": [
-			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
-			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
-			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
-			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
-			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
-			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
-			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
-			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
-			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
-			{numero: '46'},{numero: '47'},{numero: '48'},{numero: '49'},{numero: '50'},
-			{numero: '51'},{numero: '52'},{numero: '53'},{numero: '54'},{numero: '55'},
-			{numero: '56'},{numero: '57'},{numero: '58'},{numero: '59'},{numero: '60'}
+		dezenas: [
+			'01','02','03','04','05',
+			'06','07','08','09','10',
+			'11','12','13','14','15',
+			'16','17','18','19','20',
+			'21','22','23','24','25',
+			'26','27','28','29','30',
+			'31','32','33','34','35',
+			'36','37','38','39','40',
+			'41','42','43','44','45',
+			'46','47','48','49','50',
+			'51','52','53','54','55',
+			'56','57','58','59','60'
 		]
 	};
 	static readonly QUINA = {
@@ -74,23 +74,23 @@ export abstract class Loterias {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/3'
     	},
 		tiposDeAcertos: ['Quina','Quadra','Terno','Duque'],
-		"dezenas": [
-			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
-			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
-			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
-			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
-			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
-			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
-			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
-			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
-			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
-			{numero: '46'},{numero: '47'},{numero: '48'},{numero: '49'},{numero: '50'},
-			{numero: '51'},{numero: '52'},{numero: '53'},{numero: '54'},{numero: '55'},
-			{numero: '56'},{numero: '57'},{numero: '58'},{numero: '59'},{numero: '60'},
-			{numero: '61'},{numero: '62'},{numero: '63'},{numero: '64'},{numero: '65'},
-			{numero: '66'},{numero: '67'},{numero: '68'},{numero: '69'},{numero: '70'},
-			{numero: '71'},{numero: '72'},{numero: '73'},{numero: '74'},{numero: '75'},
-			{numero: '76'},{numero: '77'},{numero: '78'},{numero: '79'},{numero: '80'}
+		dezenas: [
+			'01','02','03','04','05',
+			'06','07','08','09','10',
+			'11','12','13','14','15',
+			'16','17','18','19','20',
+			'21','22','23','24','25',
+			'26','27','28','29','30',
+			'31','32','33','34','35',
+			'36','37','38','39','40',
+			'41','42','43','44','45',
+			'46','47','48','49','50',
+			'51','52','53','54','55',
+			'56','57','58','59','60',
+			'61','62','63','64','65',
+			'66','67','68','69','70',
+			'71','72','73','74','75',
+			'76','77','78','79','80'
 			
 		]
 	};
@@ -110,27 +110,27 @@ export abstract class Loterias {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/4'
     	},
 		tiposDeAcertos: ['20 Números','19 Números','18 Números','17 Números','16 Números','Nenhum número'],
-		"dezenas": [
-			{numero: '00'},{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},
-			{numero: '05'},{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},
-			{numero: '10'},{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},
-			{numero: '15'},{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},
-			{numero: '20'},{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},
-			{numero: '25'},{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},
-			{numero: '30'},{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},
-			{numero: '35'},{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},
-			{numero: '40'},{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},
-			{numero: '45'},{numero: '46'},{numero: '47'},{numero: '48'},{numero: '49'},
-			{numero: '50'},{numero: '51'},{numero: '52'},{numero: '53'},{numero: '54'},
-			{numero: '55'},{numero: '56'},{numero: '57'},{numero: '58'},{numero: '59'},
-			{numero: '60'},{numero: '61'},{numero: '62'},{numero: '63'},{numero: '64'},
-			{numero: '65'},{numero: '66'},{numero: '67'},{numero: '68'},{numero: '69'},
-			{numero: '70'},{numero: '71'},{numero: '72'},{numero: '73'},{numero: '74'},
-			{numero: '75'},{numero: '76'},{numero: '77'},{numero: '78'},{numero: '79'},
-			{numero: '80'},{numero: '81'},{numero: '82'},{numero: '83'},{numero: '84'},
-			{numero: '85'},{numero: '86'},{numero: '87'},{numero: '88'},{numero: '89'},
-			{numero: '90'},{numero: '91'},{numero: '92'},{numero: '93'},{numero: '94'},
-			{numero: '95'},{numero: '96'},{numero: '97'},{numero: '98'},{numero: '99'},
+		dezenas: [
+			'00','01','02','03','04',
+			'05','06','07','08','09',
+			'10','11','12','13','14',
+			'15','16','17','18','19',
+			'20','21','22','23','24',
+			'25','26','27','28','29',
+			'30','31','32','33','34',
+			'35','36','37','38','39',
+			'40','41','42','43','44',
+			'45','46','47','48','49',
+			'50','51','52','53','54',
+			'55','56','57','58','59',
+			'60','61','62','63','64',
+			'65','66','67','68','69',
+			'70','71','72','73','74',
+			'75','76','77','78','79',
+			'80','81','82','83','84',
+			'85','86','87','88','89',
+			'90','91','92','93','94',
+			'95','96','97','98','99',
 		]
 	};
 	static readonly TIMEMANIA = {
@@ -149,23 +149,23 @@ export abstract class Loterias {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/5'
     	},
 		tiposDeAcertos: ['7 Números','6 Números','5 Números','4 Números','3 Números','Time do Coração'],
-		"dezenas": [
-			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
-			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
-			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
-			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
-			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
-			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
-			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
-			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
-			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
-			{numero: '46'},{numero: '47'},{numero: '48'},{numero: '49'},{numero: '50'},
-			{numero: '51'},{numero: '52'},{numero: '53'},{numero: '54'},{numero: '55'},
-			{numero: '56'},{numero: '57'},{numero: '58'},{numero: '59'},{numero: '60'},
-			{numero: '61'},{numero: '62'},{numero: '63'},{numero: '64'},{numero: '65'},
-			{numero: '66'},{numero: '67'},{numero: '68'},{numero: '69'},{numero: '70'},
-			{numero: '71'},{numero: '72'},{numero: '73'},{numero: '74'},{numero: '75'},
-			{numero: '76'},{numero: '77'},{numero: '78'},{numero: '79'},{numero: '80'}
+		dezenas: [
+			'01','02','03','04','05',
+			'06','07','08','09','10',
+			'11','12','13','14','15',
+			'16','17','18','19','20',
+			'21','22','23','24','25',
+			'26','27','28','29','30',
+			'31','32','33','34','35',
+			'36','37','38','39','40',
+			'41','42','43','44','45',
+			'46','47','48','49','50',
+			'51','52','53','54','55',
+			'56','57','58','59','60',
+			'61','62','63','64','65',
+			'66','67','68','69','70',
+			'71','72','73','74','75',
+			'76','77','78','79','80'
 		]
 	};
 	static readonly DUPLASENA = {
@@ -184,17 +184,17 @@ export abstract class Loterias {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/6'
     	},
 		tiposDeAcertos: ['Sena','Quina','Quadra','Terno'],
-		"dezenas": [
-			{numero: '01'},{numero: '02'},{numero: '03'},{numero: '04'},{numero: '05'},
-			{numero: '06'},{numero: '07'},{numero: '08'},{numero: '09'},{numero: '10'},
-			{numero: '11'},{numero: '12'},{numero: '13'},{numero: '14'},{numero: '15'},
-			{numero: '16'},{numero: '17'},{numero: '18'},{numero: '19'},{numero: '20'},
-			{numero: '21'},{numero: '22'},{numero: '23'},{numero: '24'},{numero: '25'},
-			{numero: '26'},{numero: '27'},{numero: '28'},{numero: '29'},{numero: '30'},
-			{numero: '31'},{numero: '32'},{numero: '33'},{numero: '34'},{numero: '35'},
-			{numero: '36'},{numero: '37'},{numero: '38'},{numero: '39'},{numero: '40'},
-			{numero: '41'},{numero: '42'},{numero: '43'},{numero: '44'},{numero: '45'},
-			{numero: '46'},{numero: '47'},{numero: '48'},{numero: '49'},{numero: '50'},
+		dezenas: [
+			'01','02','03','04','05',
+			'06','07','08','09','10',
+			'11','12','13','14','15',
+			'16','17','18','19','20',
+			'21','22','23','24','25',
+			'26','27','28','29','30',
+			'31','32','33','34','35',
+			'36','37','38','39','40',
+			'41','42','43','44','45',
+			'46','47','48','49','50',
 		]
 	};
 	static readonly FAIXA_DE_CONCURSO = {

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {PaginaBase} from '../pagina.base';
+import { Component } from '@angular/core';
+import { PaginaBase } from '../pagina.base';
 
 @Component({
 	selector: 'pagina-estatistica',
@@ -7,11 +7,11 @@ import {PaginaBase} from '../pagina.base';
 })
 export class EstatisticaPage extends PaginaBase {
 	public cbxTipoDeGrafico: string = 'frequenciaAcumulada';
-	public tiposDeGrafico: any;
+	public tiposDeGrafico: {id: string, tipo: string}[];
 
 	constructor() {
 		super();
-        this.setTitulo("Estatística");
+        this.setTitulo('Estatística');
 
 		this.tiposDeGrafico = [
 			{id: 'frequenciaAcumulada', tipo: 'Acumulado'},
@@ -19,7 +19,7 @@ export class EstatisticaPage extends PaginaBase {
 		]
     }
 
-	cbxTipoDeGraficoAtualize(idTipoDeGrafico) {
-		this.cbxTipoDeGrafico = idTipoDeGrafico;
+	cbxTipoDeGraficoAtualize(tipoDeGrafico: string): void {
+		this.cbxTipoDeGrafico = tipoDeGrafico;
 	}
 }

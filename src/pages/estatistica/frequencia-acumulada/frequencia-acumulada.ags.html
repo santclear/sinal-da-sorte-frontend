@@ -1,0 +1,53 @@
+<ags-estatistica 
+	(cbxExtensaoDaFaixaDeConcursosAtualizeOutput)="cbxExtensaoDaFaixaDeConcursosAtualize($event)"
+	(rgeFaixaDeConcursosAtualizeOutput)="rgeFaixaDeConcursosAtualize($event)"
+	(rgeDesloqueParaEsquerdaOutput)="rgeDesloqueParaEsquerda($event)"
+	(rgeDesloqueParaDireitaOutput)="rgeDesloqueParaDireita($event)"
+	(rgeDesloqueParaEsquerdaEFCOutput)="rgeDesloqueParaEsquerdaEFC($event)"
+	(rgeDesloqueParaDireitaEFCOutput)="rgeDesloqueParaDireitaEFC($event)"
+	(toggleMostreMaisEstatisticasOutput)="toggleMostreMaisEstatisticas($event)"
+	(atualizeOGraficoOutput)="atualizeOGrafico($event)"
+	(selecioneDezenaOutput)="selecioneDezena($event)">
+	
+</ags-estatistica>
+<div *ngIf="toggleMostrarMaisEstatisticasChecked">
+	<ion-list>
+		<ion-list-header color="cabecalho">
+			<strong color="primary">Frequência das dezenas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+		</ion-list-header>
+		
+		<ion-item>
+			<div class="container-tabela margem-automatica">
+				<table [mfData]="frequenciasSorteio" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+					<tr>
+						<th></th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="frequenciaTotal">Frequência total</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="acumuloRemanescente">Acúmulo remanescente</mfDefaultSorter>
+						</th>
+						<th class="selecionavel">
+							<mfDefaultSorter by="ausenciaRemanescente">Ausência remanescente</mfDefaultSorter>
+						</th>
+					</tr>
+
+					<tr *ngFor="let item of mf.data">
+						<td></td>
+						<td class="selecionavel">{{item.dezena}}</td>
+						<td class="selecionavel">{{item.frequenciaTotal}}</td>
+						<td class="selecionavel">{{item.ausenciaTotal}}</td>
+						<td class="selecionavel">{{item.acumuloRemanescente}}</td>
+						<td class="selecionavel">{{item.ausenciaRemanescente}}</td>
+					</tr>
+				</table>
+			</div>
+		</ion-item>
+	</ion-list>
+</div>

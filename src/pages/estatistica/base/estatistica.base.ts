@@ -1,175 +1,137 @@
-import { NavController, LoadingController } from 'ionic-angular';
-import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
+import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
+import { LoadingController } from 'ionic-angular';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
-import { Loterias } from '../../../enum/loterias';
+import { ElementRef } from '@angular/core';
 
 export abstract class EstatisticaBase {
-
-	public cbxTipoDeGrafico: string;
-	public rgeFaixaDeConcursos: number;
-	public rgeFaixaDeConcursosMin: number;
-	public rgeFaixaDeConcursosMax: number;
-	public cbxExtensaoDaFaixaDeConcursos: number = 9;
-	public extensoesDaFaixaDeConcursos: any;
-	protected extensaoDaFaixaDeConcurso: number;
-	protected extensaoDaFaixaDeConcursoAnterior: number;
-	protected numeroDoConcursoInicial: number;
-	protected numeroDoConcursoFinal: number;
-	public sufixoCssLoteria: string;
-	public rdSorteios: number = 0;
-	public isDuplasena: boolean = false;
-	protected dezena: string = '01';
+	// protected textoExtensaoDaFaixaDeConcursos: string;
+	// protected textoQuantidadeDeAmostrasDeFrequencia: string;
+	// protected textoPrevisaoPositiva: string;
+	// protected textoPrevisaoNegativa: string;
+	// protected iptPesquisaDeAmostraFrequencia: string = '';
+	// protected exibirQuantidadeDeAmostrasDeFrequencia: boolean = false;
+	protected toggleMostrarMaisEstatisticasChecked: boolean = false;
 	protected bd: any;
-	public dezenas: any = [];
 	protected concursoFacade: ConcursoFacade;
-	protected frequenciasSorteio: any = [];
 
-	public filterQuery = "";
-	public rowsOnPage = 100;
-	public sortBy = "total";
-	public sortOrder = "asc";
+	// ngDoCheck() {
+	// 	if(this.iptPesquisaDeAmostraFrequencia == '' || this.iptPesquisaDeAmostraFrequencia == undefined) {
+	// 		this.textoExtensaoDaFaixaDeConcursos = '';
+	// 		this.textoQuantidadeDeAmostrasDeFrequencia = '';
+	// 		this.textoPrevisaoPositiva = '';
+	// 		this.textoPrevisaoNegativa = '';
+	// 		this.exibirQuantidadeDeAmostrasDeFrequencia = false;
+	// 	} else {
+	// 		this.exibirQuantidadeDeAmostrasDeFrequencia = true;
+	// 	}
+	// }
 
-	constructor(public nav: NavController, public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) { }
-
-	ngAfterViewInit() {
-		this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
 		this.bd = ConexaoFabrica.getConexao();
-		this.bd.get('sessao').then((sessao) => {
-			let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
-			concursosPromise.then(concursos => {
-				this.numeroDoConcursoInicial = concursos.maiorNumero -9;
-				this.numeroDoConcursoFinal = concursos.maiorNumero;
-				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
-				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
-				this.isDuplasena = this.sufixoCssLoteria === 'duplasena' ? true : false;
-				this.rdSorteios = 0;
-				this.dezenas = sessao.loteria.dezenas;
-				this.cbxExtensaoDaFaixaDeConcursosAtualize(this.cbxExtensaoDaFaixaDeConcursos);
-				this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
-				this.rgeFaixaDeConcursosMax = this.numeroDoConcursoFinal;
-				this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
+        this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+    }
 
-				this.atualizeOGrafico(this.rdSorteios);
-			});
-		});
+	cbxExtensaoDaFaixaDeConcursosAtualize(cbxExtensaoDaFaixaDeConcursosAtualizeOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.canvas,
+			dezena: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.dezena, 
+			numeroDoConcursoInicial: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.numeroDoConcursoFinal, 
+			rdSorteios: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.rdSorteios,
+			dezenas: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.dezenas});
 	}
 
-	atualizeOGrafico(numeroDoSorteio: number) {
-		this.bd.get('sessao').then(sessao => {
-			let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(this.dezena, sessao.loteria.nomeDoDocumentoNoBD, this.numeroDoConcursoInicial, this.numeroDoConcursoFinal, numeroDoSorteio);
-			concursosPromise.then(concursos => {
-				this.renderizeEstatistica(undefined, concursos, this.dezena, sessao, numeroDoSorteio);
-			});
-		});
+	rgeFaixaDeConcursosAtualize(rgeFaixaDeConcursosAtualizeOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: rgeFaixaDeConcursosAtualizeOutput.canvas,
+			dezena: rgeFaixaDeConcursosAtualizeOutput.dezena, 
+			numeroDoConcursoInicial: rgeFaixaDeConcursosAtualizeOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: rgeFaixaDeConcursosAtualizeOutput.numeroDoConcursoFinal, 
+			rdSorteios: rgeFaixaDeConcursosAtualizeOutput.rdSorteios,
+			dezenas: rgeFaixaDeConcursosAtualizeOutput.dezenas});
 	}
 
-	abstract renderizeEstatistica(maiorNumeroCallBack, concursosCallBack, dezena, sessao, numeroDoSorteio);
-
-	destaqueDezena(dezena) {
-		let dezenaFormatada = dezena.numero;
-		return dezenaFormatada == this.dezena;
+	rgeDesloqueParaEsquerda(rgeDesloqueParaEsquerdaOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: rgeDesloqueParaEsquerdaOutput.canvas,
+			dezena: rgeDesloqueParaEsquerdaOutput.dezena, 
+			numeroDoConcursoInicial: rgeDesloqueParaEsquerdaOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: rgeDesloqueParaEsquerdaOutput.numeroDoConcursoFinal, 
+			rdSorteios: rgeDesloqueParaEsquerdaOutput.rdSorteios,
+			dezenas: rgeDesloqueParaEsquerdaOutput.dezenas});
 	}
 
-
-	cbxTipoDeGraficoAtualize(tipoDeGrafico) {
-
+	rgeDesloqueParaDireita(rgeDesloqueParaDireitaOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: rgeDesloqueParaDireitaOutput.canvas,
+			dezena: rgeDesloqueParaDireitaOutput.dezena, 
+			numeroDoConcursoInicial: rgeDesloqueParaDireitaOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: rgeDesloqueParaDireitaOutput.numeroDoConcursoFinal, 
+			rdSorteios: rgeDesloqueParaDireitaOutput.rdSorteios,
+			dezenas: rgeDesloqueParaDireitaOutput.dezenas});
 	}
 
-	cbxExtensaoDaFaixaDeConcursosAtualize(valorExtensaoDaFaixaDeConcursos) {
-		if (this.extensoesDaFaixaDeConcursos != undefined) {
-			this.extensaoDaFaixaDeConcursoAnterior = this.extensaoDaFaixaDeConcurso;
-			this.extensaoDaFaixaDeConcurso = valorExtensaoDaFaixaDeConcursos;
-			this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
+	rgeDesloqueParaEsquerdaEFC(rgeDesloqueParaEsquerdaEFCOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: rgeDesloqueParaEsquerdaEFCOutput.canvas,
+			dezena: rgeDesloqueParaEsquerdaEFCOutput.dezena, 
+			numeroDoConcursoInicial: rgeDesloqueParaEsquerdaEFCOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: rgeDesloqueParaEsquerdaEFCOutput.numeroDoConcursoFinal, 
+			rdSorteios: rgeDesloqueParaEsquerdaEFCOutput.rdSorteios,
+			dezenas: rgeDesloqueParaEsquerdaEFCOutput.dezenas});
+	}
+
+	rgeDesloqueParaDireitaEFC(rgeDesloqueParaDireitaEFCOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: rgeDesloqueParaDireitaEFCOutput.canvas,
+			dezena: rgeDesloqueParaDireitaEFCOutput.dezena, 
+			numeroDoConcursoInicial: rgeDesloqueParaDireitaEFCOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: rgeDesloqueParaDireitaEFCOutput.numeroDoConcursoFinal, 
+			rdSorteios: rgeDesloqueParaDireitaEFCOutput.rdSorteios,
+			dezenas: rgeDesloqueParaDireitaEFCOutput.dezenas});
+	}
+
+	selecioneDezena(selecioneDezenaOutput: any): void {
+		this.atualizeOGrafico({
+			canvas: selecioneDezenaOutput.canvas,
+			dezena: selecioneDezenaOutput.dezena, 
+			numeroDoConcursoInicial: selecioneDezenaOutput.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: selecioneDezenaOutput.numeroDoConcursoFinal, 
+			rdSorteios: selecioneDezenaOutput.rdSorteios,
+			dezenas: selecioneDezenaOutput.dezenas});
+	}
+
+	toggleMostreMaisEstatisticas(toggleMostreMaisEstatisticasOutput: any): void {
+		this.toggleMostrarMaisEstatisticasChecked = toggleMostreMaisEstatisticasOutput.checked;
+		if(this.toggleMostrarMaisEstatisticasChecked) {
+			this.atualizeFrequênciasDasDezenas(
+				toggleMostreMaisEstatisticasOutput.dezena, 
+				toggleMostreMaisEstatisticasOutput.numeroDoConcursoInicial, 
+				toggleMostreMaisEstatisticasOutput.numeroDoConcursoFinal, 
+				toggleMostreMaisEstatisticasOutput.rdSorteios, 
+				toggleMostreMaisEstatisticasOutput.dezenas);
 		}
+	}
 
-		if (this.rgeFaixaDeConcursos != undefined) {
+	atualizeOGrafico(atualizeOGraficoOutput: any): void {
+		if(atualizeOGraficoOutput.rdSorteios !== undefined) {
 			this.bd.get('sessao').then(sessao => {
-				let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(atualizeOGraficoOutput.dezena, sessao.loteria.nomeDoDocumentoNoBD, atualizeOGraficoOutput.numeroDoConcursoInicial, atualizeOGraficoOutput.numeroDoConcursoFinal, atualizeOGraficoOutput.rdSorteios);
 				concursosPromise.then(concursos => {
-					this.atualizeRotulosDoRgeFaixaDeConcursos(concursos);
+					this.configureEstatistica(
+						atualizeOGraficoOutput.canvas, 
+						concursos, 
+						atualizeOGraficoOutput.dezena, 
+						sessao, atualizeOGraficoOutput.rdSorteios, 
+						atualizeOGraficoOutput.numeroDoConcursoInicial, 
+						atualizeOGraficoOutput.numeroDoConcursoFinal, 
+						atualizeOGraficoOutput.dezenas);
 				});
 			});
 		}
 	}
 
-	atualizeRotulosDoRgeFaixaDeConcursos(concursos) {
-		if (this.rgeFaixaDeConcursos != undefined) {
-			if (this.extensaoDaFaixaDeConcurso + this.rgeFaixaDeConcursos <= concursos.maiorNumero) {
-				this.numeroDoConcursoFinal = this.extensaoDaFaixaDeConcurso - this.extensaoDaFaixaDeConcursoAnterior + this.rgeFaixaDeConcursos;
-				this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
-				this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
-			} else {
-				this.numeroDoConcursoFinal = concursos.maiorNumero;
-				this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
-				this.rgeFaixaDeConcursos = concursos.maiorNumero;
-			}
-		}
-		this.atualizeOGrafico(this.rdSorteios);
-	}
-
-	selecioneDezena(iDezena, rdSorteios) {
-		let dezenaFormatada = this.dezenas[iDezena].numero;
-		this.dezena = dezenaFormatada;
-		this.atualizeOGrafico(rdSorteios);
-	}
-
-	rgeFaixaDeConcursosAtualize(concursoFinal) {
-		this.numeroDoConcursoInicial = concursoFinal.value - this.extensaoDaFaixaDeConcurso;
-		if(this.numeroDoConcursoInicial == 0) {
-			this.numeroDoConcursoInicial = 1;
-			this.numeroDoConcursoFinal = concursoFinal.value +1;
-			this.rgeFaixaDeConcursosMin = concursoFinal.value +1;
-		} else {
-			this.numeroDoConcursoFinal = concursoFinal.value;
-		}
-
-		this.atualizeOGrafico(this.rdSorteios);
-	}
-
-	rgeDesloqueParaEsquerda() {
-		if (this.rgeFaixaDeConcursos > this.rgeFaixaDeConcursosMin) {
-			this.numeroDoConcursoInicial--;
-			this.numeroDoConcursoFinal--;
-			this.rgeFaixaDeConcursos--;
-		}
-		this.atualizeOGrafico(this.rdSorteios);
-	}
-
-	rgeDesloqueParaDireita() {
-		if (this.rgeFaixaDeConcursos < this.rgeFaixaDeConcursosMax) {
-			this.numeroDoConcursoInicial++;
-			this.numeroDoConcursoFinal++;
-			this.rgeFaixaDeConcursos++;
-		}
-		this.atualizeOGrafico(this.rdSorteios);
-	}
-
-	rgeDesloqueParaEsquerdaEFC() {
-		let subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso
-		if (subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso >= this.rgeFaixaDeConcursosMin) {
-			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial - this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursos - this.extensaoDaFaixaDeConcurso;
-		} else {
-			this.numeroDoConcursoInicial = this.rgeFaixaDeConcursosMin - this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMin;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMin;
-		}
-		this.atualizeOGrafico(this.rdSorteios);
-	}
-
-	rgeDesloqueParaDireitaEFC() {
-		let sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso = this.numeroDoConcursoFinal + this.extensaoDaFaixaDeConcurso;
-		if (sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso <= this.rgeFaixaDeConcursosMax) {
-			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial + this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursos + this.extensaoDaFaixaDeConcurso;
-		} else {
-			this.numeroDoConcursoInicial = this.rgeFaixaDeConcursosMax - this.extensaoDaFaixaDeConcurso;
-			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMax;
-			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMax;
-		}
-		this.atualizeOGrafico(this.rdSorteios)
-	}
+	abstract configureEstatistica(canvas: ElementRef, concursos: any, dezena: string, sessao: any, numeroDoSorteio: number, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, dezenas: string[]): void;
+	abstract atualizeFrequênciasDasDezenas(dezena: string, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, numeroDoSorteio: number, dezenas: string[]): void;
 }
