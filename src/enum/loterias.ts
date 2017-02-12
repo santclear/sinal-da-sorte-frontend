@@ -1,5 +1,6 @@
 export abstract class Loterias {
 	static readonly DOMINIO = 'http://localhost:8084/';
+	// static readonly DOMINIO = 'http://192.168.0.12:8084/agente-da-sorte-servico/';
 	static readonly ENTIDADE_LOTERIA = {
 		urlLoterias: Loterias.DOMINIO + 'loterias/procure_por_id_maior_que/0'//FIXME: refatorar 0, talvez criar outro método na classe EntidadeBDServico
 	};

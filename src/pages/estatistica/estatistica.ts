@@ -24,7 +24,7 @@ export class EstatisticaPage extends PaginaBase {
 
 		bd.get('sessao').then((sessao) => {
 			let loteria = sessao.loteria.nomeDoDocumentoNoBD;
-			if(loteria === 'lotofacil' || loteria === 'lotomania') {
+			if(loteria === 'lotofacil') {
 				this.cbxTipoDeGrafico = 'frequenciaAcumulada';
 			} else {
 				this.cbxTipoDeGrafico = 'frequenciaSomaDezenas';

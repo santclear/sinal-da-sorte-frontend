@@ -24,9 +24,7 @@ export class EstatisticaAgs {
 	private numeroDoConcursoFinal: number;
 	private sufixoCssLoteria: string;
 	private isDuplasena: boolean = false;
-	private dezena: string = '01';
 	private bd: any;
-	private dezenas: string[] = [];
 	private concursoFacade: ConcursoFacade;
 	
 	@Output() canvasOutput = new EventEmitter();
@@ -51,7 +49,6 @@ export class EstatisticaAgs {
 				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
 				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
 				this.isDuplasena = this.sufixoCssLoteria === 'duplasena' ? true : false;
-				this.dezenas = sessao.loteria.dezenas;
 				this.cbxExtensaoDaFaixaDeConcursosAtualize(this.cbxExtensaoDaFaixaDeConcursos);
 				this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
 				this.rgeFaixaDeConcursosMax = this.numeroDoConcursoFinal;
@@ -75,7 +72,6 @@ export class EstatisticaAgs {
 					this.atualizeRotulosDoRgeFaixaDeConcursos(concursos);
 					this.cbxExtensaoDaFaixaDeConcursosAtualizeOutput.emit({
 						canvas: this.canvas, 
-						dezena: this.dezena, 
 						numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 						numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
 						rdSorteios: this.rdSorteios});
@@ -89,14 +85,12 @@ export class EstatisticaAgs {
 			this.rgeFaixaDeConcursosMin = concursoFinal.value +1;
 			this.rgeFaixaDeConcursosAtualizeOutput.emit({
 				canvas: this.canvas, 
-				dezena: this.dezena, 
 				numeroDoConcursoInicial: 1, 
 				numeroDoConcursoFinal: concursoFinal.value +1, 
 				rdSorteios: this.rdSorteios});
 		} else {
 			this.rgeFaixaDeConcursosAtualizeOutput.emit({
 				canvas: this.canvas, 
-				dezena: this.dezena, 
 				numeroDoConcursoInicial: concursoFinal.value - this.extensaoDaFaixaDeConcurso, 
 				numeroDoConcursoFinal: concursoFinal.value, 
 				rdSorteios: this.rdSorteios});
@@ -111,10 +105,8 @@ export class EstatisticaAgs {
 		}
 		this.rgeDesloqueParaEsquerdaOutput.emit({
 			canvas: this.canvas, 
-			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -126,10 +118,8 @@ export class EstatisticaAgs {
 		}
 		this.rgeDesloqueParaDireitaOutput.emit({
 			canvas: this.canvas, 
-			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -146,10 +136,8 @@ export class EstatisticaAgs {
 		}
 		this.rgeDesloqueParaEsquerdaEFCOutput.emit({
 			canvas: this.canvas, 
-			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -166,10 +154,8 @@ export class EstatisticaAgs {
 		}
 		this.rgeDesloqueParaDireitaEFCOutput.emit({
 			canvas: this.canvas, 
-			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -177,11 +163,9 @@ export class EstatisticaAgs {
 		this.rdSorteios = rdSorteios;
 		this.atualizeOGraficoOutput.emit({
 			canvas: this.canvas, 
-			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
 			rdSorteios: this.rdSorteios,
-			dezenas: this.dezenas,
 			sufixoCssLoteria: this.sufixoCssLoteria
 		})
 	}

@@ -1,7 +1,7 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "sinal-da-sorte",
+  "author": "Sant'Clear Soluções",
+  "homepage": "http://www.sinaldasorte.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -44,5 +44,5 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "agente-da-sorte: An Ionic project"
+  "description": "sinal-da-sorte: Sistema de Gestão e Estatística de Apostas Lotéricas"
 }
