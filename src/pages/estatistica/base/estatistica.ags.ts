@@ -10,9 +10,8 @@ import { Loterias } from '../../../enum/loterias';
     templateUrl: 'estatistica.ags.html'
 })
 export class EstatisticaAgs {
-	@ViewChild('grafico') protected canvas: ElementRef;
-
-	// public cbxTipoDeGrafico: string;
+	@ViewChild('grafico') private canvas: ElementRef;
+	
 	private rdSorteios: number = 0;
 	private cbxExtensaoDaFaixaDeConcursos: number = 9;
 	private extensoesDaFaixaDeConcursos: any;
@@ -115,7 +114,7 @@ export class EstatisticaAgs {
 			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rgeFaixaDeConcursos: this.rgeFaixaDeConcursos, 
+			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -130,7 +129,7 @@ export class EstatisticaAgs {
 			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rgeFaixaDeConcursos: this.rgeFaixaDeConcursos, 
+			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -150,7 +149,7 @@ export class EstatisticaAgs {
 			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rgeFaixaDeConcursos: this.rgeFaixaDeConcursos, 
+			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
 	}
 
@@ -170,33 +169,8 @@ export class EstatisticaAgs {
 			dezena: this.dezena, 
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rgeFaixaDeConcursos: this.rgeFaixaDeConcursos, 
+			dezenas: this.dezenas, 
 			rdSorteios: this.rdSorteios});
-	}
-
-	destaqueDezena(dezenaSelecionada: string): boolean {
-		return dezenaSelecionada == this.dezena;
-	}
-
-	selecioneDezena(iDezena: number, rdSorteios: number): void {
-		this.dezena = this.dezenas[iDezena];
-		this.selecioneDezenaOutput.emit({
-			canvas: this.canvas, 
-			dezena: this.dezena, 
-			numeroDoConcursoInicial: this.numeroDoConcursoInicial,
-			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rdSorteios: this.rdSorteios});
-	}
-
-	toggleMostreMaisEstatisticas(toggleMostrarMaisEstatisticas: any): void {
-		this.toggleMostreMaisEstatisticasOutput.emit({
-			checked: toggleMostrarMaisEstatisticas.checked,
-			dezena: this.dezena, 
-			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
-			numeroDoConcursoFinal: this.numeroDoConcursoFinal,
-			rdSorteios: this.rdSorteios,
-			dezenas: this.dezenas
-		})
 	}
 
 	atualizeOGrafico(rdSorteios: number): void {
@@ -207,7 +181,8 @@ export class EstatisticaAgs {
 			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
 			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
 			rdSorteios: this.rdSorteios,
-			dezenas: this.dezenas
+			dezenas: this.dezenas,
+			sufixoCssLoteria: this.sufixoCssLoteria
 		})
 	}
 

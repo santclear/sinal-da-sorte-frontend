@@ -5,6 +5,13 @@ import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
 import { ElementRef } from '@angular/core';
 
 export abstract class EstatisticaBase {
+	protected canvas: ElementRef;
+	protected dezena: string;
+	protected numeroDoConcursoInicial: number;
+	protected numeroDoConcursoFinal: number;
+	protected sufixoCssLoteria: string;
+	protected rdSorteios: number; 
+	protected dezenas: string[];
 	// protected textoExtensaoDaFaixaDeConcursos: string;
 	// protected textoQuantidadeDeAmostrasDeFrequencia: string;
 	// protected textoPrevisaoPositiva: string;
@@ -33,6 +40,13 @@ export abstract class EstatisticaBase {
     }
 
 	cbxExtensaoDaFaixaDeConcursosAtualize(cbxExtensaoDaFaixaDeConcursosAtualizeOutput: any): void {
+		this.canvas = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.canvas;
+		this.dezena = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.dezena; 
+		this.rdSorteios = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.rdSorteios;
+		this.numeroDoConcursoInicial = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.numeroDoConcursoInicial;
+		this.numeroDoConcursoFinal = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.numeroDoConcursoFinal;
+		this.dezenas = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.dezenas;
+
 		this.atualizeOGrafico({
 			canvas: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.canvas,
 			dezena: cbxExtensaoDaFaixaDeConcursosAtualizeOutput.dezena, 
@@ -43,6 +57,13 @@ export abstract class EstatisticaBase {
 	}
 
 	rgeFaixaDeConcursosAtualize(rgeFaixaDeConcursosAtualizeOutput: any): void {
+		this.canvas = rgeFaixaDeConcursosAtualizeOutput.canvas;
+		this.dezena = rgeFaixaDeConcursosAtualizeOutput.dezena; 
+		this.rdSorteios = rgeFaixaDeConcursosAtualizeOutput.rdSorteios;
+		this.numeroDoConcursoInicial = rgeFaixaDeConcursosAtualizeOutput.numeroDoConcursoInicial;
+		this.numeroDoConcursoFinal = rgeFaixaDeConcursosAtualizeOutput.numeroDoConcursoFinal;
+		this.dezenas = rgeFaixaDeConcursosAtualizeOutput.dezenas;
+
 		this.atualizeOGrafico({
 			canvas: rgeFaixaDeConcursosAtualizeOutput.canvas,
 			dezena: rgeFaixaDeConcursosAtualizeOutput.dezena, 
@@ -53,6 +74,13 @@ export abstract class EstatisticaBase {
 	}
 
 	rgeDesloqueParaEsquerda(rgeDesloqueParaEsquerdaOutput: any): void {
+		this.canvas = rgeDesloqueParaEsquerdaOutput.canvas;
+		this.dezena = rgeDesloqueParaEsquerdaOutput.dezena; 
+		this.rdSorteios = rgeDesloqueParaEsquerdaOutput.rdSorteios;
+		this.numeroDoConcursoInicial = rgeDesloqueParaEsquerdaOutput.numeroDoConcursoInicial;
+		this.numeroDoConcursoFinal = rgeDesloqueParaEsquerdaOutput.numeroDoConcursoFinal;
+		this.dezenas = rgeDesloqueParaEsquerdaOutput.dezenas;
+
 		this.atualizeOGrafico({
 			canvas: rgeDesloqueParaEsquerdaOutput.canvas,
 			dezena: rgeDesloqueParaEsquerdaOutput.dezena, 
@@ -63,6 +91,13 @@ export abstract class EstatisticaBase {
 	}
 
 	rgeDesloqueParaDireita(rgeDesloqueParaDireitaOutput: any): void {
+		this.canvas = rgeDesloqueParaDireitaOutput.canvas;
+		this.dezena = rgeDesloqueParaDireitaOutput.dezena; 
+		this.rdSorteios = rgeDesloqueParaDireitaOutput.rdSorteios;
+		this.numeroDoConcursoInicial = rgeDesloqueParaDireitaOutput.numeroDoConcursoInicial;
+		this.numeroDoConcursoFinal = rgeDesloqueParaDireitaOutput.numeroDoConcursoFinal;
+		this.dezenas = rgeDesloqueParaDireitaOutput.dezenas;
+
 		this.atualizeOGrafico({
 			canvas: rgeDesloqueParaDireitaOutput.canvas,
 			dezena: rgeDesloqueParaDireitaOutput.dezena, 
@@ -73,6 +108,13 @@ export abstract class EstatisticaBase {
 	}
 
 	rgeDesloqueParaEsquerdaEFC(rgeDesloqueParaEsquerdaEFCOutput: any): void {
+		this.canvas = rgeDesloqueParaEsquerdaEFCOutput.canvas;
+		this.dezena = rgeDesloqueParaEsquerdaEFCOutput.dezena; 
+		this.rdSorteios = rgeDesloqueParaEsquerdaEFCOutput.rdSorteios;
+		this.numeroDoConcursoInicial = rgeDesloqueParaEsquerdaEFCOutput.numeroDoConcursoInicial;
+		this.numeroDoConcursoFinal = rgeDesloqueParaEsquerdaEFCOutput.numeroDoConcursoFinal;
+		this.dezenas = rgeDesloqueParaEsquerdaEFCOutput.dezenas;
+
 		this.atualizeOGrafico({
 			canvas: rgeDesloqueParaEsquerdaEFCOutput.canvas,
 			dezena: rgeDesloqueParaEsquerdaEFCOutput.dezena, 
@@ -83,6 +125,13 @@ export abstract class EstatisticaBase {
 	}
 
 	rgeDesloqueParaDireitaEFC(rgeDesloqueParaDireitaEFCOutput: any): void {
+		this.canvas = rgeDesloqueParaDireitaEFCOutput.canvas;
+		this.dezena = rgeDesloqueParaDireitaEFCOutput.dezena; 
+		this.rdSorteios = rgeDesloqueParaDireitaEFCOutput.rdSorteios;
+		this.numeroDoConcursoInicial = rgeDesloqueParaDireitaEFCOutput.numeroDoConcursoInicial;
+		this.numeroDoConcursoFinal = rgeDesloqueParaDireitaEFCOutput.numeroDoConcursoFinal;
+		this.dezenas = rgeDesloqueParaDireitaEFCOutput.dezenas;
+
 		this.atualizeOGrafico({
 			canvas: rgeDesloqueParaDireitaEFCOutput.canvas,
 			dezena: rgeDesloqueParaDireitaEFCOutput.dezena, 
@@ -92,41 +141,69 @@ export abstract class EstatisticaBase {
 			dezenas: rgeDesloqueParaDireitaEFCOutput.dezenas});
 	}
 
-	selecioneDezena(selecioneDezenaOutput: any): void {
-		this.atualizeOGrafico({
-			canvas: selecioneDezenaOutput.canvas,
-			dezena: selecioneDezenaOutput.dezena, 
-			numeroDoConcursoInicial: selecioneDezenaOutput.numeroDoConcursoInicial, 
-			numeroDoConcursoFinal: selecioneDezenaOutput.numeroDoConcursoFinal, 
-			rdSorteios: selecioneDezenaOutput.rdSorteios,
-			dezenas: selecioneDezenaOutput.dezenas});
-	}
-
 	toggleMostreMaisEstatisticas(toggleMostreMaisEstatisticasOutput: any): void {
 		this.toggleMostrarMaisEstatisticasChecked = toggleMostreMaisEstatisticasOutput.checked;
 		if(this.toggleMostrarMaisEstatisticasChecked) {
 			this.atualizeFrequênciasDasDezenas(
-				toggleMostreMaisEstatisticasOutput.dezena, 
-				toggleMostreMaisEstatisticasOutput.numeroDoConcursoInicial, 
-				toggleMostreMaisEstatisticasOutput.numeroDoConcursoFinal, 
-				toggleMostreMaisEstatisticasOutput.rdSorteios, 
-				toggleMostreMaisEstatisticasOutput.dezenas);
+				this.dezena, 
+				this.numeroDoConcursoInicial, 
+				this.numeroDoConcursoFinal, 
+				this.rdSorteios, 
+				this.dezenas);
 		}
 	}
 
 	atualizeOGrafico(atualizeOGraficoOutput: any): void {
 		if(atualizeOGraficoOutput.rdSorteios !== undefined) {
 			this.bd.get('sessao').then(sessao => {
-				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(atualizeOGraficoOutput.dezena, sessao.loteria.nomeDoDocumentoNoBD, atualizeOGraficoOutput.numeroDoConcursoInicial, atualizeOGraficoOutput.numeroDoConcursoFinal, atualizeOGraficoOutput.rdSorteios);
+				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
+						atualizeOGraficoOutput.dezena, 
+						sessao.loteria.nomeDoDocumentoNoBD, 
+						atualizeOGraficoOutput.numeroDoConcursoInicial, 
+						atualizeOGraficoOutput.numeroDoConcursoFinal, 
+						atualizeOGraficoOutput.rdSorteios);
+
 				concursosPromise.then(concursos => {
+					this.canvas = atualizeOGraficoOutput.canvas;
+					this.dezena = atualizeOGraficoOutput.dezena; 
+					this.rdSorteios = atualizeOGraficoOutput.rdSorteios; 
+					this.numeroDoConcursoInicial = atualizeOGraficoOutput.numeroDoConcursoInicial;
+					this.numeroDoConcursoFinal = atualizeOGraficoOutput.numeroDoConcursoFinal;
+					this.dezenas = atualizeOGraficoOutput.dezenas;
+					this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
+
 					this.configureEstatistica(
 						atualizeOGraficoOutput.canvas, 
 						concursos, 
 						atualizeOGraficoOutput.dezena, 
-						sessao, atualizeOGraficoOutput.rdSorteios, 
+						sessao, 
+						atualizeOGraficoOutput.rdSorteios, 
 						atualizeOGraficoOutput.numeroDoConcursoInicial, 
 						atualizeOGraficoOutput.numeroDoConcursoFinal, 
 						atualizeOGraficoOutput.dezenas);
+				});
+			});
+		} else {
+			this.bd.get('sessao').then(sessao => {
+				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(
+						this.dezena, 
+						sessao.loteria.nomeDoDocumentoNoBD, 
+						this.numeroDoConcursoInicial, 
+						this.numeroDoConcursoFinal, 
+						atualizeOGraficoOutput);
+
+				concursosPromise.then(concursos => {
+					this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
+
+					this.configureEstatistica(
+						this.canvas,
+						concursos,
+						this.dezena,
+						sessao,
+						this.rdSorteios,
+						this.numeroDoConcursoInicial,
+						this.numeroDoConcursoFinal,
+						this.dezenas);
 				});
 			});
 		}

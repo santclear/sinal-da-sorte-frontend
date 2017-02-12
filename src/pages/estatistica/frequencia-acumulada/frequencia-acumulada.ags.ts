@@ -36,6 +36,21 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		this.sortOrder = 'asc';
     }
 
+	destaqueDezena(dezenaSelecionada: string): boolean {
+		return dezenaSelecionada == this.dezena;
+	}
+
+	selecioneDezena(iDezena: number, rdSorteios: number): void {
+		this.dezena = this.dezenas[iDezena];
+		this.atualizeOGrafico({
+			canvas: this.canvas,
+			dezena: this.dezena, 
+			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
+			rdSorteios: rdSorteios,
+			dezenas: this.dezenas});
+	}
+
 	configureEstatistica(canvas: ElementRef, concursos: any, dezena: string, sessao: any, numeroDoSorteio: number, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, dezenas: string[]): void {
 		let frequenciasPorConcursos: { y: number, concurso: any }[] = [];
 		let rotulosDoEixoX: number[] = [];
