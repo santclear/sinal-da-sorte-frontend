@@ -51,13 +51,13 @@ export class MyApp {
 					this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
 					this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
 					this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
-					this.paginaInicial = EstatisticaPage;
+					this.paginaInicial = BemVindoPage;
 					this.paginas = this.getPaginas(resultadoQuery.novo);
 				} else {
 					this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 					this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
 					this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
-					this.paginaInicial = EstatisticaPage;
+					this.paginaInicial = BemVindoPage;
 					this.paginas = this.getPaginas(resultadoQuery.antigo);
 				}
 
