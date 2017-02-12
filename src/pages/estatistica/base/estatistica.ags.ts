@@ -65,7 +65,7 @@ export class EstatisticaAgs {
 	cbxExtensaoDaFaixaDeConcursosAtualize(valorExtensaoDaFaixaDeConcursos: number): void {
 		if (this.extensoesDaFaixaDeConcursos != undefined) {
 			this.extensaoDaFaixaDeConcursoAnterior = this.extensaoDaFaixaDeConcurso;
-			this.extensaoDaFaixaDeConcurso = valorExtensaoDaFaixaDeConcursos;
+			this.extensaoDaFaixaDeConcurso = Number(valorExtensaoDaFaixaDeConcursos);
 			this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
 		}
 
