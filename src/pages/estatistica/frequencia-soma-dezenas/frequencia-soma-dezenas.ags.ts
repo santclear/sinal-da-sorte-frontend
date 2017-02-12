@@ -35,7 +35,7 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 		let frequenciasPorConcursos = [];
 		let rotulosDoEixoX = [];
 
-		frequenciasPorConcursos = this.crieObjetoComPontosDoPlanoCartesiano(concursos);
+		frequenciasPorConcursos = this.crieObjetoComPontosDoPlanoCartesiano(concursos, numeroDoSorteio);
 		rotulosDoEixoX = this.crieObjetoComRotulosDoGrafico(concursos);
 		
 		if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(dezena, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio, dezenas);
@@ -76,7 +76,7 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 			},
 			yAxis: {
 				title: {
-					text: 'Soma das dezenas no período',
+					text: 'Soma das dezenas',
 					style: {
 						color: sessao.loteria.cor.escuro
 					}
@@ -103,7 +103,7 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 				categories: rotulosDoEixoX
 			},
 			series: [{
-				name: 'Soma das dezenas do concurso ',
+				name: 'Soma das dezenas no período',
 				data: frequenciasPorConcursos,
 				zones: [{
 					color: sessao.loteria.cor.escuro
@@ -132,7 +132,7 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 
 			concursosPromise.then(concursos => {
 				concursos.forEach((concurso, i, concursos) => {
-					let soma: number = this.calculeSomaDasDezenas(concurso);
+					let soma: number = this.calculeSomaDasDezenas(concurso, numeroDoSorteio);
 
 					this.somaDasDezenasEmCadaConcurso.push({
 						concurso: concurso.numero,
@@ -147,10 +147,10 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 		});
 	}
 
-	private crieObjetoComPontosDoPlanoCartesiano(concursos: any): { y: number, concurso: any }[] {
+	private crieObjetoComPontosDoPlanoCartesiano(concursos: any, numeroDoSorteio: number): { y: number, concurso: any }[] {
 		let frequenciasPorConcursos = [];
 		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
-			let dezenas = concursos[iConcurso].sorteios[0].numerosSorteados.split(';').map(Number);
+			let dezenas = concursos[iConcurso].sorteios[numeroDoSorteio].numerosSorteados.split(';').map(Number);
 			let somaDezenas: number = lodash.sum(dezenas);
 			
 			frequenciasPorConcursos.push({ y: somaDezenas, concurso: concursos[iConcurso] });
@@ -169,8 +169,8 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 		return rotulosDoEixoX;
 	}
 
-	private calculeSomaDasDezenas(concurso: any): number {
-		let dezenas = concurso.sorteios[0].numerosSorteados.split(';').map(Number);
+	private calculeSomaDasDezenas(concurso: any, numeroDoSorteio: number): number {
+		let dezenas = concurso.sorteios[numeroDoSorteio].numerosSorteados.split(';').map(Number);
 		return lodash.sum(dezenas);
 	}
 }
