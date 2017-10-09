@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {IConcursoDAO} from './iconcurso-dao';
-import {ConexaoFabrica} from '../util/conexao-fabrica';
-import {EntidadeBD} from '../util/sincronismo/entidade-bd';
-import {ComandoConcurso} from './comando-concurso';
-import {Loterias} from '../../enum/loterias';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { IConcursoDAO } from './iconcurso-dao';
+import { ConexaoFabrica } from '../util/conexao-fabrica';
+import { EntidadeBD } from '../util/sincronismo/entidade-bd';
+import { ComandoConcurso } from './comando-concurso';
+import { Loterias } from '../../enum/loterias';
 import lodash from 'lodash';
 
 
@@ -100,7 +100,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 	// 				// descartar
 	// 				let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
 	// 				let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
-					
+
 	// 				resolve({frequenciaTotal: contagemDaDezenaNosConcursos.true, frequenciaTotalPorCento: frequenciaTotalPorCento});
 	// 			} else {
 	// 				resolve([]);
@@ -129,8 +129,8 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					// descartar
 					// let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
 					// let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
-					
-					resolve({total: contagemDaDezenaNosConcursos.true/*, frequenciaTotalPorCento: frequenciaTotalPorCento*/});
+
+					resolve({ total: contagemDaDezenaNosConcursos.true/*, frequenciaTotalPorCento: frequenciaTotalPorCento*/ });
 				} else {
 					resolve([]);
 				}
@@ -158,8 +158,8 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					// descartar
 					// let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
 					// let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
-					
-					resolve({total: contagemDaDezenaNosConcursos.true/*, frequenciaTotalPorCento: frequenciaTotalPorCento*/});
+
+					resolve({ total: contagemDaDezenaNosConcursos.true/*, frequenciaTotalPorCento: frequenciaTotalPorCento*/ });
 				} else {
 					resolve([]);
 				}
@@ -170,21 +170,21 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return concursosPromise;
 	}
 
-	atualize(concurso): void {}
+	atualize(concurso): void { }
 
 	atualizeComEstatisticas(parametrosDeServico, estatisticas): any {
 		return new Promise(resolve => {
 			this.bd.get(parametrosDeServico.nomeDoDocumentoNoBD).then(concursosAntigo => {
-					// Caso já tenha sido inserido um dado
-					let concursos = {
-						_id: parametrosDeServico.nomeDoDocumentoNoBD,
-						_rev: concursosAntigo._rev,
-						concursos: concursosAntigo.concursos,
-						estatisticas: estatisticas
-					}
-					// Atualiza com novos dados
-					this.bd.put(concursos);
-					return concursosAntigo;
+				// Caso já tenha sido inserido um dado
+				let concursos = {
+					_id: parametrosDeServico.nomeDoDocumentoNoBD,
+					_rev: concursosAntigo._rev,
+					concursos: concursosAntigo.concursos,
+					estatisticas: estatisticas
+				}
+				// Atualiza com novos dados
+				this.bd.put(concursos);
+				return concursosAntigo;
 			}).then(concursosAntigo => {
 				this.bd.allDocs({
 					include_docs: true,
@@ -333,18 +333,18 @@ export class ConcursoDAOServico implements IConcursoDAO {
 	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any {
 
 		return new Promise(resolve => {
-			this.http.get(Loterias.DOMINIO +'concursos/calcule_frequencias_totais_das_dezenas/'+ loteriaId +'&'+ numeroDoSorteio)
-            .toPromise()
-            .then(response => {
-                resolve(response.json());
-            }).catch(this.handleError);
+			this.http.get(Loterias.DOMINIO + 'concursos/calcule_frequencias_totais_das_dezenas/' + loteriaId + '&' + numeroDoSorteio)
+				.toPromise()
+				.then(response => {
+					resolve(response.json());
+				}).catch(this.handleError);
 		});
 	}
 
 	private handleError(error: any): any {
-        console.error('Erro ao tentar obter o serviço ', error);
-        return Promise.reject(error.message || error);
-    }
+		console.error('Erro ao tentar obter o serviço ', error);
+		return Promise.reject(error.message || error);
+	}
 
 	// Sincronismo
 	sincronize(loterias): any {

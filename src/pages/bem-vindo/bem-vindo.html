@@ -78,9 +78,9 @@
 				<div class="container-tabela">
 					<table [mfData]="sorteio.rateios" #mfRateios="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 						<tr>
-							<th class="selecionavel"><mfDefaultSorter by="tipoDePremio">Tipo</mfDefaultSorter></th>
-							<th class="selecionavel"><mfDefaultSorter by="numeroDeGanhadores">Ganhadores</mfDefaultSorter></th>
-							<th class="selecionavel"><mfDefaultSorter by="rateio">Valor do rateio</mfDefaultSorter></th>
+							<th><mfDefaultSorter by="tipoDePremio">Tipo</mfDefaultSorter></th>
+							<th><mfDefaultSorter by="numeroDeGanhadores">Ganhadores</mfDefaultSorter></th>
+							<th><mfDefaultSorter by="rateio">Valor do rateio</mfDefaultSorter></th>
 						</tr>
 
 						<tr *ngFor="let rateio of mfRateios.data; let iRateio = index">
@@ -92,12 +92,12 @@
 					<div class="espaco_vertical"></div>
 					<table *ngIf="exibeGanhadoresDoPremioPrincipal && iSorteio < 1">
 						<tr>
-							<th colspan="3" class="selecionavel">Ganhadores do prêmio {{tipoDoPremioPrincipal}}</th>
+							<th colspan="3">Ganhadores do prêmio {{tipoDoPremioPrincipal}}</th>
 						</tr>
 						
 						<tr>
-							<th class="selecionavel">Ganhadores</th>
-							<th colspan="2" class="selecionavel">Cidades/UF</th>
+							<th>Ganhadores</th>
+							<th colspan="2">Cidades/UF</th>
 						</tr>
 							
 						<tr *ngFor="let cidadeEEstadoDoGanhador of cidadesEEstadosDosGanhadoresDoPremioPrincipal">
@@ -120,9 +120,9 @@
 				<div class="container-tabela">
 					<table [mfData]="estatisticas" #mfFrequenciaTotal="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 						<tr>
-							<th class="selecionavel"><mfDefaultSorter by="dezena">Dezena</mfDefaultSorter></th>
-							<th class="selecionavel"><mfDefaultSorter by="frequencia">Frequência total</mfDefaultSorter></th>
-							<th class="selecionavel"><mfDefaultSorter by="frequenciaPorCento">%</mfDefaultSorter></th>
+							<th><mfDefaultSorter by="dezena">Dezena</mfDefaultSorter></th>
+							<th><mfDefaultSorter by="frequencia">Frequência total</mfDefaultSorter></th>
+							<th><mfDefaultSorter by="frequenciaPorCento">%</mfDefaultSorter></th>
 						</tr>
 
 						<tr *ngFor="let estatistica of mfFrequenciaTotal.data">

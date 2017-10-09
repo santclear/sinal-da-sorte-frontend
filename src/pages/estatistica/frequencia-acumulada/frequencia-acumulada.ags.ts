@@ -32,8 +32,8 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 		super(concursoDAOServico, loadingCtrl);
 		this.filterQuery = '';
 		this.rowsOnPage = 100;
-		this.sortBy = 'total';
-		this.sortOrder = 'asc';
+		this.sortBy = 'frequenciaTotal';
+		this.sortOrder = 'desc';
     }
 
 	destaqueDezena(dezenaSelecionada: string): boolean {
@@ -99,7 +99,7 @@ export class FrequenciaAcumuladaAgs extends EstatisticaBase implements Estatisti
 
 					return `<b>Data do concurso: </b>` + this.point.concurso.dataDoSorteio +
 						`<br/><b>Concurso: </b>` + this.x +
-						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + this.dezena + ` foi sorteado)` +
+						`<br/><b>Frequência acumulada: </b>` + this.y + ` (Quantidade de vezes consecutivas que o número ` + dezena + ` foi sorteado)` +
 						`<br/><b>Números sorteados: </b>` + numerosSorteadosSort;
 				}
 			},

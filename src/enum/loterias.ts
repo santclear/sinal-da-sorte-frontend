@@ -1,5 +1,6 @@
 export abstract class Loterias {
-	static readonly DOMINIO = 'http://localhost:8084/';
+	static readonly DOMINIO = 'http://localhost:8080/';
+	// static readonly DOMINIO = 'http://localhost:8084/agente-da-sorte-servico/';
 	// static readonly DOMINIO = 'http://192.168.0.12:8084/agente-da-sorte-servico/';
 	static readonly ENTIDADE_LOTERIA = {
 		urlLoterias: Loterias.DOMINIO + 'loterias/procure_por_id_maior_que/0'//FIXME: refatorar 0, talvez criar outro método na classe EntidadeBDServico
@@ -203,7 +204,7 @@ export abstract class Loterias {
 			{id: 9, valor: 10}, {id: 19, valor: 20}, {id: 29, valor: 30}, {id: 39, valor: 40}, {id: 49, valor: 50}, 
 			{id: 59, valor: 60}, {id: 69, valor: 70}, {id: 79, valor: 80}, {id: 89, valor: 90}, {id: 99, valor: 100}, 
 			{id: 149, valor: 150}, {id: 199, valor: 200}, {id: 249, valor: 250}, {id: 299, valor: 300}, {id: 349, valor: 350}, 
-			{id: 399, valor: 400}, {id: 449, valor: 450}, {id: 499, valor: 500}
+			{id: 399, valor: 400}, {id: 449, valor: 450}, {id: 499, valor: 500}, {id: 999, valor: 1000}
 		]
 	};
 }

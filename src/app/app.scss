@@ -1,6 +1,4 @@
-// http://ionicframework.com/docs/v2/theming/
-
-
+// http://ionicframework.com/docs/theming/
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,107 +12,110 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 ags-navbar + ion-content > div.scroll-content {
-	margin-top: 56px !important;
+    margin-top: 56px !important;
 }
 
 // .margemSuperior {
 // 	margin-top: 55px;
 // }
-
-.cor-primaria-componente, th {
-	color: #4b0069!important;
+.cor-primaria-componente,
+th {
+    color: #4b0069!important;
 }
 
 th {
-	font-size: 11pt;
-	color: #444!important;
+    font-size: 11pt;
+    color: #444!important;
 }
 
 td {
-	color: #444;
+    color: #444;
 }
 
 .fundo-componente {
-	background-color: #eee!important; 
+    background-color: #eee!important;
 }
 
 .sem-margem {
-	margin: 0 !important;
+    margin: 0 !important;
 }
 
 .selecionavel {
-	-webkit-user-select: all !important;
-	-moz-user-select: all !important;
-	-ms-user-select: all !important;
+    -webkit-user-select: all !important;
+    -moz-user-select: all !important;
+    -ms-user-select: all !important;
 }
 
 .margem-esquerda {
-	margin-left: 5px;
+    margin-left: 5px;
 }
 
 ion-card-content {
-	background-color: #eee;;
+    background-color: #eee;
+    ;
 }
 
 .card-subtitle {
-	color: #4b0069;
+    color: #4b0069;
 }
 
 .card-title {
-	color: white;
+    color: white;
 }
 
 .quandro-informativo td {
-	color: #4b0069;
-	font-size: 16px;
+    color: #4b0069;
+    font-size: 16px;
 }
 
 .quandro-informativo span {
-	color: #4b0069;
-	margin-left: 5px;
+    color: #4b0069;
+    margin-left: 5px;
 }
 
-.tabela th, .tabela td {
-	text-align: center;
+.tabela th,
+.tabela td {
+    text-align: center;
 }
 
 .largura-botao-controle {
-	width: 21px !important;
+    width: 21px !important;
 }
 
 .label-botao-controle-altura {
-	height: 29px !important;
+    height: 29px !important;
 }
 
 .label-botao-controle-largura .button-inner {
-	width: 28px;
+    width: 28px;
 }
 
 .espaco_vertical {
-	margin-bottom: 17px;
+    margin-bottom: 17px;
 }
 
 .select-largura-maxima {
-	width: 270px;
+    width: 270px;
 }
 
 .alinhar-direita {
-	float: right;
+    float: right;
 }
 
 .clear-alinhar-direita {
-	clear: right;
+    clear: right;
 }
 
 .margem-automatica {
-	margin: auto;
+    margin: auto;
 }
 
 .centralizar-texto {
-	text-align: center;
+    text-align: center;
 }
+
+
 /*              escuro		claro
 lotofacil		#930089		#c87fc3
 megasena		#209869		#8fcbb3
@@ -128,12 +129,15 @@ timemania		#02ff02		#99ff99
 .backgroundEscuroLotofacil {
     background-color: #930089 !important;
 }
+
 .backgroundClaroLotofacil {
     background-color: #c87fc3 !important;
 }
+
 .colorEscuroLotofacil {
     color: #930089 !important;
 }
+
 .colorClaroLotofacil {
     color: #c87fc3 !important;
 }
@@ -142,12 +146,15 @@ timemania		#02ff02		#99ff99
 .backgroundEscuroMegaSena {
     background-color: #209869 !important;
 }
+
 .backgroundClaroMegaSena {
     background-color: #8fcbb3 !important;
 }
+
 .colorEscuroMegaSena {
     color: #209869 !important;
 }
+
 .colorClaroMegaSena {
     color: #8fcbb3 !important;
 }
@@ -156,12 +163,15 @@ timemania		#02ff02		#99ff99
 .backgroundEscuroQuina {
     background-color: #260085 !important;
 }
+
 .backgroundClaroQuina {
     background-color: #927fc1 !important;
 }
+
 .colorEscuroQuina {
     color: #260085 !important;
 }
+
 .colorClaroQuina {
     color: #927fc1 !important;
 }
@@ -169,15 +179,18 @@ timemania		#02ff02		#99ff99
 // Lotomania
 .backgroundEscuroLotomania {
     // background-color: #f78100 !important;
-	background-color: #e16e00 !important;
+    background-color: #e16e00 !important;
 }
+
 .backgroundClaroLotomania {
     background-color: #fabf7f !important;
 }
+
 .colorEscuroLotomania {
     // color: #f78100 !important;
-	color: #e16e00 !important;
+    color: #e16e00 !important;
 }
+
 .colorClaroLotomania {
     color: #fabf7f !important;
 }
@@ -186,12 +199,15 @@ timemania		#02ff02		#99ff99
 .backgroundEscuroDuplaSena {
     background-color: #a61324 !important;
 }
+
 .backgroundClaroDuplaSena {
     background-color: #d28891 !important;
 }
+
 .colorEscuroDuplaSena {
     color: #a61324 !important;
 }
+
 .colorClaroDuplaSena {
     color: #d28891 !important;
 }
@@ -199,17 +215,135 @@ timemania		#02ff02		#99ff99
 //Timemania
 .backgroundEscuroTimemania {
     // background-color: #02ff02 !important;
-	background-color: #008c00 !important;
+    background-color: #008c00 !important;
 }
+
 .backgroundClaroTimemania {
     // background-color: #99ff99 !important;
-	background-color: #99ff99 !important;
+    background-color: #99ff99 !important;
 }
+
 .colorEscuroTimemania {
     // color: #02ff02 !important;
-	color: #008c00 !important;
+    color: #008c00 !important;
 }
+
 .colorClaroTimemania {
     // color: #99ff99 !important;
-	color: #99ff99 !important;
+    color: #99ff99 !important;
+}
+
+// Bootstrap
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.pagination > li {
+    display: inline;
+}
+
+.pagination > li >a,
+.pagination >li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    z-index: 2;
+    color: #23527c;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.pagination-lg > li > a,
+.pagination-lg > li > span {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+}
+
+.pagination-lg > li:first-child > a,
+.pagination-lg > li:first-child > span {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.pagination-lg > li:last-child > a,
+.pagination-lg > li:last-child > span {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.pagination-sm > li > a,
+.pagination-sm > li > span {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.pagination-sm > li:first-child > a,
+.pagination-sm > li:first-child > span {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.pagination-sm > li:last-child > a,
+.pagination-sm > li:last-child > span {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.pull-right {
+    float: right !important;
 }

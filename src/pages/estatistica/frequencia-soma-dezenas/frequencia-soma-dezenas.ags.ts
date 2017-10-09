@@ -17,18 +17,23 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 
 	private somaDasDezenasEmCadaConcurso: any = [];
 	private mediaDaSomaDasDezenasEmCadaConcurso: number;
+	private quantidadesDeSomas: {soma: number, quantidade: number}[] = [];
 
 	private filterQuery: string;
 	private rowsOnPage: number;
 	private sortBy: string;
 	private sortOrder: string;
+	private sortBy2: string;
+	private sortOrder2: string;
 
 	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
 		super(concursoDAOServico, loadingCtrl);
 		this.filterQuery = '';
 		this.rowsOnPage = 100;
-		this.sortBy = 'total';
+		this.sortBy = 'soma';
 		this.sortOrder = 'asc';
+		this.sortBy2 = 'quantidade';
+		this.sortOrder2 = 'desc';
     }
 
 	configureEstatistica(canvas: ElementRef, concursos: any, dezena: string, sessao: any, numeroDoSorteio: number, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, dezenas: string[]): void {
@@ -127,20 +132,41 @@ export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements Estatis
 		this.bd.get('sessao').then(sessao => {
 			this.somaDasDezenasEmCadaConcurso = [];
 			let somas: number[] = [];
+			this.quantidadesDeSomas = [];
+			let quantidadesDeSomasMap: Map<number, number> = new Map<number, number>();
 
 			let concursosPromise = this.concursoFacade.procurePorConcursosDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio);
 
 			concursosPromise.then(concursos => {
 				concursos.forEach((concurso, i, concursos) => {
 					let soma: number = this.calculeSomaDasDezenas(concurso, numeroDoSorteio);
+					let numerosSorteados = concurso.sorteios[numeroDoSorteio].numerosSorteados;
+					let numerosSorteadosSplit = numerosSorteados.split(';');
+					let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
 
 					this.somaDasDezenasEmCadaConcurso.push({
 						concurso: concurso.numero,
-						soma: soma
+						soma: soma,
+						dezenas: numerosSorteadosSort
 					});
+					
+					let quantidade: number = quantidadesDeSomasMap.get(soma);
+					if(quantidade !== undefined) {
+						quantidade++;
+						quantidadesDeSomasMap.set(soma, quantidade);
+					} else {
+						quantidadesDeSomasMap.set(soma, 1);
+					}
+
 					somas.push(soma);
-					if (i == concursos.length - 1) loading.dismiss();
+					if (i == concursos.length - 1) {
+						quantidadesDeSomasMap.forEach((quantidade, soma) => {
+							this.quantidadesDeSomas.push({soma: soma, quantidade: quantidade});
+						});
+						loading.dismiss()
+					};
 				});
+
 				this.mediaDaSomaDasDezenasEmCadaConcurso = lodash.mean(somas);
 			});
 

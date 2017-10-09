@@ -44,19 +44,19 @@
 			<div class="container-tabela margem-automatica">
 				<table [mfData]="frequenciasSorteio" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 					<tr>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
 						</th>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="frequenciaTotal">Frequência total</mfDefaultSorter>
 						</th>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
 						</th>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="acumuloRemanescente">Acúmulo remanescente</mfDefaultSorter>
 						</th>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="ausenciaRemanescente">Ausência remanescente</mfDefaultSorter>
 						</th>
 					</tr>
@@ -68,6 +68,11 @@
 						<td class="selecionavel">{{item.acumuloRemanescente}}</td>
 						<td class="selecionavel">{{item.ausenciaRemanescente}}</td>
 					</tr>
+					<tr>
+						<td colspan="2">
+							<mfBootstrapPaginator [rowsOnPageSet]="[25,50,100]"></mfBootstrapPaginator>
+						</td>
+                	</tr>
 				</table>
 			</div>
 		</ion-item>

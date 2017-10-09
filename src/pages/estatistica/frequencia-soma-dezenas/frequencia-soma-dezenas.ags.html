@@ -36,18 +36,27 @@
 			<div class="container-tabela margem-automatica">
 				<table [mfData]="somaDasDezenasEmCadaConcurso" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
 					<tr>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="concurso">Concurso</mfDefaultSorter>
 						</th>
-						<th class="selecionavel">
+						<th>
 							<mfDefaultSorter by="soma">Soma</mfDefaultSorter>
+						</th>
+						<th>
+							<mfDefaultSorter by="dezenas">Dezenas</mfDefaultSorter>
 						</th>
 					</tr>
 
 					<tr *ngFor="let item of mf.data">
 						<td class="selecionavel">{{item.concurso}}</td>
 						<td class="selecionavel">{{item.soma}}</td>
+						<td class="selecionavel">{{item.dezenas}}</td>
 					</tr>
+					<tr>
+						<td colspan="3">
+							<mfBootstrapPaginator [rowsOnPageSet]="[25,50,100]"></mfBootstrapPaginator>
+						</td>
+                	</tr>
 				</table>
 				<div class="espaco_vertical"></div>
 				<table class="container-tabela margem-automatica">
@@ -56,8 +65,38 @@
 					</th>
 					<tr>
 						<td>Média</td>
-						<td>{{mediaDaSomaDasDezenasEmCadaConcurso}}</td>
+						<td>{{mediaDaSomaDasDezenasEmCadaConcurso | number:'1.'}}</td>
 					</tr>
+				</table>
+			</div>
+		</ion-item>
+	</ion-list>
+	<ion-list>
+		<ion-list-header color="cabecalho">
+			<strong color="primary">Quantidades de somas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+		</ion-list-header>
+		
+		<ion-item>
+			<div class="container-tabela margem-automatica">
+				<table [mfData]="quantidadesDeSomas" #mf2="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy2" [(mfSortOrder)]="sortOrder2">
+					<tr>
+						<th>
+							<mfDefaultSorter by="soma">Soma</mfDefaultSorter>
+						</th>
+						<th>
+							<mfDefaultSorter by="quantidade">Quantidade</mfDefaultSorter>
+						</th>
+					</tr>
+
+					<tr *ngFor="let item of mf2.data">
+						<td class="selecionavel">{{item.soma}}</td>
+						<td class="selecionavel">{{item.quantidade}}</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<mfBootstrapPaginator [rowsOnPageSet]="[25,50,100]"></mfBootstrapPaginator>
+						</td>
+                	</tr>
 				</table>
 			</div>
 		</ion-item>

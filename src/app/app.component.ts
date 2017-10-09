@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
 import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { EstatisticaPage } from '../pages/estatistica/estatistica';
@@ -30,7 +31,13 @@ export class MyApp {
 	private menuAtivo: string;
 	private bd: any;
 
-	constructor(public plataforma: Platform, public menu: MenuController, public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
+	constructor(public plataforma: Platform,
+		public menu: MenuController,
+		public concursoDAOServico: ConcursoDAOServico,
+		public loadingCtrl: LoadingController,
+		public statusBar: StatusBar,
+		public splashScreen: SplashScreen) {
+
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.loterias = [
@@ -65,11 +72,11 @@ export class MyApp {
 			});
 		});
 	}
-	
+
 	initializeApp() {
 		this.plataforma.ready().then(() => {
-			StatusBar.styleDefault();
-			Splashscreen.hide();
+			this.statusBar.styleDefault();
+			this.splashScreen.hide();
 		});
 	}
 
@@ -184,7 +191,7 @@ export class MyApp {
 	}
 
 	private getPaginas(estadoSessao) {
-		let cor = ''+ estadoSessao.loteria.cor.escuro +'';
+		let cor = '' + estadoSessao.loteria.cor.escuro + '';
 		return [
 			{ sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: BemVindoPage, icone: 'home', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: EstatisticaPage, icone: 'trending-up', corTexto: cor, exibir_texto: 'none' },
@@ -197,3 +204,4 @@ export class MyApp {
 		];
 	}
 }
+
