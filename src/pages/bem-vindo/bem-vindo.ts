@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
-import {NavController, MenuController} from 'ionic-angular';
-import {PaginaBase} from '../pagina.base';
-import {ConexaoFabrica} from '../../dao/util/conexao-fabrica';
-import {ConcursoFacade} from '../../dao/concurso/concurso-facade';
-import {ConcursoDAOServico} from '../../dao/concurso/concurso-dao.servico';
-import {Loterias} from '../../enum/loterias';
+import { Component } from '@angular/core';
+import { PaginaBase } from '../pagina.base';
+import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
+import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
+import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
+import { Loterias } from '../../enum/loterias';
 import lodash from 'lodash';
 
 @Component({
@@ -49,7 +48,7 @@ export class BemVindoPage extends PaginaBase {
 	public sortBy = "total";
 	public sortOrder = "asc";
 
-	constructor(private nav: NavController, private menu: MenuController, private concursoDAOServico: ConcursoDAOServico) {
+	constructor(private concursoDAOServico: ConcursoDAOServico) {
 		super();
 		this.setTitulo("Bem Vindo");
 
@@ -118,13 +117,13 @@ export class BemVindoPage extends PaginaBase {
 	}
 
 	valideSeLotofacilOuLotomania(sessao) {
-		return	sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOFACIL.nomeDoDocumentoNoBD || 
-				sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOMANIA.nomeDoDocumentoNoBD ? true : false;
+		return sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOFACIL.nomeDoDocumentoNoBD ||
+			sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOMANIA.nomeDoDocumentoNoBD ? true : false;
 	}
 
 	valideSeDiferenteDeLotomaniaETimemania(sessao) {
-		return	sessao.loteria.nomeDoDocumentoNoBD !== Loterias.LOTOMANIA.nomeDoDocumentoNoBD && 
-				sessao.loteria.nomeDoDocumentoNoBD !== Loterias.TIMEMANIA.nomeDoDocumentoNoBD ? true : false;
+		return sessao.loteria.nomeDoDocumentoNoBD !== Loterias.LOTOMANIA.nomeDoDocumentoNoBD &&
+			sessao.loteria.nomeDoDocumentoNoBD !== Loterias.TIMEMANIA.nomeDoDocumentoNoBD ? true : false;
 	}
 
 	valideSeTimemania(sessao) {
@@ -148,9 +147,9 @@ export class BemVindoPage extends PaginaBase {
 
 			this.sufixoCssLoteriaSelecionada = sessao.loteria.sufixoCssLoteria;
 			this.nomeDaLoteria = sessao.loteria.nome;
-					
+
 			this.dezenas = this.ordeneDezenasEmOrdemCrescente(concurso.sorteios[0].numerosSorteados);
-			if(this.valideSeDuplaSena(sessao)) {
+			if (this.valideSeDuplaSena(sessao)) {
 				this.dezenasSorteio2 = this.ordeneDezenasEmOrdemCrescente(concurso.sorteios[1].numerosSorteados);
 				this.exibeDezenasSorteio2DuplaSena = true;
 			} else {
@@ -165,7 +164,7 @@ export class BemVindoPage extends PaginaBase {
 					let rateioAtualizado = rateio;
 					rateioAtualizado['tipoDePremio'] = sessao.loteria.tiposDeAcertos[j];
 					rateiosAtualizados.push(rateioAtualizado);
-					if(i == 0 && j == 0) {
+					if (i == 0 && j == 0) {
 						this.tipoDoPremioPrincipal = sessao.loteria.tiposDeAcertos[j];
 						this.valorDoPremioPrincipal = rateio.rateio;
 						this.numeroDeGanhadoresDoPremioPrincipal = rateio.numeroDeGanhadores;
@@ -174,41 +173,41 @@ export class BemVindoPage extends PaginaBase {
 				});
 				this.sorteios[i]['rateios'] = rateiosAtualizados;
 			});
-			
+
 			concurso.sorteios.forEach(sorteio => {
 				this.dezenasEmOrdemCrescente.push(this.ordeneDezenasEmOrdemCrescente(sorteio.numerosSorteados));
 			});
-			
+
 
 			let cidadesDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.cidade.split(';'), '');
 			let ufsDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.uf.split(';'), '');
 			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
 			cidadesDosGanhadoresDoPremioPrincipal.forEach((cidadeDoGanhadorDoPremioPrincipal, i, array) => {
 				cidadeDoGanhadorDoPremioPrincipal = lodash.lowerCase(cidadeDoGanhadorDoPremioPrincipal);
-				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push(lodash.startCase(cidadeDoGanhadorDoPremioPrincipal) +'/'+ lodash.upperCase(ufsDosGanhadoresDoPremioPrincipal[i]));
+				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push(lodash.startCase(cidadeDoGanhadorDoPremioPrincipal) + '/' + lodash.upperCase(ufsDosGanhadoresDoPremioPrincipal[i]));
 				this.exibeGanhadoresDoPremioPrincipal = true;
 			});
 			let mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal = new Map();
 			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.forEach(cidadeEEstatadoDoGanhadoreDoPremioPrincipal => {
 				let cidadeEEstatadoEncontrado: number = mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.get(cidadeEEstatadoDoGanhadoreDoPremioPrincipal);
-				mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.set(cidadeEEstatadoDoGanhadoreDoPremioPrincipal, cidadeEEstatadoEncontrado != undefined ? cidadeEEstatadoEncontrado + 1: 1);
+				mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.set(cidadeEEstatadoDoGanhadoreDoPremioPrincipal, cidadeEEstatadoEncontrado != undefined ? cidadeEEstatadoEncontrado + 1 : 1);
 			});
 			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
 			mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.forEach((valor, chave) => {
-				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push({quantidade: valor, nome: chave})
+				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push({ quantidade: valor, nome: chave })
 			});
-			
-			if(this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.length == 0) this.exibeGanhadoresDoPremioPrincipal = false;
-			
 
-			if(this.valideSeTimemania(sessao)) {
+			if (this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.length == 0) this.exibeGanhadoresDoPremioPrincipal = false;
+
+
+			if (this.valideSeTimemania(sessao)) {
 				this.timeDoCoracao = this.dezenas[this.dezenas.length - 1];
 				this.dezenas.pop();
 				this.exibeTimeDoCoracao = true;
 			} else {
 				this.exibeTimeDoCoracao = false;
 			}
-					
+
 			this.exibeDezenasComQuebraDeLinha = this.valideSeLotofacilOuLotomania(sessao);
 			this.exibeAcumuladoEspecial = this.valideSeDiferenteDeLotomaniaETimemania(sessao);
 
