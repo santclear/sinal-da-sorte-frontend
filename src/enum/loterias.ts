@@ -2,9 +2,6 @@ export abstract class Loterias {
 	static readonly DOMINIO = 'http://localhost:8080/';
 	// static readonly DOMINIO = 'http://localhost:8084/agente-da-sorte-servico/';
 	// static readonly DOMINIO = 'http://192.168.0.12:8084/agente-da-sorte-servico/';
-	static readonly ENTIDADE_LOTERIA = {
-		urlLoterias: Loterias.DOMINIO + 'loterias/procure_por_id_maior_que/0'//FIXME: refatorar 0, talvez criar outro método na classe EntidadeBDServico
-	};
 	static readonly LOTOFACIL = {
 		id: 1,
 		sufixoCssLoteria: 'Lotofacil',
@@ -18,7 +15,7 @@ export abstract class Loterias {
 			escuro: '#930089'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/1'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
 		tiposDeAcertos: ['15 Números','14 Números','13 Números','12 Números','11 Números'],
 		dezenas: [
@@ -42,7 +39,7 @@ export abstract class Loterias {
 			escuro: '#209869'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/2'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
 		tiposDeAcertos: ['Sena','Quina','Quadra'],
 		dezenas: [
@@ -73,7 +70,7 @@ export abstract class Loterias {
 			escuro: '#260085'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/3'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
 		tiposDeAcertos: ['Quina','Quadra','Terno','Duque'],
 		dezenas: [
@@ -109,7 +106,7 @@ export abstract class Loterias {
 			escuro: '#e16e00'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/4'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
 		tiposDeAcertos: ['20 Números','19 Números','18 Números','17 Números','16 Números','Nenhum número'],
 		dezenas: [
@@ -148,7 +145,7 @@ export abstract class Loterias {
 			escuro: '#008c00'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/5'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
 		tiposDeAcertos: ['7 Números','6 Números','5 Números','4 Números','3 Números','Time do Coração'],
 		dezenas: [
@@ -183,7 +180,7 @@ export abstract class Loterias {
 			escuro: '#a61324'
 		},
 		parametrosDeServicosWeb: {
-			urlDoServico: Loterias.DOMINIO +  'concursos/procure_por_loteria_id_igual_a_e_numero_maior_que_e_sorteio_numero_igual_a/6'
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
 		tiposDeAcertos: ['Sena','Quina','Quadra','Terno'],
 		dezenas: [

@@ -9,6 +9,7 @@ export class EntidadeBD {
     public sincronize(loterias, comandoSincronizar: IComandoSincronizar ): any {
 		let entidadeBDReceptorServico = new EntidadeBDReceptor(this.http);
 		entidadeBDReceptorServico.$urlDoServico = loterias.parametrosDeServicosWeb.urlDoServico;
+		entidadeBDReceptorServico.$parametro1 = loterias.id;
         return comandoSincronizar.execute(loterias, entidadeBDReceptorServico);
     }
 }
