@@ -8,8 +8,8 @@ import { PaginaBase } from '../pagina.base';
     templateUrl: 'estatistica.html'
 })
 export class EstatisticaPage extends PaginaBase {
-	private cbxTipoDeGrafico: string = 'frequenciaAcumulada';
-	private tiposDeGrafico: {id: string, tipo: string}[];
+	public cbxTipoDeGrafico: string = 'frequenciaAcumulada';
+	public tiposDeGrafico: {id: string, tipo: string}[];
 
 	constructor() {
 		super();

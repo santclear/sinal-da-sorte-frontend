@@ -363,7 +363,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
 					resolve({ maiorNumero: concurso.numero });
 				} else {
-					resolve(0);
+					resolve({ maiorNumero: 0 });
 				}
 			}).catch(function (erro) {
 				console.log(erro);

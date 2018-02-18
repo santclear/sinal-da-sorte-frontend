@@ -10,22 +10,22 @@ import { Loterias } from '../../../enum/loterias';
     templateUrl: 'estatistica.ags.html'
 })
 export class EstatisticaAgs {
-	@ViewChild('grafico') private canvas: ElementRef;
+	@ViewChild('grafico') public canvas: ElementRef;
 	
-	private rdSorteios: number = 0;
-	private cbxExtensaoDaFaixaDeConcursos: number = 9;
-	private extensoesDaFaixaDeConcursos: any;
-	private extensaoDaFaixaDeConcurso: number;
-	private extensaoDaFaixaDeConcursoAnterior: number;
-	private rgeFaixaDeConcursos: number;
-	private rgeFaixaDeConcursosMin: number;
-	private rgeFaixaDeConcursosMax: number;
-	private numeroDoConcursoInicial: number;
-	private numeroDoConcursoFinal: number;
-	private sufixoCssLoteria: string;
-	private isDuplasena: boolean = false;
-	private bd: any;
-	private concursoFacade: ConcursoFacade;
+	public rdSorteios: number = 0;
+	public cbxExtensaoDaFaixaDeConcursos: number = 9;
+	public extensoesDaFaixaDeConcursos: any;
+	public extensaoDaFaixaDeConcurso: number;
+	public extensaoDaFaixaDeConcursoAnterior: number;
+	public rgeFaixaDeConcursos: number;
+	public rgeFaixaDeConcursosMin: number;
+	public rgeFaixaDeConcursosMax: number;
+	public numeroDoConcursoInicial: number;
+	public numeroDoConcursoFinal: number;
+	public sufixoCssLoteria: string;
+	public isDuplasena: boolean = false;
+	public bd: any;
+	public concursoFacade: ConcursoFacade;
 	
 	@Output() canvasOutput = new EventEmitter();
 	@Output() cbxExtensaoDaFaixaDeConcursosAtualizeOutput = new EventEmitter();

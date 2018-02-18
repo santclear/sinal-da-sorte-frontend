@@ -24,7 +24,7 @@ export class ComandoConcurso implements IComandoSincronizar {
 	}
 
 	private baixeResultadosRemoto(maiorNumeroEntreOsConcursos: number, entidadeBDReceptor: EntidadeBDReceptor, loteria): any {
-
+		
 		let resultadosRemotoPromise = entidadeBDReceptor.baixeResultadosRemoto(maiorNumeroEntreOsConcursos);
 
 		let resultadoSalveTodosPromise = new Promise(resolve => {

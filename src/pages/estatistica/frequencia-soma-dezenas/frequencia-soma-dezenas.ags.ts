@@ -15,16 +15,16 @@ require('highcharts/modules/exporting')(hcharts);
 })
 export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements EstatisticaI {
 
-	private somaDasDezenasEmCadaConcurso: any = [];
-	private mediaDaSomaDasDezenasEmCadaConcurso: number;
-	private quantidadesDeSomas: {soma: number, quantidade: number}[] = [];
+	public somaDasDezenasEmCadaConcurso: any = [];
+	public mediaDaSomaDasDezenasEmCadaConcurso: number;
+	public quantidadesDeSomas: {soma: number, quantidade: number}[] = [];
 
-	private filterQuery: string;
-	private rowsOnPage: number;
-	private sortBy: string;
-	private sortOrder: string;
-	private sortBy2: string;
-	private sortOrder2: string;
+	public filterQuery: string;
+	public rowsOnPage: number;
+	public sortBy: string;
+	public sortOrder: string;
+	public sortBy2: string;
+	public sortOrder2: string;
 
 	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
 		super(concursoDAOServico, loadingCtrl);

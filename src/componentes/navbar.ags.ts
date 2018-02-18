@@ -15,7 +15,6 @@ export class NavBarAgS {
 
 	constructor() {
 		this.bd = ConexaoFabrica.getConexao();
-		
 		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			this.logoSelecionado = resultadoQuery.antigo.loteria.logo;
 			this.nomeDaLoteria = resultadoQuery.antigo.loteria.nome;

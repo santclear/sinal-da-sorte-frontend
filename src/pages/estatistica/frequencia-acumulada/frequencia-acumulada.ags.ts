@@ -14,19 +14,19 @@ require('highcharts/modules/exporting')(hcharts);
 })
 export class FrequenciaAcumuladaAgs extends EstatisticaBase implements EstatisticaI {
 
-	private frequencia: number[] = [];
+	public frequencia: number[] = [];
 	
-	private frequenciaAbsolutaTotal: number;
-	private ausenciaAbsolutaTotal: number;
-	private acumuloRemanescente: number;
-	private ausenciaRemanescente: number;
+	public frequenciaAbsolutaTotal: number;
+	public ausenciaAbsolutaTotal: number;
+	public acumuloRemanescente: number;
+	public ausenciaRemanescente: number;
 
-	private frequenciasSorteio: any = [];
+	public frequenciasSorteio: any = [];
 
-	private filterQuery: string;
-	private rowsOnPage: number;
-	private sortBy: string;
-	private sortOrder: string;
+	public filterQuery: string;
+	public rowsOnPage: number;
+	public sortBy: string;
+	public sortOrder: string;
 
 	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
 		super(concursoDAOServico, loadingCtrl);
