@@ -30,6 +30,7 @@ import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
 import { AuthService } from '../services/auth.service';
 import { MenuService } from '../services/menu.service';
 import { StorageService } from '../services/storage.service';
+import { ContaService } from '../services/conta.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 
 import { DataTableModule } from "angular2-datatable";
@@ -83,6 +84,7 @@ import { DataTableModule } from "angular2-datatable";
 		MenuService,
 		ErrorInterceptorProvider,
 		StorageService,
+		ContaService,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }
 	]

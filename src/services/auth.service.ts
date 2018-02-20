@@ -34,10 +34,10 @@ export class AuthService {
 			token: tok,
 			email: this.jwtHelper.decodeToken(tok).sub
 		};
-		this.storage.setLocalUser(conta);
+		this.storage.setContaLocal(conta);
 	}
 
 	logout() {
-		this.storage.setLocalUser(null);
+		this.storage.setContaLocal(null);
 	}
 }
