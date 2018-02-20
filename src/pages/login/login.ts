@@ -32,6 +32,7 @@ export class LoginPage {
 	login() {
 		this.auth.authenticate(this.credenciais)
 			.subscribe(response => {
+					this.auth.successfulLogin(response.headers.get('Authorization'));
 					let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[0]);
 					resultadoSincronizePromise.then(resultadoSincronize => {
 							this.navCtrl.setRoot(BemVindoPage);

@@ -2,13 +2,15 @@ import { Injectable } from "@angular/core";
 import { CredenciaisDTO } from "../dtos/credenciais.dto";
 import { HttpClient } from "@angular/common/http";
 import { Loterias } from "../enum/loterias";
+import { StorageService } from './storage.service';
+import { ContaLocalDTO } from '../dtos/conta-local.dto';
 
 
 //TODO: 2. Sevice para autenticação
 @Injectable()
 export class AuthService {
 
-	constructor(public http: HttpClient) {
+	constructor(public http: HttpClient, public storage: StorageService) {
 	}
 
 	authenticate(creds: CredenciaisDTO) {
@@ -22,5 +24,17 @@ export class AuthService {
 				para que o framework não tente fazer um parse no json, o qual acarretará em um erro */
 				responseType: 'text'
 			});
+	}
+
+	successfulLogin(authorizationValue: string) {
+		let tok = authorizationValue.substring(7);
+		let conta: ContaLocalDTO = {
+			token: tok
+		};
+		this.storage.setLocalUser(conta);
+	}
+
+	logout() {
+		this.storage.setLocalUser(null);
 	}
 }
