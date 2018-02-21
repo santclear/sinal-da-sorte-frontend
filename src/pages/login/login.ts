@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,  MenuController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import { BemVindoPage } from '../bem-vindo/bem-vindo';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
@@ -19,6 +19,13 @@ export class LoginPage {
 	constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService, public menuService: MenuService) {
 	}
 
+	// ionViewDidEnter() {
+	// 	this.auth.refreshToken()
+	// 		.subscribe(response => {
+	// 			this.setRootPage(response);
+	// 		}, error => { });
+	// }
+
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.
 	ionViewWillEnter() {
 		this.menu.swipeEnable(false);
@@ -32,11 +39,15 @@ export class LoginPage {
 	login() {
 		this.auth.authenticate(this.credenciais)
 			.subscribe(response => {
-					this.auth.successfulLogin(response.headers.get('Authorization'));
-					let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[0]);
-					resultadoSincronizePromise.then(resultadoSincronize => {
-							this.navCtrl.setRoot(BemVindoPage);
-					});
+				this.setRootPage(response);
 			}, error => { });
+	}
+
+	setRootPage(response) {
+		this.auth.successfulLogin(response.headers.get('Authorization'));
+		let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[0]);
+		resultadoSincronizePromise.then(resultadoSincronize => {
+			this.navCtrl.setRoot(BemVindoPage);
+		});
 	}
 }

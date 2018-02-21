@@ -3,11 +3,13 @@ import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
+import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
 import { Loterias } from '../enum/loterias';
 
 import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
 import { MenuService } from '../services/menu.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -31,7 +33,7 @@ export class MyApp {
 		public loadingCtrl: LoadingController,
 		public statusBar: StatusBar,
 		public splashScreen: SplashScreen,
-		public menuService: MenuService) {
+		public menuService: MenuService, public auth: AuthService) {
 		
 		this.bd = ConexaoFabrica.getConexao();
 
@@ -52,7 +54,16 @@ export class MyApp {
 				this.paginas = this.menuService.getPaginas(resultadoQuery.antigo)
 			};
 
-			this.paginaInicial = LoginPage;
+			this.auth.refreshToken()
+			.subscribe(response => {
+				this.auth.successfulLogin(response.headers.get('Authorization'));
+				
+				let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[0]);
+				resultadoSincronizePromise.then(resultadoSincronize => {
+					this.paginaInicial = BemVindoPage;
+				});
+			}, error => { this.paginaInicial = LoginPage; });
+			
 			this.initializeApp();
 		});
 	}

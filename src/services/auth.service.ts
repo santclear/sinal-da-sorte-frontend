@@ -27,6 +27,14 @@ export class AuthService {
 				responseType: 'text'
 			});
 	}
+	
+	refreshToken() {
+		return this.http.post(Loterias.DOMINIO + 'auth/refresh_token',{},
+			{
+				observe: 'response',
+				responseType: 'text'
+			});
+	}
 
 	successfulLogin(authorizationValue: string) {
 		let tok = authorizationValue.substring(7);
