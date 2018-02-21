@@ -76,9 +76,16 @@ export class MyApp {
 	}
 
 	abraAPagina(objetoPagina, indicePagina) {
-		this.indicePaginaAtual = indicePagina;
-		this.menu.close();
-		this.nav.setRoot(objetoPagina.class);
+		if(objetoPagina.titulo === 'Sair') {
+			this.auth.logout();
+			this.menu.close();
+			this.indicePaginaAtual = indicePagina;
+			this.nav.setRoot(objetoPagina.class);
+		} else {
+			this.indicePaginaAtual = indicePagina;
+			this.menu.close();
+			this.nav.setRoot(objetoPagina.class);
+		}
 	}
 
 	ativeMenuPaginas(indiceLoteria) {
