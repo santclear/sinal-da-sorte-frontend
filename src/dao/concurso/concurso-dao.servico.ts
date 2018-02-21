@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { IConcursoDAO } from './iconcurso-dao';
 import { ConexaoFabrica } from '../util/conexao-fabrica';
 import { EntidadeBD } from '../util/sincronismo/entidade-bd';
@@ -12,7 +12,7 @@ import lodash from 'lodash';
 export class ConcursoDAOServico implements IConcursoDAO {
 	private bd: any;
 
-	constructor(private http: Http) {
+	constructor(private http: HttpClient) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
 
@@ -336,7 +336,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 			this.http.get(Loterias.DOMINIO + 'concursos/calculeFrequenciasTotaisDasDezenas/idLoteria=' + loteriaId + '&numeroSorteio=' + numeroDoSorteio)
 				.toPromise()
 				.then(response => {
-					resolve(response.json());
+					resolve(response);
 				}).catch(this.handleError);
 		});
 	}

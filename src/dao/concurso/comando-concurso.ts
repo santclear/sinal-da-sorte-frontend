@@ -25,10 +25,8 @@ export class ComandoConcurso implements IComandoSincronizar {
 
 	private baixeResultadosRemoto(maiorNumeroEntreOsConcursos: number, entidadeBDReceptor: EntidadeBDReceptor, loteria): any {
 		
-		let resultadosRemotoPromise = entidadeBDReceptor.baixeResultadosRemoto(maiorNumeroEntreOsConcursos);
-
 		let resultadoSalveTodosPromise = new Promise(resolve => {
-			resultadosRemotoPromise.then(concursos => {
+			entidadeBDReceptor.baixeResultadosRemoto(maiorNumeroEntreOsConcursos).subscribe(concursos => {
 				if (concursos.length > 0) {
 					let estatisticasPromise = this.calculeFrequenciasTotaisDasDezenas(loteria.id, concursos[0].sorteios.length);
 					estatisticasPromise.then(estatisticas => {
@@ -39,7 +37,7 @@ export class ComandoConcurso implements IComandoSincronizar {
 				} else {
 					resolve(concursos);
 				}
-			});
+			}, error => { });
 		});
 
 		return resultadoSalveTodosPromise;

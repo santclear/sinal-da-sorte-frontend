@@ -15,13 +15,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
         // Tenta pegar o token do storage local
 		let contaLocal = this.storage.getContaLocal();
-		
-		let N = Loterias.DOMINIO.length;
-        /* O cabeçalho Autorization deve ser enviado somente para requisições para a API WS backend desse sistema.
-        Para requisições ao bucket da Amazon não é necessário. */
-        let requestToAPI = req.url.substring(0, N) == Loterias.DOMINIO;
-
-        if (contaLocal && requestToAPI) {
+        
+        if (contaLocal) {
             /* Para passar o token nas requisições é necessário clonar a requisição original passando o 
             cabeçalho Authorization com o token que está armazenado no storage local */
             const authReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + contaLocal.token)});

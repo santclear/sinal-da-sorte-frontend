@@ -1,10 +1,10 @@
 import {IComandoSincronizar} from "./icomando-sincronizar";
 import {EntidadeBDReceptor} from "./entidade-bd-receptor";
-import {Http} from '@angular/http';
+import { HttpClient } from "@angular/common/http";
 
 export class EntidadeBD {
 
-	constructor(private http: Http) {}
+	constructor(private http: HttpClient) {}
 
     public sincronize(loterias, comandoSincronizar: IComandoSincronizar ): any {
 		let entidadeBDReceptorServico = new EntidadeBDReceptor(this.http);
