@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { BemVindoPage } from '../bem-vindo/bem-vindo';
+import { ContaPage } from '../cadastro/conta';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 import { MenuService } from '../../services/menu.service';
@@ -49,5 +50,9 @@ export class LoginPage {
 		resultadoSincronizePromise.then(resultadoSincronize => {
 			this.navCtrl.setRoot(BemVindoPage);
 		});
+	}
+
+	cadastrar() {
+		this.navCtrl.push(ContaPage);
 	}
 }

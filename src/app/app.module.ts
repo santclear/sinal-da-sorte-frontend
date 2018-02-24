@@ -17,6 +17,7 @@ import { FrequenciaAcumuladaAgs } from '../pages/estatistica/frequencia-acumulad
 import { FrequenciaSomaDezenasAgs } from '../pages/estatistica/frequencia-soma-dezenas/frequencia-soma-dezenas.ags';
 
 import { LoginPage } from '../pages/login/login';
+import { ContaPage } from '../pages/cadastro/conta';
 import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { EstatisticaPage } from '../pages/estatistica/estatistica';
 import { SimuladorPage } from '../pages/simulador/simulador';
@@ -44,6 +45,7 @@ import { DataTableModule } from "angular2-datatable";
 		FrequenciaAcumuladaAgs,
 		FrequenciaSomaDezenasAgs,
 		LoginPage,
+		ContaPage,
 		BemVindoPage,
 		EstatisticaPage,
 		SimuladorPage,
@@ -68,6 +70,7 @@ import { DataTableModule } from "angular2-datatable";
 		FrequenciaAcumuladaAgs,
 		FrequenciaSomaDezenasAgs,
 		LoginPage,
+		ContaPage,
 		BemVindoPage,
 		EstatisticaPage,
 		SimuladorPage,
