@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CidadeService } from '../../services/cidade.service';
+import { EstadoService } from '../../services/estado.service';
+import { EstadoDTO } from '../../dtos/estado.dto';
+import { CidadeDTO } from '../../dtos/cidade.dto';
 
 @Component({
 	selector: 'page-conta',
@@ -9,8 +12,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class ContaPage {
 
 	formGroup: FormGroup;
+	estados: EstadoDTO[];
+	cidades: CidadeDTO[];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
+	constructor(
+		public formBuilder: FormBuilder,
+		public cidadeService: CidadeService,
+		public estadoService: EstadoService) {
+
 		this.formGroup = this.formBuilder.group({
 			nome: ['Elon', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
 			sobrenome: ['Musk', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
@@ -30,6 +39,26 @@ export class ContaPage {
 			estadoId: [null, [Validators.required]],
 			cidadeId: [null, [Validators.required]]
 		});
+	}
+
+	ionViewDidLoad() {
+		this.estadoService.findAll()
+			.subscribe(response => {
+				this.estados = response;
+				this.formGroup.controls.estadoId.setValue(this.estados[0].id);
+				this.updateCidades();
+			},
+				error => { });
+	}
+
+	updateCidades() {
+		let estado_id = this.formGroup.value.estadoId;
+		this.cidadeService.findAll(estado_id)
+			.subscribe(response => {
+				this.cidades = response;
+				this.formGroup.controls.cidadeId.setValue(null);
+			},
+				error => { });
 	}
 
 	cadastre() {
