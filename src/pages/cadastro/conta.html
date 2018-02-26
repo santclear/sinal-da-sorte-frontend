@@ -44,7 +44,11 @@
 			<ion-label stacked>Senha*</ion-label>
 			<ion-input formControlName="senha" type="password"></ion-input>
 		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor inválido</p>
+		<ion-item>
+			<ion-label stacked>Confirme a Senha*</ion-label>
+			<ion-input formControlName="confirmeSenha" type="password"></ion-input>
+		</ion-item>
+		<p class="danger" *ngIf="formGroup.controls.confirmeSenha.dirty && formGroup.controls.confirmeSenha.errors" margin-left>Digite os mesmos caracteres inseridos no campo Senha*</p>
 		<ion-item>
 			<ion-label stacked>Logradouro*</ion-label>
 			<ion-input formControlName="logradouro" type="text"></ion-input>
