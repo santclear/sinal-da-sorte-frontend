@@ -1,5 +1,8 @@
+import { UsuarioDTO } from './usuario.dto';
+
 export interface ContaDTO {
 	id: string;
-	nome: string;
 	email: string;
+	senha: string;
+	usuario: UsuarioDTO;
 }

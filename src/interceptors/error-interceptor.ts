@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from '../services/storage.service';
-import { AlertController } from 'ionic-angular';
+import { FieldMessageDTO } from '../dtos/field-message.dto';
 
 // Interceptador de erros globais. Retira os campos que não interessam da mensagem de erro e exibe só o erro de fato
 @Injectable()
@@ -33,8 +34,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 					case 403:
 						this.handle403();
 						break;
+					case 422:
+						this.handle422(errorObj);
+						break;
 					default:
-						this.handleDefaultEror(errorObj);
+						this.handleDefaultError(errorObj);
 				}
 
 				return Observable.throw(errorObj);
@@ -55,7 +59,17 @@ export class ErrorInterceptor implements HttpInterceptor {
 		this.storage.setContaLocal(null);
 	}
 
-	handleDefaultEror(errorObj) {
+	handle422(errorObj) {
+		let alert = this.alertCtrl.create({
+			title: 'Erro 422: Validação',
+			message: this.listErrors(errorObj.errors),
+			enableBackdropDismiss: false,
+			buttons: [{ text: 'Ok' }]
+		});
+		alert.present();
+	}
+
+	handleDefaultError(errorObj) {
 		let alert = this.alertCtrl.create({
 			title: 'Erro ' + errorObj.status + ': ' + errorObj.error,
 			message: errorObj.message,
@@ -63,6 +77,14 @@ export class ErrorInterceptor implements HttpInterceptor {
 			buttons: [{ text: 'Ok' }]
 		});
 		alert.present();
+	}
+
+	private listErrors(messages: FieldMessageDTO[]): string {
+		let s: string = '';
+		for (var i = 0; i < messages.length; i++) {
+			s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
+		}
+		return s;
 	}
 }
 

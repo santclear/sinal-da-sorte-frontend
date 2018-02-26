@@ -34,12 +34,12 @@
 			<ion-label stacked>Data de nascimento*</ion-label>
 			<ion-input formControlName="dataDeNascimento" type="text"></ion-input>
 		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.dataDeNascimento.dirty && formGroup.controls.dataDeNascimento.errors" margin-left>A data inserida deve ter 8 digitos</p>
+		<p class="danger" *ngIf="formGroup.controls.dataDeNascimento.dirty && formGroup.controls.dataDeNascimento.errors" margin-left>Insira uma data válida no formato D/M/A. Onde D é o DIA, M é o MÊS e A é o ANO</p>
 		<ion-item>
 			<ion-label stacked>CPF</ion-label>
 			<ion-input formControlName="cpf" type="text"></ion-input>
 		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.cpf.dirty && formGroup.controls.cpf.errors" margin-left>A data inserida deve ter 11 digitos</p>
+		<p class="danger" *ngIf="formGroup.controls.cpf.dirty && formGroup.controls.cpf.errors" margin-left>Digite somente os números do CPF sem ponto (.) e hífen (-)</p>
 		<ion-item>
 			<ion-label stacked>Senha*</ion-label>
 			<ion-input formControlName="senha" type="password"></ion-input>
@@ -68,12 +68,12 @@
 			<ion-label stacked>CEP*</ion-label>
 			<ion-input formControlName="cep" type="text"></ion-input>
 		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>A data inserida deve ter 8 digitos</p>
+		<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Digite somente os números do CEP sem ponto sem hífen (-)</p>
 		<ion-item>
 			<ion-label stacked>Telefone 1*</ion-label>
 			<ion-input formControlName="telefone1" type="text"></ion-input>
 		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>Valor inválido</p>
+		<p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>Digite o código de área, sem o zero, seguido do número de telefone ou celular</p>
 		<ion-item>
 			<ion-label stacked>Telefone 2</ion-label>
 			<ion-input formControlName="telefone2" type="text"></ion-input>

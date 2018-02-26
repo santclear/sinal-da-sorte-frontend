@@ -14,4 +14,15 @@ export class ContaService {
 	findByEmail(email: string): Observable<ContaDTO> {
 		return this.http.get<ContaDTO>(Loterias.DOMINIO +'contas/email?value='+ email);
 	}
+	
+	insert(obj: ContaDTO) {
+		return this.http.post(
+			Loterias.DOMINIO +"contas",
+			obj,
+			{
+				observe: 'response',
+				responseType: 'text'
+			}
+		);
+	}
 } 
