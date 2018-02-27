@@ -50,6 +50,11 @@
 		</ion-item>
 		<p class="danger" *ngIf="formGroup.controls.confirmeSenha.dirty && formGroup.controls.confirmeSenha.errors" margin-left>Digite os mesmos caracteres inseridos no campo Senha*</p>
 		<ion-item>
+			<ion-label stacked>CEP*</ion-label>
+			<ion-input formControlName="cep" type="text" (ionBlur)=populeEnderecos($event)></ion-input>
+		</ion-item>
+		<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Digite somente os números do CEP sem ponto sem hífen (-)</p>
+		<ion-item>
 			<ion-label stacked>Logradouro*</ion-label>
 			<ion-input formControlName="logradouro" type="text"></ion-input>
 		</ion-item>
@@ -68,11 +73,6 @@
 			<ion-input formControlName="bairro" type="text"></ion-input>
 		</ion-item>
 		<p class="danger" *ngIf="formGroup.controls.bairro.dirty && formGroup.controls.bairro.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>CEP*</ion-label>
-			<ion-input formControlName="cep" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Digite somente os números do CEP sem ponto sem hífen (-)</p>
 		<ion-item>
 			<ion-label stacked>Telefone 1*</ion-label>
 			<ion-input formControlName="telefone1" type="text"></ion-input>
