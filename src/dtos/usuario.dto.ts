@@ -1,15 +1,13 @@
+import { EnderecoDto } from "./endereco.dto";
+
 export interface UsuarioDTO {
 	id: string;
 	nome: string;
 	sobrenome: string;
-	genero: string;
-	dataDeNascimento: string;
 	cpf: string;
-	logradouro: string;
-	complemento: string;
-	cep: string;
-	bairro: string;
-	cidadeId: string;
+	dataDeNascimento: string;
+	genero: string;
+	endereco: EnderecoDto;
 	telefone1: string;
 	telefone2: string;
 	telefone3: string;

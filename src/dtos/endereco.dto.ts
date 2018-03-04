@@ -1,11 +1,9 @@
 export interface EnderecoDto {
 	cep: string,
 	logradouro: string,
+	numero: string,
 	complemento: string,
 	bairro: string,
-	localidade: string,
-	uf: string,
-	unidade: string,
-	ibge: string,
-	gia: string
+	cidade: string,
+	uf: string
 }

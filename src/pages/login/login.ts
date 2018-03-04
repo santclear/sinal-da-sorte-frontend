@@ -20,13 +20,6 @@ export class LoginPage {
 	constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService, public menuService: MenuService) {
 	}
 
-	// ionViewDidEnter() {
-	// 	this.auth.refreshToken()
-	// 		.subscribe(response => {
-	// 			this.setRootPage(response);
-	// 		}, error => { });
-	// }
-
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.
 	ionViewWillEnter() {
 		this.menu.swipeEnable(false);

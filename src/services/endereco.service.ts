@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
 import { EnderecoDto } from '../dtos/endereco.dto';
+import { Loterias } from "../enum/loterias";
 
 @Injectable()
 export class EnderecoService {
@@ -10,6 +11,6 @@ export class EnderecoService {
 	}
 
 	findByCep(cep: string): Observable<EnderecoDto> {
-		return this.http.get<EnderecoDto>('https://viacep.com.br/ws/'+ cep +'/json/');
+		return this.http.get<EnderecoDto>(Loterias.DOMINIO +'logradouros/cep/'+cep);
 	}
 }
