@@ -13,17 +13,17 @@ export class ComandoConcurso implements IComandoSincronizar {
 	execute(loteria, entidadeBDReceptor: EntidadeBDReceptor): any {
 		return new Promise(resolve => {
 			let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(loteria.nomeDoDocumentoNoBD);
-			concursosPromise.then(concursosLocal => {
-				if (concursosLocal.maiorNumero > 0) {
-					resolve(this.baixeResultadosRemoto(concursosLocal.maiorNumero, concursosLocal, entidadeBDReceptor, loteria));
+			concursosPromise.then(ultimoConcurso => {
+				if (ultimoConcurso.maiorNumero > 0) {
+					resolve(this.baixeResultadosRemoto(ultimoConcurso.maiorNumero, ultimoConcurso, entidadeBDReceptor, loteria));
 				} else {
-					resolve(this.baixeResultadosRemoto(0, concursosLocal, entidadeBDReceptor, loteria));
+					resolve(this.baixeResultadosRemoto(0, ultimoConcurso, entidadeBDReceptor, loteria));
 				}
 			});
 		});
 	}
 
-	private baixeResultadosRemoto(maiorNumeroEntreOsConcursos: number, concursosLocal, entidadeBDReceptor: EntidadeBDReceptor, loteria): any {
+	private baixeResultadosRemoto(maiorNumeroEntreOsConcursos: number, ultimoConcurso, entidadeBDReceptor: EntidadeBDReceptor, loteria): any {
 		
 		let resultadoSalveTodosPromise = new Promise(resolve => {
 			entidadeBDReceptor.baixeResultadosRemoto(maiorNumeroEntreOsConcursos).subscribe(concursosRemoto => {
@@ -37,8 +37,8 @@ export class ComandoConcurso implements IComandoSincronizar {
 				} else {
 					resolve(concursosRemoto);
 				}
-			}, error => { 
-				resolve(concursosLocal);
+			}, error => {
+				resolve(ultimoConcurso);
 			});
 		});
 

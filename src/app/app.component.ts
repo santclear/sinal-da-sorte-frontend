@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, LoadingController } from 'ionic-angular';
+import { Nav, Platform, MenuController, LoadingController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
@@ -11,6 +11,7 @@ import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
 import { MenuService } from '../services/menu.service';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
+import { UtilService } from '../services/util.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -36,7 +37,9 @@ export class MyApp {
 		public splashScreen: SplashScreen,
 		public menuService: MenuService, 
 		public auth: AuthService,
-		public storage: StorageService) {
+		public util: UtilService,
+		public storage: StorageService, 
+		private toastCtrl: ToastController) {
 		
 		this.bd = ConexaoFabrica.getConexao();
 
@@ -58,17 +61,17 @@ export class MyApp {
 			};
 
 			/*FIXME: Exibindo 2x notificação de erro de conexão.*/
-			this.auth.refreshToken()
-			.subscribe(response => {
-				this.auth.successfulLogin(response.headers.get('Authorization'));
-				this.sincronize();
-			}, error => {
-				let contaLocal = this.storage.getContaLocal();
-				if(contaLocal) this.sincronize();
-				else this.paginaInicial = LoginPage;
-			});
-			
-			this.initializeApp();
+			// this.auth.refreshToken()
+			// .subscribe(response => {
+			// 	this.auth.successfulLogin(response.headers.get('Authorization'));
+			// 	this.sincronize();
+			// }, error => {
+			// 	let contaLocal = this.storage.getContaLocal();
+			// 	if(contaLocal) this.sincronize();
+			// 	else this.paginaInicial = LoginPage;
+			// });
+			// this.initializeApp();
+			this.sincronize();
 		});
 	}
 
@@ -95,6 +98,16 @@ export class MyApp {
 	ativeMenuPaginas(indiceLoteria) {
 		let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 		resultadoSincronizePromise.then(resultadoSincronize => {
+			let ultimoConcursoStr = JSON.stringify(resultadoSincronize);
+			let ultimoConcurso = JSON.parse(ultimoConcursoStr);
+			if(ultimoConcurso.maiorNumero === 0) {
+				let toast = this.toastCtrl.create({
+					message: 'Código 403: Não autorizado, tente sair e entrar no Sinal da Sorte com seu Email e Senha',
+					showCloseButton: true,
+					closeButtonText: 'Ok'
+				});
+				toast.present();
+			}
 			this.sufixoCssLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].sufixoCssLoteria;
 			this.nomeLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].nome;
 			this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].caminhoDoIconeAvatar;
@@ -182,12 +195,26 @@ export class MyApp {
 
 	private sincronize() {
 		this.bd.get('sessao').then((sessao) => {
-			let indiceLoteria = sessao.loteria.id - 1;
-			let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-			resultadoSincronizePromise.then(resultadoSincronize => {
-				this.paginaInicial = BemVindoPage;
+			this.util.ping().subscribe(response => {
+				let indiceLoteria = sessao.loteria.id - 1;
+				let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+				resultadoSincronizePromise.then(resultadoSincronize => {
+					this.setPaginaInicial();
+				});
+			}, erro => {
+				this.setPaginaInicial();
 			});
 		});
+	}
+
+	private setPaginaInicial() {
+		let contaLocal = this.storage.getContaLocal();
+		if(contaLocal) {
+			this.paginaInicial = BemVindoPage;
+		} else {
+			this.paginaInicial = LoginPage;
+		}
+		this.initializeApp();
 	}
 }
 

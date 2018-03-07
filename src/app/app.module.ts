@@ -33,6 +33,7 @@ import { MenuService } from '../services/menu.service';
 import { StorageService } from '../services/storage.service';
 import { ContaService } from '../services/conta.service';
 import { EnderecoService } from '../services/endereco.service';
+import { UtilService } from '../services/util.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 
@@ -91,6 +92,7 @@ import { DataTableModule } from "angular2-datatable";
 		StorageService,
 		ContaService,
 		EnderecoService,
+		UtilService,
 		AuthInterceptorProvider,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }

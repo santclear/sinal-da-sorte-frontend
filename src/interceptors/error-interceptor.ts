@@ -1,4 +1,4 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
@@ -79,7 +79,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 	handle422(errorObj) {
 		let toast = this.toastCtrl.create({
-			message: 'Código 422: Validação',
+			message: 'Código 422: Validação'+'\n'+this.listErrors(errorObj.errors),
 			showCloseButton: true,
 			closeButtonText: 'Ok'
 		});
