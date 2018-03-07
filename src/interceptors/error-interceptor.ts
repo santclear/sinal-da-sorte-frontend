@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AlertController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from '../services/storage.service';
 import { FieldMessageDTO } from '../dtos/field-message.dto';
@@ -9,7 +9,7 @@ import { FieldMessageDTO } from '../dtos/field-message.dto';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-	constructor(public storage: StorageService, public alertCtrl: AlertController) { }
+	constructor(public storage: StorageService, private toastCtrl: ToastController) { }
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		//TODO: next.handle(req) função para continuar a requisição
@@ -17,10 +17,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 			.catch((error, caught) => {
 
 				let errorObj = error;
-				if (errorObj.error) {
+				if (errorObj.status !== 0) {
 					errorObj = errorObj.error;
 				}
-				if (!errorObj.status) {
+				// if (!errorObj.status) {
+				// 	errorObj = JSON.parse(errorObj);
+				// }
+				if (typeof errorObj === 'string') {
 					errorObj = JSON.parse(errorObj);
 				}
 
@@ -28,14 +31,20 @@ export class ErrorInterceptor implements HttpInterceptor {
 				console.log(errorObj);
 
 				switch (errorObj.status) {
-					case 403:
-						this.handle403();
+					case 401:
+						this.handle401();
 						break;
 					case 403:
 						this.handle403();
+						break;
+					case 404:
+						this.handle404();
 						break;
 					case 422:
 						this.handle422(errorObj);
+						break;
+					case 500:
+						this.handle500(errorObj);
 						break;
 					default:
 						this.handleDefaultError(errorObj);
@@ -46,37 +55,54 @@ export class ErrorInterceptor implements HttpInterceptor {
 	}
 
 	handle401() {
-		let alert = this.alertCtrl.create({
-			title: 'Erro 401: falha de autenticação',
-			message: 'Email ou senha incorretos',
-			enableBackdropDismiss: false,
-			buttons: [{ text: 'Ok' }]
+		let toast = this.toastCtrl.create({
+			message: 'Código 401: falha de autenticação',
+			showCloseButton: true,
+			closeButtonText: 'Ok'
 		});
-		alert.present();
+		toast.present();
 	}
 
 	handle403() {
 		this.storage.setContaLocal(null);
 	}
 
-	handle422(errorObj) {
-		let alert = this.alertCtrl.create({
-			title: 'Erro 422: Validação',
-			message: this.listErrors(errorObj.errors),
-			enableBackdropDismiss: false,
-			buttons: [{ text: 'Ok' }]
+	handle404() {
+		let toast = this.toastCtrl.create({
+			message: 'Código 404: Página ou recurso não encontrado',
+			showCloseButton: true,
+			closeButtonText: 'Ok'
 		});
-		alert.present();
+		// toast.onDidDismiss(this.dismissHandler);
+		toast.present();
+	}
+
+	handle422(errorObj) {
+		let toast = this.toastCtrl.create({
+			message: 'Código 422: Validação',
+			showCloseButton: true,
+			closeButtonText: 'Ok'
+		});
+		// toast.onDidDismiss(this.dismissHandler);
+		toast.present();
+	}
+
+	handle500(errorObj) {
+		let toast = this.toastCtrl.create({
+			message: 'Código 500: Erro no processamento dos dados enviados, entre em contato com o suporte técnico',
+			showCloseButton: true,
+			closeButtonText: 'Ok'
+		});
+		toast.present();
 	}
 
 	handleDefaultError(errorObj) {
-		let alert = this.alertCtrl.create({
-			title: 'Erro ' + errorObj.status + ': ' + errorObj.error,
-			message: errorObj.message,
-			enableBackdropDismiss: false,
-			buttons: [{ text: 'Ok' }]
+		let toast = this.toastCtrl.create({
+			message: 'Ocorreu um erro, verifique sua conexão com internet e tente novamente',
+			showCloseButton: true,
+			closeButtonText: 'Ok'
 		});
-		alert.present();
+		toast.present();
 	}
 
 	private listErrors(messages: FieldMessageDTO[]): string {
@@ -86,6 +112,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 		}
 		return s;
 	}
+
+	// private dismissHandler() {
+	// 	console.info('');
+	// }
 }
 
 export const ErrorInterceptorProvider = {

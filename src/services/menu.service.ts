@@ -16,7 +16,7 @@ import { LoginPage } from "../pages/login/login";
 @Injectable()
 export class MenuService {
 
-	constructor(public loadingCtrl: LoadingController, public concursoDAOServico: ConcursoDAOServico,) {
+	constructor(public loadingCtrl: LoadingController, public concursoDAOServico: ConcursoDAOServico) {
 	}
 
 	public getPaginas(estadoSessao) {
@@ -47,9 +47,9 @@ export class MenuService {
 				resolve(concursos);
 				loading.dismiss(concursos);
 			});
-		})
+		});
 	}
-
+	
 	public getLoterias() {
 		return [
 			Loterias.LOTOFACIL,

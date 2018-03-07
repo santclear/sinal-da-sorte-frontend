@@ -10,6 +10,7 @@ import { Loterias } from '../enum/loterias';
 import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
 import { MenuService } from '../services/menu.service';
 import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -33,7 +34,9 @@ export class MyApp {
 		public loadingCtrl: LoadingController,
 		public statusBar: StatusBar,
 		public splashScreen: SplashScreen,
-		public menuService: MenuService, public auth: AuthService) {
+		public menuService: MenuService, 
+		public auth: AuthService,
+		public storage: StorageService) {
 		
 		this.bd = ConexaoFabrica.getConexao();
 
@@ -54,15 +57,16 @@ export class MyApp {
 				this.paginas = this.menuService.getPaginas(resultadoQuery.antigo)
 			};
 
+			/*FIXME: Exibindo 2x notificação de erro de conexão.*/
 			this.auth.refreshToken()
 			.subscribe(response => {
 				this.auth.successfulLogin(response.headers.get('Authorization'));
-				
-				let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[0]);
-				resultadoSincronizePromise.then(resultadoSincronize => {
-					this.paginaInicial = BemVindoPage;
-				});
-			}, error => { this.paginaInicial = LoginPage; });
+				this.sincronize();
+			}, error => {
+				let contaLocal = this.storage.getContaLocal();
+				if(contaLocal) this.sincronize();
+				else this.paginaInicial = LoginPage;
+			});
 			
 			this.initializeApp();
 		});
@@ -172,6 +176,16 @@ export class MyApp {
 				}
 			}).catch(erro => {
 				console.log(erro);
+			});
+		});
+	}
+
+	private sincronize() {
+		this.bd.get('sessao').then((sessao) => {
+			let indiceLoteria = sessao.loteria.id - 1;
+			let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+			resultadoSincronizePromise.then(resultadoSincronize => {
+				this.paginaInicial = BemVindoPage;
 			});
 		});
 	}

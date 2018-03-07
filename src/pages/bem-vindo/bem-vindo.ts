@@ -58,9 +58,11 @@ export class BemVindoPage extends PaginaBase {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 			let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
-				this.atualizeResultados(sessao, concursoFacade, concursos.maiorNumero);
-				this.rgeFaixaDeConcursos = concursos.maiorNumero;
-				this.rgeFaixaDeConcursosMax = concursos.maiorNumero;
+				if(concursos.maiorNumero > 0) {
+					this.atualizeResultados(sessao, concursoFacade, concursos.maiorNumero);
+					this.rgeFaixaDeConcursos = concursos.maiorNumero;
+					this.rgeFaixaDeConcursosMax = concursos.maiorNumero;
+				}
 			});
 		});
 

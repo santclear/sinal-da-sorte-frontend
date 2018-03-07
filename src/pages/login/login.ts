@@ -5,6 +5,7 @@ import { ContaPage } from '../cadastro/conta';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 import { MenuService } from '../../services/menu.service';
+import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 
 @Component({
 	selector: 'page-login',
@@ -12,12 +13,15 @@ import { MenuService } from '../../services/menu.service';
 })
 export class LoginPage {
 
+	public bd: any;
+
 	credenciais: CredenciaisDTO = {
 		email: "",
 		senha: ""
 	}
 
 	constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService, public menuService: MenuService) {
+		this.bd = ConexaoFabrica.getConexao();
 	}
 
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.
@@ -39,9 +43,12 @@ export class LoginPage {
 
 	setRootPage(response) {
 		this.auth.successfulLogin(response.headers.get('Authorization'));
-		let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[0]);
-		resultadoSincronizePromise.then(resultadoSincronize => {
-			this.navCtrl.setRoot(BemVindoPage);
+		this.bd.get('sessao').then((sessao) => {
+			let indiceLoteria = sessao.loteria.id - 1;
+			let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+			resultadoSincronizePromise.then(resultadoSincronize => {
+				this.navCtrl.setRoot(BemVindoPage);
+			});
 		});
 	}
 
