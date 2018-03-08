@@ -1,100 +1,114 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>Conta</ion-title>
+	<ion-navbar color="primary">
+		<ion-title>Crie sua conta</ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
+	<ion-grid>
+		<ion-row>
+			<ion-col col-1 col-md-2 col-lg-3>
+				<div></div>
+			</ion-col>
+			<ion-col col-10 col-md-8 col-lg-6>
+				<div>
+					<form [formGroup]="formGroup" (ngSubmit)="cadastre(); $event.preventDefault()">
+						<ion-item>
+							<ion-label stacked>Nome*</ion-label>
+							<ion-input formControlName="nome" type="text"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor inválido</p>
+						<ion-item>
+							<ion-label stacked>Sobrenome*</ion-label>
+							<ion-input formControlName="sobrenome" type="text"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.sobrenome.dirty && formGroup.controls.sobrenome.errors" margin-left>Valor inválido</p>
+						<ion-item>
+							<ion-label stacked>CPF</ion-label>
+							<ion-input formControlName="cpf" type="text" placeholder="000.000.000-00"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.cpf.dirty && formGroup.controls.cpf.errors" margin-left>Digite somente os números do CPF sem ponto (.) e hífen (-)</p>
+						<ion-item>
+							<ion-label stacked>Data de nascimento*</ion-label>
+							<ion-input formControlName="dataDeNascimento" type="text" placeholder="01/01/1990"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.dataDeNascimento.dirty && formGroup.controls.dataDeNascimento.errors" margin-left>Insira uma data válida no formato D/M/A. Onde D é o DIA, M é o MÊS e A é o ANO</p>
+						<ion-item>
+							<ion-label stacked>Gênero*</ion-label>
+							<ion-select formControlName="generoId">
+								<ion-option value="1">Homem</ion-option>
+								<ion-option value="2">Mulher</ion-option>
+								<ion-option value="3">Outro</ion-option>
+							</ion-select>
+						</ion-item>
+						<ion-item>
+							<ion-label stacked>Email*</ion-label>
+							<ion-input formControlName="email" type="text" placeholder="usuario@email.com"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
+						<ion-item>
+							<ion-label stacked>Senha*</ion-label>
+							<ion-input formControlName="senha" type="password"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
+						<ion-item>
+							<ion-label stacked>Confirme a Senha*</ion-label>
+							<ion-input formControlName="confirmeSenha" type="password"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.confirmeSenha.dirty && formGroup.controls.confirmeSenha.errors" margin-left>Digite os mesmos caracteres inseridos no campo Senha*</p>
+						<ion-item>
+							<ion-label stacked>CEP*</ion-label>
+							<ion-input formControlName="cep" type="text" placeholder="00000-000" (ionBlur)=populeEnderecos($event)></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Digite somente os números do CEP sem ponto sem hífen (-)</p>
+						<ion-item>
+							<ion-label stacked>Logradouro*</ion-label>
+							<ion-input formControlName="logradouro" type="text"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-label stacked>Número*</ion-label>
+							<ion-input formControlName="numero" type="text"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.numero.dirty && formGroup.controls.numero.errors" margin-left>Valor inválido</p>
+						<ion-item>
+							<ion-label stacked>Complemento</ion-label>
+							<ion-input formControlName="complemento" type="text"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-label stacked>Bairro*</ion-label>
+							<ion-input formControlName="bairro" type="text"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-label stacked>Cidade*</ion-label>
+							<ion-input formControlName="cidade" type="text"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-label stacked>UF*</ion-label>
+							<ion-input formControlName="uf" type="text"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-label stacked>Telefone 1*</ion-label>
+							<ion-input formControlName="telefone1" type="text"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>Digite o código de área, sem o zero, seguido do número de telefone ou celular</p>
+						<ion-item>
+							<ion-label stacked>Telefone 2</ion-label>
+							<ion-input formControlName="telefone2" type="text"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.telefone2.dirty && formGroup.controls.telefone2.errors" margin-left>Valor inválido</p>
+						<ion-item>
+							<ion-label stacked>Telefone 3</ion-label>
+							<ion-input formControlName="telefone3" type="text"></ion-input>
+						</ion-item>
+						<p class="danger" *ngIf="formGroup.controls.telefone3.dirty && formGroup.controls.telefone3.errors" margin-left>Valor inválido</p>
+						<button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</button>
+					</form>
+				</div>
+			</ion-col>
+			<ion-col col-1 col-md-2 col-lg-3>
+				<div></div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 	<!-- $event.preventDefault() previne o envio de formulário indesejado -->
-	<form [formGroup]="formGroup" (ngSubmit)="cadastre(); $event.preventDefault()">
-		<ion-item>
-			<ion-label stacked>Nome*</ion-label>
-			<ion-input formControlName="nome" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>Sobrenome*</ion-label>
-			<ion-input formControlName="sobrenome" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.sobrenome.dirty && formGroup.controls.sobrenome.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>CPF</ion-label>
-			<ion-input formControlName="cpf" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.cpf.dirty && formGroup.controls.cpf.errors" margin-left>Digite somente os números do CPF sem ponto (.) e hífen (-)</p>
-		<ion-item>
-			<ion-label stacked>Data de nascimento*</ion-label>
-			<ion-input formControlName="dataDeNascimento" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.dataDeNascimento.dirty && formGroup.controls.dataDeNascimento.errors" margin-left>Insira uma data válida no formato D/M/A. Onde D é o DIA, M é o MÊS e A é o ANO</p>
-		<ion-item>
-			<ion-label stacked>Gênero*</ion-label>
-			<ion-select formControlName="generoId">
-				<ion-option value="1">Homem</ion-option>
-				<ion-option value="2">Mulher</ion-option>
-				<ion-option value="3">Outro</ion-option>
-			</ion-select>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>Email*</ion-label>
-			<ion-input formControlName="email" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>Senha*</ion-label>
-			<ion-input formControlName="senha" type="password"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>Confirme a Senha*</ion-label>
-			<ion-input formControlName="confirmeSenha" type="password"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.confirmeSenha.dirty && formGroup.controls.confirmeSenha.errors" margin-left>Digite os mesmos caracteres inseridos no campo Senha*</p>
-		<ion-item>
-			<ion-label stacked>CEP*</ion-label>
-			<ion-input formControlName="cep" type="text" (ionBlur)=populeEnderecos($event)></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Digite somente os números do CEP sem ponto sem hífen (-)</p>
-		<ion-item>
-			<ion-label stacked>Logradouro*</ion-label>
-			<ion-input formControlName="logradouro" type="text"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>Número*</ion-label>
-			<ion-input formControlName="numero" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.numero.dirty && formGroup.controls.numero.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>Complemento</ion-label>
-			<ion-input formControlName="complemento" type="text"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>Bairro*</ion-label>
-			<ion-input formControlName="bairro" type="text"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>Cidade*</ion-label>
-			<ion-input formControlName="cidade" type="text"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>UF*</ion-label>
-			<ion-input formControlName="uf" type="text"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>Telefone 1*</ion-label>
-			<ion-input formControlName="telefone1" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>Digite o código de área, sem o zero, seguido do número de telefone ou celular</p>
-		<ion-item>
-			<ion-label stacked>Telefone 2</ion-label>
-			<ion-input formControlName="telefone2" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.telefone2.dirty && formGroup.controls.telefone2.errors" margin-left>Valor inválido</p>
-		<ion-item>
-			<ion-label stacked>Telefone 3</ion-label>
-			<ion-input formControlName="telefone3" type="text"></ion-input>
-		</ion-item>
-		<p class="danger" *ngIf="formGroup.controls.telefone3.dirty && formGroup.controls.telefone3.errors" margin-left>Valor inválido</p>
-		<button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</button>
-	</form>
 </ion-content>

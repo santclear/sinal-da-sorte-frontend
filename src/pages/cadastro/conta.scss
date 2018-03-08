@@ -1,5 +1,10 @@
 page-conta {
 	.danger {
-		color: red;
+		color: color($colors, danger);
+	}
+	
+	p {
+		padding: 10px 0 0 10px !important;
+		margin: 0;
 	}
 }
