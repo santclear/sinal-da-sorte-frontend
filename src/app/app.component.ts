@@ -102,9 +102,12 @@ export class MyApp {
 			let ultimoConcurso = JSON.parse(ultimoConcursoStr);
 			if(ultimoConcurso.maiorNumero === 0) {
 				let toast = this.toastCtrl.create({
-					message: 'Código 403: Não autorizado, tente sair e entrar no Sinal da Sorte com seu Email e Senha',
+					message: 'Código 403: Sem autorização para acessar todos os recursos, por falha de conexão de internet ou token inválido',
 					showCloseButton: true,
-					closeButtonText: 'Ok'
+					closeButtonText: 'Ok',
+					duration: 5000,
+					position: 'top',
+					cssClass: 'toastGeral'
 				});
 				toast.present();
 			}

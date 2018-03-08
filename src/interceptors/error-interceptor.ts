@@ -58,7 +58,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 		let toast = this.toastCtrl.create({
 			message: 'Código 401: falha de autenticação',
 			showCloseButton: true,
-			closeButtonText: 'Ok'
+			closeButtonText: 'Ok',
+			duration: 5000,
+			position: 'top',
+			cssClass: 'toastGeral'
 		});
 		toast.present();
 	}
@@ -71,7 +74,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 		let toast = this.toastCtrl.create({
 			message: 'Código 404: Página ou recurso não encontrado',
 			showCloseButton: true,
-			closeButtonText: 'Ok'
+			closeButtonText: 'Ok',
+			duration: 5000,
+			position: 'top',
+			cssClass: 'toastGeral'
 		});
 		// toast.onDidDismiss(this.dismissHandler);
 		toast.present();
@@ -81,7 +87,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 		let toast = this.toastCtrl.create({
 			message: 'Código 422: Validação'+'\n'+this.listErrors(errorObj.errors),
 			showCloseButton: true,
-			closeButtonText: 'Ok'
+			closeButtonText: 'Ok',
+			duration: 5000,
+			position: 'top',
+			cssClass: 'toastGeral'
 		});
 		// toast.onDidDismiss(this.dismissHandler);
 		toast.present();
@@ -91,16 +100,22 @@ export class ErrorInterceptor implements HttpInterceptor {
 		let toast = this.toastCtrl.create({
 			message: 'Código 500: Erro no processamento dos dados enviados, entre em contato com o suporte técnico',
 			showCloseButton: true,
-			closeButtonText: 'Ok'
+			closeButtonText: 'Ok',
+			duration: 5000,
+			position: 'top',
+			cssClass: 'toastGeral'
 		});
 		toast.present();
 	}
 
 	handleDefaultError(errorObj) {
 		let toast = this.toastCtrl.create({
-			message: 'Ocorreu um erro, verifique sua conexão com internet e tente novamente',
+			message: 'Verifique sua conexão de internet e tente novamente',
 			showCloseButton: true,
-			closeButtonText: 'Ok'
+			closeButtonText: 'Ok',
+			duration: 5000,
+			position: 'top',
+			cssClass: 'toastGeral'
 		});
 		toast.present();
 	}
