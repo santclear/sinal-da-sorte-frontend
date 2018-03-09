@@ -22,6 +22,7 @@ export class LoginPage {
 
 	constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService, public menuService: MenuService) {
 		this.bd = ConexaoFabrica.getConexao();
+		this.navCtrl.push(ContaPage);
 	}
 
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.

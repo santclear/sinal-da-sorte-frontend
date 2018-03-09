@@ -38,6 +38,12 @@ import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 
 import { DataTableModule } from "angular2-datatable";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
 	declarations: [
@@ -62,6 +68,12 @@ import { DataTableModule } from "angular2-datatable";
 		HttpModule,
 		HttpClientModule,
 		DataTableModule,
+		BrowserAnimationsModule,
+		CalendarModule,
+		InputTextModule,
+		InputMaskModule,
+		DropdownModule,
+		PasswordModule,
 		IonicModule.forRoot(MyApp)
 	],
 	bootstrap: [IonicApp],

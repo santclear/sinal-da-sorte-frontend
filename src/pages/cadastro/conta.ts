@@ -11,16 +11,20 @@ import { UsuarioDTO } from '../../dtos/usuario.dto';
 import { compararCamposValidator } from '../../validators/comparar-campos.validator';
 import { HttpClient } from '@angular/common/http';
 import { EnderecoDto } from '../../dtos/endereco.dto';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
 	selector: 'page-conta',
 	templateUrl: 'conta.html',
 })
-export class ContaPage {
+export class ContaPage {   
 
-	formGroup: FormGroup;
+	contaForm: FormGroup;
 	estados: EstadoDTO[];
 	cidades: CidadeDTO[];
+	generos: SelectItem[];
+	ptBr: any;
+	isNotUpdateContaForm: boolean = true;
 
 	constructor(
 		public navCtrl: NavController,
@@ -30,61 +34,80 @@ export class ContaPage {
 		public alertCtrl: AlertController,
 		public http: HttpClient) {
 
-		this.formGroup = this.formBuilder.group({
-			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
-			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
-			cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-			dataDeNascimento: ['', [Validators.required]],
-			generoId: [null, [Validators.required]],
-			email: ['', [Validators.required, Validators.email]],
-			senha: ['', [Validators.required]],
-			confirmeSenha: ['', [Validators.required, compararCamposValidator('senha')]],
-			cep: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-			logradouro: ['', [Validators.required]],
-			numero: ['', [Validators.required]],
-			complemento: ['', []],
-			bairro: ['', [Validators.required]],
-			cidade: ['', [Validators.required]],
-			uf: ['', [Validators.required]],
-			telefone1: ['', [Validators.required, Validators.minLength(10)]],
-			telefone2: ['', [Validators.minLength(11)]],
-			telefone3: ['', [Validators.minLength(11)]]
+		this.contaForm = this.formBuilder.group({
+			nome: ['Sant', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
+			sobrenome: ['Costa', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
+			cpf: ['041.793.629-02', [Validators.required, Validators.minLength(14), Validators.maxLength(14)]],
+			dataDeNascimento: [null, [Validators.required]],
+			generoId: [1, [Validators.required]],
+			email: ['sa@s.com', [Validators.required, Validators.email]],
+			senha: ['12345678', [Validators.required, Validators.minLength(8)]],
+			confirmeSenha: ['12345678', [Validators.required, Validators.minLength(8), compararCamposValidator('senha')]],
+			cep: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+			logradouro: ['logradouro', [Validators.required]],
+			numero: ['334', [Validators.required]],
+			complemento: ['303', []],
+			bairro: ['bairro', [Validators.required]],
+			cidade: ['cidade', [Validators.required]],
+			uf: ['ufufuf', [Validators.required]],
+			telefone1: ['4832496515', [Validators.required, Validators.minLength(10)]],
+			telefone2: ['', [Validators.minLength(10)]],
+			telefone3: ['', [Validators.minLength(10)]]
 		});
 
-		this.formGroup.get('logradouro').disable();
-		this.formGroup.get('bairro').disable();
-		this.formGroup.get('cidade').disable();
-		this.formGroup.get('uf').disable();
+		this.contaForm.get('logradouro').disable();
+		this.contaForm.get('bairro').disable();
+		this.contaForm.get('cidade').disable();
+		this.contaForm.get('uf').disable();
+
+        this.generos = [
+            {label: 'Homem', value: '1'},
+            {label: 'Mulher', value: '2'},
+            {label: 'Outro', value: '3'},
+        ];
 	}
+
+	ngOnInit() {
+        this.ptBr = {
+            firstDayOfWeek: 0,
+            dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+            dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+            dayNamesMin: ["Do","Se","Te","Qa","Qi","Se","Sá"],
+            monthNames: [ "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" ],
+            monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun","Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+            today: 'Hoje',
+            clear: 'Clear'
+        };
+    }
 
 	cadastre() {
 		let endereco: EnderecoDto = {
-			cep:this.formGroup.value.cep,
-			logradouro:this.formGroup.value.logradouro,
-			numero: this.formGroup.value.numero,
-			complemento:this.formGroup.value.complemento,
-			bairro:this.formGroup.value.bairro,
-			cidade:this.formGroup.value.cidade,
-			uf:this.formGroup.value.uf
+			cep:this.contaForm.value.cep,
+			logradouro:this.contaForm.value.logradouro,
+			numero: this.contaForm.value.numero,
+			complemento:this.contaForm.value.complemento,
+			bairro:this.contaForm.value.bairro,
+			cidade:this.contaForm.value.cidade,
+			uf:this.contaForm.value.uf
 		}
 
 		let usuario: UsuarioDTO = {
 			id:null,
-			nome:this.formGroup.value.nome,
-			sobrenome:this.formGroup.value.sobrenome,
-			cpf:this.formGroup.value.cpf,
-			dataDeNascimento:this.formGroup.value.dataDeNascimento,
-			genero:this.formGroup.value.generoId,
+			nome:this.contaForm.value.nome,
+			sobrenome:this.contaForm.value.sobrenome,
+			cpf:this.contaForm.value.cpf,
+			dataDeNascimento:this.contaForm.value.dataDeNascimento,
+			genero:this.contaForm.value.generoId,
 			endereco: endereco,
-			telefone1:this.formGroup.value.telefone1,
-			telefone2:this.formGroup.value.telefone2,
-			telefone3:this.formGroup.value.telefone3
+			telefone1:this.contaForm.value.telefone1,
+			telefone2:this.contaForm.value.telefone2,
+			telefone3:this.contaForm.value.telefone3
 		}
 
 		let conta: ContaDTO = {
 			id:null,
-			email:this.formGroup.value.email,
-			senha:this.formGroup.value.senha,
+			email:this.contaForm.value.email,
+			senha:this.contaForm.value.senha,
 			usuario
 		};
 
@@ -108,27 +131,28 @@ export class ContaPage {
 	}
 
 	populeEnderecos(event) {
-		this.enderecoService.findByCep(event.value).subscribe(response => {
-			this.formGroup = this.formBuilder.group({
-				nome: [this.formGroup.value.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
-				sobrenome: [this.formGroup.value.sobrenome, [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
-				cpf: [this.formGroup.value.cpf, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-				dataDeNascimento: [this.formGroup.value.dataDeNascimento, [Validators.required, Validators.pattern('^(?:(?:3[01]|[12][0-9]|0?[1-9])/(?:10|12|0?[13578])/(?:1[8-9]\\d{2}|[2-9]\\d{3})|(?:11|0?[469])/(?:30|[12][0-9]|0?[1-9])/(?:1[8-9]\\d{2}|[2-9]\\d{3})|0?2/(?:2[0-8]|1[0-9]|0?[1-9])/(?:1[8-9]\\d{2}|[2-9]\\d{3})|0?2/29/[2468][048]00|0?2/29/[3579][26]00|0?2/29/[1][89][0][48]|0?2/29/[2-9][0-9][0][48]|0?2/29/1[89][2468][048]|0?2/29/[2-9][0-9][2468][048]|0?2/29/1[89][13579][26]|0?2/29/[2-9][0-9][13579][26])$')]],
-				generoId: [this.formGroup.value.generoId, [Validators.required]],
-				email: [this.formGroup.value.email, [Validators.required, Validators.email]],
-				senha: [this.formGroup.value.senha, [Validators.required]],
-				confirmeSenha: [this.formGroup.value.confirmeSenha, [Validators.required, compararCamposValidator('senha')]],
-				cep: [response.cep.replace('-',''), [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+		this.enderecoService.findByCep(event.srcElement.value).subscribe(response => {
+			this.contaForm = this.formBuilder.group({
+				nome: [this.contaForm.value.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
+				sobrenome: [this.contaForm.value.sobrenome, [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
+				cpf: [this.contaForm.value.cpf, [Validators.required, Validators.minLength(14), Validators.maxLength(14)]],
+				dataDeNascimento: [this.contaForm.value.dataDeNascimento, [Validators.required]],
+				generoId: [this.contaForm.value.generoId, [Validators.required]],
+				email: [this.contaForm.value.email, [Validators.required, Validators.email]],
+				senha: [this.contaForm.value.senha, [Validators.required, Validators.minLength(8)]],
+				confirmeSenha: [this.contaForm.value.confirmeSenha, [Validators.required, Validators.minLength(8), compararCamposValidator('senha')]],
+				cep: [response.cep, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
 				logradouro: [response.logradouro, [Validators.required]],
-				numero: [this.formGroup.value.numero, [Validators.required]],
-				complemento: [this.formGroup.value.complemento, []],
+				numero: [this.contaForm.value.numero, [Validators.required]],
+				complemento: [this.contaForm.value.complemento, []],
 				bairro: [response.bairro, [Validators.required]],
 				cidade: [response.cidade, [Validators.required]],
 				uf: [response.uf, [Validators.required]],
-				telefone1: [this.formGroup.value.telefone1, [Validators.required, Validators.minLength(10)]],
-				telefone2: [this.formGroup.value.telefone2, [Validators.minLength(11)]],
-				telefone3: [this.formGroup.value.telefone3, [Validators.minLength(11)]]
+				telefone1: [this.contaForm.value.telefone1, [Validators.required, Validators.minLength(10)]],
+				telefone2: [this.contaForm.value.telefone2, [Validators.minLength(10)]],
+				telefone3: [this.contaForm.value.telefone3, [Validators.minLength(10)]]
 			});
 		});
+		this.isNotUpdateContaForm = false;
 	}
 }

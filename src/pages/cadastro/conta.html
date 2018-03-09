@@ -12,96 +12,151 @@
 			</ion-col>
 			<ion-col col-10 col-md-8 col-lg-6>
 				<div>
-					<form [formGroup]="formGroup" (ngSubmit)="cadastre(); $event.preventDefault()">
-						<ion-item>
-							<ion-label stacked>Nome*</ion-label>
-							<ion-input formControlName="nome" type="text"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor inválido</p>
-						<ion-item>
-							<ion-label stacked>Sobrenome*</ion-label>
-							<ion-input formControlName="sobrenome" type="text"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.sobrenome.dirty && formGroup.controls.sobrenome.errors" margin-left>Valor inválido</p>
-						<ion-item>
-							<ion-label stacked>CPF</ion-label>
-							<ion-input formControlName="cpf" type="text" placeholder="000.000.000-00"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.cpf.dirty && formGroup.controls.cpf.errors" margin-left>Digite somente os números do CPF sem ponto (.) e hífen (-)</p>
-						<ion-item>
-							<ion-label stacked>Data de nascimento*</ion-label>
-							<ion-input formControlName="dataDeNascimento" type="text" placeholder="01/01/1990"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.dataDeNascimento.dirty && formGroup.controls.dataDeNascimento.errors" margin-left>Insira uma data válida no formato D/M/A. Onde D é o DIA, M é o MÊS e A é o ANO</p>
-						<ion-item>
-							<ion-label stacked>Gênero*</ion-label>
-							<ion-select formControlName="generoId">
-								<ion-option value="1">Homem</ion-option>
-								<ion-option value="2">Mulher</ion-option>
-								<ion-option value="3">Outro</ion-option>
-							</ion-select>
-						</ion-item>
-						<ion-item>
-							<ion-label stacked>Email*</ion-label>
-							<ion-input formControlName="email" type="text" placeholder="usuario@email.com"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
-						<ion-item>
-							<ion-label stacked>Senha*</ion-label>
-							<ion-input formControlName="senha" type="password"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
-						<ion-item>
-							<ion-label stacked>Confirme a Senha*</ion-label>
-							<ion-input formControlName="confirmeSenha" type="password"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.confirmeSenha.dirty && formGroup.controls.confirmeSenha.errors" margin-left>Digite os mesmos caracteres inseridos no campo Senha*</p>
-						<ion-item>
-							<ion-label stacked>CEP*</ion-label>
-							<ion-input formControlName="cep" type="text" placeholder="00000-000" (ionBlur)=populeEnderecos($event)></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Digite somente os números do CEP sem ponto sem hífen (-)</p>
-						<ion-item>
-							<ion-label stacked>Logradouro*</ion-label>
-							<ion-input formControlName="logradouro" type="text"></ion-input>
-						</ion-item>
-						<ion-item>
-							<ion-label stacked>Número*</ion-label>
-							<ion-input formControlName="numero" type="text"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.numero.dirty && formGroup.controls.numero.errors" margin-left>Valor inválido</p>
-						<ion-item>
-							<ion-label stacked>Complemento</ion-label>
-							<ion-input formControlName="complemento" type="text"></ion-input>
-						</ion-item>
-						<ion-item>
-							<ion-label stacked>Bairro*</ion-label>
-							<ion-input formControlName="bairro" type="text"></ion-input>
-						</ion-item>
-						<ion-item>
-							<ion-label stacked>Cidade*</ion-label>
-							<ion-input formControlName="cidade" type="text"></ion-input>
-						</ion-item>
-						<ion-item>
-							<ion-label stacked>UF*</ion-label>
-							<ion-input formControlName="uf" type="text"></ion-input>
-						</ion-item>
-						<ion-item>
-							<ion-label stacked>Telefone 1*</ion-label>
-							<ion-input formControlName="telefone1" type="text"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>Digite o código de área, sem o zero, seguido do número de telefone ou celular</p>
-						<ion-item>
-							<ion-label stacked>Telefone 2</ion-label>
-							<ion-input formControlName="telefone2" type="text"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.telefone2.dirty && formGroup.controls.telefone2.errors" margin-left>Valor inválido</p>
-						<ion-item>
-							<ion-label stacked>Telefone 3</ion-label>
-							<ion-input formControlName="telefone3" type="text"></ion-input>
-						</ion-item>
-						<p class="danger" *ngIf="formGroup.controls.telefone3.dirty && formGroup.controls.telefone3.errors" margin-left>Valor inválido</p>
-						<button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</button>
+					<!-- $event.preventDefault() previne o envio de formulário indesejado -->
+					<form [formGroup]="contaForm" (ngSubmit)="cadastre(); $event.preventDefault()">
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="nome" type="text" class="larguraTotal" pInputText>
+								<label for="float-input">Nome*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['nome'].valid&&contaForm.controls['nome'].dirty">
+								<i class="fa fa-close"></i> Insira seu nome
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText>
+								<label for="float-input">Sobrenome*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['sobrenome'].valid&&contaForm.controls['sobrenome'].dirty">
+								<i class="fa fa-close"></i> Insira seu sobrenome
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<p-inputMask formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+								<label for="float-input">CPF*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cpf'].valid&&contaForm.controls['cpf'].dirty">
+								<i class="fa fa-close"></i> Insira seu cpf
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<p-calendar formControlName="dataDeNascimento" [monthNavigator]="true" [yearNavigator]="true" yearRange="1918:2001" dateFormat="dd/mm/yy"
+								 [locale]="ptBr" [showIcon]="true"></p-calendar>
+								<label for="float-input">Data de nascimento*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['dataDeNascimento'].valid&&contaForm.controls['dataDeNascimento'].dirty">
+								<i class="fa fa-close"></i> Insira sua data de nascimento
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<p-dropdown formControlName="generoId" [options]="generos" editable="true" placeholder="Gênero*"></p-dropdown>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['generoId'].valid&&contaForm.controls['generoId'].dirty">
+								<i class="fa fa-close"></i> Escolha seu gênero
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="email" type="text" pInputText>
+								<label for="float-input">E-mail*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['email'].valid&&contaForm.controls['email'].dirty">
+								<i class="fa fa-close"></i> Insira seu e-mail
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="senha" type="password" class="larguraTotal" pPassword>
+								<label for="float-input">Senha*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
+								<i class="fa fa-close"></i> Insira uma senha de no mínimo 8 caracteres
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="confirmeSenha" type="password" class="larguraTotal" pPassword>
+								<label for="float-input">Confirme a Senha*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">
+								<i class="fa fa-close"></i> Confirme a senha inserida anteriormente
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<p-inputMask formControlName="cep" mask="99999-999" (onBlur)=populeEnderecos($event)></p-inputMask>
+								<label for="float-input">CEP*</label>
+								<a href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCepEndereco.cfm" target="_blank">Caso não saiba pesquise aqui</a>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cep'].valid&&contaForm.controls['cep'].dirty">
+								<i class="fa fa-close"></i> Insira o cep da sua rua
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="logradouro" type="text" class="larguraTotal" pInputText>
+								<label for="float-input">Logradouro*</label>
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="numero" type="text" pInputText>
+								<label for="float-input">Número*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['numero'].valid&&contaForm.controls['numero'].dirty">
+								<i class="fa fa-close"></i> Insira o número da sua residência
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="complemento" type="text" class="larguraTotal" pInputText>
+								<label for="float-input">Complemento</label>
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="bairro" type="text" class="larguraTotal" pInputText>
+								<label for="float-input">Bairro*</label>
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="cidade" type="text" class="larguraTotal" pInputText>
+								<label for="float-input">Cidade*</label>
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="uf" type="text" pInputText>
+								<label for="float-input">UF*</label>
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="telefone1" type="text" pInputText>
+								<label for="float-input">Telefone 1*</label>
+							</span>
+							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['telefone1'].valid&&contaForm.controls['telefone1'].dirty">
+								<i class="fa fa-close"></i> Insira o número do seu telefone ou celular
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="telefone2" type="text" pInputText>
+								<label for="float-input">Telefone 2</label>
+							</span>
+						</p>
+						<p>
+							<span class="ui-float-label">
+								<input formControlName="telefone3" type="text" pInputText>
+								<label for="float-input">Telefone 3</label>
+							</span>
+						</p>
+						<button ion-button block type="submit" [disabled]="contaForm.invalid && isNotUpdateContaForm">Criar conta</button>
 					</form>
 				</div>
 			</ion-col>
@@ -110,5 +165,4 @@
 			</ion-col>
 		</ion-row>
 	</ion-grid>
-	<!-- $event.preventDefault() previne o envio de formulário indesejado -->
 </ion-content>
