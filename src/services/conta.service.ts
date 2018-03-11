@@ -11,8 +11,8 @@ export class ContaService {
 	constructor(public http: HttpClient, public storage: StorageService) {
 	}
 
-	findByEmail(email: string): Observable<ContaDTO> {
-		return this.http.get<ContaDTO>(Loterias.DOMINIO +'contas/email?value='+ email);
+	findByEmail(email: string): Observable<{id: number, email: string, situacao: string, perfis: [string], volantes: [string]}> {
+		return this.http.get<{id: number, email: string, situacao: string, perfis: [string], volantes: [string]}>(Loterias.DOMINIO +'contas/email?value='+ email);
 	}
 	
 	insert(obj: ContaDTO) {

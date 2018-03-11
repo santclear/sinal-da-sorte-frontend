@@ -112,18 +112,16 @@ export class ContaPage {
 			usuario
 		};
 
-		console.log(conta)
-
 		this.contaService.insert(conta)
 			.subscribe(response => {
-				this.showInsertOk();
+				this.showInsertOk(conta.email);
 			}, error => { });
 	}
 
-	showInsertOk() {
+	showInsertOk(email: string) {
 		let alert = this.alertCtrl.create({
 			title: 'Sucesso!',
-			message: 'Cadastro efetuado com sucesso',
+			message: 'Cadastro efetuado com sucesso.\nClique no link enviado para o e-mail cadastrado: '+ email,
 			enableBackdropDismiss: false,
 			buttons: [{
 				text: 'Ok',

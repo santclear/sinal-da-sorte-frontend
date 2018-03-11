@@ -1,17 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, LoadingController, ToastController } from 'ionic-angular';
+import { Nav, Platform, MenuController, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
-import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
+import { ContaLocalDTO } from '../dtos/conta-local.dto';
 import { Loterias } from '../enum/loterias';
 
 import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
+import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
 import { MenuService } from '../services/menu.service';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
+import { ContaService } from '../services/conta.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -38,8 +40,10 @@ export class MyApp {
 		public menuService: MenuService, 
 		public auth: AuthService,
 		public util: UtilService,
-		public storage: StorageService, 
-		private toastCtrl: ToastController) {
+		public storage: StorageService,
+		private toastCtrl: ToastController,
+		private alertCtrl: AlertController,
+		private contaService: ContaService) {
 		
 		this.bd = ConexaoFabrica.getConexao();
 
@@ -60,17 +64,6 @@ export class MyApp {
 				this.paginas = this.menuService.getPaginas(resultadoQuery.antigo)
 			};
 
-			/*FIXME: Exibindo 2x notificação de erro de conexão.*/
-			// this.auth.refreshToken()
-			// .subscribe(response => {
-			// 	this.auth.successfulLogin(response.headers.get('Authorization'));
-			// 	this.sincronize();
-			// }, error => {
-			// 	let contaLocal = this.storage.getContaLocal();
-			// 	if(contaLocal) this.sincronize();
-			// 	else this.paginaInicial = LoginPage;
-			// });
-			// this.initializeApp();
 			this.sincronize();
 		});
 	}
@@ -199,10 +192,29 @@ export class MyApp {
 	private sincronize() {
 		this.bd.get('sessao').then((sessao) => {
 			this.util.ping().subscribe(response => {
-				let indiceLoteria = sessao.loteria.id - 1;
-				let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-				resultadoSincronizePromise.then(resultadoSincronize => {
-					this.setPaginaInicial();
+				let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+				this.contaService.findByEmail(contaLocal.email).subscribe(conta => {
+					if(conta.situacao === 'ATIVO') {
+						let indiceLoteria = sessao.loteria.id - 1;
+						let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+						resultadoSincronizePromise.then(resultadoSincronize => {
+							this.setPaginaInicial();
+						});
+					} else {
+						let alert = this.alertCtrl.create({
+							title: 'Conta inativa',
+							message: `Sua conta não está ativada.\nPara ativar, 
+							clique no link enviado para o e-mail `+ contaLocal.email +`. 
+							Caso não consiga por esse link, clique no botão 
+							ESQUECI MINHA SENHA na página inicial e siga as instruções exibidas na página.`,
+							enableBackdropDismiss: false,
+							buttons: [{
+								text: 'Ok',
+								handler: () => { this.paginaInicial = LoginPage; }
+							}]
+						});
+						alert.present();
+					}
 				});
 			}, erro => {
 				this.setPaginaInicial();

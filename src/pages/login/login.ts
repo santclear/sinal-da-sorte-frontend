@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { NavController, MenuController, AlertController } from 'ionic-angular';
 import { BemVindoPage } from '../bem-vindo/bem-vindo';
 import { ContaPage } from '../cadastro/conta';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 import { MenuService } from '../../services/menu.service';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
+import { ContaLocalDTO } from '../../dtos/conta-local.dto';
+import { StorageService } from '../../services/storage.service';
+import { ContaService } from '../../services/conta.service';
 
 @Component({
 	selector: 'page-login',
@@ -20,7 +23,14 @@ export class LoginPage {
 		senha: ""
 	}
 
-	constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService, public menuService: MenuService) {
+	constructor(
+		public navCtrl: NavController, 
+		public menu: MenuController, 
+		public auth: AuthService, 
+		public menuService: MenuService,
+		private storage: StorageService,
+		private alertCtrl: AlertController,
+		private contaService: ContaService) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
 
@@ -43,12 +53,28 @@ export class LoginPage {
 
 	setRootPage(response) {
 		this.auth.successfulLogin(response.headers.get('Authorization'));
-		this.bd.get('sessao').then((sessao) => {
-			let indiceLoteria = sessao.loteria.id - 1;
-			let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-			resultadoSincronizePromise.then(resultadoSincronize => {
-				this.navCtrl.setRoot(BemVindoPage);
-			});
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		this.contaService.findByEmail(contaLocal.email).subscribe(conta => {
+			if(conta.situacao === 'ATIVO') {
+				this.bd.get('sessao').then((sessao) => {
+					let indiceLoteria = sessao.loteria.id - 1;
+					let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+					resultadoSincronizePromise.then(resultadoSincronize => {
+						this.navCtrl.setRoot(BemVindoPage);
+					});
+				});
+			} else {
+				let alert = this.alertCtrl.create({
+					title: 'Conta inativa',
+					message: 'Sua conta não está ativada.\nPara ativar, clique no link enviado para o e-mail '+ contaLocal.email +'.',
+					enableBackdropDismiss: false,
+					buttons: [{
+						text: 'Ok',
+						handler: () => {  }
+					}]
+				});
+				alert.present();
+			}
 		});
 	}
 
