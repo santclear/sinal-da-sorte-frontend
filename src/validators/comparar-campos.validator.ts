@@ -11,12 +11,12 @@ export function compararCamposValidator(otherControlName: string) {
 			return null;
 		}
 
-		// Initializing the validator.
+		// Inicializa o validador
 		if (!thisControl) {
 			thisControl = control;
 			otherControl = control.parent.get(otherControlName) as FormControl;
 			if (!otherControl) {
-				throw new Error('compararCamposValidator(): other control is not found in parent group');
+				throw new Error('compararCamposValidator(): O outro controle não foi encontrado no grupo');
 			}
 			otherControl.valueChanges.subscribe(() => {
 				thisControl.updateValueAndValidity();

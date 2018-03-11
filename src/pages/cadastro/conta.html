@@ -38,7 +38,7 @@
 								<label for="float-input">CPF*</label>
 							</span>
 							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cpf'].valid&&contaForm.controls['cpf'].dirty">
-								<i class="fa fa-close"></i> Insira seu cpf
+								<i class="fa fa-close"></i> Insira seu CPF
 							</span>
 						</p>
 						<p>
@@ -90,7 +90,7 @@
 							<span class="ui-float-label">
 								<p-inputMask formControlName="cep" mask="99999-999" (onBlur)=populeEnderecos($event)></p-inputMask>
 								<label for="float-input">CEP*</label>
-								<a href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCepEndereco.cfm" target="_blank">Caso não saiba pesquise aqui</a>
+								<a href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCepEndereco.cfm" target="_blank">Caso não saiba, pesquise aqui</a>
 							</span>
 							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cep'].valid&&contaForm.controls['cep'].dirty">
 								<i class="fa fa-close"></i> Insira o cep da sua rua
@@ -98,7 +98,7 @@
 						</p>
 						<p>
 							<span class="ui-float-label">
-								<input formControlName="logradouro" type="text" class="larguraTotal" pInputText>
+								<input formControlName="logradouro" type="text" class="larguraTotal" [readonly]="true" pInputText>
 								<label for="float-input">Logradouro*</label>
 							</span>
 						</p>
@@ -119,19 +119,19 @@
 						</p>
 						<p>
 							<span class="ui-float-label">
-								<input formControlName="bairro" type="text" class="larguraTotal" pInputText>
+								<input formControlName="bairro" type="text" class="larguraTotal" [readonly]="true" pInputText>
 								<label for="float-input">Bairro*</label>
 							</span>
 						</p>
 						<p>
 							<span class="ui-float-label">
-								<input formControlName="cidade" type="text" class="larguraTotal" pInputText>
+								<input formControlName="cidade" type="text" class="larguraTotal" [readonly]="true" pInputText>
 								<label for="float-input">Cidade*</label>
 							</span>
 						</p>
 						<p>
 							<span class="ui-float-label">
-								<input formControlName="uf" type="text" pInputText>
+								<input formControlName="uf" type="text" [readonly]="true" pInputText>
 								<label for="float-input">UF*</label>
 							</span>
 						</p>
@@ -156,7 +156,7 @@
 								<label for="float-input">Telefone 3</label>
 							</span>
 						</p>
-						<button ion-button block type="submit" [disabled]="contaForm.invalid && isNotUpdateContaForm">Criar conta</button>
+						<button ion-button block type="submit" [disabled]="contaForm.invalid">Criar conta</button>
 					</form>
 				</div>
 			</ion-col>
