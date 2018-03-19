@@ -48,4 +48,15 @@ export class AuthService {
 	logout() {
 		this.storage.setContaLocal(null);
 	}
+
+	envieNovaSenha(obj: CredenciaisDTO) {
+		return this.http.post(
+			Loterias.DOMINIO +'auth/forgot',
+			obj,
+			{
+				observe: 'response',
+				responseType: 'text'
+			}
+		);
+	}
 }

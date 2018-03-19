@@ -1,0 +1,27 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Esqueci minha senha</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<ion-grid>
+		<ion-row>
+			<ion-col col-12 col-sm-6 col-md-4 col-lg-4>
+				<form [formGroup]="esqueciSenhaForm" (ngSubmit)="envieNovaSenha(); $event.preventDefault()">
+					<ion-item>
+						<ion-label floating>E-mail</ion-label>
+						<ion-input type="text" formControlName="email"></ion-input>
+					</ion-item>
+					<span class="ui-message ui-messages-error ui-corner-all ng-star-inserted" *ngIf="esqueciSenhaForm.controls.email.dirty && esqueciSenhaForm.controls.email.errors"
+					 margin-left>
+						<i class="fa fa-close"></i> E-mail inválido
+					</span>
+					<button ion-button block type="submit" [disabled]="esqueciSenhaForm.invalid">Enviar nova senha</button>
+				</form>
+			</ion-col>
+			<ion-col col-sm-6 col-md-8 col-lg-8></ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

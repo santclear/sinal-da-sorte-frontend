@@ -121,7 +121,7 @@ export class ContaPage {
 	showInsertOk(email: string) {
 		let alert = this.alertCtrl.create({
 			title: 'Sucesso!',
-			message: 'Cadastro efetuado com sucesso.\nClique no link enviado para o e-mail cadastrado: '+ email,
+			message: 'Cadastro efetuado com sucesso.\nSiga as instruções enviadas para o e-mail: '+ email,
 			enableBackdropDismiss: false,
 			buttons: [{
 				text: 'Ok',

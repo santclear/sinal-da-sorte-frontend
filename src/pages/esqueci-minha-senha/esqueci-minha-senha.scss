@@ -1,0 +1,33 @@
+page-esqueci-minha-senha {
+	.ui-message {
+		border: 1px solid;
+		margin: 0 .25em;
+		padding: .25em .5em;
+		display: inline-block;
+	}
+
+	.ui-messages-error {
+		color: #ab1a0f;
+		background-color: #ffcbc8;
+		border-color: #ffcbc8;
+	}
+
+	.ui-corner-all {
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+	}
+
+	.fa {
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	.fa-remove:before, .fa-close:before, .fa-times:before {
+		content: '\f00d';
+	}
+}

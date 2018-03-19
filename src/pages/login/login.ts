@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, MenuController, AlertController } from 'ionic-angular';
 import { BemVindoPage } from '../bem-vindo/bem-vindo';
 import { ContaPage } from '../cadastro/conta';
+import { EsqueciMinhaSenhaPage } from '../esqueci-minha-senha/esqueci-minha-senha';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 import { MenuService } from '../../services/menu.service';
@@ -80,5 +81,9 @@ export class LoginPage {
 
 	cadastrar() {
 		this.navCtrl.push(ContaPage);
+	}
+
+	esqueciMinhaSenha() {
+		this.navCtrl.push(EsqueciMinhaSenhaPage);
 	}
 }

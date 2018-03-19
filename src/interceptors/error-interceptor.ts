@@ -38,7 +38,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 						this.handle403();
 						break;
 					case 404:
-						this.handle404();
+						this.handle404(errorObj);
 						break;
 					case 422:
 						this.handle422(errorObj);
@@ -70,9 +70,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 		this.storage.setContaLocal(null);
 	}
 
-	handle404() {
+	handle404(errorObj) {
+		let message = errorObj.message === null ? 'Página ou recurso não encontrado': errorObj.message;
 		let toast = this.toastCtrl.create({
-			message: 'Código 404: Página ou recurso não encontrado',
+			message: 'Código 404: '+ message,
 			showCloseButton: true,
 			closeButtonText: 'Ok',
 			duration: 5000,

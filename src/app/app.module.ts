@@ -18,6 +18,7 @@ import { FrequenciaSomaDezenasAgs } from '../pages/estatistica/frequencia-soma-d
 
 import { LoginPage } from '../pages/login/login';
 import { ContaPage } from '../pages/cadastro/conta';
+import { EsqueciMinhaSenhaPage } from '../pages/esqueci-minha-senha/esqueci-minha-senha';
 import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { EstatisticaPage } from '../pages/estatistica/estatistica';
 import { SimuladorPage } from '../pages/simulador/simulador';
@@ -54,6 +55,7 @@ import { PasswordModule } from 'primeng/password';
 		FrequenciaSomaDezenasAgs,
 		LoginPage,
 		ContaPage,
+		EsqueciMinhaSenhaPage,
 		BemVindoPage,
 		EstatisticaPage,
 		SimuladorPage,
@@ -85,6 +87,7 @@ import { PasswordModule } from 'primeng/password';
 		FrequenciaSomaDezenasAgs,
 		LoginPage,
 		ContaPage,
+		EsqueciMinhaSenhaPage,
 		BemVindoPage,
 		EstatisticaPage,
 		SimuladorPage,
