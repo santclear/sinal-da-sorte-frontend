@@ -2,19 +2,25 @@
 	<!-- <h3>Sinal da Sorte</h3> -->
 
 	<img src="assets/img/login-logo.png" alt="logo">
-
-	<form>
-		<ion-item>
-			<ion-label stacked>Email</ion-label>
-			<ion-input [(ngModel)]="credenciais.email" name="email" type="text"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label stacked>Senha</ion-label>
-			<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
-		</ion-item>
-		<button ion-button block (click)="login()">Entrar</button>
-	</form>
-	<button ion-button block outline (click)="cadastrar()">Cadastrar</button>
-	<button ion-button block clear (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
-
+	<ion-grid>
+		<ion-row>
+			<ion-col col-1 col-md-4 col-lg-4></ion-col>
+			<ion-col col-10 col-md-4 col-lg-4>
+				<form>
+					<ion-item>
+						<ion-label floating>Email</ion-label>
+						<ion-input [(ngModel)]="credenciais.email" name="email" type="text"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label floating>Senha</ion-label>
+						<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
+					</ion-item>
+					<button ion-button block (click)="login()">Entrar</button>
+				</form>
+				<button ion-button block outline (click)="cadastrar()">Cadastrar</button>
+				<button ion-button block clear (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
+			</ion-col>
+			<ion-col col-1 col-md-4 col-lg-4></ion-col>
+		</ion-row>
+	</ion-grid>
 </ion-content>
