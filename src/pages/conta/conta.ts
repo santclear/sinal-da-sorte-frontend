@@ -5,13 +5,12 @@ import { ContaService } from '../../services/conta.service';
 import { EnderecoService } from '../../services/endereco.service';
 import { EstadoDTO } from '../../dtos/estado.dto';
 import { CidadeDTO } from '../../dtos/cidade.dto';
-import { ContaDTO } from '../../dtos/conta.dto';
-import { UsuarioDTO } from '../../dtos/usuario.dto';
+import { ContaNewDto } from '../../dtos/conta-new.dto';
+import { UsuarioDto } from '../../dtos/usuario.dto';
+import { EnderecoDto } from '../../dtos/endereco.dto';
 
 import { compararCamposValidator } from '../../validators/comparar-campos.validator';
 import { cpfValidator } from '../../validators/cpf.validator';
-import { HttpClient } from '@angular/common/http';
-import { EnderecoDto } from '../../dtos/endereco.dto';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
@@ -28,13 +27,12 @@ export class ContaPage {
 	isNotUpdateContaForm: boolean = true;
 
 	constructor(
-		public navCtrl: NavController,
-		public formBuilder: FormBuilder,
-		public contaService: ContaService,
-		public enderecoService: EnderecoService,
-		public alertCtrl: AlertController,
-		public http: HttpClient, 
-		public toastCtrl: ToastController) {
+		private navCtrl: NavController,
+		private formBuilder: FormBuilder,
+		private contaService: ContaService,
+		private enderecoService: EnderecoService,
+		private alertCtrl: AlertController,
+		private toastCtrl: ToastController) {
 
 		this.contaForm = this.formBuilder.group({
 			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
@@ -45,22 +43,22 @@ export class ContaPage {
 			email: ['', [Validators.required, Validators.email]],
 			senha: ['', [Validators.required, Validators.minLength(8)]],
 			confirmeSenha: ['', [Validators.required, Validators.minLength(8), compararCamposValidator('senha')]],
-			cep: ['', [Validators.required, Validators.minLength(9)]],
+			cep: ['', [Validators.required, Validators.minLength(8)]],
 			logradouro: ['', [Validators.required]],
 			numero: ['', [Validators.required]],
 			complemento: ['', []],
 			bairro: ['', [Validators.required]],
 			cidade: ['', [Validators.required]],
 			uf: ['', [Validators.required]],
-			telefone1: ['', [Validators.required, Validators.minLength(10)]],
-			telefone2: ['', [Validators.minLength(10)]],
-			telefone3: ['', [Validators.minLength(10)]]
+			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.pattern('\\d+')]],
+			telefone2: ['', [Validators.minLength(10), Validators.pattern('\\d+')]],
+			telefone3: ['', [Validators.minLength(10), Validators.pattern('\\d+')]]
 		});
 
         this.generos = [
-            {label: 'Homem', value: '1'},
-            {label: 'Mulher', value: '2'},
-            {label: 'Outro', value: '3'},
+            { label: 'Homem', value: '1' },
+            { label: 'Mulher', value: '2' },
+            { label: 'Outro', value: '3' },
 		];
 	}
 
@@ -89,10 +87,11 @@ export class ContaPage {
 		}
 
 
-		let date = new Date(this.contaForm.value.dataDeNascimento);
-		let dataDeNascimento = date.getDay() +'/'+ date.getMonth() +'/'+ date.getFullYear();
+		let date = this.contaForm.value.dataDeNascimento;
+		let mes = date.getMonth() + 1;
+		let dataDeNascimento = date.getFullYear() +'-'+ mes +'-'+ date.getDate();
 
-		let usuario: UsuarioDTO = {
+		let usuario: UsuarioDto = {
 			id:null,
 			nome:this.contaForm.value.nome,
 			sobrenome:this.contaForm.value.sobrenome,
@@ -105,7 +104,7 @@ export class ContaPage {
 			telefone3:this.contaForm.value.telefone3
 		}
 
-		let conta: ContaDTO = {
+		let conta: ContaNewDto = {
 			id:null,
 			email:this.contaForm.value.email,
 			senha:this.contaForm.value.senha,
@@ -159,5 +158,7 @@ export class ContaPage {
 		}
 	}
 
-
+	populeForm() {
+		
+	}
 }

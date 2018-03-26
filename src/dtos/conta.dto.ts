@@ -1,8 +1,5 @@
-import { UsuarioDTO } from './usuario.dto';
+import { ContaNewDto } from './conta-new.dto'
 
-export interface ContaDTO {
-	id: string;
-	email: string;
-	senha: string;
-	usuario: UsuarioDTO;
+export interface ContaDto extends ContaNewDto {
+	novaSenha: string;
 }

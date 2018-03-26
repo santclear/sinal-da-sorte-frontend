@@ -11,6 +11,7 @@ import { HistoricoDeApostasPage } from '../pages/historico-de-apostas/historico-
 import { ConcursoFacade } from "../dao/concurso/concurso-facade";
 import { ConcursoDAOServico } from "../dao/concurso/concurso-dao.servico";
 import { Loterias } from "../enum/loterias";
+import { AtualizacaoContaPage } from "../pages/conta/atualizacao-conta";
 import { LoginPage } from "../pages/login/login";
 
 @Injectable()
@@ -30,6 +31,7 @@ export class MenuService {
 			{ sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: GruposEspeciaisPage, icone: 'md-grid', corTexto: '#bbb', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: BolaoPage, icone: 'ios-people', corTexto: '#bbb', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: HistoricoDeApostasPage, icone: 'ios-list-box-outline', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Conta', titulo: 'Conta', class: AtualizacaoContaPage, icone: 'key', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Sair', titulo: 'Sair', class: LoginPage, icone: 'exit', corTexto: cor, exibir_texto: 'none' }
 		];
 	}

@@ -76,16 +76,17 @@ export class MyApp {
 	}
 
 	abraAPagina(objetoPagina, indicePagina) {
-		if(objetoPagina.titulo === 'Sair') {
-			this.auth.logout();
-			this.menu.close();
-			this.indicePaginaAtual = indicePagina;
-			this.nav.setRoot(objetoPagina.class);
-		} else {
-			this.indicePaginaAtual = indicePagina;
-			this.menu.close();
-			this.nav.setRoot(objetoPagina.class);
+		this.indicePaginaAtual = indicePagina;
+		switch(objetoPagina.titulo) {
+			case 'Conta':
+				this.nav.push(objetoPagina.class);
+				break;
+			case 'Sair':
+				this.auth.logout();
+			default:
+				this.nav.setRoot(objetoPagina.class);
 		}
+		this.menu.close();
 	}
 
 	ativeMenuPaginas(indiceLoteria) {
@@ -193,7 +194,7 @@ export class MyApp {
 		this.bd.get('sessao').then((sessao) => {
 			this.util.ping().subscribe(response => {
 				let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
-				this.contaService.findByEmail(contaLocal.email).subscribe(conta => {
+				this.contaService.encontrePorEmail(contaLocal.email).subscribe(conta => {
 					if(conta.situacao === 'ATIVO') {
 						let indiceLoteria = sessao.loteria.id - 1;
 						let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);

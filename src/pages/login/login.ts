@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController, AlertController } from 'ionic-angular';
 import { BemVindoPage } from '../bem-vindo/bem-vindo';
-import { ContaPage } from '../cadastro/conta';
+import { ContaPage } from '../conta/conta';
 import { EsqueciMinhaSenhaPage } from '../esqueci-minha-senha/esqueci-minha-senha';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
@@ -55,7 +55,7 @@ export class LoginPage {
 	setRootPage(response) {
 		this.auth.successfulLogin(response.headers.get('Authorization'));
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
-		this.contaService.findByEmail(contaLocal.email).subscribe(conta => {
+		this.contaService.encontrePorEmail(contaLocal.email).subscribe(conta => {
 			if(conta.situacao === 'ATIVO') {
 				this.bd.get('sessao').then((sessao) => {
 					let indiceLoteria = sessao.loteria.id - 1;

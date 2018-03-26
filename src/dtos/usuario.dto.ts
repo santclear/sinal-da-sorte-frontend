@@ -1,6 +1,6 @@
 import { EnderecoDto } from "./endereco.dto";
 
-export interface UsuarioDTO {
+export interface UsuarioDto {
 	id: string;
 	nome: string;
 	sobrenome: string;

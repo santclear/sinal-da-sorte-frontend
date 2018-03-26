@@ -3,22 +3,22 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
 import { Loterias } from "../enum/loterias"
 import { StorageService } from "./storage.service";
-import { ContaDto } from "../dtos/conta.dto";
-import { ContaNewDto } from "../dtos/conta-new.dto";
+import { UsuarioDto } from "../dtos/usuario.dto";
 
 @Injectable()
-export class ContaService {
+export class UsuarioService {
 
 	constructor(public http: HttpClient, public storage: StorageService) {
 	}
 
 	encontrePorEmail(email: string): Observable<any> {
-		return this.http.get<any>(Loterias.DOMINIO +'contas/encontrePorEmail?value='+ email);
+		return this.http.get<any>(Loterias.DOMINIO +'usuarios/encontrePorEmail?value='+ email);
 	}
-	
-	insert(obj: ContaNewDto) {
-		return this.http.post(
-			Loterias.DOMINIO +"contas",
+
+
+	atualize(obj: UsuarioDto) {
+		return this.http.put(
+			Loterias.DOMINIO +"usuarios/"+ obj.id,
 			obj,
 			{
 				observe: 'response',
@@ -27,14 +27,4 @@ export class ContaService {
 		);
 	}
 
-	atualize(obj: ContaDto) {
-		return this.http.put(
-			Loterias.DOMINIO +"contas/"+ obj.id,
-			obj,
-			{
-				observe: 'response',
-				responseType: 'text'
-			}
-		);
-	}
 } 

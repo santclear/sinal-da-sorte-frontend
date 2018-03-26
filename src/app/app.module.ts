@@ -17,7 +17,8 @@ import { FrequenciaAcumuladaAgs } from '../pages/estatistica/frequencia-acumulad
 import { FrequenciaSomaDezenasAgs } from '../pages/estatistica/frequencia-soma-dezenas/frequencia-soma-dezenas.ags';
 
 import { LoginPage } from '../pages/login/login';
-import { ContaPage } from '../pages/cadastro/conta';
+import { ContaPage } from '../pages/conta/conta';
+import { AtualizacaoContaPage } from '../pages/conta/atualizacao-conta';
 import { EsqueciMinhaSenhaPage } from '../pages/esqueci-minha-senha/esqueci-minha-senha';
 import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { EstatisticaPage } from '../pages/estatistica/estatistica';
@@ -35,6 +36,7 @@ import { StorageService } from '../services/storage.service';
 import { ContaService } from '../services/conta.service';
 import { EnderecoService } from '../services/endereco.service';
 import { UtilService } from '../services/util.service';
+import { UsuarioService } from '../services/usuario.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 
@@ -45,6 +47,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
+import { TabViewModule } from 'primeng/tabview';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
 	declarations: [
@@ -55,6 +59,7 @@ import { PasswordModule } from 'primeng/password';
 		FrequenciaSomaDezenasAgs,
 		LoginPage,
 		ContaPage,
+		AtualizacaoContaPage,
 		EsqueciMinhaSenhaPage,
 		BemVindoPage,
 		EstatisticaPage,
@@ -76,6 +81,8 @@ import { PasswordModule } from 'primeng/password';
 		InputMaskModule,
 		DropdownModule,
 		PasswordModule,
+		TabViewModule,
+		CardModule,
 		IonicModule.forRoot(MyApp)
 	],
 	bootstrap: [IonicApp],
@@ -87,6 +94,7 @@ import { PasswordModule } from 'primeng/password';
 		FrequenciaSomaDezenasAgs,
 		LoginPage,
 		ContaPage,
+		AtualizacaoContaPage,
 		EsqueciMinhaSenhaPage,
 		BemVindoPage,
 		EstatisticaPage,
@@ -108,6 +116,7 @@ import { PasswordModule } from 'primeng/password';
 		ContaService,
 		EnderecoService,
 		UtilService,
+		UsuarioService,
 		AuthInterceptorProvider,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }

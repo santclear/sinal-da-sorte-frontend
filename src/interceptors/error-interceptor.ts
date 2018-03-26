@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ToastController } from 'ionic-angular';
+import { ToastController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from '../services/storage.service';
 import { FieldMessageDTO } from '../dtos/field-message.dto';
+import { MensagensExceptions } from '../enum/mensagens-exceptions'
+
 
 // Interceptador de erros globais. Retira os campos que não interessam da mensagem de erro e exibe só o erro de fato
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-	constructor(public storage: StorageService, private toastCtrl: ToastController) { }
+	constructor(public storage: StorageService, private toastCtrl: ToastController, private alertCtrl: AlertController) { }
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		//TODO: next.handle(req) função para continuar a requisição
@@ -35,7 +37,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 						this.handle401();
 						break;
 					case 403:
-						this.handle403();
+						this.handle403(errorObj);
 						break;
 					case 404:
 						this.handle404(errorObj);
@@ -66,8 +68,20 @@ export class ErrorInterceptor implements HttpInterceptor {
 		toast.present();
 	}
 
-	handle403() {
-		this.storage.setContaLocal(null);
+	handle403(errorObj) {
+		if(errorObj.message === "e1") {
+			let alert = this.alertCtrl.create({
+				title: 'Não autorizado',
+				message: MensagensExceptions.codigo[errorObj.message],
+				enableBackdropDismiss: false,
+				buttons: [{
+					text: 'Ok'
+				}]
+			});
+			alert.present();
+		} else {
+			this.storage.setContaLocal(null);
+		}
 	}
 
 	handle404(errorObj) {
