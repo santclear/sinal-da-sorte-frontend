@@ -35,24 +35,24 @@ export class ContaPage {
 		private toastCtrl: ToastController) {
 
 		this.contaForm = this.formBuilder.group({
-			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
-			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
+			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 			cpf: ['', [Validators.required, cpfValidator()]],
 			dataDeNascimento: [null, [Validators.required]],
 			generoId: [null, [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
-			senha: ['', [Validators.required, Validators.minLength(8)]],
-			confirmeSenha: ['', [Validators.required, Validators.minLength(8), compararCamposValidator('senha')]],
+			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+			confirmeSenha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('senha')]],
 			cep: ['', [Validators.required, Validators.minLength(8)]],
 			logradouro: ['', [Validators.required]],
-			numero: ['', [Validators.required]],
-			complemento: ['', []],
+			numero: ['', [Validators.required, Validators.maxLength(6)]],
+			complemento: ['', [Validators.maxLength(100)]],
 			bairro: ['', [Validators.required]],
 			cidade: ['', [Validators.required]],
 			uf: ['', [Validators.required]],
-			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.pattern('\\d+')]],
-			telefone2: ['', [Validators.minLength(10), Validators.pattern('\\d+')]],
-			telefone3: ['', [Validators.minLength(10), Validators.pattern('\\d+')]]
+			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			telefone2: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]]
 		});
 
         this.generos = [

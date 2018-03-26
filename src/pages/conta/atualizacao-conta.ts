@@ -15,7 +15,6 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 import { StorageService } from '../../services/storage.service';
 import { UsuarioService } from '../../services/usuario.service';
 
-import lodash from 'lodash';
 import { compararCamposValidator } from '../../validators/comparar-campos.validator';
 
 @Component({
@@ -151,25 +150,25 @@ export class AtualizacaoContaPage {
 	instancieContaForm() {
 		this.contaForm = this.formBuilder.group({
 			id: ['', []],
-			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
-			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(130)]],
+			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 			cpf: ['', [Validators.required, cpfValidator()]],
 			dataDeNascimento: [null, [Validators.required]],
 			generoId: [null, [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
-			senha: ['', [Validators.required, Validators.minLength(8)]],
-			novaSenha: ['', [Validators.minLength(8)]],
-			confirmeSenha: ['', [Validators.minLength(8), compararCamposValidator('novaSenha')]],
+			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+			novaSenha: ['', [Validators.minLength(8), Validators.maxLength(100)]],
+			confirmeSenha: ['', [Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('novaSenha')]],
 			cep: ['', [Validators.required, Validators.minLength(8)]],
 			logradouro: ['', [Validators.required]],
-			numero: ['', [Validators.required, Validators.pattern('\\d+')]],
-			complemento: ['', []],
+			numero: ['', [Validators.required, Validators.maxLength(6)]],
+			complemento: ['', [Validators.maxLength(100)]],
 			bairro: ['', [Validators.required]],
 			cidade: ['', [Validators.required]],
 			uf: ['', [Validators.required]],
-			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.pattern('\\d+')]],
-			telefone2: ['', [Validators.minLength(10), Validators.pattern('\\d+')]],
-			telefone3: ['', [Validators.minLength(10), Validators.pattern('\\d+')]],
+			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			telefone2: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
 		});
 
         this.generos = [
@@ -196,19 +195,17 @@ export class AtualizacaoContaPage {
 				this.contaForm.controls['bairro'].setValue(usuario.logradouro.bairro.nome);
 				this.contaForm.controls['cidade'].setValue(usuario.logradouro.bairro.cidade.nome);
 				this.contaForm.controls['uf'].setValue(usuario.logradouro.bairro.cidade.uf.nome);
-				this.setTelefone('telefone1',usuario);
-				this.setTelefone('telefone2',usuario);
-				this.setTelefone('telefone3',usuario);
+				this.setTelefone(usuario,0,'telefone1');
+				this.setTelefone(usuario,1,'telefone2');
+				this.setTelefone(usuario,2,'telefone3');
+
 			});
 		});
 	}
 
-	private setTelefone(codigo:string,usuario:any) {
-		let telefone = lodash.find(usuario.telefones, function (telefone) {
-			let regex = new RegExp(codigo, "g");
-			let match = regex.exec(telefone);
-			return match !== null;
-		});
-		if(telefone) this.contaForm.controls[codigo].setValue(telefone.substring(9));
+	private setTelefone(usuario:any, indice:number, telefone:string) {
+		if(usuario.telefones.length > indice) {
+			this.contaForm.controls[telefone].setValue(usuario.telefones[indice]);
+		}
 	}
 }
