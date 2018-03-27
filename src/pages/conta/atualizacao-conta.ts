@@ -16,6 +16,7 @@ import { StorageService } from '../../services/storage.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 import { compararCamposValidator } from '../../validators/comparar-campos.validator';
+import { LoginPage } from '../login/login';
 
 @Component({
 	selector: 'page-atualizacao-conta',
@@ -44,9 +45,6 @@ export class AtualizacaoContaPage {
 
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		if(contaLocal) {
-			// this.contaService.encontrePorEmail(contaLocal.email).subscribe(conta => {
-				
-			// });
 			this.populeContaForm(contaLocal.email);
 		}
 	}
@@ -102,18 +100,25 @@ export class AtualizacaoContaPage {
 
 		this.contaService.atualize(conta)
 			.subscribe(response => {
-				this.showInsertOk();
+				this.showInsertOk(conta.novaSenha);
 			}, error => { });
 	}
 
-	showInsertOk() {
+	showInsertOk(novaSenha) {
 		let alert = this.alertCtrl.create({
 			title: 'Sucesso!',
 			message: 'Atualização efetuado com sucesso.',
 			enableBackdropDismiss: false,
 			buttons: [{
 				text: 'Ok',
-				handler: () => { this.navCtrl.pop(); }
+				handler: () => {
+					if(novaSenha === '') {
+						this.navCtrl.pop(); 
+					} else {
+						this.storage.setContaLocal(null);
+						this.navCtrl.setRoot(LoginPage);
+					}
+				}
 			}]
 		});
 		alert.present();
