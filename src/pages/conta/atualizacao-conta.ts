@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, NavController, ToastController } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 import { EnderecoService } from '../../services/endereco.service';
-import { EstadoDTO } from '../../dtos/estado.dto';
-import { CidadeDTO } from '../../dtos/cidade.dto';
 import { ContaDto } from '../../dtos/conta.dto';
 import { UsuarioDto } from '../../dtos/usuario.dto';
 import { EnderecoDto } from '../../dtos/endereco.dto';
@@ -25,8 +23,6 @@ import { LoginPage } from '../login/login';
 export class AtualizacaoContaPage {   
 
 	contaForm: FormGroup;
-	estados: EstadoDTO[];
-	cidades: CidadeDTO[];
 	generos: SelectItem[];
 	ptBr: any;
 
@@ -240,7 +236,7 @@ export class AtualizacaoContaPage {
 			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 			cpf: ['', [Validators.required, cpfValidator()]],
-			dataDeNascimento: [null, [Validators.required]],
+			dataDeNascimento: [new Date('1990-1-1'), [Validators.required]],
 			generoId: [null, [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
 			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
