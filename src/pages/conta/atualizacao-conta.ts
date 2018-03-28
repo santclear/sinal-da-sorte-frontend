@@ -63,74 +63,52 @@ export class AtualizacaoContaPage {
     }
 
 	atualize() {
-		let endereco: EnderecoDto = {
-			cep:this.contaForm.value.cep,
-			logradouro:this.contaForm.value.logradouro,
-			numero: this.contaForm.value.numero,
-			complemento:this.contaForm.value.complemento,
-			bairro:this.contaForm.value.bairro,
-			cidade:this.contaForm.value.cidade,
-			uf:this.contaForm.value.uf
-		}
-
-		let date = this.contaForm.value.dataDeNascimento;
-		let mes = date.getMonth() + 1;
-		let dataDeNascimento = date.getFullYear() +'-'+ mes +'-'+ date.getDate();
-
-		let usuario: UsuarioDto = {
-			id:this.contaForm.value.id,
-			nome:this.contaForm.value.nome,
-			sobrenome:this.contaForm.value.sobrenome,
-			cpf:this.contaForm.value.cpf,
-			dataDeNascimento: dataDeNascimento,
-			genero:this.contaForm.value.generoId,
-			endereco: endereco,
-			telefone1:this.contaForm.value.telefone1,
-			telefone2:this.contaForm.value.telefone2,
-			telefone3:this.contaForm.value.telefone3
-		}
-
-		let conta: ContaDto = {
-			id:this.contaForm.value.id,
-			email:this.contaForm.value.email,
-			senha:this.contaForm.value.senha,
-			novaSenha:this.contaForm.value.novaSenha,
-			usuario
-		};
-
-		this.contaService.atualize(conta)
-			.subscribe(response => {
-				this.showInsertOk(conta.novaSenha);
-			}, error => { });
-	}
-
-	showInsertOk(novaSenha) {
-		let alert = this.alertCtrl.create({
-			title: 'Sucesso!',
-			message: 'Atualização efetuado com sucesso.',
-			enableBackdropDismiss: false,
-			buttons: [{
-				text: 'Ok',
-				handler: () => {
-					if(novaSenha === '') {
-						this.navCtrl.pop(); 
-					} else {
-						this.storage.setContaLocal(null);
-						this.navCtrl.setRoot(LoginPage);
-					}
-				}
-			}]
-		});
-		alert.present();
-	}
-
-	populeEnderecos(event: any) {
-		if(this.contaForm.controls['cep'].valid) {
-			this.enderecoService.findByCep(event.srcElement.value).subscribe(response => {
+		if (this.contaForm.controls['cep'].valid) {
+			this.enderecoService.findByCep(this.contaForm.value.cep).subscribe(response => {
+				this.contaForm.controls['cep'].setValue(response.cep);
 				this.contaForm.controls['logradouro'].setValue(response.logradouro);
 				this.contaForm.controls['bairro'].setValue(response.bairro);
 				this.contaForm.controls['cidade'].setValue(response.cidade);
 				this.contaForm.controls['uf'].setValue(response.uf);
+
+				let endereco: EnderecoDto = {
+					cep: response.cep,
+					logradouro: response.logradouro,
+					numero: this.contaForm.value.numero,
+					complemento: this.contaForm.value.complemento,
+					bairro: response.bairro,
+					cidade: response.cidade,
+					uf: response.uf
+				}
+
+				let date = this.contaForm.value.dataDeNascimento;
+				let mes = date.getMonth() + 1;
+				let dataDeNascimento = date.getFullYear() + '-' + mes + '-' + date.getDate();
+
+				let usuario: UsuarioDto = {
+					id: this.contaForm.value.id,
+					nome: this.contaForm.value.nome,
+					sobrenome: this.contaForm.value.sobrenome,
+					cpf: this.contaForm.value.cpf,
+					dataDeNascimento: dataDeNascimento,
+					genero: this.contaForm.value.generoId,
+					endereco: endereco,
+					telefone1: this.contaForm.value.telefone1,
+					telefone2: this.contaForm.value.telefone2,
+					telefone3: this.contaForm.value.telefone3
+				}
+
+				let conta: ContaDto = {
+					id: this.contaForm.value.id,
+					email: this.contaForm.value.email,
+					senha: this.contaForm.value.senha,
+					novaSenha: this.contaForm.value.novaSenha,
+					usuario
+				};
+
+				this.contaService.atualize(conta).subscribe(response => {
+					this.showInsertOk(conta);
+				}, error => { });
 			}, erro => {
 				this.contaForm.controls['cep'].setValue('');
 				this.contaForm.controls['logradouro'].setValue('');
@@ -147,7 +125,111 @@ export class AtualizacaoContaPage {
 					cssClass: 'toastGeral'
 				});
 				toast.present();
+			});
+		}
+	}
 
+	showInsertOk(conta) {
+		if (this.storage.getContaLocal().email !== conta.email && conta.novaSenha !== '') {
+			let alert = this.alertCtrl.create({
+				title: 'E-mail atualizado',
+				message: `Para concluir a atualização do seu e-mail siga as instruções enviadas para ` + this.storage.getContaLocal().email,
+				enableBackdropDismiss: false,
+				buttons: [{
+					text: 'Ok',
+					handler: () => {
+						let alertSenha = this.alertCtrl.create({
+							title: 'Senha atualizada',
+							message: 'Sua senha foi atualizada com sucesso!',
+							enableBackdropDismiss: false,
+							buttons: [{
+								text: 'Ok'
+							}]
+						});
+						alertSenha.present();
+					}
+				}]
+			});
+			alert.present();
+			this.storage.setContaLocal(null);
+			this.navCtrl.setRoot(LoginPage);
+		} else if (this.storage.getContaLocal().email !== conta.email && conta.novaSenha === '') {
+			let alert = this.alertCtrl.create({
+				title: '',
+				message: 'Para concluir a atualização do seu e-mail siga as instruções enviadas para ' + this.storage.getContaLocal().email,
+				enableBackdropDismiss: false,
+				buttons: [{
+					text: 'Ok'
+				}]
+			});
+			alert.present();
+			this.storage.setContaLocal(null);
+			this.navCtrl.setRoot(LoginPage);
+		} else if(this.storage.getContaLocal().email === conta.email && conta.novaSenha !== '') {
+			let alert = this.alertCtrl.create({
+				title: 'Senha atualizada',
+				message: 'Sua senha foi atualizada com sucesso!',
+				enableBackdropDismiss: false,
+				buttons: [{
+					text: 'Ok'
+				}]
+			});
+			alert.present();
+			this.storage.setContaLocal(null);
+			this.navCtrl.setRoot(LoginPage);
+		} else {
+			let alert = this.alertCtrl.create({
+				title: 'Sucesso!',
+				message: 'Atualização efetuado com sucesso.',
+				enableBackdropDismiss: false,
+				buttons: [{
+					text: 'Ok',
+				}]
+			});
+			alert.present();
+			this.contaForm.controls['id'].setValue(conta.usuario.id);
+			this.contaForm.controls['nome'].setValue(conta.usuario.nome);
+			this.contaForm.controls['sobrenome'].setValue(conta.usuario.sobrenome);
+			this.contaForm.controls['cpf'].setValue(conta.usuario.cpf);
+			this.contaForm.controls['dataDeNascimento'].setValue(new Date(conta.usuario.dataDeNascimento));
+			this.contaForm.controls['generoId'].setValue(conta.usuario.genero);
+			this.contaForm.controls['cep'].setValue(conta.usuario.endereco.cep);
+			this.contaForm.controls['logradouro'].setValue(conta.usuario.endereco.logradouro);
+			this.contaForm.controls['numero'].setValue(conta.usuario.endereco.numero);
+			this.contaForm.controls['complemento'].setValue(conta.usuario.endereco.complemento);
+			this.contaForm.controls['bairro'].setValue(conta.usuario.endereco.bairro);
+			this.contaForm.controls['cidade'].setValue(conta.usuario.endereco.cidade);
+			this.contaForm.controls['uf'].setValue(conta.usuario.endereco.uf);
+			this.contaForm.controls['telefone1'].setValue(conta.usuario.telefone1);
+			this.contaForm.controls['telefone2'].setValue(conta.usuario.telefone2);
+			this.contaForm.controls['telefone3'].setValue(conta.usuario.telefone3);
+		}
+	}
+
+	populeEnderecos(event: any) {
+		if(this.contaForm.controls['cep'].valid) {
+			this.enderecoService.findByCep(event.srcElement.value).subscribe(response => {
+				this.contaForm.controls['cep'].setValue(response.cep);
+				this.contaForm.controls['logradouro'].setValue(response.logradouro);
+				this.contaForm.controls['bairro'].setValue(response.bairro);
+				this.contaForm.controls['cidade'].setValue(response.cidade);
+				this.contaForm.controls['uf'].setValue(response.uf);
+			}, erro => {
+				this.contaForm.controls['cep'].setValue('');
+				this.contaForm.controls['logradouro'].setValue('');
+				this.contaForm.controls['bairro'].setValue('');
+				this.contaForm.controls['cidade'].setValue('');
+				this.contaForm.controls['uf'].setValue('');
+	
+				let toast = this.toastCtrl.create({
+					message: erro.message,
+					showCloseButton: true,
+					closeButtonText: 'Ok',
+					duration: 5000,
+					position: 'top',
+					cssClass: 'toastGeral'
+				});
+				toast.present();
 			});
 		}
 	}
@@ -165,10 +247,10 @@ export class AtualizacaoContaPage {
 			novaSenha: ['', [Validators.minLength(8), Validators.maxLength(100)]],
 			confirmeSenha: ['', [Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('novaSenha')]],
 			cep: ['', [Validators.required, Validators.minLength(8)]],
-			logradouro: ['', [Validators.required]],
-			numero: ['', [Validators.required, Validators.maxLength(6)]],
+			logradouro: ['', []],
+			numero: ['', [Validators.maxLength(6), Validators.pattern('\\d+')]],
 			complemento: ['', [Validators.maxLength(100)]],
-			bairro: ['', [Validators.required]],
+			bairro: ['', []],
 			cidade: ['', [Validators.required]],
 			uf: ['', [Validators.required]],
 			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
@@ -203,7 +285,6 @@ export class AtualizacaoContaPage {
 				this.setTelefone(usuario,0,'telefone1');
 				this.setTelefone(usuario,1,'telefone2');
 				this.setTelefone(usuario,2,'telefone3');
-
 			});
 		});
 	}

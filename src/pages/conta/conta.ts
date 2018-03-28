@@ -34,32 +34,7 @@ export class ContaPage {
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController) {
 
-		this.contaForm = this.formBuilder.group({
-			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-			cpf: ['', [Validators.required, cpfValidator()]],
-			dataDeNascimento: [null, [Validators.required]],
-			generoId: [null, [Validators.required]],
-			email: ['', [Validators.required, Validators.email]],
-			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
-			confirmeSenha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('senha')]],
-			cep: ['', [Validators.required, Validators.minLength(8)]],
-			logradouro: ['', [Validators.required]],
-			numero: ['', [Validators.required, Validators.maxLength(6)]],
-			complemento: ['', [Validators.maxLength(100)]],
-			bairro: ['', [Validators.required]],
-			cidade: ['', [Validators.required]],
-			uf: ['', [Validators.required]],
-			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
-			telefone2: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
-			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]]
-		});
-
-        this.generos = [
-            { label: 'Homem', value: '1' },
-            { label: 'Mulher', value: '2' },
-            { label: 'Outro', value: '3' },
-		];
+		this.instancieContaForm();
 	}
 
 	ngOnInit() {
@@ -76,45 +51,68 @@ export class ContaPage {
     }
 
 	cadastre() {
-		let endereco: EnderecoDto = {
-			cep:this.contaForm.value.cep,
-			logradouro:this.contaForm.value.logradouro,
-			numero: this.contaForm.value.numero,
-			complemento:this.contaForm.value.complemento,
-			bairro:this.contaForm.value.bairro,
-			cidade:this.contaForm.value.cidade,
-			uf:this.contaForm.value.uf
+		if(this.contaForm.controls['cep'].valid) {
+			this.enderecoService.findByCep(this.contaForm.value.cep).subscribe(response => {
+				this.contaForm.controls['logradouro'].setValue(response.logradouro);
+				this.contaForm.controls['bairro'].setValue(response.bairro);
+				this.contaForm.controls['cidade'].setValue(response.cidade);
+				this.contaForm.controls['uf'].setValue(response.uf);
+
+				let endereco: EnderecoDto = {
+					cep:this.contaForm.value.cep,
+					logradouro:this.contaForm.value.logradouro,
+					numero: this.contaForm.value.numero,
+					complemento:this.contaForm.value.complemento,
+					bairro:this.contaForm.value.bairro,
+					cidade:this.contaForm.value.cidade,
+					uf:this.contaForm.value.uf
+				}
+		
+				let date = this.contaForm.value.dataDeNascimento;
+				let mes = date.getMonth() + 1;
+				let dataDeNascimento = date.getFullYear() +'-'+ mes +'-'+ date.getDate();
+		
+				let usuario: UsuarioDto = {
+					id:null,
+					nome:this.contaForm.value.nome,
+					sobrenome:this.contaForm.value.sobrenome,
+					cpf:this.contaForm.value.cpf,
+					dataDeNascimento: dataDeNascimento,
+					genero:this.contaForm.value.generoId,
+					endereco: endereco,
+					telefone1:this.contaForm.value.telefone1,
+					telefone2:this.contaForm.value.telefone2,
+					telefone3:this.contaForm.value.telefone3
+				}
+		
+				let conta: ContaNewDto = {
+					id:null,
+					email:this.contaForm.value.email,
+					senha:this.contaForm.value.senha,
+					usuario
+				};
+		
+				this.contaService.insert(conta).subscribe(response => {
+					this.showInsertOk(conta.email);
+				}, error => { });
+			}, erro => {
+				this.contaForm.controls['cep'].setValue('');
+				this.contaForm.controls['logradouro'].setValue('');
+				this.contaForm.controls['bairro'].setValue('');
+				this.contaForm.controls['cidade'].setValue('');
+				this.contaForm.controls['uf'].setValue('');
+
+				let toast = this.toastCtrl.create({
+					message: erro.message,
+					showCloseButton: true,
+					closeButtonText: 'Ok',
+					duration: 5000,
+					position: 'top',
+					cssClass: 'toastGeral'
+				});
+				toast.present();
+			});
 		}
-
-
-		let date = this.contaForm.value.dataDeNascimento;
-		let mes = date.getMonth() + 1;
-		let dataDeNascimento = date.getFullYear() +'-'+ mes +'-'+ date.getDate();
-
-		let usuario: UsuarioDto = {
-			id:null,
-			nome:this.contaForm.value.nome,
-			sobrenome:this.contaForm.value.sobrenome,
-			cpf:this.contaForm.value.cpf,
-			dataDeNascimento: dataDeNascimento,
-			genero:this.contaForm.value.generoId,
-			endereco: endereco,
-			telefone1:this.contaForm.value.telefone1,
-			telefone2:this.contaForm.value.telefone2,
-			telefone3:this.contaForm.value.telefone3
-		}
-
-		let conta: ContaNewDto = {
-			id:null,
-			email:this.contaForm.value.email,
-			senha:this.contaForm.value.senha,
-			usuario
-		};
-
-		this.contaService.insert(conta)
-			.subscribe(response => {
-				this.showInsertOk(conta.email);
-			}, error => { });
 	}
 
 	showInsertOk(email: string) {
@@ -153,12 +151,36 @@ export class ContaPage {
 					cssClass: 'toastGeral'
 				});
 				toast.present();
-
 			});
 		}
 	}
 
-	populeForm() {
-		
+	instancieContaForm() {
+		this.contaForm = this.formBuilder.group({
+			nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+			sobrenome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+			cpf: ['', [Validators.required, cpfValidator()]],
+			dataDeNascimento: [null, [Validators.required]],
+			generoId: [null, [Validators.required]],
+			email: ['', [Validators.required, Validators.email]],
+			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+			confirmeSenha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('senha')]],
+			cep: ['', [Validators.required, Validators.minLength(8)]],
+			logradouro: ['', []],
+			numero: ['', [Validators.maxLength(6), Validators.pattern('\\d+')]],
+			complemento: ['', [Validators.maxLength(100)]],
+			bairro: ['', []],
+			cidade: ['', [Validators.required]],
+			uf: ['', [Validators.required]],
+			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			telefone2: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]]
+		});
+
+        this.generos = [
+            { label: 'Homem', value: '1' },
+            { label: 'Mulher', value: '2' },
+            { label: 'Outro', value: '3' },
+		];
 	}
 }

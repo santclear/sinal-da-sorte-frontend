@@ -82,41 +82,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 				});
 				alert.present();
 				break;
-			case 'i1':
-				alert = this.alertCtrl.create({
-					title: MensagensExceptions.codigo[errorObj.message],
-					message: 'Para concluir a atualização do seu e-mail siga as instruções enviadas para '+ this.storage.getContaLocal().email,
-					enableBackdropDismiss: false,
-					buttons: [{
-						text: 'Ok'
-					}]
-				});
-				alert.present();
-				this.storage.setContaLocal(null);
-				break;
-			case 'i2':
-				alert = this.alertCtrl.create({
-					title: MensagensExceptions.codigo[errorObj.message],
-					message: `Para concluir a atualização do seu e-mail siga as instruções enviadas para `+ this.storage.getContaLocal().email,
-					enableBackdropDismiss: false,
-					buttons: [{
-						text: 'Ok',
-						handler: () => { 
-							alert = this.alertCtrl.create({
-								title: 'Senha atualizada',
-								message: 'Sua senha foi atualizada com sucesso!',
-								enableBackdropDismiss: false,
-								buttons: [{
-									text: 'Ok'
-								}]
-							});
-							alert.present();
-						}
-					}]
-				});
-				alert.present();
-				this.storage.setContaLocal(null);
-				break;
 			default: 
 				this.storage.setContaLocal(null);
 		}
