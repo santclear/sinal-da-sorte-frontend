@@ -278,16 +278,10 @@ export class AtualizacaoContaPage {
 				this.contaForm.controls['bairro'].setValue(usuario.logradouro.bairro.nome);
 				this.contaForm.controls['cidade'].setValue(usuario.logradouro.bairro.cidade.nome);
 				this.contaForm.controls['uf'].setValue(usuario.logradouro.bairro.cidade.uf.nome);
-				this.setTelefone(usuario,0,'telefone1');
-				this.setTelefone(usuario,1,'telefone2');
-				this.setTelefone(usuario,2,'telefone3');
+				this.contaForm.controls['telefone1'].setValue(usuario.telefones.telefone1);
+				this.contaForm.controls['telefone2'].setValue(usuario.telefones.telefone2);
+				this.contaForm.controls['telefone3'].setValue(usuario.telefones.telefone3);
 			});
 		});
-	}
-
-	private setTelefone(usuario:any, indice:number, telefone:string) {
-		if(usuario.telefones.length > indice) {
-			this.contaForm.controls[telefone].setValue(usuario.telefones[indice]);
-		}
 	}
 }
