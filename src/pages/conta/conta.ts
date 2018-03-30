@@ -158,6 +158,7 @@ export class ContaPage {
 			dataDeNascimento: [new Date('1990-1-1'), [Validators.required]],
 			generoId: [null, [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
+			confirmeEmail: ['', [compararCamposValidator('email')]],
 			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
 			confirmeSenha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('senha')]],
 			cep: ['', [Validators.required, Validators.minLength(8)]],

@@ -1,3 +1,4 @@
+import { emailOrEmptyValidator } from '../../validators/email.validator';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, NavController, ToastController } from 'ionic-angular';
@@ -96,7 +97,7 @@ export class AtualizacaoContaPage {
 
 				let conta: ContaDto = {
 					id: this.contaForm.value.id,
-					email: this.contaForm.value.email,
+					email: this.contaForm.value.novoEmail===''?this.contaForm.value.email:this.contaForm.value.novoEmail,
 					senha: this.contaForm.value.senha,
 					novaSenha: this.contaForm.value.novaSenha,
 					usuario
@@ -129,7 +130,7 @@ export class AtualizacaoContaPage {
 		if (this.storage.getContaLocal().email !== conta.email && conta.novaSenha !== '') {
 			let alert = this.alertCtrl.create({
 				title: 'E-mail atualizado',
-				message: `Para concluir a atualização do seu e-mail siga as instruções enviadas para ` + this.storage.getContaLocal().email,
+				message: `Para concluir a atualização do seu e-mail siga as instruções enviadas para ` + conta.email,
 				enableBackdropDismiss: false,
 				buttons: [{
 					text: 'Ok',
@@ -152,7 +153,7 @@ export class AtualizacaoContaPage {
 		} else if (this.storage.getContaLocal().email !== conta.email && conta.novaSenha === '') {
 			let alert = this.alertCtrl.create({
 				title: '',
-				message: 'Para concluir a atualização do seu e-mail siga as instruções enviadas para ' + this.storage.getContaLocal().email,
+				message: 'Para concluir a atualização do seu e-mail siga as instruções enviadas para ' + conta.email,
 				enableBackdropDismiss: false,
 				buttons: [{
 					text: 'Ok'
@@ -239,9 +240,11 @@ export class AtualizacaoContaPage {
 			dataDeNascimento: [new Date('1990-1-1'), [Validators.required]],
 			generoId: [null, [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
+			novoEmail: ['', [emailOrEmptyValidator]],
+			confirmeEmail: ['', [compararCamposValidator('novoEmail')]],
 			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
 			novaSenha: ['', [Validators.minLength(8), Validators.maxLength(100)]],
-			confirmeSenha: ['', [Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('novaSenha')]],
+			confirmeSenha: ['', [compararCamposValidator('novaSenha')]],
 			cep: ['', [Validators.required, Validators.minLength(8)]],
 			logradouro: ['', []],
 			numero: ['', [Validators.maxLength(6), Validators.pattern('\\d+')]],

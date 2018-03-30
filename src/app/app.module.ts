@@ -1,3 +1,4 @@
+import { BloqueiaCopiaColaDirective } from '../diretivas/bloqueia-copia-cola.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -68,7 +69,8 @@ import { CardModule } from 'primeng/card';
 		ApostaPage,
 		GruposEspeciaisPage,
 		BolaoPage,
-		HistoricoDeApostasPage
+		HistoricoDeApostasPage,
+		BloqueiaCopiaColaDirective
 	],
 	imports: [
 		BrowserModule,
