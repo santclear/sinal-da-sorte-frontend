@@ -1,4 +1,3 @@
-import { emailOrEmptyValidator } from '../../validators/email.validator';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, NavController, ToastController } from 'ionic-angular';
@@ -15,20 +14,22 @@ import { StorageService } from '../../services/storage.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 import { compararCamposValidator } from '../../validators/comparar-campos.validator';
+import { emailOrEmptyValidator } from '../../validators/email.validator';
 import { LoginPage } from '../login/login';
+import { PaginaBase } from '../pagina.base';
 
 @Component({
 	selector: 'page-atualizacao-conta',
 	templateUrl: 'atualizacao-conta.html',
 })
-export class AtualizacaoContaPage {   
+export class AtualizacaoContaPage extends PaginaBase {   
 
 	contaForm: FormGroup;
 	generos: SelectItem[];
 	ptBr: any;
 
 	constructor(
-		private navCtrl: NavController,
+		protected navCtrl: NavController,
 		public formBuilder: FormBuilder,
 		private contaService: ContaService,
 		private usuarioService: UsuarioService,
@@ -36,7 +37,10 @@ export class AtualizacaoContaPage {
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
 		private storage: StorageService) {
-		
+		super();
+		this.pbNav = navCtrl;
+		this.pbStorage = storage;
+		this.setTitulo("Atualização de conta");
 		
 		this.instancieContaForm();
 

@@ -1,5 +1,11 @@
+import { NavController } from 'ionic-angular';
+import { StorageService } from "../services/storage.service";
+
 export abstract class PaginaBase {
-    public titulo: string;
+    protected titulo: string;
+    protected paginaAnterior: any;
+    protected pbNav: NavController;
+    protected pbStorage: StorageService;
 
     constructor() {}
 
@@ -9,5 +15,11 @@ export abstract class PaginaBase {
 
     setTitulo(titulo) {
         this.titulo = titulo;
+    }
+
+    voltar() {
+        
+        // console.log(this.pbStorage.getPaginaAnterior());
+        // this.pbNav.setRoot(this.pbStorage.getPaginaAnterior());
     }
 }

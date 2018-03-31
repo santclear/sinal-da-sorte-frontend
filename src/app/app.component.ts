@@ -84,6 +84,7 @@ export class MyApp {
 			case 'Sair':
 				this.auth.logout();
 			default:
+				this.storage.setPaginaAnterior(this.nav.getActive().name);
 				this.nav.setRoot(objetoPagina.class);
 		}
 		this.menu.close();

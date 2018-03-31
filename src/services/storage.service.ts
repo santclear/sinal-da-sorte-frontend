@@ -21,4 +21,21 @@ export class StorageService {
             localStorage.setItem(STORAGE_KEYS.contaLocal, JSON.stringify(obj));
         }
     }
+
+    getPaginaAnterior() : string {
+        let paginaAnterior = localStorage.getItem(STORAGE_KEYS.paginaAnterior);
+        if (paginaAnterior == null) {
+            return null;
+        } else {
+            return paginaAnterior;
+        }
+    }
+
+    setPaginaAnterior(nome : string) {
+        if (nome == null) {
+            localStorage.removeItem(STORAGE_KEYS.paginaAnterior);
+        } else {
+            localStorage.setItem(STORAGE_KEYS.paginaAnterior, nome);
+        }
+    }
 }

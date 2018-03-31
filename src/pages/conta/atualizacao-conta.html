@@ -1,8 +1,4 @@
-<ion-header>
-	<ion-navbar color="primary">
-		<ion-title>Atualização de conta</ion-title>
-	</ion-navbar>
-</ion-header>
+<ags-navbar [tituloInput]="titulo"></ags-navbar>
 
 <ion-content padding>
 	<p-tabView>
@@ -141,7 +137,11 @@
 										<i class="fa fa-close"></i> Para atualizar o cadastro é necessário digitar a senha atual
 									</span>
 								</p>
-								<button ion-button block type="submit" [disabled]="contaForm.invalid">Atualizar</button>
+								
+								<div class="botaoVA">
+									<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()"><ion-icon name='arrow-back'></ion-icon></button>
+									<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small>Atualizar</button>
+								</div>
 							</form>
 						</div>
 					</ion-col>
@@ -212,7 +212,11 @@
 										<i class="fa fa-close"></i> Confirme a senha inserida anteriormente
 									</span>
 								</p>
-								<button ion-button block type="submit" [disabled]="contaForm.invalid">Atualizar</button>
+								<div class="botaoVAE">
+									<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()"><ion-icon name='arrow-back'></ion-icon></button>
+									<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small>Atualizar</button>
+									<button ion-button class="botao" color="danger" type="submit" small>Excluir</button>
+								</div>
 							</form>
 						</div>
 					</ion-col>

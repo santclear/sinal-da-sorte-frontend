@@ -1,3 +1,4 @@
 export const STORAGE_KEYS = {
-	contaLocal: "contaLocal"
+	contaLocal: "contaLocal",
+	paginaAnterior: "paginaAnterior"
 }
