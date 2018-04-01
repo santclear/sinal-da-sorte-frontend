@@ -18,8 +18,6 @@ export abstract class PaginaBase {
     }
 
     voltar() {
-        
-        // console.log(this.pbStorage.getPaginaAnterior());
-        // this.pbNav.setRoot(this.pbStorage.getPaginaAnterior());
+        this.pbNav.setRoot(this.pbStorage.getPaginaAnterior());
     }
 }

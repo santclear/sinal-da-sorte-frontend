@@ -76,9 +76,6 @@ export class MyApp {
 	abraAPagina(objetoPagina, indicePagina) {
 		this.indicePaginaAtual = indicePagina;
 		switch(objetoPagina.titulo) {
-			case 'Conta':
-				this.nav.push(objetoPagina.class);
-				break;
 			case 'Sair':
 				this.auth.logout();
 			default:
