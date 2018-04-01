@@ -1,8 +1,9 @@
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Component } from '@angular/core';
 import { PaginaBase } from '../pagina.base';
+import { IonicPage } from 'ionic-angular';
 
-
+@IonicPage()
 @Component({
 	selector: 'pagina-estatistica',
     templateUrl: 'estatistica.html'

@@ -7,12 +7,11 @@ import { ComandoConcurso } from './comando-concurso';
 import { Loterias } from '../../enum/loterias';
 import lodash from 'lodash';
 
-
 @Injectable()
 export class ConcursoDAOServico implements IConcursoDAO {
 	private bd: any;
 
-	constructor(private http: HttpClient) {
+	constructor(protected http: HttpClient) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
 

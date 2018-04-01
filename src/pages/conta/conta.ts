@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';
@@ -11,6 +11,7 @@ import { compararCamposValidator } from '../../validators/comparar-campos.valida
 import { cpfValidator } from '../../validators/cpf.validator';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
+@IonicPage()
 @Component({
 	selector: 'page-conta',
 	templateUrl: 'conta.html',

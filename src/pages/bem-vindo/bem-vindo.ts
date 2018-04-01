@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
 import { PaginaBase } from '../pagina.base';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
@@ -6,6 +7,7 @@ import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
 import { Loterias } from '../../enum/loterias';
 import lodash from 'lodash';
 
+@IonicPage()
 @Component({
 	selector: 'pagina-bem-vindo',
 	templateUrl: 'bem-vindo.html'

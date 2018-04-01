@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, AlertController } from 'ionic-angular';
+import { NavController, MenuController, AlertController, IonicPage } from 'ionic-angular';
 import { BemVindoPage } from '../bem-vindo/bem-vindo';
 import { ContaPage } from '../conta/conta';
 import { EsqueciMinhaSenhaPage } from '../esqueci-minha-senha/esqueci-minha-senha';
@@ -11,6 +11,7 @@ import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
 import { ContaService } from '../../services/conta.service';
 
+@IonicPage()
 @Component({
 	selector: 'page-login',
 	templateUrl: 'login.html',
@@ -28,10 +29,11 @@ export class LoginPage {
 		public navCtrl: NavController, 
 		public menu: MenuController, 
 		public auth: AuthService, 
+		public storage: StorageService,
+		public alertCtrl: AlertController,
 		public menuService: MenuService,
-		private storage: StorageService,
-		private alertCtrl: AlertController,
-		private contaService: ContaService) {
+		public contaService: ContaService
+	) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
 

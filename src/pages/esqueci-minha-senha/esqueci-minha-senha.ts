@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, IonicPage } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
+@IonicPage()
 @Component({
 	selector: 'page-esqueci-minha-senha',
 	templateUrl: 'esqueci-minha-senha.html',

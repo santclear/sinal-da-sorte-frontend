@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { LoginPage } from '../pages/login/login';
-import { BemVindoPage } from '../pages/bem-vindo/bem-vindo';
 import { ContaLocalDTO } from '../dtos/conta-local.dto';
 import { Loterias } from '../enum/loterias';
 
@@ -41,9 +39,9 @@ export class MyApp {
 		public auth: AuthService,
 		public util: UtilService,
 		public storage: StorageService,
-		private toastCtrl: ToastController,
-		private alertCtrl: AlertController,
-		private contaService: ContaService) {
+		public toastCtrl: ToastController,
+		public alertCtrl: AlertController,
+		public contaService: ContaService) {
 		
 		this.bd = ConexaoFabrica.getConexao();
 
@@ -56,12 +54,12 @@ export class MyApp {
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
-				this.paginas = this.menuService.getPaginas(resultadoQuery.novo)
+				this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
 			} else {
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
-				this.paginas = this.menuService.getPaginas(resultadoQuery.antigo)
+				this.paginas = this.menuService.getPaginas(resultadoQuery.antigo);
 			};
 
 			this.sincronize();
@@ -212,7 +210,7 @@ export class MyApp {
 							enableBackdropDismiss: false,
 							buttons: [{
 								text: 'Ok',
-								handler: () => { this.paginaInicial = LoginPage; }
+								handler: () => { this.paginaInicial = 'LoginPage'; }
 							}]
 						});
 						alert.present();
@@ -227,9 +225,9 @@ export class MyApp {
 	private setPaginaInicial() {
 		let contaLocal = this.storage.getContaLocal();
 		if(contaLocal) {
-			this.paginaInicial = BemVindoPage;
+			this.paginaInicial = 'BemVindoPage';
 		} else {
-			this.paginaInicial = LoginPage;
+			this.paginaInicial = 'LoginPage';
 		}
 		this.initializeApp();
 	}

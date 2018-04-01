@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController } from 'ionic-angular';
-import { ContaService } from '../../services/conta.service';
-import { EnderecoService } from '../../services/endereco.service';
-import { ContaDto } from '../../dtos/conta.dto';
-import { UsuarioDto } from '../../dtos/usuario.dto';
-import { EnderecoDto } from '../../dtos/endereco.dto';
-import { ContaLocalDTO } from '../../dtos/conta-local.dto';
+import { AlertController, NavController, ToastController, IonicPage } from 'ionic-angular';
+import { ContaService } from '../../../services/conta.service';
+import { EnderecoService } from '../../../services/endereco.service';
+import { ContaDto } from '../../../dtos/conta.dto';
+import { UsuarioDto } from '../../../dtos/usuario.dto';
+import { EnderecoDto } from '../../../dtos/endereco.dto';
+import { ContaLocalDTO } from '../../../dtos/conta-local.dto';
 
-import { cpfValidator } from '../../validators/cpf.validator';
+import { cpfValidator } from '../../../validators/cpf.validator';
 import { SelectItem } from 'primeng/components/common/selectitem';
-import { StorageService } from '../../services/storage.service';
-import { UsuarioService } from '../../services/usuario.service';
+import { StorageService } from '../../../services/storage.service';
+import { UsuarioService } from '../../../services/usuario.service';
 
-import { compararCamposValidator } from '../../validators/comparar-campos.validator';
-import { emailOrEmptyValidator } from '../../validators/email.validator';
-import { LoginPage } from '../login/login';
-import { PaginaBase } from '../pagina.base';
+import { compararCamposValidator } from '../../../validators/comparar-campos.validator';
+import { emailOrEmptyValidator } from '../../../validators/email.validator';
+import { LoginPage } from '../../login/login';
+import { PaginaBase } from '../../pagina.base';
 
+@IonicPage()
 @Component({
 	selector: 'page-atualizacao-conta',
 	templateUrl: 'atualizacao-conta.html',
