@@ -37,4 +37,15 @@ export class ContaService {
 			}
 		);
 	}
+
+	exclua(obj) {
+		return this.http.put(
+			Loterias.DOMINIO +'contas/exclua/'+ obj.id,
+			obj,
+			{
+				observe: 'response',
+				responseType: 'text'
+			}
+		);
+	}
 } 

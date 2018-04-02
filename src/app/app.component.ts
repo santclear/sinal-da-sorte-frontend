@@ -191,26 +191,42 @@ export class MyApp {
 			this.util.ping().subscribe(response => {
 				let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 				this.contaService.encontrePorEmail(contaLocal.email).subscribe(conta => {
-					if(conta.situacao === 'ATIVO') {
-						let indiceLoteria = sessao.loteria.id - 1;
-						let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-						resultadoSincronizePromise.then(resultadoSincronize => {
-							this.setPaginaInicial();
-						});
-					} else {
-						let alert = this.alertCtrl.create({
-							title: 'Conta inativa',
-							message: `Sua conta não está ativada.\nPara ativar, 
-							clique no link enviado para o e-mail `+ contaLocal.email +`. 
-							Caso não consiga por esse link, clique no botão 
-							ESQUECI MINHA SENHA na página inicial e siga as instruções exibidas na página.`,
-							enableBackdropDismiss: false,
-							buttons: [{
-								text: 'Ok',
-								handler: () => { this.paginaInicial = 'LoginPage'; }
-							}]
-						});
-						alert.present();
+					let alert;
+					switch(conta.situacao) {
+						case 'ATIVO':
+							let indiceLoteria = sessao.loteria.id - 1;
+							let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+							resultadoSincronizePromise.then(resultadoSincronize => {
+								this.setPaginaInicial();
+							});
+							break;
+						case 'INATIVO_PERMANENTE':
+							alert = this.alertCtrl.create({
+								title: 'Credenciais inválidas',
+								message: 'As credenciais informadas são inválidas',
+								enableBackdropDismiss: false,
+								buttons: [{
+									text: 'Ok',
+									handler: () => {  }
+								}]
+							});
+							this.storage.setContaLocal(null);
+							this.paginaInicial = 'LoginPage';
+							break;
+						default:
+							alert = this.alertCtrl.create({
+								title: 'Conta inativa',
+								message: `Sua conta não está ativada.\nPara ativar, 
+								clique no link enviado para o e-mail `+ contaLocal.email +`. 
+								Caso não consiga por esse link, clique no botão 
+								ESQUECI MINHA SENHA na página inicial e siga as instruções exibidas na página.`,
+								enableBackdropDismiss: false,
+								buttons: [{
+									text: 'Ok',
+									handler: () => { this.paginaInicial = 'LoginPage'; }
+								}]
+							});
+							alert.present();
 					}
 				});
 			}, erro => {

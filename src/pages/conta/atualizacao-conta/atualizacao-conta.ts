@@ -109,7 +109,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 				};
 
 				this.contaService.atualize(conta).subscribe(response => {
-					this.showInsertOk(conta);
+					this.mensagemOk(conta);
 				}, error => { });
 			}, erro => {
 				this.contaForm.controls['cep'].setValue('');
@@ -131,7 +131,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 		}
 	}
 
-	showInsertOk(conta) {
+	mensagemOk(conta) {
 		if (this.storage.getContaLocal().email !== conta.email && conta.novaSenha !== '') {
 			let alert = this.alertCtrl.create({
 				title: 'E-mail atualizado',
@@ -291,5 +291,28 @@ export class AtualizacaoContaPage extends PaginaBase {
 				this.contaForm.controls['telefone3'].setValue(usuario.telefones.telefone3);
 			});
 		});
+	}
+
+	exclua() {
+		let conta: ContaDto = {
+			id: this.contaForm.value.id,
+			email: this.contaForm.value.email,
+			senha: this.contaForm.value.senha,
+			novaSenha: null,
+			usuario: null
+		};
+		this.contaService.exclua(conta).subscribe(response => {
+			let alert = this.alertCtrl.create({
+				title: 'Sucesso!',
+				message: 'Para concluir a exclusão da sua conta siga as instruções enviadas para ' + conta.email,
+				enableBackdropDismiss: false,
+				buttons: [{
+					text: 'Ok',
+				}]
+			});
+			alert.present();
+			this.storage.setContaLocal(null);
+			this.navCtrl.setRoot('LoginPage');
+		}, error => { });
 	}
 }

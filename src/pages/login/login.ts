@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController, AlertController, IonicPage } from 'ionic-angular';
-import { BemVindoPage } from '../bem-vindo/bem-vindo';
 import { ContaPage } from '../conta/conta';
 import { EsqueciMinhaSenhaPage } from '../esqueci-minha-senha/esqueci-minha-senha';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
@@ -58,25 +57,42 @@ export class LoginPage {
 		this.auth.successfulLogin(response.headers.get('Authorization'));
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		this.contaService.encontrePorEmail(contaLocal.email).subscribe(conta => {
-			if(conta.situacao === 'ATIVO') {
-				this.bd.get('sessao').then((sessao) => {
-					let indiceLoteria = sessao.loteria.id - 1;
-					let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-					resultadoSincronizePromise.then(resultadoSincronize => {
-						this.navCtrl.setRoot(BemVindoPage);
+			let alert;
+			switch(conta.situacao) {
+				case 'ATIVO':
+					this.bd.get('sessao').then((sessao) => {
+						let indiceLoteria = sessao.loteria.id - 1;
+						let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+						resultadoSincronizePromise.then(resultadoSincronize => {
+							this.navCtrl.setRoot('BemVindoPage');
+						});
 					});
-				});
-			} else {
-				let alert = this.alertCtrl.create({
-					title: 'Conta inativa',
-					message: 'Sua conta não está ativada.\nPara ativar, clique no link enviado para o e-mail '+ contaLocal.email +'.',
-					enableBackdropDismiss: false,
-					buttons: [{
-						text: 'Ok',
-						handler: () => {  }
-					}]
-				});
-				alert.present();
+					break;
+				case 'INATIVO_PERMANENTE':
+					alert = this.alertCtrl.create({
+						title: 'Credenciais inválidas',
+						message: 'As credenciais informadas são inválidas',
+						enableBackdropDismiss: false,
+						buttons: [{
+							text: 'Ok',
+							handler: () => {  }
+						}]
+					});
+					alert.present();
+					this.storage.setContaLocal(null);
+					this.navCtrl.setRoot('LoginPage');
+					break;
+				default:
+					alert = this.alertCtrl.create({
+						title: 'Conta inativa',
+						message: 'Sua conta não está ativada.\nPara ativar, clique no link enviado para o e-mail '+ contaLocal.email +'.',
+						enableBackdropDismiss: false,
+						buttons: [{
+							text: 'Ok',
+							handler: () => {  }
+						}]
+					});
+					alert.present();
 			}
 		});
 	}

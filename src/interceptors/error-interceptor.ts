@@ -58,7 +58,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 	handle401() {
 		let toast = this.toastCtrl.create({
-			message: 'Código 401: falha de autenticação',
+			message: 'Falha de autenticação',
 			showCloseButton: true,
 			closeButtonText: 'Ok',
 			duration: 5000,
@@ -90,7 +90,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 	handle404(errorObj) {
 		let message = errorObj.message === null ? 'Página ou recurso não encontrado': errorObj.message;
 		let toast = this.toastCtrl.create({
-			message: 'Código 404: '+ message,
+			message: message,
 			showCloseButton: true,
 			closeButtonText: 'Ok',
 			duration: 5000,
@@ -103,7 +103,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 	handle422(errorObj) {
 		let toast = this.toastCtrl.create({
-			message: 'Código 422: Validação'+'\n'+this.listErrors(errorObj.errors),
+			message: 'Validação'+'\n'+this.listErrors(errorObj.errors),
 			showCloseButton: true,
 			closeButtonText: 'Ok',
 			duration: 5000,
@@ -116,7 +116,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 	handle500(errorObj) {
 		let toast = this.toastCtrl.create({
-			message: 'Código 500: Erro no processamento dos dados enviados, entre em contato com o suporte técnico',
+			message: 'Erro no processamento dos dados enviados, entre em contato com o suporte técnico',
 			showCloseButton: true,
 			closeButtonText: 'Ok',
 			duration: 5000,

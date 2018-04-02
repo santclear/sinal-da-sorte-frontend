@@ -215,7 +215,7 @@
 								<div class="botaoVAE">
 									<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()"><ion-icon name='arrow-back'></ion-icon></button>
 									<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small>Atualizar</button>
-									<button ion-button class="botao" color="danger" type="submit" small>Excluir</button>
+									<button ion-button class="botao" color="danger" type="submit" [disabled]="contaForm.invalid" (click)="exclua(); $event.preventDefault()" small>Excluir</button>
 								</div>
 							</form>
 						</div>
