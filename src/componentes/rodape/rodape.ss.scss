@@ -1,0 +1,37 @@
+ss-rodape {
+	
+	ion-footer, ion-footer ion-toolbar ion-title {
+		height: 30px;
+	}
+	
+	ion-footer ion-toolbar {
+		min-height: 30px!important;
+	}
+	
+	.rodapeCorpo {
+		width: auto;
+	}
+	
+	.rodapeConteudo {
+		margin: 0 auto;
+		width: 500px;
+		overflow: hidden;
+	}
+	
+	.rodapeCaixa {
+		background-color: #003200;
+		height: 15px;
+		line-height: 15px;
+		text-align: center;
+		color: white;
+	}
+
+	.copyrightCaixa {
+		width: 50%;
+		float: left;		
+	}
+
+	.organizacaoCaixa {
+		margin-left: 50%;
+	}
+}

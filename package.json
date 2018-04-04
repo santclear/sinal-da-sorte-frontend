@@ -12,18 +12,18 @@
         "ionic:serve": "ionic-app-scripts serve"
     },
     "dependencies": {
-        "@angular/animations": "^5.2.8",
-        "@angular/common": "5.0.3",
-        "@angular/compiler": "5.0.3",
-        "@angular/compiler-cli": "5.0.3",
-        "@angular/core": "5.0.3",
-        "@angular/forms": "5.0.3",
-        "@angular/http": "5.0.3",
-        "@angular/platform-browser": "5.0.3",
-        "@angular/platform-browser-dynamic": "5.0.3",
-        "@ionic-native/core": "4.4.0",
-        "@ionic-native/splash-screen": "4.4.0",
-        "@ionic-native/status-bar": "4.4.0",
+        "@angular/animations": "5.2.9",
+        "@angular/common": "5.2.9",
+        "@angular/compiler": "5.2.9",
+        "@angular/compiler-cli": "5.2.9",
+        "@angular/core": "5.2.9",
+        "@angular/forms": "5.2.9",
+        "@angular/http": "5.2.9",
+        "@angular/platform-browser": "5.2.9",
+        "@angular/platform-browser-dynamic": "5.2.9",
+        "@ionic-native/core": "4.6.0",
+        "@ionic-native/splash-screen": "4.6.0",
+        "@ionic-native/status-bar": "4.6.0",
         "@ionic/storage": "2.1.3",
         "angular2-datatable": "^0.5.2",
         "angular2-jwt": "^0.2.3",
@@ -34,13 +34,13 @@
         "pouchdb-find": "^0.10.3",
         "primeng": "^5.2.1",
         "font-awesome": "^4.7.0",
-        "rxjs": "5.5.2",
+        "rxjs": "5.5.8",
         "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.18"
+        "zone.js": "0.8.20"
     },
     "devDependencies": {
         "@ionic/app-scripts": "3.1.8",
-        "typescript": "2.4.2"
+        "typescript": "~2.6.2"
     },
-    "description": "sinal-da-sorte: Sistema de Gestão e Estatística de Apostas Lotéricas"
+    "description": "Sinal da Sorte: Sistema de Gestão e Estatística de Apostas Lotéricas"
 }

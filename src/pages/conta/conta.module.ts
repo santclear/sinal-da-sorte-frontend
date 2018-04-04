@@ -1,3 +1,4 @@
+import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ContaPage } from './conta';
@@ -17,6 +18,7 @@ import { PasswordModule } from 'primeng/password';
 		InputMaskModule,
 		DropdownModule,
 		PasswordModule,
+		RodapeSsModule,
 		IonicPageModule.forChild(ContaPage),
 	]
 })

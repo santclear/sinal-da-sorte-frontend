@@ -311,8 +311,6 @@ export class AtualizacaoContaPage extends PaginaBase {
 				}]
 			});
 			alert.present();
-			this.storage.setContaLocal(null);
-			this.navCtrl.setRoot('LoginPage');
 		}, error => { });
 	}
 }

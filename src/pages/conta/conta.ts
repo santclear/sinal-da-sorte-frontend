@@ -17,6 +17,8 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 	templateUrl: 'conta.html',
 })
 export class ContaPage {   
+	// @ViewChild("contentRef") content: Content;
+	// public exibirRodape: boolean = true;
 
 	contaForm: FormGroup;
 	ptBr: any;
@@ -32,6 +34,29 @@ export class ContaPage {
 
 		this.instancieContaForm();
 	}
+	
+	// scrollingFun(e) {
+	// 	this.content.ionScroll.subscribe((data) => {
+	// 		let dimensions = this.content.getContentDimensions();
+	// 		let scrollTop = this.content.scrollTop;
+	// 		let contentHeight = dimensions.contentHeight;
+	// 		let scrollHeight = dimensions.scrollHeight;
+	// 		if ((scrollTop + contentHeight + 20) > scrollHeight) {
+	// 			// document.querySelector("#rodape")['style'].display = 'inherit';
+	// 			// document.querySelector("ion-footer ion-toolbar")['style'].display = 'flex';
+	// 			this.exibirRodape = false;
+	// 			this.content.resize();
+	// 			console.log(this.exibirRodape)
+	// 		} else {
+	// 			// document.querySelector("#rodape")['style'].display = 'none';
+	// 			// document.querySelector("ion-footer ion-toolbar")['style'].display = 'none';
+	// 			this.exibirRodape = true;
+	// 			this.content.resize();
+	// 			console.log(this.exibirRodape)
+	// 		}
+	// 	});
+	
+	// }
 
 	ngOnInit() {
         this.ptBr = {
@@ -180,4 +205,8 @@ export class ContaPage {
             { label: 'Outro', value: '3' },
 		];
 	}
+
+	voltar() {
+        this.navCtrl.setRoot('LoginPage');
+    }
 }
