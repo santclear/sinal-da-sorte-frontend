@@ -9,10 +9,10 @@ import lodash from 'lodash';
 
 @IonicPage()
 @Component({
-	selector: 'pagina-bem-vindo',
-	templateUrl: 'bem-vindo.html'
+	selector: 'pagina-resultado',
+	templateUrl: 'resultado.html'
 })
-export class BemVindoPage extends PaginaBase {
+export class ResultadoPage extends PaginaBase {
 	public numeroDoConcurso;
 	public dataDoSorteio;
 	public dezenas = [];
@@ -52,7 +52,7 @@ export class BemVindoPage extends PaginaBase {
 
 	constructor(private concursoDAOServico: ConcursoDAOServico) {
 		super();
-		this.setTitulo("Bem Vindo");
+		this.setTitulo("Resultados");
 
 		this.bd = ConexaoFabrica.getConexao();
 

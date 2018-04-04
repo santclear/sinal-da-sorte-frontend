@@ -25,7 +25,7 @@ import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContaPageModule } from '../pages/conta/conta.module';
-import { BemVindoPageModule } from '../pages/bem-vindo/bem-vindo.module';
+import { ResultadoPageModule } from '../pages/resultado/resultado.module';
 import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esqueci-minha-senha.module';
 
 @NgModule({
@@ -39,7 +39,7 @@ import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esquec
 		HttpClientModule,
 		BrowserAnimationsModule,
 		ContaPageModule,
-		BemVindoPageModule,
+		ResultadoPageModule,
 		EsqueciMinhaSenhaPageModule,
 		IonicModule.forRoot(MyApp)
 	],

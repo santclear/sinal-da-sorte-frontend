@@ -64,7 +64,7 @@ export class LoginPage {
 						let indiceLoteria = sessao.loteria.id - 1;
 						let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 						resultadoSincronizePromise.then(resultadoSincronize => {
-							this.navCtrl.setRoot('BemVindoPage');
+							this.navCtrl.setRoot('ResultadoPage');
 						});
 					});
 					break;

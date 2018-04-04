@@ -29,14 +29,14 @@ export class MenuService {
 	public getPaginas(estadoSessao) {
 		let cor = '' + estadoSessao.loteria.cor.escuro + '';
 		return [
-			{ sufixoCssPagina: 'BemVindo', titulo: 'Bem Vindo', class: 'BemVindoPage', icone: 'home', corTexto: cor, exibir_texto: 'none' },
+			{ sufixoCssPagina: 'Resultado', titulo: 'Resultados', class: 'ResultadoPage', icone: 'done-all', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: 'EstatisticaPage', icone: 'trending-up', corTexto: cor, exibir_texto: 'none' },
-			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: 'SimuladorPage', icone: 'ios-car', corTexto: '#bbb', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: 'FechamentoPage', icone: 'md-lock', corTexto: '#bbb', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: 'ApostaPage', icone: 'md-cash', corTexto: '#bbb', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: 'GruposEspeciaisPage', icone: 'md-grid', corTexto: '#bbb', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: 'BolaoPage', icone: 'ios-people', corTexto: '#bbb', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: 'HistoricoDeApostasPage', icone: 'ios-list-box-outline', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: 'SimuladorPage', icone: 'car', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: 'FechamentoPage', icone: 'lock', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: 'ApostaPage', icone: 'cash', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: 'GruposEspeciaisPage', icone: 'grid', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: 'BolaoPage', icone: 'people', corTexto: '#bbb', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: 'HistoricoDeApostasPage', icone: 'list-box', corTexto: '#bbb', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Conta', titulo: 'Conta', class: 'AtualizacaoContaPage', icone: 'key', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Sair', titulo: 'Sair', class: 'LoginPage', icone: 'exit', corTexto: cor, exibir_texto: 'none' }
 		];

@@ -17,6 +17,10 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+ion-icon {
+    line-height: 19px!important;
+}
+
 .scroll-content {
     margin-bottom: 30px;
 }
