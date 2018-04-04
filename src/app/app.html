@@ -10,7 +10,8 @@
                 <ion-avatar item-left>
                     <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}">
                 </ion-avatar>
-                <h1>{{nomeLoteriaSelecionada}}</h1>
+                <h1>Alterar Loteria</h1>
+                <h3>{{nomeLoteriaSelecionada}}</h3>
             </button>
             <button [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item icon-left *ngFor="let pagina of paginas; let indicePagina = index" [ngStyle]="{'color': pagina.corTexto}" (click)="abraAPagina(pagina, indicePagina)">             
                 <ion-icon [name]="pagina.icone"></ion-icon>
