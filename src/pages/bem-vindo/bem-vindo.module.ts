@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { BemVindoPage } from './bem-vindo';
-import { NavBarAgSModule } from '../../componentes/nav-bar/navbar.ags.module';
+import { NavBarSsModule } from '../../componentes/nav-bar/navbar.ss.module';
 import { DataTableModule } from 'angular2-datatable';
 import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 
@@ -10,7 +10,7 @@ import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 		BemVindoPage,
 	],
 	imports: [
-		NavBarAgSModule,
+		NavBarSsModule,
 		DataTableModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(BemVindoPage),

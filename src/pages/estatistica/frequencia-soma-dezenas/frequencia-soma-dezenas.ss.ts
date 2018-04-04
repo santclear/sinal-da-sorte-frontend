@@ -10,10 +10,10 @@ var hcharts = require('highcharts');
 require('highcharts/modules/exporting')(hcharts);
 
 @Component({
-	selector: 'ags-frequencia-soma-dezenas',
-    templateUrl: 'frequencia-soma-dezenas.ags.html'
+	selector: 'ss-frequencia-soma-dezenas',
+    templateUrl: 'frequencia-soma-dezenas.ss.html'
 })
-export class FrequenciaSomaDezenasAgs extends EstatisticaBase implements EstatisticaI {
+export class FrequenciaSomaDezenasSs extends EstatisticaBase implements EstatisticaI {
 
 	public somaDasDezenasEmCadaConcurso: any = [];
 	public mediaDaSomaDasDezenasEmCadaConcurso: number;

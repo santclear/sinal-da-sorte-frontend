@@ -1,4 +1,4 @@
-<ags-navbar [tituloInput]="titulo"></ags-navbar>
+<ss-navbar [tituloInput]="titulo"></ss-navbar>
 
 <ion-content padding>
 
@@ -16,11 +16,11 @@
 
 	<div [ngSwitch]="cbxTipoDeGrafico">
 		<div *ngSwitchCase="'frequenciaAcumulada'">
-			<ags-frequencia-acumulada></ags-frequencia-acumulada>
+			<ss-frequencia-acumulada></ss-frequencia-acumulada>
 		</div>
 
 		<div *ngSwitchDefault>
-			<ags-frequencia-soma-dezenas></ags-frequencia-soma-dezenas>
+			<ss-frequencia-soma-dezenas></ss-frequencia-soma-dezenas>
 		</div>
 	</div>
 </ion-content>

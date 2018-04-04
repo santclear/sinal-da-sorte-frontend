@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AtualizacaoContaPage } from './atualizacao-conta';
-import { NavBarAgSModule } from '../../../componentes/nav-bar/navbar.ags.module';
+import { NavBarSsModule } from '../../../componentes/nav-bar/navbar.ss.module';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -16,7 +16,7 @@ import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
 		AtualizacaoContaPage,
 	],
 	imports: [
-		NavBarAgSModule,
+		NavBarSsModule,
 		CalendarModule,
 		InputTextModule,
 		InputMaskModule,

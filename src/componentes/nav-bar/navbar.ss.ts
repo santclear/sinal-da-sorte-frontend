@@ -3,11 +3,11 @@ import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Loterias } from '../../enum/loterias';
 
 @Component({
-	selector: "ags-navbar",
+	selector: "ss-navbar",
 	inputs: ['tituloInput'],
-	templateUrl: 'navbar.ags.html'
+	templateUrl: 'navbar.ss.html'
 })
-export class NavBarAgS {
+export class NavBarSs {
 	public logoSelecionado: string;
 	public nomeDaLoteria: string;
 	public sufixoCssLoteriaSelecionada: string;

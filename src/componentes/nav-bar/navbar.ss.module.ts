@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { NavBarAgS } from './navbar.ags';
+import { NavBarSs } from './navbar.ss';
 import { IonicModule } from 'ionic-angular';
 
 @NgModule({
-	declarations: [ NavBarAgS ],
+	declarations: [ NavBarSs ],
 	imports: [ IonicModule ],
-	exports: [ NavBarAgS ]
+	exports: [ NavBarSs ]
 })
-export class NavBarAgSModule { }
+export class NavBarSsModule { }

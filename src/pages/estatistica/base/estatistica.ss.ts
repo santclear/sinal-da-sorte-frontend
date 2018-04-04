@@ -6,10 +6,10 @@ import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
 import { Loterias } from '../../../enum/loterias';
 
 @Component({
-	selector: 'ags-estatistica',
-    templateUrl: 'estatistica.ags.html'
+	selector: 'ss-estatistica',
+    templateUrl: 'estatistica.ss.html'
 })
-export class EstatisticaAgs {
+export class EstatisticaSs {
 	@ViewChild('grafico') public canvas: ElementRef;
 	
 	public rdSorteios: number = 0;

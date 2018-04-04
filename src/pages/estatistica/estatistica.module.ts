@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { EstatisticaPage } from './estatistica';
-import { NavBarAgSModule } from '../../componentes/nav-bar/navbar.ags.module';
-import { FrequenciaAcumuladaAgsModule } from './frequencia-acumulada/frequencia-acumulada.ags.module';
-import { FrequenciaSomaDezenasAgsModule } from './frequencia-soma-dezenas/frequencia-soma-dezenas.ags.module';
+import { NavBarSsModule } from '../../componentes/nav-bar/navbar.ss.module';
+import { FrequenciaAcumuladaSsModule } from './frequencia-acumulada/frequencia-acumulada.ss.module';
+import { FrequenciaSomaDezenasSsModule } from './frequencia-soma-dezenas/frequencia-soma-dezenas.ss.module';
 import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 
 @NgModule({
@@ -12,9 +12,9 @@ import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 	],
 	// Os módulos devem ser importados na ordem correta
 	imports: [
-		NavBarAgSModule,
-		FrequenciaAcumuladaAgsModule,
-		FrequenciaSomaDezenasAgsModule,
+		NavBarSsModule,
+		FrequenciaAcumuladaSsModule,
+		FrequenciaSomaDezenasSsModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(EstatisticaPage),
 	]

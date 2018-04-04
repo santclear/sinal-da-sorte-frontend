@@ -9,10 +9,10 @@ var hcharts = require('highcharts');
 require('highcharts/modules/exporting')(hcharts);
 
 @Component({
-	selector: 'ags-frequencia-acumulada',
-    templateUrl: 'frequencia-acumulada.ags.html'
+	selector: 'ss-frequencia-acumulada',
+    templateUrl: 'frequencia-acumulada.ss.html'
 })
-export class FrequenciaAcumuladaAgs extends EstatisticaBase implements EstatisticaI {
+export class FrequenciaAcumuladaSs extends EstatisticaBase implements EstatisticaI {
 
 	public frequencia: number[] = [];
 	
