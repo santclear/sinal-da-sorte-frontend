@@ -52,7 +52,7 @@ export class ResultadoPage extends PaginaBase {
 
 	constructor(private concursoDAOServico: ConcursoDAOServico) {
 		super();
-		this.setTitulo("Resultados");
+		this.setTitulo("Resultado");
 
 		this.bd = ConexaoFabrica.getConexao();
 
