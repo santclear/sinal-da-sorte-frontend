@@ -166,6 +166,12 @@
 								<label for="float-input">Telefone 3</label>
 							</span>
 						</p>
+						<p [ngStyle]="{'display': exibeReCaptcha}">
+							<p-captcha siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP" (onResponse)="reCaptcha($event)"></p-captcha>
+						</p>
+						<p *ngIf="exibeReCaptcha === 'none'">
+							<img src="assets/img/recaptcha-ok.png">
+						</p>
 						<div class="botaoVC">
 							<button ion-button color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button>
 							<button ion-button type="submit" [disabled]="contaForm.invalid" small text-capitalize>Cadastrar</button>

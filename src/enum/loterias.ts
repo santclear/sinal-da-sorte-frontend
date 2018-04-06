@@ -2,6 +2,8 @@ export abstract class Loterias {
 	static readonly DOMINIO = 'http://localhost:8080/';
 	// static readonly DOMINIO = 'http://localhost:8084/agente-da-sorte-servico/';
 	// static readonly DOMINIO = 'http://192.168.0.12:8084/agente-da-sorte-servico/';
+	static readonly RECAPTCHA_SITEKEY = '6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP';
+	static readonly RECAPTCHA_SECRET = '6LecHFEUAAAAAGpVfe755LWfkajCPQlhNfvGRXgy';
 	static readonly LOTOFACIL = {
 		id: 1,
 		sufixoCssLoteria: 'Lotofacil',

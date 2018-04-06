@@ -36,7 +36,7 @@ export class MenuService {
 			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: 'SimuladorPage', icone: 'car', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: 'FechamentoPage', icone: 'lock', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: 'ApostaPage', icone: 'cash', corTexto: '#777', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: 'GruposEspeciaisPage', icone: 'grid', corTexto: '#777', exibir_texto: 'inline' },
+			// { sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: 'GruposEspeciaisPage', icone: 'grid', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: 'BolaoPage', icone: 'people', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: 'HistoricoDeApostasPage', icone: 'list-box', corTexto: '#777', exibir_texto: 'inline' },
 		];

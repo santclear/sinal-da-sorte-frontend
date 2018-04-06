@@ -12,4 +12,17 @@ export class UtilService {
 	ping(): Observable<String> {
 		return this.http.get<String>(Loterias.DOMINIO +'util/ping');
 	}
+
+	verificaReCaptcha( apiKey: string, responseReCaptcha: string) {
+		return this.http.post('https://www.google.com/recaptcha/api/siteverify',
+			{
+				secret: apiKey,
+				response: responseReCaptcha
+			},
+			{
+				observe: 'response',
+				responseType: 'text'
+			}
+		);
+	}
 } 

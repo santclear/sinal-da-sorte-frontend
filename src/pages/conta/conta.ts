@@ -20,9 +20,10 @@ export class ContaPage {
 	// @ViewChild("contentRef") content: Content;
 	// public exibirRodape: boolean = true;
 
-	contaForm: FormGroup;
-	ptBr: any;
-	generos: SelectItem[];
+	public contaForm: FormGroup;
+	public ptBr: any;
+	public generos: SelectItem[];
+	public exibeReCaptcha: string = 'block';
 
 	constructor(
 		private navCtrl: NavController,
@@ -196,7 +197,8 @@ export class ContaPage {
 			uf: ['', [Validators.required]],
 			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
 			telefone2: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
-			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]]
+			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			reCaptcha: [null, [Validators.required]],
 		});
 
         this.generos = [
@@ -208,5 +210,24 @@ export class ContaPage {
 
 	voltar() {
         this.navCtrl.setRoot('LoginPage');
-    }
+	}
+	
+	reCaptcha(ev) {
+		if (ev) this.contaForm.controls['reCaptcha'].setValue(true);
+		this.exibeReCaptcha = 'none';
+		setTimeout(() => {
+			this.exibeReCaptcha = 'block';
+			this.contaForm.controls['reCaptcha'].setValue(null);
+			(<any>window).grecaptcha.reset();
+			let toast = this.toastCtrl.create({
+				message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
+				showCloseButton: true,
+				closeButtonText: 'Ok',
+				duration: 15000,
+				position: 'middle',
+				cssClass: 'toastGeral'
+			  });
+			  toast.present(toast);
+		}, 40000);
+	}
 }

@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
+import { CaptchaModule } from 'primeng/captcha';
 
 @NgModule({
 	declarations: [
@@ -18,6 +19,7 @@ import { PasswordModule } from 'primeng/password';
 		InputMaskModule,
 		DropdownModule,
 		PasswordModule,
+		CaptchaModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(ContaPage),
 	]

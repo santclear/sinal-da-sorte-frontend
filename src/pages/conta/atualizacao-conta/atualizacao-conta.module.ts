@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { TabViewModule } from 'primeng/tabview';
 import { CardModule } from 'primeng/card';
+import { CaptchaModule } from 'primeng/captcha';
 import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
 		PasswordModule,
 		TabViewModule,
 		CardModule,
+		CaptchaModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(AtualizacaoContaPage),
 	],

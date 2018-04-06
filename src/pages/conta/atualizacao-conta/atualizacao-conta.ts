@@ -25,9 +25,10 @@ import { PaginaBase } from '../../pagina.base';
 })
 export class AtualizacaoContaPage extends PaginaBase {   
 
-	contaForm: FormGroup;
-	generos: SelectItem[];
-	ptBr: any;
+	public contaForm: FormGroup;
+	public generos: SelectItem[];
+	public ptBr: any;
+	public exibeReCaptcha: string = 'block';
 
 	constructor(
 		protected navCtrl: NavController,
@@ -49,7 +50,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 		if(contaLocal) {
 			this.populeContaForm(contaLocal.email);
 		}
-	}
+	}	
 
 	ngOnInit() {
         this.ptBr = {
@@ -260,6 +261,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 			telefone1: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
 			telefone2: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
 			telefone3: ['', [Validators.minLength(10), Validators.maxLength(16), Validators.pattern('\\d+')]],
+			reCaptcha: [null, [Validators.required]],
 		});
 
         this.generos = [
@@ -312,5 +314,24 @@ export class AtualizacaoContaPage extends PaginaBase {
 			});
 			alert.present();
 		}, error => { });
+	}
+
+	reCaptcha(ev) {
+		if (ev) this.contaForm.controls['reCaptcha'].setValue(true);
+		this.exibeReCaptcha = 'none';
+		setTimeout(() => {
+			this.exibeReCaptcha = 'block';
+			this.contaForm.controls['reCaptcha'].setValue(null);
+			(<any>window).grecaptcha.reset();
+			let toast = this.toastCtrl.create({
+				message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
+				showCloseButton: true,
+				closeButtonText: 'Ok',
+				duration: 15000,
+				position: 'middle',
+				cssClass: 'toastGeral'
+			  });
+			  toast.present(toast);
+		}, 40000);
 	}
 }
