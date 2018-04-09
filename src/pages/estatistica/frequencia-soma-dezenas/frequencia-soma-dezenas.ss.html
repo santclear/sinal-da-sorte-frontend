@@ -34,40 +34,31 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<table [mfData]="somaDasDezenasEmCadaConcurso" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
-					<tr>
-						<th>
-							<mfDefaultSorter by="concurso">Concurso</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="soma">Soma</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="dezenas">Dezenas</mfDefaultSorter>
-						</th>
-					</tr>
-
-					<tr *ngFor="let item of mf.data">
-						<td class="selecionavel">{{item.concurso}}</td>
-						<td class="selecionavel">{{item.soma}}</td>
-						<td class="selecionavel">{{item.dezenas}}</td>
-					</tr>
-					<tr>
-						<td colspan="3">
-							<mfBootstrapPaginator [rowsOnPageSet]="[25,50,100]"></mfBootstrapPaginator>
-						</td>
-                	</tr>
-				</table>
-				<div class="espaco_vertical"></div>
-				<table class="container-tabela margem-automatica">
-					<th colspan="2">
-						Média da soma das dezenas em cada concurso
-					</th>
-					<tr>
-						<td>Média</td>
-						<td>{{mediaDaSomaDasDezenasEmCadaConcurso | number:'1.'}}</td>
-					</tr>
-				</table>
+				<p-table [columns]="colsSomaDasDezenasEmCadaConcurso" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+					<ng-template pTemplate="header" let-colunas>
+						<tr>
+							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
+								{{coluna.nome}}
+								<p-sortIcon [field]="coluna.campo"></p-sortIcon>
+							</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-rowData let-colunas="columns">
+						<tr>
+							<td *ngFor="let coluna of colunas">
+								<span class="ui-column-title">{{coluna.nome}}</span>
+								{{rowData[coluna.campo]}}
+							</td>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="footer">
+						<tr>
+							<td>Média das somas</td>
+							<td>{{mediaDaSomaDasDezenasEmCadaConcurso | number:'1.'}}</td>
+							<td></td>
+						</tr>
+					</ng-template>
+				</p-table>
 			</div>
 		</ion-item>
 	</ion-list>
@@ -78,26 +69,24 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<table [mfData]="quantidadesDeSomas" #mf2="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy2" [(mfSortOrder)]="sortOrder2">
-					<tr>
-						<th>
-							<mfDefaultSorter by="soma">Soma</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="quantidade">Quantidade</mfDefaultSorter>
-						</th>
-					</tr>
-
-					<tr *ngFor="let item of mf2.data">
-						<td class="selecionavel">{{item.soma}}</td>
-						<td class="selecionavel">{{item.quantidade}}</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<mfBootstrapPaginator [rowsOnPageSet]="[25,50,100]"></mfBootstrapPaginator>
-						</td>
-                	</tr>
-				</table>
+				<p-table [columns]="colsQuantidadesDeSomas" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+					<ng-template pTemplate="header" let-colunas>
+						<tr>
+							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
+								{{coluna.nome}}
+								<p-sortIcon [field]="coluna.campo"></p-sortIcon>
+							</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-rowData let-colunas="columns">
+						<tr>
+							<td *ngFor="let coluna of colunas">
+								<span class="ui-column-title">{{coluna.nome}}</span>
+								{{rowData[coluna.campo]}}
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
 			</div>
 		</ion-item>
 	</ion-list>

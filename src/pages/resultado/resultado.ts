@@ -17,6 +17,8 @@ export class ResultadoPage extends PaginaBase {
 	public dataDoSorteio;
 	public dezenas = [];
 	public sorteios: any = [];
+	public colsRateio: any = [];
+	public colsEstatisticas: any = [];
 	public dezenasEmOrdemCrescente = [];
 	public tiposDeAcertos = [];
 	public cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
@@ -178,10 +180,15 @@ export class ResultadoPage extends PaginaBase {
 				this.sorteios[i]['rateios'] = rateiosAtualizados;
 			});
 
+			this.colsRateio = [
+				{ campo: 'tipoDePremio', nome: 'Dezena' },
+				{ campo: 'numeroDeGanhadores', nome: 'Frequência total' },
+				{ campo: 'rateio', nome: 'Ausência total' }
+			];
+
 			concurso.sorteios.forEach(sorteio => {
 				this.dezenasEmOrdemCrescente.push(this.ordeneDezenasEmOrdemCrescente(sorteio.numerosSorteados));
 			});
-
 
 			let cidadesDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.cidade.split(';'), '');
 			let ufsDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.uf.split(';'), '');
@@ -221,6 +228,12 @@ export class ResultadoPage extends PaginaBase {
 
 			let concursosPromise = concursoFacade.listeTodos(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
+				this.colsEstatisticas = [
+					{ campo: 'dezena', nome: 'Dezena' },
+					{ campo: 'frequencia', nome: 'Frequência total' },
+					{ campo: 'frequenciaPorCento', nome: 'Ausência total' }
+				];
+
 				this.estatisticasDosSorteios = concursos.estatisticas;
 			});
 		});

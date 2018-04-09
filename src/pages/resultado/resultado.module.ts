@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ResultadoPage } from './resultado';
 import { NavBarSsModule } from '../../componentes/nav-bar/navbar.ss.module';
-import { DataTableModule } from 'angular2-datatable';
+import { TableModule } from 'primeng/table';
 import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 
 @NgModule({
@@ -11,7 +11,7 @@ import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 	],
 	imports: [
 		NavBarSsModule,
-		DataTableModule,
+		TableModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(ResultadoPage),
 	],

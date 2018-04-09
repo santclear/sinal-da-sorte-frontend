@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
-import { DataTableModule } from 'angular2-datatable';
+import { TableModule } from 'primeng/table';
 import { FrequenciaSomaDezenasSs } from './frequencia-soma-dezenas.ss';
 import { EstatisticaSsModule } from '../base/estatistica.ss.module';
 
@@ -9,7 +9,7 @@ import { EstatisticaSsModule } from '../base/estatistica.ss.module';
 	// Os módulos devem ser importados na ordem correta
 	imports: [
 		IonicModule, 
-		DataTableModule,
+		TableModule,
 		EstatisticaSsModule
 	],
 	exports: [ FrequenciaSomaDezenasSs ]

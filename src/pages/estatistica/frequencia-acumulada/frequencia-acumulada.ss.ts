@@ -3,6 +3,7 @@ import { LoadingController } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { EstatisticaBase } from '../base/estatistica.base';
 import { EstatisticaI } from '../base/estatistica.i';
+import { FrequenciaDezenaDto } from '../dto/frequencia-dezena-dto';
 
 declare var require: any;
 var hcharts = require('highcharts');
@@ -21,7 +22,9 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 	public acumuloRemanescente: number;
 	public ausenciaRemanescente: number;
 
-	public frequenciasSorteio: any = [];
+	public frequenciasSorteioLoad: FrequenciaDezenaDto[] = [];
+	public frequenciasSorteio: FrequenciaDezenaDto[] = [];
+	public cols: any = [];
 
 	public filterQuery: string;
 	public rowsOnPage: number;
@@ -154,7 +157,8 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 		});
 		loading.present();
 		this.bd.get('sessao').then(sessao => {
-			this.frequenciasSorteio = [];
+			this.frequenciasSorteioLoad = [];
+			
 			dezenas.forEach((dezena, i, dezenas) => {
 				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(dezena, sessao.loteria.nomeDoDocumentoNoBD, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio);
 				let frequenciaPromise = this.concursoFacade.calculeFrequenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena, numeroDoSorteio, numeroDoConcursoInicial, numeroDoConcursoFinal);
@@ -165,20 +169,31 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 					let frequenciasAcumuladas = this.crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos);
 					let acumuloRemanescente: number = this.procurePorAcumuloRemanescente(frequenciasAcumuladas);
 					let ausenciaRemanescente: number = this.calculeAusenciaRemanescente(frequenciasAcumuladas);
-					
 					frequenciaPromise.then(frequencia => {
 						ausenciaPromise.then(ausencia => {
-							this.frequenciasSorteio.push({
-								dezena: dezena, 
+							let frequenciaDezenaDto: FrequenciaDezenaDto = {
+								dezena: dezena,
 								frequenciaTotal: frequencia.total===undefined?0:frequencia.total,
 								ausenciaTotal: ausencia.total===undefined?0:ausencia.total,
 								acumuloRemanescente: acumuloRemanescente,
 								ausenciaRemanescente: ausenciaRemanescente
-							});
+							}
+							this.frequenciasSorteioLoad.push(frequenciaDezenaDto);
 							if(i == dezenas.length - 1) loading.dismiss();
 						});
 					});
 				});
+			});
+
+			loading.onDidDismiss(() => {	
+				this.cols = [
+					{ campo: 'dezena', nome: 'Dezena' },
+					{ campo: 'frequenciaTotal', nome: 'Frequência total' },
+					{ campo: 'ausenciaTotal', nome: 'Ausência total' },
+					{ campo: 'acumuloRemanescente', nome: 'Acúmulo remanescente' },
+					{ campo: 'ausenciaRemanescente', nome: 'Ausência remanescente' }
+				];
+				this.frequenciasSorteio = this.frequenciasSorteioLoad;
 			});
 		});
 	}

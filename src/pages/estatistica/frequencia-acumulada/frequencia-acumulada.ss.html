@@ -42,38 +42,24 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<table [mfData]="frequenciasSorteio" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
-					<tr>
-						<th>
-							<mfDefaultSorter by="dezena">Dezena</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="frequenciaTotal">Frequência total</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="ausenciaTotal">Ausência total</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="acumuloRemanescente">Acúmulo remanescente</mfDefaultSorter>
-						</th>
-						<th>
-							<mfDefaultSorter by="ausenciaRemanescente">Ausência remanescente</mfDefaultSorter>
-						</th>
-					</tr>
-
-					<tr *ngFor="let item of mf.data">
-						<td class="selecionavel">{{item.dezena}}</td>
-						<td class="selecionavel">{{item.frequenciaTotal}}</td>
-						<td class="selecionavel">{{item.ausenciaTotal}}</td>
-						<td class="selecionavel">{{item.acumuloRemanescente}}</td>
-						<td class="selecionavel">{{item.ausenciaRemanescente}}</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<mfBootstrapPaginator [rowsOnPageSet]="[25,50,100]"></mfBootstrapPaginator>
-						</td>
-                	</tr>
-				</table>
+				<p-table [columns]="cols" [value]="frequenciasSorteio" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+					<ng-template pTemplate="header" let-colunas>
+						<tr>
+							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
+								{{coluna.nome}}
+								<p-sortIcon [field]="coluna.campo"></p-sortIcon>
+							</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-rowData let-colunas="columns">
+						<tr>
+							<td *ngFor="let coluna of colunas">
+								<span class="ui-column-title">{{coluna.nome}}</span>
+								{{rowData[coluna.campo]}}
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
 			</div>
 		</ion-item>
 	</ion-list>
