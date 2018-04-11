@@ -29,6 +29,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 	public generos: SelectItem[];
 	public ptBr: any;
 	public exibeReCaptcha: string = 'block';
+	public senha: string;
 
 	constructor(
 		protected navCtrl: NavController,

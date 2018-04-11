@@ -130,7 +130,7 @@
 								<p></p>
 								<p>
 									<span class="ui-float-label">
-										<input formControlName="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
+										<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
 										<label for="float-input">Senha atual*</label>
 									</span>
 									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
@@ -192,7 +192,7 @@
 								</p>
 								<p>
 									<span class="ui-float-label">
-										<input formControlName="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
+										<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
 										<label for="float-input">Senha atual*</label>
 									</span>
 									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
