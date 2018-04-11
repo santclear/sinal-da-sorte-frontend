@@ -17,6 +17,18 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+ion-menu {
+    max-width: 305px!important;
+}
+
+ion-footer, ion-footer ion-toolbar ion-title {
+    height: 30px;
+}
+
+ion-footer ion-toolbar {
+    min-height: 30px!important;
+}
+
 ion-icon {
     line-height: 19px!important;
 }

@@ -28,6 +28,7 @@ export class MyApp {
 	public indicePaginaAtual: number;
 	public menuAtivo: string;
 	public bd: any;
+	private indiceLoteriaAtual: number;
 
 	constructor(public plataforma: Platform,
 		public menu: MenuController,
@@ -51,17 +52,18 @@ export class MyApp {
 		
 		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			if(resultadoQuery.novo != null) {
+				this.indiceLoteriaAtual = resultadoQuery.novo.loteria.id - 1;
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.novo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.novo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.novo.loteria.caminhoDoIconeAvatar;
 				this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
 			} else {
+				this.indiceLoteriaAtual = resultadoQuery.antigo.loteria.id - 1;
 				this.sufixoCssLoteriaSelecionada = resultadoQuery.antigo.loteria.sufixoCssLoteria;
 				this.nomeLoteriaSelecionada = resultadoQuery.antigo.loteria.nome;
 				this.caminhoDoIconeAvatarDaLoteriaSelecionada = resultadoQuery.antigo.loteria.caminhoDoIconeAvatar;
 				this.paginas = this.menuService.getPaginas(resultadoQuery.antigo);
 			};
-
 			this.sincronize();
 		});
 	}
@@ -86,6 +88,11 @@ export class MyApp {
 	}
 
 	ativeMenuPaginas(indiceLoteria) {
+		if(indiceLoteria === -1) {
+			indiceLoteria = this.indiceLoteriaAtual;
+		} else {
+			this.indiceLoteriaAtual = indiceLoteria;
+		}
 		let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 		resultadoSincronizePromise.then(resultadoSincronize => {
 			let ultimoConcursoStr = JSON.stringify(resultadoSincronize);
