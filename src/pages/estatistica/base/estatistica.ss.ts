@@ -13,7 +13,7 @@ export class EstatisticaSs {
 	@ViewChild('grafico') public canvas: ElementRef;
 	
 	public rdSorteios: number = 0;
-	public cbxExtensaoDaFaixaDeConcursos: number = 9;
+	public cbxExtensaoDaFaixaDeConcursos: number = 10;
 	public extensoesDaFaixaDeConcursos: any;
 	public extensaoDaFaixaDeConcurso: number;
 	public extensaoDaFaixaDeConcursoAnterior: number;
@@ -44,13 +44,13 @@ export class EstatisticaSs {
 		this.bd.get('sessao').then((sessao) => {
 			let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
-				this.numeroDoConcursoInicial = concursos.maiorNumero -9;
+				this.numeroDoConcursoInicial = concursos.maiorNumero - 10;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
 				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
 				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
 				this.isDuplasena = this.sufixoCssLoteria === 'duplasena' ? true : false;
 				this.cbxExtensaoDaFaixaDeConcursosAtualize(this.cbxExtensaoDaFaixaDeConcursos);
-				this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
+				this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso + 1;
 				this.rgeFaixaDeConcursosMax = this.numeroDoConcursoFinal;
 				this.rgeFaixaDeConcursos = this.numeroDoConcursoFinal;
 				this.atualizeOGrafico(this.rdSorteios);
@@ -81,19 +81,25 @@ export class EstatisticaSs {
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal: Range): void {
+		let obj;
 		if(this.numeroDoConcursoInicial == 0) {
-			this.rgeFaixaDeConcursosMin = concursoFinal.value +1;
-			this.rgeFaixaDeConcursosAtualizeOutput.emit({
+			this.rgeFaixaDeConcursosMin = concursoFinal.value + 1;
+			let numeroDoConcursoFinal = concursoFinal.value + 1;
+			obj = {
 				canvas: this.canvas, 
 				numeroDoConcursoInicial: 1, 
-				numeroDoConcursoFinal: concursoFinal.value +1, 
-				rdSorteios: this.rdSorteios});
+				numeroDoConcursoFinal: numeroDoConcursoFinal, 
+				rdSorteios: this.rdSorteios
+			};
+			this.rgeFaixaDeConcursosAtualizeOutput.emit(obj);
 		} else {
-			this.rgeFaixaDeConcursosAtualizeOutput.emit({
+			obj = {
 				canvas: this.canvas, 
 				numeroDoConcursoInicial: concursoFinal.value - this.extensaoDaFaixaDeConcurso, 
-				numeroDoConcursoFinal: concursoFinal.value, 
-				rdSorteios: this.rdSorteios});
+				numeroDoConcursoFinal: concursoFinal.value,
+				rdSorteios: this.rdSorteios
+			};
+			this.rgeFaixaDeConcursosAtualizeOutput.emit(obj);
 		}
 	}
 
@@ -102,12 +108,13 @@ export class EstatisticaSs {
 			this.numeroDoConcursoInicial--;
 			this.numeroDoConcursoFinal--;
 			this.rgeFaixaDeConcursos--;
+		
+			this.rgeDesloqueParaEsquerdaOutput.emit({
+				canvas: this.canvas, 
+				numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+				numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
+				rdSorteios: this.rdSorteios});
 		}
-		this.rgeDesloqueParaEsquerdaOutput.emit({
-			canvas: this.canvas, 
-			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
-			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rdSorteios: this.rdSorteios});
 	}
 
 	rgeDesloqueParaDireita(event: any): void {
@@ -115,12 +122,13 @@ export class EstatisticaSs {
 			this.numeroDoConcursoInicial++;
 			this.numeroDoConcursoFinal++;
 			this.rgeFaixaDeConcursos++;
+		
+			this.rgeDesloqueParaDireitaOutput.emit({
+				canvas: this.canvas, 
+				numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+				numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
+				rdSorteios: this.rdSorteios});
 		}
-		this.rgeDesloqueParaDireitaOutput.emit({
-			canvas: this.canvas, 
-			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
-			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rdSorteios: this.rdSorteios});
 	}
 
 	rgeDesloqueParaEsquerdaEFC(event: any): void {
@@ -129,16 +137,16 @@ export class EstatisticaSs {
 			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial - this.extensaoDaFaixaDeConcurso;
 			this.numeroDoConcursoFinal = subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursos - this.extensaoDaFaixaDeConcurso;
+			this.rgeDesloqueParaEsquerdaEFCOutput.emit({
+				canvas: this.canvas, 
+				numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+				numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
+				rdSorteios: this.rdSorteios});
 		} else {
 			this.numeroDoConcursoInicial = this.rgeFaixaDeConcursosMin - this.extensaoDaFaixaDeConcurso;
 			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMin;
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMin;
 		}
-		this.rgeDesloqueParaEsquerdaEFCOutput.emit({
-			canvas: this.canvas, 
-			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
-			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rdSorteios: this.rdSorteios});
 	}
 
 	rgeDesloqueParaDireitaEFC(event: any): void {
@@ -147,16 +155,16 @@ export class EstatisticaSs {
 			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial + this.extensaoDaFaixaDeConcurso;
 			this.numeroDoConcursoFinal = sumNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursos + this.extensaoDaFaixaDeConcurso;
+			this.rgeDesloqueParaDireitaEFCOutput.emit({
+				canvas: this.canvas, 
+				numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+				numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
+				rdSorteios: this.rdSorteios});
 		} else {
 			this.numeroDoConcursoInicial = this.rgeFaixaDeConcursosMax - this.extensaoDaFaixaDeConcurso;
 			this.numeroDoConcursoFinal = this.rgeFaixaDeConcursosMax;
 			this.rgeFaixaDeConcursos = this.rgeFaixaDeConcursosMax;
 		}
-		this.rgeDesloqueParaDireitaEFCOutput.emit({
-			canvas: this.canvas, 
-			numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
-			numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
-			rdSorteios: this.rdSorteios});
 	}
 
 	atualizeOGrafico(rdSorteios: number): void {
