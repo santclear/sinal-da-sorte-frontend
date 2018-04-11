@@ -1,4 +1,3 @@
-import { BloqueiaCopiaColaDirective } from '../diretivas/bloqueia-copia-cola.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -30,8 +29,7 @@ import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esquec
 
 @NgModule({
 	declarations: [
-		MyApp,
-		BloqueiaCopiaColaDirective
+		MyApp
 	],
 	imports: [
 		BrowserModule,

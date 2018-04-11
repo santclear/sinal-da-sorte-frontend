@@ -8,10 +8,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { CaptchaModule } from 'primeng/captcha';
+import { BloqueiaCopiaColaDirectiveModule } from '../../diretivas/bloqueia-copia-cola.module';
 
 @NgModule({
 	declarations: [
-		ContaPage,
+		ContaPage
 	],
 	imports: [
 		CalendarModule,
@@ -20,6 +21,7 @@ import { CaptchaModule } from 'primeng/captcha';
 		DropdownModule,
 		PasswordModule,
 		CaptchaModule,
+		BloqueiaCopiaColaDirectiveModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(ContaPage),
 	]

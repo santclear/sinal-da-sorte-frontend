@@ -11,10 +11,11 @@ import { TabViewModule } from 'primeng/tabview';
 import { CardModule } from 'primeng/card';
 import { CaptchaModule } from 'primeng/captcha';
 import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
+import { BloqueiaCopiaColaDirectiveModule } from '../../../diretivas/bloqueia-copia-cola.module';
 
 @NgModule({
 	declarations: [
-		AtualizacaoContaPage,
+		AtualizacaoContaPage
 	],
 	imports: [
 		NavBarSsModule,
@@ -26,8 +27,9 @@ import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
 		TabViewModule,
 		CardModule,
 		CaptchaModule,
+		BloqueiaCopiaColaDirectiveModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(AtualizacaoContaPage),
-	],
+	]
 })
 export class AtualizacaoContaPageModule { }
