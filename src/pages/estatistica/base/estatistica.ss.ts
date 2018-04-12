@@ -44,7 +44,7 @@ export class EstatisticaSs {
 		this.bd.get('sessao').then((sessao) => {
 			let concursosPromise = this.concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
 			concursosPromise.then(concursos => {
-				this.numeroDoConcursoInicial = concursos.maiorNumero - 10;
+				this.numeroDoConcursoInicial = concursos.maiorNumero - 9;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
 				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
 				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
@@ -61,7 +61,7 @@ export class EstatisticaSs {
 	cbxExtensaoDaFaixaDeConcursosAtualize(valorExtensaoDaFaixaDeConcursos: number): void {
 		if (this.extensoesDaFaixaDeConcursos != undefined) {
 			this.extensaoDaFaixaDeConcursoAnterior = this.extensaoDaFaixaDeConcurso;
-			this.extensaoDaFaixaDeConcurso = Number(valorExtensaoDaFaixaDeConcursos);
+			this.extensaoDaFaixaDeConcurso = Number(valorExtensaoDaFaixaDeConcursos) - 1;
 			this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso + 1;
 		}
 
