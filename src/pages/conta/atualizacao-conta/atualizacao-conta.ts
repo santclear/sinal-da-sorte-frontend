@@ -208,6 +208,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 			this.contaForm.controls['telefone2'].setValue(conta.usuario.telefone2);
 			this.contaForm.controls['telefone3'].setValue(conta.usuario.telefone3);
 		}
+		(<any>window).grecaptcha.reset();
 	}
 
 	populeEnderecos(event: any) {
@@ -314,6 +315,9 @@ export class AtualizacaoContaPage extends PaginaBase {
 				}]
 			});
 			alert.present();
+			this.storage.setContaLocal(null);
+			this.navCtrl.setRoot(LoginPage);
+			(<any>window).grecaptcha.reset();
 		}, error => { });
 	}
 

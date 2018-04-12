@@ -148,6 +148,7 @@ export class ContaPage {
 			}]
 		});
 		alert.present();
+		(<any>window).grecaptcha.reset();
 	}
 
 	populeEnderecos(event) {
