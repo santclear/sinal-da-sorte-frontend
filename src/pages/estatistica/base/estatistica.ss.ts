@@ -62,7 +62,7 @@ export class EstatisticaSs {
 		if (this.extensoesDaFaixaDeConcursos != undefined) {
 			this.extensaoDaFaixaDeConcursoAnterior = this.extensaoDaFaixaDeConcurso;
 			this.extensaoDaFaixaDeConcurso = Number(valorExtensaoDaFaixaDeConcursos);
-			this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso;
+			this.rgeFaixaDeConcursosMin = this.extensaoDaFaixaDeConcurso + 1;
 		}
 
 		if (this.rgeFaixaDeConcursos != undefined) {
@@ -83,20 +83,22 @@ export class EstatisticaSs {
 	rgeFaixaDeConcursosAtualize(concursoFinal: Range): void {
 		let obj;
 		if(this.numeroDoConcursoInicial == 0) {
-			this.rgeFaixaDeConcursosMin = concursoFinal.value + 1;
-			let numeroDoConcursoFinal = concursoFinal.value + 1;
+			this.numeroDoConcursoInicial = 1;
+			this.numeroDoConcursoFinal = this.cbxExtensaoDaFaixaDeConcursos;
 			obj = {
 				canvas: this.canvas, 
-				numeroDoConcursoInicial: 1, 
-				numeroDoConcursoFinal: numeroDoConcursoFinal, 
+				numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+				numeroDoConcursoFinal: this.numeroDoConcursoFinal, 
 				rdSorteios: this.rdSorteios
 			};
 			this.rgeFaixaDeConcursosAtualizeOutput.emit(obj);
 		} else {
+			this.numeroDoConcursoInicial = concursoFinal.value - this.extensaoDaFaixaDeConcurso;
+			this.numeroDoConcursoFinal = concursoFinal.value;
 			obj = {
 				canvas: this.canvas, 
-				numeroDoConcursoInicial: concursoFinal.value - this.extensaoDaFaixaDeConcurso, 
-				numeroDoConcursoFinal: concursoFinal.value,
+				numeroDoConcursoInicial: this.numeroDoConcursoInicial, 
+				numeroDoConcursoFinal: this.numeroDoConcursoFinal,
 				rdSorteios: this.rdSorteios
 			};
 			this.rgeFaixaDeConcursosAtualizeOutput.emit(obj);
@@ -132,7 +134,7 @@ export class EstatisticaSs {
 	}
 
 	rgeDesloqueParaEsquerdaEFC(event: any): void {
-		let subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso
+		let subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
 		if (subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso >= this.rgeFaixaDeConcursosMin) {
 			this.numeroDoConcursoInicial = this.numeroDoConcursoInicial - this.extensaoDaFaixaDeConcurso;
 			this.numeroDoConcursoFinal = subNumeroDoConcursoFinalEExtensaoDaFaixaDeConcurso;
