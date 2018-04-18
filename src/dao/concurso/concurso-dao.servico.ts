@@ -68,107 +68,6 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 	}
 
-	// private crieFrequenciasTotaisDasDezenas(loterias, numeroConcursoInicial: number, numeroConcursoFinal: number) {
-	// 	return new Promise(resolve => {
-	// 		let frequenciasTotaisDasDezenas = [];
-	// 		// dezenas que foram sorteadas
-	// 		loterias.dezenas.forEach((dezena, i, dezenas) => {
-	// 			let dezenaPromise = this.procurePorFrequenciaTotalDaDezena(loterias.nomeDoDocumentoNoBD, dezena.numero, 0);
-	// 			dezenaPromise.then(dezenaFiltrada => {
-	// 				frequenciasTotaisDasDezenas.push({ numero: dezena.numero, frequenciaTotal: dezenaFiltrada.frequenciaTotal, frequenciaTotalPorCento: dezenaFiltrada.frequenciaTotalPorCento });
-	// 				if(loterias.dezenas.length == Number(i + 1)) resolve(lodash.orderBy(frequenciasTotaisDasDezenas, [function (dezena) { return dezena.frequenciaTotalPorCento; }], ['desc']));
-	// 			});
-	// 		});
-	// 	});
-	// }
-
-	// procurePorFrequenciaTotalDaDezena(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number): any {
-	// 	let concursosPromise = new Promise(resolve => {
-	// 		this.bd.allDocs({
-	// 			include_docs: true,
-	// 			startkey: nomeDoDocumentoNoBD,
-	// 			endkey: nomeDoDocumentoNoBD
-	// 		}).then(function (resultadoQuery) {
-	// 			if (resultadoQuery.rows.length > 0) {
-	// 				// manter | irá apenas atualizar a contagem das dezenas que foram sorteadas
-	// 				let contagemDaDezenaNosConcursos = lodash.countBy(resultadoQuery.rows[0].doc.concursos, function (concurso) {
-	// 					let pattern = new RegExp(dezena, 'g');
-	// 					let match = pattern.exec(concurso.sorteios[numeroDoSorteio].numerosSorteados);
-	// 					return match != null;
-	// 				});
-	// 				// descartar
-	// 				let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
-	// 				let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
-
-	// 				resolve({frequenciaTotal: contagemDaDezenaNosConcursos.true, frequenciaTotalPorCento: frequenciaTotalPorCento});
-	// 			} else {
-	// 				resolve([]);
-	// 			}
-	// 		}).catch(function (erro) {
-	// 			console.log(erro);
-	// 		});
-	// 	});
-	// 	return concursosPromise;
-	// }
-
-	calculeFrequenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number, numeroConcursoInicial: number, numeroConcursoFinal: number): any {
-		let concursosPromise = new Promise(resolve => {
-			this.bd.allDocs({
-				include_docs: true,
-				startkey: nomeDoDocumentoNoBD,
-				endkey: nomeDoDocumentoNoBD
-			}).then(function (resultadoQuery) {
-				if (resultadoQuery.rows.length > 0) {
-					// manter | irá apenas atualizar a contagem das dezenas que foram sorteadas
-					let contagemDaDezenaNosConcursos = lodash.countBy(resultadoQuery.rows[0].doc.concursos, function (concurso) {
-						let pattern = new RegExp(dezena, 'g');
-						let match = pattern.exec(concurso.sorteios[numeroDoSorteio].numerosSorteados);
-						return match != null && concurso.numero >= numeroConcursoInicial && concurso.numero <= numeroConcursoFinal;
-					});
-					// descartar
-					// let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
-					// let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
-
-					resolve({ total: contagemDaDezenaNosConcursos.true/*, frequenciaTotalPorCento: frequenciaTotalPorCento*/ });
-				} else {
-					resolve([]);
-				}
-			}).catch(function (erro) {
-				console.log(erro);
-			});
-		});
-		return concursosPromise;
-	}
-
-	calculeAusenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number, numeroConcursoInicial: number, numeroConcursoFinal: number): any {
-		let concursosPromise = new Promise(resolve => {
-			this.bd.allDocs({
-				include_docs: true,
-				startkey: nomeDoDocumentoNoBD,
-				endkey: nomeDoDocumentoNoBD
-			}).then(function (resultadoQuery) {
-				if (resultadoQuery.rows.length > 0) {
-					// manter | irá apenas atualizar a contagem das dezenas que foram sorteadas
-					let contagemDaDezenaNosConcursos = lodash.countBy(resultadoQuery.rows[0].doc.concursos, function (concurso) {
-						let pattern = new RegExp(dezena, 'g');
-						let match = pattern.exec(concurso.sorteios[numeroDoSorteio].numerosSorteados);
-						return match == null && concurso.numero >= numeroConcursoInicial && concurso.numero <= numeroConcursoFinal;
-					});
-					// descartar
-					// let concurso = lodash.maxBy(resultadoQuery.rows[0].doc.concursos, function (concurso) { return concurso.numero });
-					// let frequenciaTotalPorCento = (100 * contagemDaDezenaNosConcursos.true) / concurso.numero;
-
-					resolve({ total: contagemDaDezenaNosConcursos.true/*, frequenciaTotalPorCento: frequenciaTotalPorCento*/ });
-				} else {
-					resolve([]);
-				}
-			}).catch(function (erro) {
-				console.log(erro);
-			});
-		});
-		return concursosPromise;
-	}
-
 	atualize(concurso): void { }
 
 	atualizeComEstatisticas(parametrosDeServico, estatisticas): any {
@@ -369,5 +268,55 @@ export class ConcursoDAOServico implements IConcursoDAO {
 			});
 		});
 		return concursosPromise;
+	}
+
+	frequenciaDasDezenas(
+		dezenas: [string], nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
+		let frequenciaDasDezenasPromise = new Promise(retorno => {
+			this.bd.allDocs({
+				include_docs: true,
+				startkey: nomeDoDocumentoNoBD,
+				endkey: nomeDoDocumentoNoBD
+			}).then(function (resultadoQuery) {
+				if (resultadoQuery.rows.length > 0) {
+					let concursos = lodash.slice(resultadoQuery.rows[0].doc.concursos, numeroConcursoInicial - 1, numeroConcursoFinal);
+					
+					let objs = [];
+					for(let i in dezenas) {
+						objs.push({
+							dezena: dezenas[i],
+							frequenciaTotal: 0,
+							ausenciaTotal: 0,
+							acumuloRemanescente: 0,
+							ausenciaRemanescente: 0
+						});
+					}
+
+					concursos.forEach(concurso => {
+						let numerosSorteados = concurso.sorteios[numeroDoSorteio].numerosSorteados;
+						dezenas.forEach((dezena, i, dezenas) => {
+							let pattern = new RegExp(dezena, 'g');
+							let match = pattern.exec(numerosSorteados);
+							if(match != null) {
+								objs[i].frequenciaTotal = objs[i].frequenciaTotal + 1;
+								objs[i].acumuloRemanescente = objs[i].acumuloRemanescente + 1;
+								objs[i].ausenciaRemanescente = 0;
+							} else {
+								objs[i].ausenciaTotal = objs[i].ausenciaTotal + 1;
+								objs[i].acumuloRemanescente = 0;
+								objs[i].ausenciaRemanescente = objs[i].ausenciaRemanescente + 1;
+							}
+						});
+					});
+					retorno(objs);
+				} else {
+					retorno([]);
+				}
+			}).catch(function (erro) {
+				console.log(erro);
+			});
+		});
+
+		return frequenciaDasDezenasPromise;
 	}
 }

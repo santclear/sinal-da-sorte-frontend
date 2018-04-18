@@ -22,7 +22,6 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 	public acumuloRemanescente: number;
 	public ausenciaRemanescente: number;
 
-	public frequenciasSorteioLoad: FrequenciaDezenaDto[] = [];
 	public frequenciasSorteio: FrequenciaDezenaDto[] = [];
 	public cols: any = [];
 
@@ -64,13 +63,7 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 		frequenciasPorConcursos = this.crieObjetoComPontosDoPlanoCartesiano(concursos);
 		rotulosDoEixoX = this.crieObjetoComRotulosDoGrafico(concursos);
 		
-		this.frequencia = this.crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos);
-		
-		this.acumuloRemanescente = this.procurePorAcumuloRemanescente(this.frequencia);
-		this.ausenciaRemanescente = this.calculeAusenciaRemanescente(this.frequencia);
-		
 		if(this.toggleMostrarMaisEstatisticasChecked) this.atualizeFrequênciasDasDezenas(dezena, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio, dezenas);
-		// if(this.iptPesquisaDeAmostraFrequencia != undefined) this.atualizePesquisaDeFrequencia({target: {value: this.iptPesquisaDeAmostraFrequencia}});
 		
 		this.configureOGrafico(sessao, canvas, dezena, numeroDoSorteio, rotulosDoEixoX, frequenciasPorConcursos, numeroDoConcursoInicial, numeroDoConcursoFinal);
 	}
@@ -156,36 +149,12 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 			content: 'Por favor aguarde, carregando estatísticas para sua análise...'
 		});
 		loading.present();
-		this.bd.get('sessao').then(sessao => {
-			this.frequenciasSorteioLoad = [];
-			
-			dezenas.forEach((dezena, i, dezenas) => {
-				let concursosPromise = this.concursoFacade.procurePorConcursosQueContenhamADezenaDentroDoIntervalo(dezena, sessao.loteria.nomeDoDocumentoNoBD, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio);
-				let frequenciaPromise = this.concursoFacade.calculeFrequenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena, numeroDoSorteio, numeroDoConcursoInicial, numeroDoConcursoFinal);
-				let	ausenciaPromise = this.concursoFacade.calculeAusenciaTotalDaDezenaDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, dezena, numeroDoSorteio, numeroDoConcursoInicial, numeroDoConcursoFinal);	
-				
-				concursosPromise.then(concursos => {
-					let frequenciasPorConcursos = this.crieObjetoComPontosDoPlanoCartesiano(concursos);
-					let frequenciasAcumuladas = this.crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos);
-					let acumuloRemanescente: number = this.procurePorAcumuloRemanescente(frequenciasAcumuladas);
-					let ausenciaRemanescente: number = this.calculeAusenciaRemanescente(frequenciasAcumuladas);
-					frequenciaPromise.then(frequencia => {
-						ausenciaPromise.then(ausencia => {
-							let frequenciaDezenaDto: FrequenciaDezenaDto = {
-								dezena: dezena,
-								frequenciaTotal: frequencia.total===undefined?0:frequencia.total,
-								ausenciaTotal: ausencia.total===undefined?0:ausencia.total,
-								acumuloRemanescente: acumuloRemanescente,
-								ausenciaRemanescente: ausenciaRemanescente
-							}
-							this.frequenciasSorteioLoad.push(frequenciaDezenaDto);
-							if(i == dezenas.length - 1) loading.dismiss();
-						});
-					});
-				});
-			});
+		this.bd.get('sessao').then(sessao => {			
 
-			loading.onDidDismiss(() => {	
+			let frequenciaDasDezenasPromise = this.concursoFacade.frequenciaDasDezenas(sessao.loteria.dezenas, sessao.loteria.nomeDoDocumentoNoBD, 
+				numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio);
+
+			frequenciaDasDezenasPromise.then(frequenciaDasDezenas => {
 				this.cols = [
 					{ campo: 'dezena', nome: 'Dezena' },
 					{ campo: 'frequenciaTotal', nome: 'Frequência total' },
@@ -193,7 +162,10 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 					{ campo: 'acumuloRemanescente', nome: 'Acúmulo remanescente' },
 					{ campo: 'ausenciaRemanescente', nome: 'Ausência remanescente' }
 				];
-				this.frequenciasSorteio = this.frequenciasSorteioLoad;
+
+				this.frequenciasSorteio = frequenciaDasDezenas;
+
+				loading.dismiss();
 			});
 		});
 	}
@@ -240,112 +212,4 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 
 		return rotulosDoEixoX;
 	}
-
-	private crieObjetoComFrequenciasAcumuladas(frequenciasPorConcursos: { y: number, concurso: any }[]): number[] {
-		let frequencia: number[] = [];
-		
-		frequenciasPorConcursos.forEach(frequenciaPorConcurso => {
-			frequencia.push(frequenciaPorConcurso.y);
-		});
-
-		return frequencia;
-	}
-
-	private procurePorAcumuloRemanescente(frequenciasAcumuladas: number[]): number {
-		let acumuloRemanescente: number = 0;
-		
-		for(let i = frequenciasAcumuladas.length - 1; i >= 0; i--) {
-			if(frequenciasAcumuladas[i] !== 0) {
-				acumuloRemanescente = frequenciasAcumuladas[i];
-			}
-			break;
-		}
-
-		return acumuloRemanescente;
-	}
-
-	private calculeAusenciaRemanescente(frequenciasAcumuladas: number[]): number {
-		let ausenciaRemanescente: number = 0;
-
-		for(let i = frequenciasAcumuladas.length - 1; i >= 0; i--) {
-			if(frequenciasAcumuladas[i] === 0) {
-				ausenciaRemanescente++;
-			} else {
-				break;
-			}
-		}
-
-		return ausenciaRemanescente;
-	}
-
-	// atualizePesquisaDeFrequencia(amostraDeFrequenciaEv) {
-	// 	let frequencia = JSON.stringify(this.frequencia).replace('[','').replace(']','');
-		
-	// 	let amostraDeFrequencia = amostraDeFrequenciaEv.target.value;
-	// 	if(amostraDeFrequencia != '' && amostraDeFrequencia != undefined) {
-	// 		let tamanhoDaAmostraDeFrequencia = amostraDeFrequencia.length;
-	// 		let valorDaUtimaPosicaoDaStringAmostraDeFrequencia = amostraDeFrequencia.substring(tamanhoDaAmostraDeFrequencia - 1);
-	// 		let previsaoPositiva;
-	// 		let previsaoNegativa;
-	// 		let somaPrevisaoPositiva: number;
-			
-	// 		if(valorDaUtimaPosicaoDaStringAmostraDeFrequencia == ',') {
-	// 			let valorDaPenultimaPosicaoDaStringAmostraDeFrequencia: number = amostraDeFrequencia.substring(tamanhoDaAmostraDeFrequencia - 2, tamanhoDaAmostraDeFrequencia - 1);
-	// 			somaPrevisaoPositiva = Number(valorDaPenultimaPosicaoDaStringAmostraDeFrequencia) + 1;
-	// 			previsaoPositiva = amostraDeFrequencia +''+ somaPrevisaoPositiva;
-	// 			previsaoNegativa = amostraDeFrequencia + '0';
-	// 		} else {
-	// 			somaPrevisaoPositiva = Number(valorDaUtimaPosicaoDaStringAmostraDeFrequencia) + 1;
-	// 			previsaoPositiva = amostraDeFrequencia +','+ somaPrevisaoPositiva;
-	// 			previsaoNegativa = amostraDeFrequencia + ',0';
-	// 		}
-			
-	// 		let regexAmostraDeFrequencia = new RegExp("(?=("+ amostraDeFrequencia +"))", "g");
-	// 		let regexPrevisaoPositiva = new RegExp("(?=("+ previsaoPositiva +"))", "g");
-	// 		let regexPrevisaoNegativa = new RegExp("(?=("+ previsaoNegativa +"))", "g");
-	// 		let matchAmostraDeFrequencia = frequencia.match(regexAmostraDeFrequencia);
-	// 		let matchPrevisaoPositiva = frequencia.match(regexPrevisaoPositiva);
-	// 		let matchPrevisaoNegativa = frequencia.match(regexPrevisaoNegativa);
-
-	// 		this.textoExtensaoDaFaixaDeConcursos = '';
-	// 		this.textoQuantidadeDeAmostrasDeFrequencia = '';
-	// 		this.textoPrevisaoPositiva = '';
-	// 		this.textoPrevisaoNegativa = '';
-	// 		this.textoExtensaoDaFaixaDeConcursos = ''+ this.extensaoDaFaixaDeConcurso;
-
-	// 		if(matchAmostraDeFrequencia != null) this.textoQuantidadeDeAmostrasDeFrequencia = ''+ matchAmostraDeFrequencia.length;
-	// 		else this.textoQuantidadeDeAmostrasDeFrequencia = ''+ 0;
-			
-	// 		if(matchPrevisaoPositiva != null) this.textoPrevisaoPositiva = ''+ matchPrevisaoPositiva.length;
-	// 		else this.textoPrevisaoPositiva = ''+ 0;
-			
-	// 		if(matchPrevisaoNegativa != null) this.textoPrevisaoNegativa = ''+ matchPrevisaoNegativa.length;
-	// 		else this.textoPrevisaoNegativa = ''+ 0;
-	// 	}
-	// }
-
-	// salvePesquisaDeAmostraFrequencia() {
-	// 	let pesquisaDeAmostraDeFrequencia = {
-	// 		dezena: this.dezena,
-	// 		extensaoDaFaixaDeConcurso: this.extensaoDaFaixaDeConcurso,
-	// 		amostrasDeFrequenciasEncontrada: this.textoQuantidadeDeAmostrasDeFrequencia,
-	// 		previsaoPositiva: this.textoPrevisaoPositiva,
-	// 		previsaoNegativa: this.textoPrevisaoNegativa,
-	// 		amostrasDeFrequenciasPesquisada: this.iptPesquisaDeAmostraFrequencia,
-	// 	};
-
-	// 	this.pesquisasDeAmostraFrequencia.push(pesquisaDeAmostraDeFrequencia);
-	// 	this.exibirPesquisasDeAmostraFrequencia = true;
-	// }
-
-	// excluaPesquisaDeAmostraDeFrequencia(iPesquisaDeAmostraDeFrequencia) {
-	// 	this.pesquisasDeAmostraFrequencia.splice(iPesquisaDeAmostraDeFrequencia, 1);
-	// 	if(this.pesquisasDeAmostraFrequencia.length < 1) {
-	// 		this.exibirPesquisasDeAmostraFrequencia = false;
-	// 	}
-	// }
-
-	// cancelePesquisaDeAmostraDeFrequencia() {
-	// 	this.exibirPesquisasDeAmostraFrequencia = false;
-	// }
 }

@@ -16,8 +16,6 @@ export interface IConcursoDAO {
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any;
 	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any
 
-	calculeFrequenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number, numeroConcursoInicial: number, numeroConcursoFinal: number): any;
-	calculeAusenciaTotalDaDezenaDentroDoIntervalo(nomeDoDocumentoNoBD: string, dezena: string, numeroDoSorteio: number, numeroConcursoInicial: number, numeroConcursoFinal: number): any;
 	// Sincronismo
     sincronize(loteria): any;
     procurePorNumeroDoUltimoConcursoSorteado(nomeDoDocumentoNoBD: string): any;

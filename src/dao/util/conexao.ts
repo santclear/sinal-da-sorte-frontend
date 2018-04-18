@@ -3,7 +3,7 @@ import PouchDBFind from 'pouchdb-find';
 PouchDB.plugin(PouchDBFind);
 
 export class Conexao {
-	private static conexaoSingleton: any = new PouchDB('bdagente');
+	private static conexaoSingleton: any = new PouchDB('bdsinaldasorte');
 
     constructor() {
         if (Conexao.conexaoSingleton) {
