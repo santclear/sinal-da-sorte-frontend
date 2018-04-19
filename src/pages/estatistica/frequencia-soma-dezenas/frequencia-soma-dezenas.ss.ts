@@ -135,58 +135,26 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 		loading.present();
 		this.bd.get('sessao').then(sessao => {
 			this.somaDasDezenasEmCadaConcursoLoad = [];
-			let somas: number[] = [];
 			this.quantidadesDeSomasLoad = [];
-			let quantidadesDeSomasMap: Map<number, number> = new Map<number, number>();
-
-			let concursosPromise = this.concursoFacade.procurePorConcursosDentroDoIntervalo(sessao.loteria.nomeDoDocumentoNoBD, numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio);
-
-			concursosPromise.then(concursos => {
-				concursos.forEach((concurso, i, concursos) => {
-					let soma: number = this.calculeSomaDasDezenas(concurso, numeroDoSorteio);
-					let numerosSorteados = concurso.sorteios[numeroDoSorteio].numerosSorteados;
-					let numerosSorteadosSplit = numerosSorteados.split(';');
-					let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
-
-					this.somaDasDezenasEmCadaConcursoLoad.push({
-						concurso: concurso.numero,
-						soma: soma,
-						dezenas: numerosSorteadosSort
-					});
-					
-					let quantidade: number = quantidadesDeSomasMap.get(soma);
-					if(quantidade !== undefined) {
-						quantidade++;
-						quantidadesDeSomasMap.set(soma, quantidade);
-					} else {
-						quantidadesDeSomasMap.set(soma, 1);
-					}
-
-					somas.push(soma);
-					if (i == concursos.length - 1) {
-						quantidadesDeSomasMap.forEach((quantidade, soma) => {
-							this.quantidadesDeSomasLoad.push({soma: soma, quantidade: quantidade});
-						});
-						loading.dismiss()
-					};
-				});
-
-				loading.onDidDismiss(() => {
-					this.mediaDaSomaDasDezenasEmCadaConcurso = lodash.mean(somas);
-					this.colsSomaDasDezenasEmCadaConcurso = [
-						{ campo: 'concurso', nome: 'Concurso' },
-						{ campo: 'soma', nome: 'Soma' },
-						{ campo: 'dezenas', nome: 'Dezena' }
-					];
-					this.somaDasDezenasEmCadaConcurso = this.somaDasDezenasEmCadaConcursoLoad;
-					this.colsQuantidadesDeSomas = [
-						{ campo: 'soma', nome: 'Soma' },
-						{ campo: 'quantidade', nome: 'Quantidade' }
-					];
-					this.quantidadesDeSomas = this.quantidadesDeSomasLoad;
-				});
+			
+			let somaDasDezenasPromise = this.concursoFacade.somaDasDezenas(sessao.loteria.nomeDoDocumentoNoBD, 
+				numeroDoConcursoInicial, numeroDoConcursoFinal, numeroDoSorteio);
+			
+			somaDasDezenasPromise.then(somaDasDezenas => {
+				this.mediaDaSomaDasDezenasEmCadaConcurso = somaDasDezenas.mediaDaSomaDasDezenasEmCadaConcurso;
+				this.colsSomaDasDezenasEmCadaConcurso = [
+					{ campo: 'concurso', nome: 'Concurso' },
+					{ campo: 'soma', nome: 'Soma' },
+					{ campo: 'dezenas', nome: 'Dezena' }
+				];
+				this.somaDasDezenasEmCadaConcurso = somaDasDezenas.somaDasDezenasEmCadaConcurso;
+				this.colsQuantidadesDeSomas = [
+					{ campo: 'soma', nome: 'Soma' },
+					{ campo: 'quantidade', nome: 'Quantidade' }
+				];
+				this.quantidadesDeSomas = somaDasDezenas.quantidadesDeSomas;
+				loading.dismiss()
 			});
-
 		});
 	}
 
@@ -210,10 +178,5 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 		}
 
 		return rotulosDoEixoX;
-	}
-
-	private calculeSomaDasDezenas(concurso: any, numeroDoSorteio: number): number {
-		let dezenas = concurso.sorteios[numeroDoSorteio].numerosSorteados.split(';').map(Number);
-		return lodash.sum(dezenas);
 	}
 }

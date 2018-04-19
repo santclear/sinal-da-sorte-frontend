@@ -67,4 +67,8 @@ export class ConcursoFacade {
 		numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
 		return this.concursoDAOServico.frequenciaDasDezenas(dezenas, nomeDoDocumentoNoBD, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
 	}
+
+	somaDasDezenas(nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
+		return this.concursoDAOServico.somaDasDezenas(nomeDoDocumentoNoBD, numeroConcursoInicial, numeroConcursoFinal, numeroDoSorteio);
+	}
 }

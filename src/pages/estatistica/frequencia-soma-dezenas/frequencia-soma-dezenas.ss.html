@@ -69,7 +69,7 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<p-table [columns]="colsQuantidadesDeSomas" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
 					<ng-template pTemplate="header" let-colunas>
 						<tr>
 							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">

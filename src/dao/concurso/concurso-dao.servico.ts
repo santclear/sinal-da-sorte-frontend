@@ -188,12 +188,8 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					let concursosFiltrados = lodash.filter(resultadoQuery.rows[0].doc.concursos, function (concurso) {
 						return concurso.numero >= numeroConcursoInicial && concurso.numero <= numeroConcursoFinal;
 					});
-					let concursosProcessado = [];
-					concursosFiltrados.forEach(concursoFiltrado => {
-						let concurso = concursoFiltrado;
-						concursosProcessado.push(concurso);
-					});
-					resolve(concursosProcessado);
+					
+					resolve(concursosFiltrados);
 				} else {
 					resolve([]);
 				}
@@ -270,8 +266,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return concursosPromise;
 	}
 
-	frequenciaDasDezenas(
-		dezenas: [string], nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
+	frequenciaDasDezenas(dezenas: [string], nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
 		let frequenciaDasDezenasPromise = new Promise(retorno => {
 			this.bd.allDocs({
 				include_docs: true,
@@ -318,5 +313,67 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		});
 
 		return frequenciaDasDezenasPromise;
+	}
+
+	somaDasDezenas(nomeDoDocumentoNoBD, numeroConcursoInicial: number, numeroConcursoFinal: number, numeroDoSorteio: number): any {
+		let somaDasDezenasPromise = new Promise(retorno => {
+			this.bd.allDocs({
+				include_docs: true,
+				startkey: nomeDoDocumentoNoBD,
+				endkey: nomeDoDocumentoNoBD
+			}).then(function (resultadoQuery) {
+				if (resultadoQuery.rows.length > 0) {
+					let concursos = lodash.slice(resultadoQuery.rows[0].doc.concursos, numeroConcursoInicial - 1, numeroConcursoFinal);
+					
+					let somaDasDezenasEmCadaConcurso = [];
+					let quantidadesDeSomas = [];
+					let somas: number[] = [];
+					let quantidadesDeSomasMap: Map<number, number> = new Map<number, number>();
+					
+					concursos.forEach((concurso, i, concursos) => {
+						let dezenas = concurso.sorteios[numeroDoSorteio].numerosSorteados.split(';').map(Number);
+						let soma = lodash.sum(dezenas);
+						let numerosSorteados = concurso.sorteios[numeroDoSorteio].numerosSorteados;
+						let numerosSorteadosSplit = numerosSorteados.split(';');
+						let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
+
+						somaDasDezenasEmCadaConcurso.push({
+							concurso: concurso.numero,
+							soma: soma,
+							dezenas: numerosSorteadosSort
+						});
+
+						let quantidade: number = quantidadesDeSomasMap.get(soma);
+						if(quantidade !== undefined) {
+							quantidade++;
+							quantidadesDeSomasMap.set(soma, quantidade);
+						} else {
+							quantidadesDeSomasMap.set(soma, 1);
+						}
+
+						somas.push(soma);
+						if (i == concursos.length - 1) {
+							quantidadesDeSomasMap.forEach((quantidade, soma) => {
+								quantidadesDeSomas.push({soma: soma, quantidade: quantidade});
+							});
+						};
+					});
+
+					let mediaDaSomaDasDezenasEmCadaConcurso = lodash.mean(somas);
+
+					retorno({
+						somaDasDezenasEmCadaConcurso: somaDasDezenasEmCadaConcurso,
+						quantidadesDeSomas: quantidadesDeSomas,
+						mediaDaSomaDasDezenasEmCadaConcurso: mediaDaSomaDasDezenasEmCadaConcurso
+					});
+				} else {
+					retorno([]);
+				}
+			}).catch(function (erro) {
+				console.log(erro);
+			});
+		});
+
+		return somaDasDezenasPromise;
 	}
 }
