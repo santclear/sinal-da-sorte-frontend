@@ -178,12 +178,13 @@ export class ResultadoPage extends PaginaBase {
 					}
 				});
 				this.sorteios[i]['rateios'] = rateiosAtualizados;
+				console.log(rateiosAtualizados)
 			});
 
 			this.colsRateio = [
-				{ campo: 'tipoDePremio', nome: 'Dezena' },
-				{ campo: 'numeroDeGanhadores', nome: 'Frequência total' },
-				{ campo: 'rateio', nome: 'Ausência total' }
+				{ campo: 'tipoDePremio', nome: 'Tipo de acerto' },
+				{ campo: 'numeroDeGanhadores', nome: 'Total de ganhadores' },
+				{ campo: 'rateio', nome: 'Prêmio' }
 			];
 
 			concurso.sorteios.forEach(sorteio => {
