@@ -171,14 +171,12 @@ export class ResultadoPage extends PaginaBase {
 					rateioAtualizado['tipoDePremio'] = sessao.loteria.tiposDeAcertos[j];
 					rateiosAtualizados.push(rateioAtualizado);
 					if (i == 0 && j == 0) {
-						this.tipoDoPremioPrincipal = sessao.loteria.tiposDeAcertos[j];
 						this.valorDoPremioPrincipal = rateio.rateio;
 						this.numeroDeGanhadoresDoPremioPrincipal = rateio.numeroDeGanhadores;
 						this.acumuladoParaOProximoConcurso = rateio.acumuladoParaOProximoConcurso;
 					}
 				});
 				this.sorteios[i]['rateios'] = rateiosAtualizados;
-				console.log(rateiosAtualizados)
 			});
 
 			this.colsRateio = [
@@ -190,27 +188,6 @@ export class ResultadoPage extends PaginaBase {
 			concurso.sorteios.forEach(sorteio => {
 				this.dezenasEmOrdemCrescente.push(this.ordeneDezenasEmOrdemCrescente(sorteio.numerosSorteados));
 			});
-
-			let cidadesDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.cidade.split(';'), '');
-			let ufsDosGanhadoresDoPremioPrincipal = lodash.pull(concurso.uf.split(';'), '');
-			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
-			cidadesDosGanhadoresDoPremioPrincipal.forEach((cidadeDoGanhadorDoPremioPrincipal, i, array) => {
-				cidadeDoGanhadorDoPremioPrincipal = lodash.lowerCase(cidadeDoGanhadorDoPremioPrincipal);
-				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push(lodash.startCase(cidadeDoGanhadorDoPremioPrincipal) + '/' + lodash.upperCase(ufsDosGanhadoresDoPremioPrincipal[i]));
-				this.exibeGanhadoresDoPremioPrincipal = true;
-			});
-			let mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal = new Map();
-			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.forEach(cidadeEEstatadoDoGanhadoreDoPremioPrincipal => {
-				let cidadeEEstatadoEncontrado: number = mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.get(cidadeEEstatadoDoGanhadoreDoPremioPrincipal);
-				mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.set(cidadeEEstatadoDoGanhadoreDoPremioPrincipal, cidadeEEstatadoEncontrado != undefined ? cidadeEEstatadoEncontrado + 1 : 1);
-			});
-			this.cidadesEEstadosDosGanhadoresDoPremioPrincipal = [];
-			mapCidadesEEstatadosDosGanhadoresDoPremioPrincipal.forEach((valor, chave) => {
-				this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.push({ quantidade: valor, nome: chave })
-			});
-
-			if (this.cidadesEEstadosDosGanhadoresDoPremioPrincipal.length == 0) this.exibeGanhadoresDoPremioPrincipal = false;
-
 
 			if (this.valideSeTimemania(sessao)) {
 				this.timeDoCoracao = this.dezenas[this.dezenas.length - 1];
