@@ -5,7 +5,6 @@ import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
 import { Loterias } from '../../enum/loterias';
-import lodash from 'lodash';
 
 @IonicPage()
 @Component({
