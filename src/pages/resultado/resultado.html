@@ -24,6 +24,11 @@
 			<ion-icon class="coracao" name="heart"></ion-icon>
 			<span class="time-coracao">{{timeDoCoracao}}</span>
 		</button>
+
+		<button ion-button icon-left clear *ngIf="exibeMesDaSorte" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
+			<ion-icon class="coracao" name="calendar"></ion-icon>
+			<span class="mes-sorte">{{mesDaSorte}}</span>
+		</button>
 	</div>
 
 	<div *ngIf="exibeDezenasSorteio2DuplaSena">

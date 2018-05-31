@@ -49,7 +49,8 @@ export class MenuService {
 			Loterias.QUINA,
 			Loterias.LOTOMANIA,
 			Loterias.TIMEMANIA,
-			Loterias.DUPLASENA
+			Loterias.DUPLASENA,
+			Loterias.DIADESORTE
 		];
 	}
 }

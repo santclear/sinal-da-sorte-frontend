@@ -25,9 +25,11 @@ export class ResultadoPage extends PaginaBase {
 	public exibeDezenasComQuebraDeLinha: boolean;
 	public exibeAcumuladoEspecial: boolean;
 	public exibeTimeDoCoracao: boolean;
+	public exibeMesDaSorte: boolean;
 	public exibeDezenasSorteio2DuplaSena: boolean;
 	public exibeGanhadoresDoPremioPrincipal: boolean;
 	public timeDoCoracao: string;
+	public mesDaSorte: string;
 	public sufixoCssLoteriaSelecionada: string;
 	public nomeDaLoteria: string;
 	public tipoDoPremioPrincipal;
@@ -126,13 +128,18 @@ export class ResultadoPage extends PaginaBase {
 			sessao.loteria.nomeDoDocumentoNoBD === Loterias.LOTOMANIA.nomeDoDocumentoNoBD ? true : false;
 	}
 
-	valideSeDiferenteDeLotomaniaETimemania(sessao) {
+	valideSeDiferenteDeLotomaniaETimemaniaEDiaDeSorte(sessao) {
 		return sessao.loteria.nomeDoDocumentoNoBD !== Loterias.LOTOMANIA.nomeDoDocumentoNoBD &&
-			sessao.loteria.nomeDoDocumentoNoBD !== Loterias.TIMEMANIA.nomeDoDocumentoNoBD ? true : false;
+			sessao.loteria.nomeDoDocumentoNoBD !== Loterias.TIMEMANIA.nomeDoDocumentoNoBD &&
+			sessao.loteria.nomeDoDocumentoNoBD !== Loterias.DIADESORTE.nomeDoDocumentoNoBD ? true : false;
 	}
 
 	valideSeTimemania(sessao) {
 		return sessao.loteria.nomeDoDocumentoNoBD === Loterias.TIMEMANIA.nomeDoDocumentoNoBD;
+	}
+
+	valideSeDiaDeSorte(sessao) {
+		return sessao.loteria.nomeDoDocumentoNoBD === Loterias.DIADESORTE.nomeDoDocumentoNoBD;
 	}
 
 	valideSeDuplaSena(sessao) {
@@ -196,8 +203,16 @@ export class ResultadoPage extends PaginaBase {
 				this.exibeTimeDoCoracao = false;
 			}
 
+			if (this.valideSeDiaDeSorte(sessao)) {
+				this.mesDaSorte = this.dezenas[this.dezenas.length - 1];
+				this.dezenas.pop();
+				this.exibeMesDaSorte = true;
+			} else {
+				this.exibeMesDaSorte = false;
+			}
+
 			this.exibeDezenasComQuebraDeLinha = this.valideSeLotofacilOuLotomania(sessao);
-			this.exibeAcumuladoEspecial = this.valideSeDiferenteDeLotomaniaETimemania(sessao);
+			this.exibeAcumuladoEspecial = this.valideSeDiferenteDeLotomaniaETimemaniaEDiaDeSorte(sessao);
 
 			this.estimativaDePremioParaOProximoConcurso = concurso.estimativaDePremioParaOProximoConcurso;
 			this.acumuladoEspecial = concurso.acumuladoEspecial;

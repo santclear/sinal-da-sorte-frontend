@@ -110,7 +110,7 @@ export abstract class Loterias {
 		parametrosDeServicosWeb: {
 			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
     	},
-		tiposDeAcertos: ['20 Números','19 Números','18 Números','17 Números','16 Números','Nenhum número'],
+		tiposDeAcertos: ['20 Números','19 Números','18 Números','17 Números','16 Números','15 Números','Nenhum número'],
 		dezenas: [
 			'00','01','02','03','04',
 			'05','06','07','08','09',
@@ -196,6 +196,33 @@ export abstract class Loterias {
 			'36','37','38','39','40',
 			'41','42','43','44','45',
 			'46','47','48','49','50',
+		]
+	};
+
+	static readonly DIADESORTE = {
+		id: 7, 
+		sufixoCssLoteria: 'DiaDeSorte', 
+		nome: 'Dia de Sorte',
+		nomeDoDocumentoNoBD: 'diadesorte',
+		caminhoDoIconeAvatar: 'assets/img/dia-de-sorte.png', 
+		logo: 'assets/img/logo-dia-de-sorte.png',
+		labelAcumuladoEspecial: '',
+		cor: {
+			claro: '#f3dd93',
+			escuro: '#d4a500'
+		},
+		parametrosDeServicosWeb: {
+			urlDoServico: Loterias.DOMINIO +  'concursos/procureConcursosComNumeroMaiorQue/'
+    	},
+		tiposDeAcertos: ['7 Números','6 Números','5 Números','4 Números','Mês da Sorte'],
+		dezenas: [
+			'01','02','03','04','05',
+			'06','07','08','09','10',
+			'11','12','13','14','15',
+			'16','17','18','19','20',
+			'21','22','23','24','25',
+			'26','27','28','29','30',
+			'31'
 		]
 	};
 	
