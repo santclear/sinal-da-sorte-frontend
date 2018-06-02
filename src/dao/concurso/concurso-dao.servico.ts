@@ -4,7 +4,6 @@ import { IConcursoDAO } from './iconcurso-dao';
 import { ConexaoFabrica } from '../util/conexao-fabrica';
 import { EntidadeBD } from '../util/sincronismo/entidade-bd';
 import { ComandoConcurso } from './comando-concurso';
-import { Loterias } from '../../enum/loterias';
 import lodash from 'lodash';
 
 @Injectable()
@@ -34,17 +33,16 @@ export class ConcursoDAOServico implements IConcursoDAO {
 		return this.bd.bulkDocs(concursos);
 	}
 
-	salveOuAtualize(concursosNovos, loteria, estatisticas): any {
+	salveOuAtualize(concursosNovos, loteria): any {
 		return new Promise(resolve => {
 			this.bd.bulkDocs([
 				{
 					_id: loteria.nomeDoDocumentoNoBD,
-					concursos: concursosNovos,
-					estatisticas: estatisticas
+					concursos: concursosNovos
 				}
 			]).then(resultadoQuery => {
 				if (resultadoQuery[0].ok == true) {
-					resolve({ estado: 'criado', novo: { concursos: concursosNovos, estatisticas: estatisticas }, antigo: { concursos: null, estatisticas: null } })
+					resolve({ estado: 'criado', novo: { concursos: concursosNovos }, antigo: { concursos: null } })
 				} else {
 					this.bd.get(loteria.nomeDoDocumentoNoBD).then(concursosAntigo => {
 						let concursoAtualizados = concursosAntigo.concursos.concat(concursosNovos);
@@ -52,12 +50,11 @@ export class ConcursoDAOServico implements IConcursoDAO {
 						let concursos = {
 							_id: loteria.nomeDoDocumentoNoBD,
 							_rev: concursosAntigo._rev,
-							concursos: concursoAtualizados,
-							estatisticas: estatisticas
+							concursos: concursoAtualizados
 						}
 						// Atualiza com novos dados
 						this.bd.put(concursos);
-						return { novo: { concursos: concursoAtualizados, estatisticas: estatisticas }, antigo: { concursos: concursosAntigo.concursos, estatisticas: concursosAntigo.estatisticas } };
+						return { novo: { concursos: concursoAtualizados }, antigo: { concursos: concursosAntigo.concursos } };
 					}).then(concursos => {
 						resolve({ estado: 'atualizado', concursos });
 					})
@@ -222,22 +219,6 @@ export class ConcursoDAOServico implements IConcursoDAO {
 			});
 		});
 		return concursosPromise;
-	}
-
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any {
-
-		return new Promise(resolve => {
-			this.http.get(Loterias.DOMINIO + 'concursos/calculeFrequenciasTotaisDasDezenas/idLoteria=' + loteriaId + '&numeroSorteio=' + numeroDoSorteio)
-				.toPromise()
-				.then(response => {
-					resolve(response);
-				}).catch(this.handleError);
-		});
-	}
-
-	private handleError(error: any): any {
-		console.error('Erro ao tentar obter o serviço ', error);
-		return Promise.reject(error.message || error);
 	}
 
 	// Sincronismo

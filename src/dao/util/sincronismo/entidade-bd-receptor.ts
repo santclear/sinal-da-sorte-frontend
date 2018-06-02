@@ -21,11 +21,6 @@ export class EntidadeBDReceptor {
 		// valorFinal = 10;
 		return this.http.get(this.urlDoServico +'numero='+ valorFinal +'&idLoteria='+ this.parametro1);
 	}
-
-	public handleError(error: any): any {
-		console.error('Erro ao tentar obter o serviço ', error);
-		return Promise.reject(error.message || error);
-	}
 }
 
 

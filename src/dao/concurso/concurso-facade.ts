@@ -12,8 +12,8 @@ export class ConcursoFacade {
 		return this.concursoDAOServico.salveTodos(concursos);
 	}
 
-	salveOuAtualize(concurso, loteria, estatisticas): any {
-		return this.concursoDAOServico.salveOuAtualize(concurso, loteria, estatisticas)
+	salveOuAtualize(concurso, loteria): any {
+		return this.concursoDAOServico.salveOuAtualize(concurso, loteria)
 	}
 
 	atualizeComEstatisticas(loterias, estatisticas): any {
@@ -48,10 +48,6 @@ export class ConcursoFacade {
 
 	procurePorUnicoConcurso(nomeDoDocumentoNoBD: string, numeroConcurso: number): any {
 		return this.concursoDAOServico.procurePorUnicoConcurso(nomeDoDocumentoNoBD, numeroConcurso);
-	}
-
-	calculeFrequenciasTotaisDasDezenas(loteriaId: number, numeroDoSorteio: number): any {
-		return this.concursoDAOServico.calculeFrequenciasTotaisDasDezenas(loteriaId, numeroDoSorteio);
 	}
 
 	// Sincronismo
