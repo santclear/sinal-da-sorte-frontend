@@ -140,7 +140,11 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 					color: sessao.loteria.cor.escuro,
 					fontWeight: 'normal'
 				}
-        	},
+			},
+			credits: {
+				href: "http://www.sinaldasorte.com",
+				text: "www.sinaldasorte.com"
+			}
 		});
 	}
 

@@ -125,6 +125,10 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 					fontWeight: 'normal'
 				}
         	},
+			credits: {
+				href: "http://www.sinaldasorte.com",
+				text: "www.sinaldasorte.com"
+			}
 		});
 	}
 
