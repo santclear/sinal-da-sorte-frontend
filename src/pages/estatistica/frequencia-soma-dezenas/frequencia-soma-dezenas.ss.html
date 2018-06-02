@@ -8,12 +8,12 @@
 	(toggleMostreMaisEstatisticasOutput)="toggleMostreMaisEstatisticas($event)"
 	(atualizeOGraficoOutput)="atualizeOGrafico($event)"
 	(selecioneDezenaOutput)="selecioneDezena($event)"></ss-estatistica>
-
+<!-- 
 <div class="margem-automatica centralizar-texto">
 	<button ion-button id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
 		Atualizar o Gráfico
 	</button>
-</div>
+</div> -->
 
 <div class="espaco_vertical"></div>
 
@@ -29,7 +29,7 @@
 <div *ngIf="toggleMostrarMaisEstatisticasChecked">
 	<ion-list>
 		<ion-list-header color="cabecalho">
-			<strong color="primary">Soma das dezenas em cada concurso<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+			<strong [ngClass]="'titulo'">Soma das dezenas em cada concurso<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
 		</ion-list-header>
 		
 		<ion-item>
@@ -64,7 +64,7 @@
 	</ion-list>
 	<ion-list>
 		<ion-list-header color="cabecalho">
-			<strong color="primary">Quantidades de somas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+			<strong [ngClass]="'titulo'">Quantidades de somas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
 		</ion-list-header>
 		
 		<ion-item>

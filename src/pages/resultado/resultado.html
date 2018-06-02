@@ -2,8 +2,8 @@
 
 <ion-content padding>
 	<div>
-		<h2 class="resultado" color="texto">Resultado
-			<span class="palavra-destacada">concurso {{numeroDoConcurso | number:'3.'}} - {{dataDoSorteio}}</span>
+		<h2 [ngClass]="'resultado'"><span [ngClass]="'titulo'">Resultado</span>
+			<span [ngClass]="'palavra-destacada'">concurso {{numeroDoConcurso | number:'3.'}} - {{dataDoSorteio}}</span>
 		</h2>
 	</div>
 
@@ -32,28 +32,28 @@
 	</div>
 
 	<div *ngIf="exibeDezenasSorteio2DuplaSena">
-		<p class="texto" color="texto"><strong>Sorteio 1</strong></p>
+		<p [ngClass]="'texto'"><strong>Sorteio 1</strong></p>
 		<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
 			{{dezena}}
 		</button>
 
-		<p class="texto" color="texto"><strong>Sorteio 2</strong></p>
+		<p [ngClass]="'texto'"><strong>Sorteio 2</strong></p>
 		<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenasSorteio2; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
 			{{dezena}}
 		</button>
 	</div>
 
-	<p color="texto" *ngIf="valorDoPremioPrincipal != 0">
-		<span class="palavra-destacada">{{valorDoPremioPrincipal | currency:'BRL':true}}</span> para <span class="palavra-destacada">{{numeroDeGanhadoresDoPremioPrincipal}} ganhador<span *ngIf="numeroDeGanhadoresDoPremioPrincipal > 1">es</span></span>
+	<p [ngClass]="'texto'" *ngIf="valorDoPremioPrincipal != 0">
+		<span [ngClass]="'palavra-destacada'">{{valorDoPremioPrincipal | currency:'BRL':true}}</span> para <span [ngClass]="'palavra-destacada'">{{numeroDeGanhadoresDoPremioPrincipal}} ganhador<span *ngIf="numeroDeGanhadoresDoPremioPrincipal > 1">es</span></span>
 	</p>
 
-	<p color="texto" *ngIf="valorDoPremioPrincipal == 0"><span class="palavra-destacada">ACUMULOU! {{acumuladoParaOProximoConcurso | currency:'BRL':true}}</span></p>
-	<p color="texto"><strong>{{estimativaDePremioParaOProximoConcurso | currency:'BRL':true}}</strong> (Estimativa de prêmio para o próximo concurso)</p>
-	<p color="texto" *ngIf="exibeAcumuladoEspecial"><strong>{{acumuladoEspecial | currency:'BRL':true}}</strong> ({{labelAcumuladoEspecial}})</p>
+	<p [ngClass]="'texto'" *ngIf="valorDoPremioPrincipal == 0"><span [ngClass]="'palavra-destacada'">ACUMULOU! {{acumuladoParaOProximoConcurso | currency:'BRL':true}}</span></p>
+	<p [ngClass]="'texto'"><strong>{{estimativaDePremioParaOProximoConcurso | currency:'BRL':true}}</strong> (Estimativa de prêmio para o próximo concurso)</p>
+	<p [ngClass]="'texto'" *ngIf="exibeAcumuladoEspecial"><strong>{{acumuladoEspecial | currency:'BRL':true}}</strong> ({{labelAcumuladoEspecial}})</p>
 
 	<ion-list>
 		<ion-list-header color="cabecalho">
-			<strong color="primary">Seletor de concursos</strong>
+			<strong [ngClass]="'titulo'">Seletor de concursos</strong>
 		</ion-list-header>
 
 		<ion-item>
@@ -76,7 +76,7 @@
 	<div *ngFor="let sorteio of sorteios; let iSorteio = index">
 		<ion-list>
 			<ion-list-header color="cabecalho">
-				<strong color="primary">Rateios <span *ngIf="exibeDezenasSorteio2DuplaSena">do sorteio {{iSorteio + 1}}</span></strong>
+				<strong [ngClass]="'titulo'">Rateios <span *ngIf="exibeDezenasSorteio2DuplaSena">do sorteio {{iSorteio + 1}}</span></strong>
 			</ion-list-header>
 			
 			<ion-item>
@@ -111,8 +111,8 @@
 							</tr>
 								
 							<tr *ngFor="let item of rateio.qtdCidadesUfs">
-								<td class="selecionavel">{{item.qtd}}</td>
-								<td colspan="2" class="selecionavel">{{item.cidadeUf}}</td>
+								<td>{{item.qtd}}</td>
+								<td colspan="2">{{item.cidadeUf}}</td>
 							</tr>
 						</table>
 					</div>
@@ -124,7 +124,7 @@
 	<div *ngFor="let estatisticas of estatisticasDosSorteios; let iDezena = index">
 		<ion-list>
 			<ion-list-header color="cabecalho">
-				<strong color="primary">Frequência total das dezenas <span *ngIf="exibeDezenasSorteio2DuplaSena">do sorteio {{iDezena + 1}}</span></strong>
+				<strong [ngClass]="'titulo'">Frequência total das dezenas <span *ngIf="exibeDezenasSorteio2DuplaSena">do sorteio {{iDezena + 1}}</span></strong>
 			</ion-list-header>
 			
 			<ion-item>

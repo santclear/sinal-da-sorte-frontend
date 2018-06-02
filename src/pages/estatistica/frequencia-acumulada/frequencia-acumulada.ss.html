@@ -14,14 +14,14 @@
 		{{dezena}}
 	</button>
 </div>
-
+<!-- 
 <div class="espaco_vertical"></div>
 
 <div class="margem-automatica centralizar-texto">
 	<button ion-button id="btnAtualizarOGrafico" (click)="atualizeOGrafico(rdSorteios)">
 		Atualizar o Gráfico
 	</button>
-</div>
+</div> -->
 
 <div class="espaco_vertical"></div>
 
@@ -37,7 +37,7 @@
 <div *ngIf="toggleMostrarMaisEstatisticasChecked">
 	<ion-list>
 		<ion-list-header color="cabecalho">
-			<strong color="primary">Frequência das dezenas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
+			<strong [ngClass]="'titulo'">Frequência das dezenas<span *ngIf="isDuplasena"> do sorteio {{rdSorteios + 1}}</span></strong>
 		</ion-list-header>
 		
 		<ion-item>

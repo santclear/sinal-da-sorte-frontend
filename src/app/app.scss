@@ -17,6 +17,10 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+.titulo {
+    color: #003200;
+}
+
 ion-menu {
     max-width: 305px!important;
     border-right-color: #003200!important;
@@ -59,8 +63,7 @@ ss-navbar + ion-content > div.scroll-content {
 // .margemSuperior {
 // 	margin-top: 55px;
 // }
-.cor-primaria-componente,
-th {
+.cor-primaria-componente, th {
     color: #43A047!important;
 }
 
@@ -81,7 +84,7 @@ td {
     margin: 0 !important;
 }
 
-.selecionavel {
+.selecionavel, th, td {
     -webkit-user-select: all !important;
     -moz-user-select: all !important;
     -ms-user-select: all !important;
