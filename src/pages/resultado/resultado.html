@@ -129,7 +129,7 @@
 			
 			<ion-item>
 				<div class="container-tabela">
-					<p-table [columns]="colsEstatisticas" [value]="estatisticas" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{width:'500px'}">
+					<p-table [columns]="colsEstatisticas" [value]="estatisticas" [paginator]="true" [rows]="15" [responsive]="true" sortField="dezena" [style]="{width:'500px'}">
 						<ng-template pTemplate="header" let-colunas>
 							<tr>
 								<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
@@ -141,8 +141,8 @@
 						<ng-template pTemplate="body" let-rowData let-colunas="columns">
 							<tr>
 								<td *ngFor="let coluna of colunas">
-									<span *ngIf="coluna.campo !== 'frequenciaPorCento'">{{rowData[coluna.campo]}}</span>
-									<span *ngIf="coluna.campo === 'frequenciaPorCento'">{{rowData[coluna.campo] | number:'.2'}}%</span>
+									<span *ngIf="coluna.campo !== 'frequenciaTotalPorCento'">{{rowData[coluna.campo]}}</span>
+									<span *ngIf="coluna.campo === 'frequenciaTotalPorCento'">{{rowData[coluna.campo] | number:'.2'}}%</span>
 								</td>
 							</tr>
 						</ng-template>

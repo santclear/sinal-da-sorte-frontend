@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { PaginaBase } from '../pagina.base';
-import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
-import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
+import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
+import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Loterias } from '../../enum/loterias';
+import { PaginaBase } from '../pagina.base';
 
 @IonicPage()
 @Component({
@@ -218,16 +218,23 @@ export class ResultadoPage extends PaginaBase {
 			this.acumuladoEspecial = concurso.acumuladoEspecial;
 			this.labelAcumuladoEspecial = sessao.loteria.labelAcumuladoEspecial;
 
-			let concursosPromise = concursoFacade.listeTodos(sessao.loteria.nomeDoDocumentoNoBD);
-			concursosPromise.then(concursos => {
-				this.colsEstatisticas = [
-					{ campo: 'dezena', nome: 'Dezena' },
-					{ campo: 'frequencia', nome: 'Frequência total' },
-					{ campo: 'frequenciaPorCento', nome: 'Ausência total' }
-				];
+			this.estatisticasDosSorteios = [];
+			this.frequenciasTotais(concursoFacade, sessao, numeroDoConcurso, 0);
+			if(this.exibeDezenasSorteio2DuplaSena) {
+				this.frequenciasTotais(concursoFacade, sessao, numeroDoConcurso, 1);
+			}
+		});
+	}
 
-				this.estatisticasDosSorteios = concursos.estatisticas;
-			});
+	frequenciasTotais(concursoFacade, sessao, numeroDoConcurso, numeroSorteio) {
+		let frequenciaDasDezenasPromise = concursoFacade.frequenciaDasDezenas(sessao.loteria.dezenas, sessao.loteria.nomeDoDocumentoNoBD, 1, numeroDoConcurso, numeroSorteio);
+		frequenciaDasDezenasPromise.then(resultado => {
+			this.colsEstatisticas = [
+				{ campo: 'dezena', nome: 'Dezena' },
+				{ campo: 'frequenciaTotal', nome: 'Frequência total' },
+				{ campo: 'frequenciaTotalPorCento', nome: '%' }
+			];
+			this.estatisticasDosSorteios.push(resultado);
 		});
 	}
 }

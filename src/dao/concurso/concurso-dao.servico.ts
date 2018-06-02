@@ -281,6 +281,7 @@ export class ConcursoDAOServico implements IConcursoDAO {
 						objs.push({
 							dezena: dezenas[i],
 							frequenciaTotal: 0,
+							frequenciaTotalPorCento: 0.0,
 							ausenciaTotal: 0,
 							acumuloRemanescente: 0,
 							ausenciaRemanescente: 0
@@ -293,7 +294,9 @@ export class ConcursoDAOServico implements IConcursoDAO {
 							let pattern = new RegExp(dezena, 'g');
 							let match = pattern.exec(numerosSorteados);
 							if(match != null) {
-								objs[i].frequenciaTotal = objs[i].frequenciaTotal + 1;
+								let frequenciaTotal = objs[i].frequenciaTotal + 1;
+								objs[i].frequenciaTotal = frequenciaTotal;
+								objs[i].frequenciaTotalPorCento = (frequenciaTotal*100*1.0)/numeroConcursoFinal
 								objs[i].acumuloRemanescente = objs[i].acumuloRemanescente + 1;
 								objs[i].ausenciaRemanescente = 0;
 							} else {
