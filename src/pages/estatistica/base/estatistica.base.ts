@@ -1,6 +1,5 @@
 import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
-import { LoadingController } from 'ionic-angular';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
 import { ElementRef } from '@angular/core';
 
@@ -34,7 +33,7 @@ export abstract class EstatisticaBase {
 	// 	}
 	// }
 
-	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
+	constructor(public concursoDAOServico: ConcursoDAOServico) {
 		this.bd = ConexaoFabrica.getConexao();
         this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd.get('sessao').then((sessao) => {

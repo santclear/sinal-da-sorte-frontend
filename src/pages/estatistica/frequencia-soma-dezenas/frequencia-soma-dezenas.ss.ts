@@ -1,5 +1,4 @@
 import { Component, ElementRef } from '@angular/core';
-import { LoadingController } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { EstatisticaBase } from '../base/estatistica.base';
 import { EstatisticaI } from '../base/estatistica.i';
@@ -30,8 +29,8 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 	public sortBy2: string;
 	public sortOrder2: string;
 
-	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
-		super(concursoDAOServico, loadingCtrl);
+	constructor(public concursoDAOServico: ConcursoDAOServico) {
+		super(concursoDAOServico);
 		this.filterQuery = '';
 		this.rowsOnPage = 100;
 		this.sortBy = 'soma';
@@ -133,10 +132,6 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 	}
 
 	atualizeFrequênciasDasDezenas(dezena: string, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, numeroDoSorteio: number, dezenas: string[]): void {
-		let loading = this.loadingCtrl.create({
-			content: 'Por favor aguarde, carregando estatísticas para sua análise...'
-		});
-		loading.present();
 		this.bd.get('sessao').then(sessao => {
 			this.somaDasDezenasEmCadaConcursoLoad = [];
 			this.quantidadesDeSomasLoad = [];
@@ -157,7 +152,6 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 					{ campo: 'quantidade', nome: 'Quantidade' }
 				];
 				this.quantidadesDeSomas = somaDasDezenas.quantidadesDeSomas;
-				loading.dismiss()
 			});
 		});
 	}
