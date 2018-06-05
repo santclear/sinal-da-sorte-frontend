@@ -17,6 +17,10 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
+
 .titulo {
     color: #003200;
 }
