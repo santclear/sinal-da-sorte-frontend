@@ -32,6 +32,7 @@ export class MenuService {
 			{ sufixoCssPagina: 'Resultado', titulo: 'Resultado', class: 'ResultadoPage', icone: 'done-all', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: 'EstatisticaPage', icone: 'trending-up', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Conta', titulo: 'Conta', class: 'AtualizacaoContaPage', icone: 'key', corTexto: cor, exibir_texto: 'none' },
+			{ sufixoCssPagina: 'Contato', titulo: 'Contato', class: 'ContatoPage', icone: 'contacts', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Sair', titulo: 'Sair', class: 'LoginPage', icone: 'exit', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: 'SimuladorPage', icone: 'car', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: 'FechamentoPage', icone: 'lock', corTexto: '#777', exibir_texto: 'inline' },

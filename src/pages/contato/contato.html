@@ -1,0 +1,87 @@
+<ss-navbar [tituloInput]="titulo"></ss-navbar>
+<ion-content padding>
+	<ion-grid>
+			<ion-row>
+					<ion-col col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3>
+					<div>
+						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
+						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
+							<h5 [ngClass]="'cor-texto'">Fale conosco</h5>
+							<div class="ui-g" style="width:270px;margin-bottom:10px">
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Sugestões, elogios ou reclamações" value="sinaldasorteweb@gmail.com" formControlName="tipoContato"></p-radioButton></div>
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Contato profissional" value="santclearsolucoes@gmail.com" formControlName="tipoContato"></p-radioButton></div>
+							</div> 
+
+							<p>
+								<span class="ui-float-label">
+									<input formControlName="assunto" type="text" class="larguraTotal" pInputText>
+									<label for="float-input">Assunto*</label>
+								</span>
+								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['assunto'].valid&&contatoForm.controls['assunto'].dirty">
+									<i class="fa fa-close"></i> Digite o assunto
+								</span>
+							</p> 
+							<p>
+								<span class="ui-float-label">
+									<input formControlName="contato" type="text" class="larguraTotal" pInputText>
+									<label for="float-input">Seus contatos (email, telefone, etc)</label>
+								</span>
+								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['contato'].valid&&contatoForm.controls['contato'].dirty">
+									<i class="fa fa-close"></i> O máximo permitido é 100 caracteres
+								</span>
+							</p>
+
+							<p>
+								<span class="ui-float-label">
+									<textarea formControlName="mensagem" class="larguraTotal" [rows]="10" pInputTextarea></textarea>
+									<label for="float-input">Mensagem*</label> 
+								</span>
+								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['mensagem'].valid&&contatoForm.controls['mensagem'].dirty">
+									<i class="fa fa-close"></i> Digite a mensagem
+								</span>
+							</p>
+
+							<p [ngStyle]="{'display': exibeReCaptcha}">
+								<p-captcha siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP" (onResponse)="reCaptcha($event)"></p-captcha>
+							</p>
+							<p *ngIf="exibeReCaptcha === 'none'">
+								<img src="assets/img/recaptcha-ok.png">
+							</p>
+							
+							<div class="botaoVC">
+								<button ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
+							</div>
+						</form>
+					</div>
+				</ion-col>
+				<ion-col>
+					<div></div>
+				</ion-col>
+				<ion-col>
+					<div></div>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3>
+					<br/><br/>
+					<h5 [ngClass]="'cor-texto'">Redes sociais</h5>
+					<p>
+						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.facebook.com/sinaldasorte" target="_blank">facebook.com/sinaldasorte</a></span><br/>
+						<span [ngClass]="['texto', 'cor-texto']"><a href="https://twitter.com/sinaldasorte" target="_blank">twitter.com/sinaldasorte</a></span> 
+					</p>
+					
+					<h5 [ngClass]="'cor-texto'">Sant'Clear Soluções</h5>
+					<p>
+						<span [ngClass]="['texto', 'cor-texto']">Desenvolvimento de Software Web e Mobile; Automação de Testes; Automação de Tarefas; Modelagem de Dados e Análise de Sistemas.</span>
+					</p>
+				</ion-col>
+				<ion-col>
+					<div></div>
+				</ion-col>
+				<ion-col>
+					<div></div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+</ion-content>
+<ss-rodape></ss-rodape>

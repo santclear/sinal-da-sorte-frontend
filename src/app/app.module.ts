@@ -19,6 +19,7 @@ import { ContaService } from '../services/conta.service';
 import { EnderecoService } from '../services/endereco.service';
 import { UtilService } from '../services/util.service';
 import { UsuarioService } from '../services/usuario.service';
+import { EmailService } from '../services/email.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 
@@ -57,6 +58,7 @@ import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esquec
 		EnderecoService,
 		UtilService,
 		UsuarioService,
+		EmailService,
 		AuthInterceptorProvider,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }
