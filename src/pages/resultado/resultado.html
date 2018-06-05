@@ -47,7 +47,7 @@
 		<span [ngClass]="'palavra-destacada'">{{valorDoPremioPrincipal | currency:'BRL':true}}</span> para <span [ngClass]="'palavra-destacada'">{{numeroDeGanhadoresDoPremioPrincipal}} ganhador<span *ngIf="numeroDeGanhadoresDoPremioPrincipal > 1">es</span></span>
 	</p>
 
-	<p [ngClass]="'texto'" *ngIf="valorDoPremioPrincipal == 0"><span [ngClass]="'palavra-destacada'">ACUMULOU! {{acumuladoParaOProximoConcurso | currency:'BRL':true}}</span></p>
+	<p [ngClass]="'texto'" *ngIf="valorDoPremioPrincipal === 0 && acumuladoParaOProximoConcurso !== 0"><span [ngClass]="'palavra-destacada'">ACUMULOU! {{acumuladoParaOProximoConcurso | currency:'BRL':true}}</span></p>
 	<p [ngClass]="'texto'"><strong>{{estimativaDePremioParaOProximoConcurso | currency:'BRL':true}}</strong> (Estimativa de prêmio para o próximo concurso)</p>
 	<p [ngClass]="'texto'" *ngIf="exibeAcumuladoEspecial"><strong>{{acumuladoEspecial | currency:'BRL':true}}</strong> ({{labelAcumuladoEspecial}})</p>
 
