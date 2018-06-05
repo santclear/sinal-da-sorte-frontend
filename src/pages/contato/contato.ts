@@ -71,7 +71,7 @@ export class ContatoPage extends PaginaBase {
 	reCaptcha(ev) {
 		if (ev) this.contatoForm.controls['reCaptcha'].setValue(true);
 		this.exibeReCaptcha = 'none';
-		this. reCaptchaTimeout = setTimeout(() => {
+		this.reCaptchaTimeout = setTimeout(() => {
 			this.exibeReCaptcha = 'block';
 			this.contatoForm.controls['reCaptcha'].setValue(null);
 			(<any>window).grecaptcha.reset();

@@ -6,7 +6,7 @@ import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { CaptchaModule } from 'primeng/captcha';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
 	declarations: [
@@ -17,8 +17,8 @@ import { CaptchaModule } from 'primeng/captcha';
 		InputTextModule,
 		InputTextareaModule,
 		NavBarSsModule,
-		CaptchaModule,
 		RodapeSsModule,
+		RecaptchaModule.forRoot(),
 		IonicPageModule.forChild(ContatoPage),
 	],
 })

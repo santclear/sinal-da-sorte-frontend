@@ -245,7 +245,8 @@ export class MyApp {
 	private setPaginaInicial() {
 		let contaLocal = this.storage.getContaLocal();
 		if(contaLocal) {
-			this.paginaInicial = 'ResultadoPage';
+			// this.paginaInicial = 'ResultadoPage';
+			this.paginaInicial = 'ContatoPage';
 		} else {
 			this.paginaInicial = 'LoginPage';
 		}

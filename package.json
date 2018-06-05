@@ -30,6 +30,7 @@
         "highcharts": "^5.0.3",
         "ionic-angular": "3.9.2",
         "ionicons": "3.0.0",
+        "ng-recaptcha": "^3.0.5",
         "pouchdb": "^6.0.7",
         "pouchdb-find": "^0.10.3",
         "primeng": "^5.2.1",
