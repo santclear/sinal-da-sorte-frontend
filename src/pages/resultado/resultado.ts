@@ -217,7 +217,7 @@ export class ResultadoPage extends PaginaBase {
 			this.estimativaDePremioParaOProximoConcurso = concurso.estimativaDePremioParaOProximoConcurso;
 			this.acumuladoEspecial = concurso.acumuladoEspecial;
 			this.labelAcumuladoEspecial = sessao.loteria.labelAcumuladoEspecial;
-
+			
 			this.estatisticasDosSorteios = [];
 			this.frequenciasTotais(concursoFacade, sessao, numeroDoConcurso, 0);
 			if(this.exibeDezenasSorteio2DuplaSena) {
@@ -235,6 +235,11 @@ export class ResultadoPage extends PaginaBase {
 				{ campo: 'frequenciaTotalPorCento', nome: '%' }
 			];
 			this.estatisticasDosSorteios.push(resultado);
+			if(this.estatisticasDosSorteios.length > 1 && numeroSorteio == 0) {
+				this.estatisticasDosSorteios.splice(1, this.estatisticasDosSorteios.length - 1);
+			} else {
+				this.estatisticasDosSorteios.splice(2, this.estatisticasDosSorteios.length - 1);
+			}
 		});
 	}
 }
