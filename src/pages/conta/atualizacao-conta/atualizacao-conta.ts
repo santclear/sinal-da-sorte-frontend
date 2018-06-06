@@ -209,8 +209,10 @@ export class AtualizacaoContaPage extends PaginaBase {
 			this.contaForm.controls['telefone2'].setValue(conta.usuario.telefone2);
 			this.contaForm.controls['telefone3'].setValue(conta.usuario.telefone3);
 		}
-		(<any>window).grecaptcha.reset();
-		clearTimeout(this.reCaptchaTimeout);
+		try {
+			(<any>window).grecaptcha.reset();
+			clearTimeout(this.reCaptchaTimeout);
+		} catch(err) {err}
 	}
 
 	populeEnderecos(event: any) {
@@ -319,8 +321,10 @@ export class AtualizacaoContaPage extends PaginaBase {
 			alert.present();
 			this.storage.setContaLocal(null);
 			this.navCtrl.setRoot(LoginPage);
-			(<any>window).grecaptcha.reset();
-			clearTimeout(this.reCaptchaTimeout);
+			try {
+				(<any>window).grecaptcha.reset();
+				clearTimeout(this.reCaptchaTimeout);
+			} catch(err) {err}
 		}, error => { });
 	}
 
@@ -330,16 +334,18 @@ export class AtualizacaoContaPage extends PaginaBase {
 		this.reCaptchaTimeout = setTimeout(() => {
 			this.exibeReCaptcha = 'block';
 			this.contaForm.controls['reCaptcha'].setValue(null);
-			(<any>window).grecaptcha.reset();
-			let toast = this.toastCtrl.create({
-				message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
-				showCloseButton: true,
-				closeButtonText: 'Ok',
-				duration: 15000,
-				position: 'middle',
-				cssClass: 'toastGeral'
-			  });
-			  toast.present(toast);
+			try {
+				(<any>window).grecaptcha.reset();
+				let toast = this.toastCtrl.create({
+					message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
+					showCloseButton: true,
+					closeButtonText: 'Ok',
+					duration: 15000,
+					position: 'middle',
+					cssClass: 'toastGeral'
+				});
+				toast.present(toast);
+			} catch(err) {err}
 		}, 40000);
 	}
 }

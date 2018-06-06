@@ -68,8 +68,10 @@ export class ContatoPage extends PaginaBase {
 		});
 		alert.present();
 		this.exibeReCaptcha = 'block';
-		(<any>window).grecaptcha.reset();
-		clearTimeout(this.reCaptchaTimeout);
+		try {
+			(<any>window).grecaptcha.reset();
+			clearTimeout(this.reCaptchaTimeout);
+		} catch(err) {err}
 		this.instancieContatoForm();
 	}
 	
@@ -79,16 +81,18 @@ export class ContatoPage extends PaginaBase {
 		this.reCaptchaTimeout = setTimeout(() => {
 			this.exibeReCaptcha = 'block';
 			this.contatoForm.controls['reCaptcha'].setValue(null);
-			(<any>window).grecaptcha.reset();
-			let toast = this.toastCtrl.create({
-				message: 'O tempo do reCaptcha expirou! Para enviar o seu contato é necessário realizar o desafio do reCaptcha novamente.',
-				showCloseButton: true,
-				closeButtonText: 'Ok',
-				duration: 15000,
-				position: 'middle',
-				cssClass: 'toastGeral'
-			  });
-			  toast.present(toast);
+			try {
+				(<any>window).grecaptcha.reset();
+				let toast = this.toastCtrl.create({
+					message: 'O tempo do reCaptcha expirou! Para enviar o seu contato é necessário realizar o desafio do reCaptcha novamente.',
+					showCloseButton: true,
+					closeButtonText: 'Ok',
+					duration: 15000,
+					position: 'middle',
+					cssClass: 'toastGeral'
+				});
+				toast.present(toast);
+			} catch(err) {err}
 		}, 40000);
 	}
 }
