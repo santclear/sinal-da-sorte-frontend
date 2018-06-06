@@ -24,6 +24,7 @@ export class ContaPage {
 	public ptBr: any;
 	public generos: SelectItem[];
 	public exibeReCaptcha: string = 'block';
+	public reCaptchaTimeout: any;
 
 	constructor(
 		private navCtrl: NavController,
@@ -149,6 +150,7 @@ export class ContaPage {
 		});
 		alert.present();
 		(<any>window).grecaptcha.reset();
+		clearTimeout(this.reCaptchaTimeout);
 	}
 
 	populeEnderecos(event) {
@@ -216,7 +218,7 @@ export class ContaPage {
 	reCaptcha(ev) {
 		if (ev) this.contaForm.controls['reCaptcha'].setValue(true);
 		this.exibeReCaptcha = 'none';
-		setTimeout(() => {
+		this.reCaptchaTimeout = setTimeout(() => {
 			this.exibeReCaptcha = 'block';
 			this.contaForm.controls['reCaptcha'].setValue(null);
 			(<any>window).grecaptcha.reset();

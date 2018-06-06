@@ -30,6 +30,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 	public ptBr: any;
 	public exibeReCaptcha: string = 'block';
 	public senha: string;
+	public reCaptchaTimeout: any;
 
 	constructor(
 		protected navCtrl: NavController,
@@ -209,6 +210,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 			this.contaForm.controls['telefone3'].setValue(conta.usuario.telefone3);
 		}
 		(<any>window).grecaptcha.reset();
+		clearTimeout(this.reCaptchaTimeout);
 	}
 
 	populeEnderecos(event: any) {
@@ -318,13 +320,14 @@ export class AtualizacaoContaPage extends PaginaBase {
 			this.storage.setContaLocal(null);
 			this.navCtrl.setRoot(LoginPage);
 			(<any>window).grecaptcha.reset();
+			clearTimeout(this.reCaptchaTimeout);
 		}, error => { });
 	}
 
 	reCaptcha(ev) {
 		if (ev) this.contaForm.controls['reCaptcha'].setValue(true);
 		this.exibeReCaptcha = 'none';
-		setTimeout(() => {
+		this.reCaptchaTimeout = setTimeout(() => {
 			this.exibeReCaptcha = 'block';
 			this.contaForm.controls['reCaptcha'].setValue(null);
 			(<any>window).grecaptcha.reset();

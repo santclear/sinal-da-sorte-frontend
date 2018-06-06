@@ -9,7 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { TabViewModule } from 'primeng/tabview';
 import { CardModule } from 'primeng/card';
-import { CaptchaModule } from 'primeng/captcha';
+import { RecaptchaModule } from 'ng-recaptcha';
 import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
 import { BloqueiaCopiaColaDirectiveModule } from '../../../diretivas/bloqueia-copia-cola.module';
 
@@ -26,9 +26,9 @@ import { BloqueiaCopiaColaDirectiveModule } from '../../../diretivas/bloqueia-co
 		PasswordModule,
 		TabViewModule,
 		CardModule,
-		CaptchaModule,
 		BloqueiaCopiaColaDirectiveModule,
 		RodapeSsModule,
+		RecaptchaModule.forRoot(),
 		IonicPageModule.forChild(AtualizacaoContaPage),
 	]
 })
