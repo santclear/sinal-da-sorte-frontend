@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController }
 import { PaginaBase } from '../pagina.base';
 import { ContatoDto } from '../../dtos/contato.dto';
 import { EmailService } from '../../services/email.service';
+import { StorageService } from '../../services/storage.service';
+import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 
 @IonicPage()
 @Component({
@@ -22,7 +24,8 @@ export class ContatoPage extends PaginaBase {
 		private formBuilder: FormBuilder,
 		private toastCtrl: ToastController,
 		private alertCtrl: AlertController,
-		private emailService: EmailService) {
+		private emailService: EmailService,
+		private storage: StorageService) {
 
 		super();
 		this.setTitulo("Contato");
@@ -40,11 +43,13 @@ export class ContatoPage extends PaginaBase {
 	}
 
 	envieContato() {
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		let contato: ContatoDto = {
-			para:this.contatoForm.value.tipoContato,
-			assunto:this.contatoForm.value.assunto,
-			mensagem:this.contatoForm.value.mensagem,
-			contato: this.contatoForm.value.contato
+			para: this.contatoForm.value.tipoContato,
+			assunto: this.contatoForm.value.assunto,
+			mensagem: this.contatoForm.value.mensagem,
+			contato: this.contatoForm.value.contato,
+			emailLogin: contaLocal.email
 		};
 
 		this.emailService.envie(contato).subscribe(() => {

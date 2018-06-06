@@ -3,4 +3,5 @@ export interface ContatoDto {
 	assunto: string;
 	mensagem: string;
 	contato: string;
+	emailLogin?: string;
 }
