@@ -33,7 +33,7 @@
 								<i class="fa fa-close"></i> Digite seu sobrenome
 							</span>
 						</p>
-						<p>
+						<!-- <p>
 							<span class="ui-float-label">
 								<p-inputMask formControlName="cpf" mask="999.999.999-99"></p-inputMask>
 								<label for="float-input">CPF*</label>
@@ -41,7 +41,7 @@
 							<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cpf'].valid&&contaForm.controls['cpf'].dirty">
 								<i class="fa fa-close"></i> Digite seu CPF
 							</span>
-						</p>
+						</p> -->
 						<p>
 							<span class="ui-float-label">
 								<p-calendar formControlName="dataDeNascimento" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1918:2001" dateFormat="dd/mm/yy"
@@ -96,7 +96,7 @@
 								<i class="fa fa-close"></i> Confirme a senha digitada anteriormente
 							</span>
 						</p>
-						<p>
+						<!-- <p>
 							<span class="ui-float-label">
 								<p-inputMask formControlName="cep" mask="99999-999" (onBlur)=populeEnderecos($event)></p-inputMask>
 								<label for="float-input">CEP*</label>
@@ -165,7 +165,7 @@
 								<input formControlName="telefone3" type="text" pInputText>
 								<label for="float-input">Telefone 3</label>
 							</span>
-						</p>
+						</p> -->
 						<p [ngStyle]="{'display': exibeReCaptcha}">
 							<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
 						</p>

@@ -4,11 +4,11 @@ export interface UsuarioDto {
 	id: string;
 	nome: string;
 	sobrenome: string;
-	cpf: string;
+	cpf?: string;
 	dataDeNascimento: string;
 	genero: string;
-	endereco: EnderecoDto;
-	telefone1: string;
-	telefone2: string;
-	telefone3: string;
+	endereco?: EnderecoDto;
+	telefone1?: string;
+	telefone2?: string;
+	telefone3?: string;
 }

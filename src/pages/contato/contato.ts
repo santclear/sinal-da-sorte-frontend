@@ -92,7 +92,9 @@ export class ContatoPage extends PaginaBase {
 					cssClass: 'toastGeral'
 				});
 				toast.present(toast);
-			} catch(err) {err}
+			} catch(err) {err} finally {
+				clearTimeout(this.reCaptchaTimeout);
+			}
 		}, 40000);
 	}
 }
