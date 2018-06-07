@@ -80,8 +80,8 @@
 			</ion-list-header>
 			
 			<ion-item>
-				<div class="container-tabela">
-					<p-table [columns]="colsRateio" [value]="sorteio.rateios" [responsive]="true" [style]="{width:'500px'}">
+				<div class="container-tabela margem-automatica">
+					<p-table [columns]="colsRateio" [value]="sorteio.rateios" [responsive]="true" [style]="{'max-width':'500px'}">
 						<ng-template pTemplate="header" let-colunas>
 							<tr>
 								<th *ngFor="let coluna of colunas">
@@ -128,8 +128,8 @@
 			</ion-list-header>
 			
 			<ion-item>
-				<div class="container-tabela">
-					<p-table [columns]="colsEstatisticas" [value]="estatisticas" [paginator]="true" [rows]="15" [responsive]="true" sortField="dezena" [style]="{width:'500px'}">
+				<div class="container-tabela margem-automatica">
+					<p-table [columns]="colsEstatisticas" [value]="estatisticas" [paginator]="true" [rows]="15" [responsive]="true" sortField="dezena" [style]="{'max-width':'500px'}">
 						<ng-template pTemplate="header" let-colunas>
 							<tr>
 								<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
