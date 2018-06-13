@@ -17,6 +17,7 @@ export class ContatoPage extends PaginaBase {
 	public contatoForm: FormGroup;
 	public exibeReCaptcha: string = 'block';
 	public reCaptchaTimeout: any;
+	public exibeLogo;
 
 	constructor(
 		public navCtrl: NavController, 
@@ -28,6 +29,10 @@ export class ContatoPage extends PaginaBase {
 		private storage: StorageService) {
 
 		super();
+		this.exibeLogo = navParams.get('exibeLogo');
+		if(this.exibeLogo === true || this.exibeLogo === undefined) {
+			this.exibeLogo = true;
+		}
 		this.setTitulo("Contato");
 		this.instancieContatoForm();
 	}
@@ -44,12 +49,14 @@ export class ContatoPage extends PaginaBase {
 
 	envieContato() {
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		let emailLogin: string;
+		if(contaLocal !== null) emailLogin = contaLocal.email;
 		let contato: ContatoDto = {
 			para: this.contatoForm.value.tipoContato,
 			assunto: this.contatoForm.value.assunto,
 			mensagem: this.contatoForm.value.mensagem,
 			contato: this.contatoForm.value.contato,
-			emailLogin: contaLocal.email
+			emailLogin: emailLogin
 		};
 
 		this.emailService.envie(contato).subscribe(() => {

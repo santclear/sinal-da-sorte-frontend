@@ -1,0 +1,120 @@
+<ion-content padding>
+	<div [ngClass]="'menu'">
+		<ion-grid>
+			<ion-row>
+				<ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+					<div [ngClass]="'logo'">
+						<p><img alt="Logo" src="/assets/img/logo.png"></p>
+					</div>
+				</ion-col>
+				<ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+					<div [ngClass]="'botoes'">
+						<button ion-button clear color="primary" (click)="abraContato()">Contato</button>
+						<button ion-button clear color="primary" (click)="abraConta()">Criar uma conta</button>
+						<button ion-button clear color="primary" (click)="abraLogin()">Entrar</button>
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	<div [ngClass]="'banner'">
+		<ion-grid>
+			<ion-row>
+				<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
+					<p>O Sinal da Sorte chegou.</p>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
+					<p>Aposte com estratégia e descubra como alcançar a sorte.</p>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
+					<p>Você também pode ser um milionário!</p>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	<div [ngClass]="'faixa'">
+		<div [ngClass]="'titulo'">SISTEMA SINAL DA SORTE</div>
+		<p [ngClass]="'texto'">
+			Ferramenta desenvolvida com as tecnologias mais modernas da atualidade para análise estatística, 
+			controle e organização das apostas pessoais das loterias da Caixa Econônica Federal.
+		</p>
+	</div>
+	<div [ngClass]="'funcionalidades'">
+			<ion-grid>
+				<ion-row>
+					<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="done-all"></ion-icon>
+							<div [ngClass]="'titulo'">Resultados</div>
+							<p [ngClass]="'texto'">
+								Resultados de todos os concursos de todas as loterias disponíveis diariamente. 
+								A atualização de cada concurso ocorre no dia do sorteio!
+							</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="trending-up"></ion-icon>
+							<div [ngClass]="'titulo'">Estatística</div>
+							<p [ngClass]="'texto'">Geração de tabelas e gráficos estatísticos que permitem a análise das dezenas que estão fortes para sair nos próximos concuros.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="game-controller-b"></ion-icon>
+							<div [ngClass]="'titulo'">Simulador</div>
+							<p [ngClass]="'texto'">Simule os acertos das dezenas escolhidas, com base no histórico de todos os concursos passados da loteria ou concuros gerados aleatoriamente.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="lock"></ion-icon>
+							<div [ngClass]="'titulo'">Fechamento</div>
+							<p [ngClass]="'texto'">Escolha algumas dezenas para o Sinal da Sorte misturar elas com as demais e gerar todas as combinações possíveis de volantes.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="document"></ion-icon>
+							<div [ngClass]="'titulo'">Criação de Volante</div>
+							<p [ngClass]="'texto'">Marcar dezenas com caneta nos volantes é passado, crie eles de forma fácil e intuitiva através do Sinal da Sorte.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="print"></ion-icon>
+							<div [ngClass]="'titulo'">Impressão</div>
+							<p [ngClass]="'texto'">Imprima os volantes criados com toda a praticidade.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="people"></ion-icon>
+							<div [ngClass]="'titulo'">Bolão</div>
+							<p [ngClass]="'texto'">Gere cotas de bolões.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="list-box"></ion-icon>
+							<div [ngClass]="'titulo'">Histórico de Volantes</div>
+							<p [ngClass]="'texto'">O Sinal da Sorte armazena os histórico de volantes criados.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="ios-wifi"></ion-icon>
+							<div [ngClass]="'titulo'">Acesso Offline</div>
+							<p [ngClass]="'texto'">Continue acessando os recursos do Sinal da Sorte mesmo se perder conexão com a internet.</p>
+						</div>
+						<div [ngClass]="'funcionalidade'">
+							<ion-icon name="apps"></ion-icon>
+							<div [ngClass]="'titulo'">Responsivo</div>
+							<p [ngClass]="'texto'">Páginas responsivas, conforto visual em qualquer tamanho de tela.</p>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+		<div [ngClass]="'faixa'">
+			<div [ngClass]="'titulo'">NOS ACOMPANHE NAS REDES SOCIAIS</div>
+			<div [ngClass]="'links'">
+				<span><a href="https://www.facebook.com/sinaldasorte" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></span>
+				<span><a href="https://twitter.com/sinaldasorte" target="_blank"><ion-icon name="logo-twitter"></ion-icon></a></span>
+				<span><a href="http://www.instagram.com" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></span>
+				<span><a href="http://www.youtube.com" target="_blank"><ion-icon name="logo-youtube"></ion-icon></a></span>
+			</div>
+		</div>
+		<div [ngClass]="'rodape'">
+			<div [ngClass]="'titulo'">Sant'Clear Engenharia de Software</div>
+			<div [ngClass]="'texto'">Copyright Sinal da Sorte 2018</div>
+		</div>
+</ion-content>

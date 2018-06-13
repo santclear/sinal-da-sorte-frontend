@@ -29,17 +29,17 @@ export class MenuService {
 	public getPaginas(estadoSessao) {
 		let cor = '' + estadoSessao.loteria.cor.escuro + '';
 		return [
-			{ sufixoCssPagina: 'Resultado', titulo: 'Resultado', class: 'ResultadoPage', icone: 'done-all', corTexto: cor, exibir_texto: 'none' },
+			{ sufixoCssPagina: 'Resultado', titulo: 'Resultados', class: 'ResultadoPage', icone: 'done-all', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Estatistica', titulo: 'Estatística', class: 'EstatisticaPage', icone: 'trending-up', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Conta', titulo: 'Conta', class: 'AtualizacaoContaPage', icone: 'key', corTexto: cor, exibir_texto: 'none' },
-			{ sufixoCssPagina: 'Contato', titulo: 'Contato', class: 'ContatoPage', icone: 'contacts', corTexto: cor, exibir_texto: 'none' },
+			{ sufixoCssPagina: 'Contato', titulo: 'Contato', class: 'ContatoPage', icone: 'contact', corTexto: cor, exibir_texto: 'none' },
 			{ sufixoCssPagina: 'Sair', titulo: 'Sair', class: 'LoginPage', icone: 'exit', corTexto: cor, exibir_texto: 'none' },
-			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: 'SimuladorPage', icone: 'car', corTexto: '#777', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Simulador', titulo: 'Simulador', class: 'SimuladorPage', icone: 'game-controller-b', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Fechamento', titulo: 'Fechamento', class: 'FechamentoPage', icone: 'lock', corTexto: '#777', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'Aposta', titulo: 'Aposta', class: 'ApostaPage', icone: 'cash', corTexto: '#777', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'Aposta', titulo: 'Volante', class: 'ApostaPage', icone: 'document', corTexto: '#777', exibir_texto: 'inline' },
 			// { sufixoCssPagina: 'GruposEspeciais', titulo: 'Grupos Especiais', class: 'GruposEspeciaisPage', icone: 'grid', corTexto: '#777', exibir_texto: 'inline' },
 			{ sufixoCssPagina: 'Bolao', titulo: 'Bolão', class: 'BolaoPage', icone: 'people', corTexto: '#777', exibir_texto: 'inline' },
-			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Apostas', class: 'HistoricoDeApostasPage', icone: 'list-box', corTexto: '#777', exibir_texto: 'inline' },
+			{ sufixoCssPagina: 'HistoricoDeApostas', titulo: 'Histórico de Volantes', class: 'HistoricoDeApostasPage', icone: 'list-box', corTexto: '#777', exibir_texto: 'inline' },
 		];
 	}
 	

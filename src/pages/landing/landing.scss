@@ -1,0 +1,138 @@
+page-landing {
+	.scroll-content {
+		padding: 0px !important;
+	}
+
+	.menu {
+		position: fixed;
+		background: white;
+		width: 100%;
+		z-index: 1;
+	}
+	.menu .logo img {
+		vertical-align: middle;
+		padding: 0 10px 0 0;
+	}
+	.menu .logo p {
+		margin: 0 0 0 20px;
+	}
+	.menu .botoes {
+		text-align: right;
+	}
+	.banner {
+		width: 100%;
+		font-weight: bold;
+		font-size: calc(14px + 3.8vw);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	@media (min-width: 300px) {
+		.banner {
+			padding: 180px 0 60px 0;
+			background-image: url('../assets/img/banner-mobile.png');
+		}
+	}
+
+	@media (min-width: 901px) and (orientation: landscape) {
+		.banner {
+			padding: 120px 0 60px 0;
+			background-image: url('../assets/img/banner.png');
+		}
+	}
+
+	.banner p {
+		margin: 15px;
+	}
+	.funcionalidades {
+		text-align: center;
+		padding: 40px 0 40px 0;
+	}
+	.funcionalidade {
+		border-radius: 115px;
+		width: 231px;
+		height:231px;
+		background: radial-gradient(closest-side at 60% 40%,white 35%, #bdc239 150%);
+		padding: 20px;
+		display: inline-table;
+		margin: 10px;
+	}
+	.funcionalidade ion-icon {
+		font-size: 32pt;
+		font-weight: bold;
+	}
+	.funcionalidade .titulo, .rodape .titulo, .faixa .titulo, .menu .logo p {
+		font-size: 16pt;
+		font-weight: bold;
+	}
+	.funcionalidade .texto {
+		font-size: 11pt;
+	}
+
+	.faixa {
+		text-align: center;
+		padding: 200px 0 200px 0;
+	}
+	.faixa .texto {
+		font-size: 12pt;
+		margin: 10px;
+	}
+	.faixa .links {
+		font-size: 16pt;
+		margin: 20px;
+	}
+	.faixa span {
+		padding: 0 5px 0 5px;
+	}
+
+	.faixa a:hover, .faixa a:active {
+		color: #ddd;
+	}
+	
+	.rodape {
+		text-align: center;
+		padding: 10px;
+	}
+
+	.rodape .texto {
+		font-size: 10pt;
+		margin: 5px 0 5px 0;
+	}
+
+	.atencao {
+		border-radius: 30px;
+		font-size: 10pt;
+		padding: 15px;
+		text-align: justify;
+	}
+
+	.cor-primaria, .banner, .rodape, .rodape .titulo, .rodape .texto {
+		color: white;
+	}
+	.cor-secundaria,
+	.menu .logo p,
+	.funcionalidade, 
+	.funcionalidade .titulo, 
+	.faixa .titulo,
+	.faixa .texto,
+	.faixa .links, 
+	.faixa a:link, 
+	.faixa a:visited, 
+	.atencao {
+		color: #003200;
+	}
+	.bg-primario, .funcionalidades {
+		background-color: #127826;
+	}
+	.bg-claro, .faixa {
+		background-color: white;
+	}
+	.bg-escuro, .rodape {
+		background-color: #191919;
+	}
+	.bg-atencao, .atencao {
+		background: #781164;
+	}
+
+}
