@@ -247,7 +247,7 @@ export class MyApp {
 		if(contaLocal) {
 			this.paginaInicial = 'ResultadoPage';
 		} else {
-			this.paginaInicial = 'LoginPage';
+			this.paginaInicial = 'LandingPage';
 		}
 		this.initializeApp();
 	}

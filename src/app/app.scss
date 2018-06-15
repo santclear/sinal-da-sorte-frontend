@@ -17,6 +17,50 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+.scroll-content {
+    padding: 0px !important;
+}
+
+.margem-lateral {
+	margin: 16px;
+}
+
+.conteudo {
+    min-height:100%;
+	position:relative;
+}
+
+.margem-conteudo-rodape {
+    height: 50px; /* Changed this height */
+    padding-bottom:60px;
+}
+
+.rodape {
+	text-align: center;
+	padding: 10px;
+    background-color: #191919;
+    
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;
+
+}
+
+.rodape .titulo {
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.rodape .texto {
+    font-size: 10pt!important;
+    margin: 5px 0 5px 0!important;
+}
+
+.rodape, .rodape .titulo, .rodape .texto {
+    color: white;
+}
+
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
@@ -30,20 +74,8 @@ ion-menu {
     border-right-color: #003200!important;
 }
 
-ion-footer, ion-footer ion-toolbar ion-title {
-    height: 30px;
-}
-
-ion-footer ion-toolbar {
-    min-height: 30px!important;
-}
-
 ion-icon {
     line-height: 19px!important;
-}
-
-.scroll-content {
-    margin-bottom: 30px;
 }
 
 .toastGeral .toast-container {
@@ -64,9 +96,6 @@ ss-navbar + ion-content > div.scroll-content {
     margin-top: 56px !important;
 }
 
-// .margemSuperior {
-// 	margin-top: 55px;
-// }
 .cor-primaria-componente, th {
     color: #43A047!important;
 }

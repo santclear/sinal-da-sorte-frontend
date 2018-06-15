@@ -1,242 +1,232 @@
 <ss-navbar [tituloInput]="titulo"></ss-navbar>
 
-<ion-content padding>
-	<p-tabView>
-		<p-tabPanel header="Dados pessoais" leftIcon="fa-user">
-			<ion-grid>
-				<ion-row>
-					<ion-col col-1 col-md-2 col-lg-3>
-						<div></div>
-					</ion-col>
-					<ion-col col-10 col-md-8 col-lg-6>
-						<div>
-							<!-- $event.preventDefault() previne o envio de formulário indesejado -->
-							<form [formGroup]="contaForm" (ngSubmit)="atualize(); $event.preventDefault()">
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="nome" type="text" class="larguraTotal" pInputText>
-										<label for="float-input">Nome*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['nome'].valid&&contaForm.controls['nome'].dirty">
-										<i class="fa fa-close"></i> Digite seu nome
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText>
-										<label for="float-input">Sobrenome*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['sobrenome'].valid&&contaForm.controls['sobrenome'].dirty">
-										<i class="fa fa-close"></i> Digite seu sobrenome
-									</span>
-								</p>
-								<!-- <p>
-									<span class="ui-float-label">
-										<p-inputMask formControlName="cpf" mask="999.999.999-99"></p-inputMask>
-										<label for="float-input">CPF*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cpf'].valid&&contaForm.controls['cpf'].dirty">
-										<i class="fa fa-close"></i> Digite seu CPF
-									</span>
-								</p> -->
-								<p>
-									<span class="ui-float-label">
-										<p-calendar formControlName="dataDeNascimento" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1918:2001" dateFormat="dd/mm/yy"
-										 [locale]="ptBr" [showIcon]="true"></p-calendar>
-										<label for="float-input">Data de nascimento*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['dataDeNascimento'].valid&&contaForm.controls['dataDeNascimento'].dirty">
-										<i class="fa fa-close"></i> Digite sua data de nascimento
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<p-dropdown formControlName="generoId" [options]="generos" editable="true" placeholder="Gênero*"></p-dropdown>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['generoId'].valid&&contaForm.controls['generoId'].dirty">
-										<i class="fa fa-close"></i> Escolha seu gênero
-									</span>
-								</p>
-								<!-- <p>
-									<span class="ui-float-label">
-										<p-inputMask formControlName="cep" mask="99999-999" (onBlur)=populeEnderecos($event)></p-inputMask>
-										<label for="float-input">CEP*</label>
-										<a href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCepEndereco.cfm" target="_blank">Caso não saiba, pesquise aqui</a>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cep'].valid&&contaForm.controls['cep'].dirty">
-										<i class="fa fa-close"></i> Digite o cep da sua rua
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="logradouro" type="text" class="larguraTotal" [readonly]="true" pInputText>
-										<label for="float-input">Logradouro</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="numero" type="text" pInputText>
-										<label for="float-input">Número</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['numero'].valid&&contaForm.controls['numero'].dirty">
-										<i class="fa fa-close"></i> Digite o número da sua residência
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="complemento" type="text" class="larguraTotal" pInputText>
-										<label for="float-input">Complemento</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="bairro" type="text" class="larguraTotal" [readonly]="true" pInputText>
-										<label for="float-input">Bairro</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="cidade" type="text" class="larguraTotal" [readonly]="true" pInputText>
-										<label for="float-input">Cidade*</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="uf" type="text" [readonly]="true" pInputText>
-										<label for="float-input">UF*</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="telefone1" type="text" pInputText>
-										<label for="float-input">Telefone 1*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['telefone1'].valid&&contaForm.controls['telefone1'].dirty">
-										<i class="fa fa-close"></i> Digite somente o número do seu telefone ou celular, sem parênteses, espaços e hífen
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="telefone2" type="text" pInputText>
-										<label for="float-input">Telefone 2</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="telefone3" type="text" pInputText>
-										<label for="float-input">Telefone 3</label>
-									</span>
-								</p> -->
-								<p></p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
-										<label for="float-input">Senha atual*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
-										<i class="fa fa-close"></i> Para atualizar o cadastro é necessário digitar a senha atual
-									</span>
-								</p>
-								<p [ngStyle]="{'display': exibeReCaptcha}">
-									<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
-								</p>
-								<p *ngIf="exibeReCaptcha === 'none'">
-									<img src="assets/img/recaptcha-ok.png">
-								</p>
-								<div class="botaoVA">
-									<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button>
-									<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize>Atualizar</button>
-								</div>
-							</form>
-						</div>
-					</ion-col>
-					<ion-col col-1 col-md-2 col-lg-3>
-						<div></div>
-					</ion-col>
-				</ion-row>
-			</ion-grid>
-		</p-tabPanel>
-		<p-tabPanel header="Sua conta" leftIcon="fa-key">
-			<ion-grid>
-				<ion-row>
-					<ion-col col-1 col-md-2 col-lg-3>
-						<div></div>
-					</ion-col>
-					<ion-col col-10 col-md-8 col-lg-6>
-						<div>
-							<!-- $event.preventDefault() previne o envio de formulário indesejado -->
-							<form [formGroup]="contaForm" (ngSubmit)="atualize(); $event.preventDefault()">
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="email" type="text" [readonly]="true" pInputText>
-										<label for="float-input">E-mail atual*</label>
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="novoEmail" type="text" pInputText>
-										<label for="float-input">Novo e-mail</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['novoEmail'].valid&&contaForm.controls['novoEmail'].dirty">
-										<i class="fa fa-close"></i> Digite o novo e-mail
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="confirmeEmail" type="text" bloqueiaCopiaCola pInputText>
-										<label for="float-input">Confirme o novo e-mail</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeEmail'].valid&&contaForm.controls['confirmeEmail'].dirty">
-										<i class="fa fa-close"></i> Confirme o e-mail digitado anteriormente
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
-										<label for="float-input">Senha atual*</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
-										<i class="fa fa-close"></i> Para atualizar ou excluir a sua conta é necessário digitar a senha atual
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="novaSenha" type="password" class="larguraTotal" pPassword>
-										<label for="float-input">Nova senha</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['novaSenha'].valid&&contaForm.controls['novaSenha'].dirty">
-										<i class="fa fa-close"></i> Digite uma nova senha de no mínimo 8 caracteres
-									</span>
-								</p>
-								<p>
-									<span class="ui-float-label">
-										<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword>
-										<label for="float-input">Confirme a nova senha</label>
-									</span>
-									<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">
-										<i class="fa fa-close"></i> Confirme a senha inserida anteriormente
-									</span>
-								</p>
-								<p [ngStyle]="{'display': exibeReCaptcha}">
-									<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
-								</p>
-								<p *ngIf="exibeReCaptcha === 'none'">
-									<img src="assets/img/recaptcha-ok.png">
-								</p>
-								<div class="botaoVAE">
-									<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button>
-									<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize>Atualizar</button>
-									<button ion-button class="botao" color="danger" type="submit" [disabled]="contaForm.invalid" (click)="exclua(); $event.preventDefault()" small text-capitalize>Excluir</button>
-								</div>
-							</form>
-						</div>
-					</ion-col>
-					<ion-col col-1 col-md-2 col-lg-3>
-						<div></div>
-					</ion-col>
-				</ion-row>
-			</ion-grid>
-		</p-tabPanel>
-	</p-tabView>
+<ion-content>
+	<div [ngClass]="'conteudo'">
+		<p-tabView>
+			<p-tabPanel header="Dados pessoais" leftIcon="fa-user">
+				<ion-grid>
+					<ion-row>
+						<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
+							<div>
+								<!-- $event.preventDefault() previne o envio de formulário indesejado -->
+								<form [formGroup]="contaForm" (ngSubmit)="atualize(); $event.preventDefault()">
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="nome" type="text" class="larguraTotal" pInputText>
+											<label for="float-input">Nome*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['nome'].valid&&contaForm.controls['nome'].dirty">
+											<i class="fa fa-close"></i> Digite seu nome
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText>
+											<label for="float-input">Sobrenome*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['sobrenome'].valid&&contaForm.controls['sobrenome'].dirty">
+											<i class="fa fa-close"></i> Digite seu sobrenome
+										</span>
+									</p>
+									<!-- <p>
+										<span class="ui-float-label">
+											<p-inputMask formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+											<label for="float-input">CPF*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cpf'].valid&&contaForm.controls['cpf'].dirty">
+											<i class="fa fa-close"></i> Digite seu CPF
+										</span>
+									</p> -->
+									<p>
+										<span class="ui-float-label">
+											<p-calendar formControlName="dataDeNascimento" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1918:2001" dateFormat="dd/mm/yy"
+											[locale]="ptBr" [showIcon]="true"></p-calendar>
+											<label for="float-input">Data de nascimento*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['dataDeNascimento'].valid&&contaForm.controls['dataDeNascimento'].dirty">
+											<i class="fa fa-close"></i> Digite sua data de nascimento
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<p-dropdown formControlName="generoId" [options]="generos" editable="true" placeholder="Gênero*"></p-dropdown>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['generoId'].valid&&contaForm.controls['generoId'].dirty">
+											<i class="fa fa-close"></i> Escolha seu gênero
+										</span>
+									</p>
+									<!-- <p>
+										<span class="ui-float-label">
+											<p-inputMask formControlName="cep" mask="99999-999" (onBlur)=populeEnderecos($event)></p-inputMask>
+											<label for="float-input">CEP*</label>
+											<a href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCepEndereco.cfm" target="_blank">Caso não saiba, pesquise aqui</a>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['cep'].valid&&contaForm.controls['cep'].dirty">
+											<i class="fa fa-close"></i> Digite o cep da sua rua
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="logradouro" type="text" class="larguraTotal" [readonly]="true" pInputText>
+											<label for="float-input">Logradouro</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="numero" type="text" pInputText>
+											<label for="float-input">Número</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['numero'].valid&&contaForm.controls['numero'].dirty">
+											<i class="fa fa-close"></i> Digite o número da sua residência
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="complemento" type="text" class="larguraTotal" pInputText>
+											<label for="float-input">Complemento</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="bairro" type="text" class="larguraTotal" [readonly]="true" pInputText>
+											<label for="float-input">Bairro</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="cidade" type="text" class="larguraTotal" [readonly]="true" pInputText>
+											<label for="float-input">Cidade*</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="uf" type="text" [readonly]="true" pInputText>
+											<label for="float-input">UF*</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="telefone1" type="text" pInputText>
+											<label for="float-input">Telefone 1*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['telefone1'].valid&&contaForm.controls['telefone1'].dirty">
+											<i class="fa fa-close"></i> Digite somente o número do seu telefone ou celular, sem parênteses, espaços e hífen
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="telefone2" type="text" pInputText>
+											<label for="float-input">Telefone 2</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="telefone3" type="text" pInputText>
+											<label for="float-input">Telefone 3</label>
+										</span>
+									</p> -->
+									<p></p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
+											<label for="float-input">Senha atual*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
+											<i class="fa fa-close"></i> Para atualizar o cadastro é necessário digitar a senha atual
+										</span>
+									</p>
+									<p [ngStyle]="{'display': exibeReCaptcha}">
+										<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
+									</p>
+									<p *ngIf="exibeReCaptcha === 'none'">
+										<img src="assets/img/recaptcha-ok.png">
+									</p>
+									<div class="botaoVA">
+										<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button>
+										<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize>Atualizar</button>
+									</div>
+								</form>
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</p-tabPanel>
+			<p-tabPanel header="Sua conta" leftIcon="fa-key">
+				<ion-grid>
+					<ion-row>
+						<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
+							<div>
+								<!-- $event.preventDefault() previne o envio de formulário indesejado -->
+								<form [formGroup]="contaForm" (ngSubmit)="atualize(); $event.preventDefault()">
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="email" type="text" [readonly]="true" pInputText>
+											<label for="float-input">E-mail atual*</label>
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="novoEmail" type="text" pInputText>
+											<label for="float-input">Novo e-mail</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['novoEmail'].valid&&contaForm.controls['novoEmail'].dirty">
+											<i class="fa fa-close"></i> Digite o novo e-mail
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="confirmeEmail" type="text" bloqueiaCopiaCola pInputText>
+											<label for="float-input">Confirme o novo e-mail</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeEmail'].valid&&contaForm.controls['confirmeEmail'].dirty">
+											<i class="fa fa-close"></i> Confirme o e-mail digitado anteriormente
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword>
+											<label for="float-input">Senha atual*</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
+											<i class="fa fa-close"></i> Para atualizar ou excluir a sua conta é necessário digitar a senha atual
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="novaSenha" type="password" class="larguraTotal" pPassword>
+											<label for="float-input">Nova senha</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['novaSenha'].valid&&contaForm.controls['novaSenha'].dirty">
+											<i class="fa fa-close"></i> Digite uma nova senha de no mínimo 8 caracteres
+										</span>
+									</p>
+									<p>
+										<span class="ui-float-label">
+											<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword>
+											<label for="float-input">Confirme a nova senha</label>
+										</span>
+										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">
+											<i class="fa fa-close"></i> Confirme a senha inserida anteriormente
+										</span>
+									</p>
+									<p [ngStyle]="{'display': exibeReCaptcha}">
+										<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
+									</p>
+									<p *ngIf="exibeReCaptcha === 'none'">
+										<img src="assets/img/recaptcha-ok.png">
+									</p>
+									<div class="botaoVAE">
+										<button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button>
+										<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize>Atualizar</button>
+										<button ion-button class="botao" color="danger" type="submit" [disabled]="contaForm.invalid" (click)="exclua(); $event.preventDefault()" small text-capitalize>Excluir</button>
+									</div>
+								</form>
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</p-tabPanel>
+		</p-tabView>
+		<ss-rodape></ss-rodape>
+	</div>
 </ion-content>
-<ss-rodape></ss-rodape>

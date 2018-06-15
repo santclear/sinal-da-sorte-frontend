@@ -10,10 +10,11 @@
 		</ion-title>
 	</ion-navbar>
 </ion-header>
-<ion-content padding>
-	<ion-grid>
+<ion-content>
+	<div [ngClass]="'conteudo'">
+		<ion-grid>
 			<ion-row>
-					<ion-col col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3>
+				<ion-col col-sm-8 col-md-6 col-lg-4 col-xl-3>
 					<div>
 						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
 						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
@@ -51,12 +52,12 @@
 								</span>
 							</p>
 
-							<p [ngStyle]="{'display': exibeReCaptcha}">
+							<div [ngStyle]="{'display': exibeReCaptcha}">
 								<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
-							</p>
-							<p *ngIf="exibeReCaptcha === 'none'">
+							</div>
+							<div *ngIf="exibeReCaptcha === 'none'">
 								<img src="assets/img/recaptcha-ok.png">
-							</p>
+							</div>
 							
 							<div class="botaoVC">
 								<button ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
@@ -64,10 +65,10 @@
 						</form>
 					</div>
 				</ion-col>
-				<ion-col>
+				<ion-col col-sm-2 col-md-3 col-lg-4 col-xl-4>
 					<div></div>
 				</ion-col>
-				<ion-col>
+				<ion-col col-sm-2 col-md-3 col-lg-4 col-xl-5>
 					<div></div>
 				</ion-col>
 			</ion-row>
@@ -84,7 +85,7 @@
 					<p>
 						<!-- <span [ngClass]="['texto', 'cor-texto']">Desenvolvimento de Software Web e Mobile; Automação de Testes; Automação de Tarefas; Modelagem de Dados e Análise de Sistemas.</span> -->
 						<span [ngClass]="['texto', 'cor-texto']">
-							Desenvolvimento de Sistemas Web, Aplicativos Móveis e Web Services API; 
+							Desenvolvimento de Sistemas Web, de Aplicativos Móveis e de Web Services API; 
 							Automação de Testes; 
 							Automação de Tarefas; 
 							Modelagem de Dados e Análise de Sistemas.
@@ -99,5 +100,6 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
+		<ss-rodape></ss-rodape>
+	</div>
 </ion-content>
-<ss-rodape></ss-rodape>

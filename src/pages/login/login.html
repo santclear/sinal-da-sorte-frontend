@@ -1,27 +1,27 @@
-<ion-content padding>
-	<!-- <h3>Sinal da Sorte</h3> -->
-
-	<img src="assets/img/login-logo.png" alt="logo">
-	<ion-grid>
-		<ion-row>
-			<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>
-			<ion-col col-10 col-sm-4 col-md-4 col-lg-4 col-xl-2>
-				<form>
-					<ion-item>
-						<ion-label floating>Email</ion-label>
-						<ion-input [(ngModel)]="credenciais.email" name="email" type="text"></ion-input>
-					</ion-item>
-					<ion-item>
-						<ion-label floating>Senha</ion-label>
-						<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
-					</ion-item>
-					<button ion-button block (click)="login()">Entrar</button>
-				</form>
-				<button ion-button block outline (click)="cadastrar()">Cadastrar</button>
-				<button ion-button block clear (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
-			</ion-col>
-			<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>
-		</ion-row>
-	</ion-grid>
+<ion-content>
+	<div [ngClass]="'conteudo'">
+		<img src="assets/img/login-logo.png" alt="logo">
+		<ion-grid>
+			<ion-row>
+				<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>
+				<ion-col col-10 col-sm-4 col-md-4 col-lg-4 col-xl-2>
+					<form>
+						<ion-item>
+							<ion-label floating>Email</ion-label>
+							<ion-input [(ngModel)]="credenciais.email" name="email" type="text"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-label floating>Senha</ion-label>
+							<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
+						</ion-item>
+						<button ion-button block (click)="login()">Entrar</button>
+					</form>
+					<button ion-button block outline (click)="cadastrar()">Cadastrar</button>
+					<button ion-button block clear (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
+				</ion-col>
+				<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>
+			</ion-row>
+		</ion-grid>
+		<ss-rodape></ss-rodape>
+	</div>
 </ion-content>
-<ss-rodape></ss-rodape>

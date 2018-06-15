@@ -1,8 +1,4 @@
 page-landing {
-	.scroll-content {
-		padding: 0px !important;
-	}
-
 	.menu {
 		position: fixed;
 		background: white;
@@ -62,7 +58,7 @@ page-landing {
 		font-size: 32pt;
 		font-weight: bold;
 	}
-	.funcionalidade .titulo, .rodape .titulo, .faixa .titulo, .menu .logo p {
+	.funcionalidade .titulo, .faixa .titulo, .menu .logo p {
 		font-size: 16pt;
 		font-weight: bold;
 	}
@@ -89,16 +85,6 @@ page-landing {
 	.faixa a:hover, .faixa a:active {
 		color: #ddd;
 	}
-	
-	.rodape {
-		text-align: center;
-		padding: 10px;
-	}
-
-	.rodape .texto {
-		font-size: 10pt;
-		margin: 5px 0 5px 0;
-	}
 
 	.atencao {
 		border-radius: 30px;
@@ -107,7 +93,7 @@ page-landing {
 		text-align: justify;
 	}
 
-	.cor-primaria, .banner, .rodape, .rodape .titulo, .rodape .texto {
+	.cor-primaria, .banner {
 		color: white;
 	}
 	.cor-secundaria,
@@ -128,7 +114,7 @@ page-landing {
 	.bg-claro, .faixa {
 		background-color: white;
 	}
-	.bg-escuro, .rodape {
+	.bg-escuro {
 		background-color: #191919;
 	}
 	.bg-atencao, .atencao {
