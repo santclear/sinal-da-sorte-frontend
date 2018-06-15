@@ -43,8 +43,8 @@
     color: #212121; }
 
 .ui-state-highlight {
-  border-color: #43A047;
-  background: #43A047;
+  border-color: #50c878;
+  background: #50c878;
   color: #FFFFFF; }
   .ui-state-highlight a {
     color: #FFFFFF; }
@@ -263,19 +263,19 @@
   .ui-picklist .ui-picklist-item:not(.ui-state-disabled):not(.ui-state-highlight):hover a {
     color: #212121; }
 .ui-picklist .ui-picklist-droppoint-highlight {
-  border-color: #43A047;
-  background: #43A047;
+  border-color: #50c878;
+  background: #50c878;
   color: #1f1f1f; }
   .ui-picklist .ui-picklist-droppoint-highlight a {
     color: #1f1f1f; }
 .ui-picklist .ui-picklist-highlight {
-  border-color: #43A047;
+  border-color: #50c878;
   color: #1f1f1f; }
   .ui-picklist .ui-picklist-highlight a {
     color: #1f1f1f; }
 
 .ui-tree.ui-treenode-dragover {
-  border-color: #43A047; }
+  border-color: #50c878; }
 .ui-tree .ui-treenode-content.ui-treenode-selectable .ui-treenode-label:not(.ui-state-highlight):hover {
   border-color: #c0c0c0;
   background: #eeeeee;
@@ -490,13 +490,13 @@
     border: 1px solid #D5D5D5;
     background: inherit; }
   .ui-table .ui-table-tbody > tr.ui-state-highlight {
-    background-color: #43A047;
+    background-color: #50c878;
     color: #FFFFFF; }
   .ui-table .ui-table-tbody > tr.ui-contextmenu-selected {
     background-color: #3ca1e2;
     color: #FFFFFF; }
 .ui-table .ui-sortable-column.ui-state-highlight {
-  background-color: #43A047;
+  background-color: #50c878;
   color: #FFFFFF; }
 .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
   background: #eeeeee;
@@ -512,10 +512,10 @@
     border-bottom: 1px solid #D5D5D5; } }
 /* Row Reorder */
 .ui-table .ui-table-tbody > tr.ui-table-dragpoint-top > td {
-  box-shadow: inset 0 2px 0 0 #43A047; }
+  box-shadow: inset 0 2px 0 0 #50c878; }
 
 .ui-table .ui-table-tbody > tr.ui-table-dragpoint-bottom > td {
-  box-shadow: inset 0 -2px 0 0 #43A047; }
+  box-shadow: inset 0 -2px 0 0 #50c878; }
 
 /* Validation */
 .ui-inputtext.ng-dirty.ng-invalid,
@@ -657,8 +657,8 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   color: #ffffff; }
 
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
-  border: 1px solid #43A047;
-  background: #43A047;
+  border: 1px solid #50c878;
+  background: #50c878;
   color: #ffffff; }
 
 .ui-slider {
@@ -745,7 +745,7 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   background: #8ec5fc; }
   .ui-progressbar.ui-progressbar-indeterminate .ui-progressbar-value {
     border: 0 none;
-    background-color: #43A047; }
+    background-color: #50c878; }
 
 .ui-widget-header .ui-button,
 .ui-widget-content .ui-button,
@@ -772,8 +772,8 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   .ui-widget-content .ui-button:enabled:active,
   .ui-widget.ui-button:enabled:active,
   .ui-button:enabled:active {
-    border: 1px solid #43A047;
-    background: #43A047;
+    border: 1px solid #50c878;
+    background: #50c878;
     color: #ffffff; }
 
 .ui-fileupload-choose:not(.ui-state-disabled):hover,
@@ -784,15 +784,15 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   color: #ffffff; }
 
 .ui-fileupload-choose:not(.ui-state-disabled):active {
-  border: 1px solid #43A047;
-  background: #43A047;
+  border: 1px solid #50c878;
+  background: #50c878;
   color: #ffffff; }
 
 /* Checkbox and Radio */
 .ui-chkbox-box.ui-state-active,
 .ui-radiobutton-box.ui-state-active {
-  border: 1px solid #43A047;
-  background: #43A047;
+  border: 1px solid #50c878;
+  background: #50c878;
   color: #FFFFFF; }
 
 .ui-chkbox-box.ui-state-focus,
@@ -802,7 +802,7 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   box-shadow: 0px 0px 5px #1f89ce; }
 
 .ui-chkbox-box.ui-state-focus.ui-state-active {
-  background: #43A047; }
+  background: #50c878; }
 
 /* Inputs */
 .ui-inputtext {
@@ -820,13 +820,13 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
 
 /* InputSwitch */
 .ui-inputswitch-on {
-  background: #43A047 !important;
+  background: #50c878 !important;
   color: #ffffff !important; }
 
 .ui-paginator .ui-paginator-page.ui-state-active {
-  background: #43A047;
+  background: #50c878;
   color: #ffffff;
-  border-color: #43A047; }
+  border-color: #50c878; }
 
 /* DataTable  */
 .ui-datatable th.ui-state-default {
@@ -836,14 +836,14 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   background: #d3d5d8;
   border-color: #d9d9d9; }
 .ui-datatable th.ui-state-active {
-  background: #43A047;
+  background: #50c878;
   color: #ffffff; }
 .ui-datatable tbody > tr.ui-widget-content {
   border-color: #d9d9d9; }
   .ui-datatable tbody > tr.ui-widget-content.ui-datatable-odd {
     background-color: #fafafb; }
   .ui-datatable tbody > tr.ui-widget-content.ui-state-highlight {
-    background-color: #43A047;
+    background-color: #50c878;
     color: #FFFFFF; }
 .ui-datatable tfoot td.ui-state-default {
   background: #ebedf0;
@@ -860,7 +860,7 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
 .ui-table .ui-table-tbody > tr:nth-child(even) {
   background-color: #fafafb; }
   .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight {
-    background-color: #43A047;
+    background-color: #50c878;
     color: #FFFFFF; }
   .ui-table .ui-table-tbody > tr:nth-child(even).ui-contextmenu-selected {
     background-color: #3ca1e2;
@@ -911,8 +911,8 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
 
 .ui-togglebutton.ui-button.ui-state-active,
 .ui-selectbutton .ui-button.ui-state-active {
-  border: 1px solid #43A047;
-  background: #43A047;
+  border: 1px solid #50c878;
+  background: #50c878;
   color: #FFFFFF; }
 
 .ui-multiselect .ui-multiselect-label {
@@ -995,8 +995,8 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
 /* PanelMenu */
 .ui-panelmenu .ui-panelmenu-header.ui-state-active,
 .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-  border-color: #43A047;
-  background: #43A047;
+  border-color: #50c878;
+  background: #50c878;
   color: #FFFFFF; }
 
 /* DatePicker */
@@ -1027,7 +1027,7 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
           background-color: #d6d6d6;
           color: #212121; }
         .ui-datepicker.ui-widget .ui-datepicker-calendar td a.ui-state-active {
-          background-color: #43A047;
+          background-color: #50c878;
           color: #ffffff; }
     .ui-datepicker.ui-widget .ui-datepicker-calendar tr:last-child td {
       border-bottom: 0 none; }
@@ -1057,6 +1057,6 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
 
 /* Schedule */
 .fc .fc-button-group .ui-state-active {
-  border: 1px solid #43A047;
-  background: #43A047;
+  border: 1px solid #50c878;
+  background: #50c878;
   color: #ffffff; }

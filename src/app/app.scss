@@ -17,6 +17,12 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+.ui-messages-error {
+    color: white;
+    background-color: #ab1f1c;
+    border-color: #ab1f1c;
+}
+
 .scroll-content {
     padding: 0px !important;
 }
@@ -66,12 +72,12 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .titulo {
-    color: #003200;
+    color: #003300;
 }
 
 ion-menu {
     max-width: 305px!important;
-    border-right-color: #003200!important;
+    border-right-color: #003300!important;
 }
 
 ion-icon {
@@ -83,12 +89,12 @@ ion-icon {
 }
 
 .toastGeral .toast-message {
-    color: #444;
+    color: #4f5355;
     font-weight: bold;
 }
 
 .toastGeral .button-inner {
-    color: #444;
+    color: #4f5355;
     font-weight: bold;
 }
 
@@ -97,16 +103,16 @@ ss-navbar + ion-content > div.scroll-content {
 }
 
 .cor-primaria-componente, th {
-    color: #43A047!important;
+    color: #50c878!important;
 }
 
 th {
     font-size: 11pt;
-    color: #444!important;
+    color: #4f5355!important;
 }
 
 td {
-    color: #444;
+    color: #4f5355;
 }
 
 .fundo-componente {
