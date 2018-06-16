@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController } from 'ionic-angular';
 import { PaginaBase } from '../pagina.base';
 import { ContatoDto } from '../../dtos/contato.dto';
 import { EmailService } from '../../services/email.service';
@@ -20,7 +20,8 @@ export class ContatoPage extends PaginaBase {
 	public exibeLogo;
 
 	constructor(
-		public navCtrl: NavController, 
+		public navCtrl: NavController,
+		public menu: MenuController,
 		public navParams: NavParams, 
 		private formBuilder: FormBuilder,
 		private toastCtrl: ToastController,
@@ -35,6 +36,16 @@ export class ContatoPage extends PaginaBase {
 		}
 		this.setTitulo("Contato");
 		this.instancieContatoForm();
+	}
+
+	ionViewDidEnter() {
+		if(!(this.exibeLogo === true || this.exibeLogo === undefined)) {
+			this.menu.swipeEnable(false);
+		}
+	}
+
+	ionViewWillLeave() {
+		this.menu.swipeEnable(true);
 	}
 
 	instancieContatoForm() {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController, IonicPage, MenuController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -14,7 +14,8 @@ export class EsqueciMinhaSenhaPage {
 	esqueciSenhaForm: FormGroup;
 
 	constructor(
-		public navCtrl: NavController, 
+		public navCtrl: NavController,
+		public menu: MenuController,
 		public navParams: NavParams,
 		public formBuilder: FormBuilder, 
 		public auth: AuthService, 
@@ -23,6 +24,14 @@ export class EsqueciMinhaSenhaPage {
 		this.esqueciSenhaForm = this.formBuilder.group({
 			email: ['', [Validators.required, Validators.email]]
 		});
+	}
+
+	ionViewDidEnter() {
+		this.menu.swipeEnable(false);
+	}
+
+	ionViewWillLeave() {
+		this.menu.swipeEnable(true);
 	}
 
 	envieNovaSenha() {

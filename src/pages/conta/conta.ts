@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, MenuController } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 // import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';
@@ -26,6 +26,7 @@ export class ContaPage {
 
 	constructor(
 		private navCtrl: NavController,
+		public menu: MenuController,
 		private formBuilder: FormBuilder,
 		private contaService: ContaService,
 		// private enderecoService: EnderecoService,
@@ -33,6 +34,14 @@ export class ContaPage {
 		private toastCtrl: ToastController) {
 
 		this.instancieContaForm();
+	}
+
+	ionViewDidEnter() {
+		this.menu.swipeEnable(false);
+	}
+
+	ionViewWillLeave() {
+		this.menu.swipeEnable(true);
 	}
 
 	ngOnInit() {

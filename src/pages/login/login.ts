@@ -37,12 +37,12 @@ export class LoginPage {
 	}
 
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.
-	ionViewWillEnter() {
+	ionViewDidEnter() {
 		this.menu.swipeEnable(false);
 	}
 
 	// Habilita o menu quando sai da página. Não deve ter menu na view de login.
-	ionViewDidLeave() {
+	ionViewWillLeave() {
 		this.menu.swipeEnable(true);
 	}
 
