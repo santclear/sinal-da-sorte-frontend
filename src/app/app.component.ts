@@ -77,12 +77,16 @@ export class MyApp {
 
 	abraAPagina(objetoPagina, indicePagina) {
 		this.indicePaginaAtual = indicePagina;
+		let pagina: string = objetoPagina.class;
 		switch(objetoPagina.titulo) {
 			case 'Sair':
 				this.auth.logout();
+				if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+					pagina = 'LandingPage';
+				} 
 			default:
 				this.storage.setPaginaAnterior(this.nav.getActive().name);
-				this.nav.setRoot(objetoPagina.class);
+				this.nav.setRoot(pagina);
 		}
 		this.menu.close();
 	}
@@ -243,11 +247,16 @@ export class MyApp {
 	}
 
 	private setPaginaInicial() {
+		
 		let contaLocal = this.storage.getContaLocal();
 		if(contaLocal) {
 			this.paginaInicial = 'ResultadoPage';
-		} else {
-			this.paginaInicial = 'LandingPage';
+		} else  {
+			if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+				this.paginaInicial = 'LandingPage';
+			} else {
+				this.paginaInicial = 'LoginPage';
+			}
 		}
 		this.initializeApp();
 	}
