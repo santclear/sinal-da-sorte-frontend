@@ -49,7 +49,7 @@ page-landing {
 		border-radius: 115px;
 		width: 231px;
 		height:231px;
-		background: radial-gradient(closest-side at 60% 40%,white 35%, #bdc239 150%);
+		background: radial-gradient(closest-side at 60% 40%,white 35%, #347f0c 200%);
 		padding: 20px;
 		display: inline-table;
 		margin: 10px;
@@ -82,43 +82,10 @@ page-landing {
 		padding: 0 5px 0 5px;
 	}
 
-	.faixa a:hover, .faixa a:active {
-		color: #ddd;
-	}
-
 	.atencao {
 		border-radius: 30px;
 		font-size: 10pt;
 		padding: 15px;
 		text-align: justify;
 	}
-
-	.cor-primaria, .banner {
-		color: white;
-	}
-	.cor-secundaria,
-	.menu .logo p,
-	.funcionalidade, 
-	.funcionalidade .titulo, 
-	.faixa .titulo,
-	.faixa .texto,
-	.faixa .links, 
-	.faixa a:link, 
-	.faixa a:visited, 
-	.atencao {
-		color: #003300;
-	}
-	.bg-primario, .funcionalidades {
-		background-color: #003300;
-	}
-	.bg-claro, .faixa {
-		background-color: white;
-	}
-	.bg-escuro {
-		background-color: #191919;
-	}
-	.bg-atencao, .atencao {
-		background: #781164;
-	}
-
 }

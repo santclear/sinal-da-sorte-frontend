@@ -17,10 +17,87 @@
 @import url('../assets/primeng/primeng.min.css');
 @import url('../assets/font-awesome/css/font-awesome.min.css');
 
+.cores {
+    color: #3f0000;
+    color: #300;
+    color: #260000;
+
+    color: #003f00;
+    color: #003300;
+    color: #002600;
+
+    color: #347f0c;
+    color: #2a660a;
+    color: #1f4c07;
+
+    color: #e3e000;
+    color: #bfbc00;
+    color: #999700;
+    color: #727100;
+}
+
+.cor-clara, .banner {
+    color: white;
+}
+
+.cor-primaria,
+.cor-secundaria,
+.menu .logo p,
+.funcionalidade, 
+.funcionalidade .titulo, 
+.faixa .titulo,
+.faixa .texto,
+.faixa .links, 
+.faixa a:link, 
+.faixa a:visited, 
+.atencao {
+    color: #003300;
+}
+
+.faixa a:hover, .faixa a:active {
+    color: #347f0c;
+}
+
+.cor-secundaria {
+    color: #300;
+}
+
+.cor-terciaria, .toastGeral .toast-container {
+    color: #999700;
+}
+
+.cor-texto, th, td, .toastGeral .toast-message, .toastGeral .button-inner, .dezena_destacada {
+    color: #4f5355;
+}
+
+.cor-perigo {
+    color: #e70000
+}
+
+.fundo-primario {
+    background-color: #003300;
+}
+
+.fundo-secundario {
+    background-color: #300;
+}
+
+.fundo-terciario, .dezena_destacada {
+    background-color: #bfbc00;
+}
+
+.fundo-claro {
+    background-color: white;
+}
+
+.fundo-escuro {
+    background-color: #191919;
+}
+
 .ui-messages-error {
     color: white;
-    background-color: #ab1f1c;
-    border-color: #ab1f1c;
+    background-color: #e70000;
+    border-color: #e70000;
 }
 
 .scroll-content {
@@ -84,17 +161,11 @@ ion-icon {
     line-height: 19px!important;
 }
 
-.toastGeral .toast-container {
-    background-color: #ffd700 !important;
-}
-
 .toastGeral .toast-message {
-    color: #4f5355;
     font-weight: bold;
 }
 
 .toastGeral .button-inner {
-    color: #4f5355;
     font-weight: bold;
 }
 
@@ -102,17 +173,8 @@ ss-navbar + ion-content > div.scroll-content {
     margin-top: 56px !important;
 }
 
-.cor-primaria-componente, th {
-    color: #50c878!important;
-}
-
 th {
     font-size: 11pt;
-    color: #4f5355!important;
-}
-
-td {
-    color: #4f5355;
 }
 
 .fundo-componente {
