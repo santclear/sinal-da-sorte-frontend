@@ -4,6 +4,7 @@ import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
 import { Loterias } from '../../../enum/loterias';
+import lodash from 'lodash';
 
 @Component({
 	selector: 'ss-estatistica',
@@ -46,7 +47,8 @@ export class EstatisticaSs {
 			concursosPromise.then(concursos => {
 				this.numeroDoConcursoInicial = concursos.maiorNumero - 9;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
-				this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
+				// this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
+				this.extensoesDaFaixaDeConcursos = this.getExtensoesDaFaixaDeConcursos(concursos.maiorNumero, Loterias.FAIXA_DE_CONCURSO.extensoes)
 				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
 				this.isDuplasena = this.sufixoCssLoteria === 'duplasena' ? true : false;
 				this.cbxExtensaoDaFaixaDeConcursosAtualize(this.cbxExtensaoDaFaixaDeConcursos);
@@ -191,6 +193,69 @@ export class EstatisticaSs {
 				this.numeroDoConcursoInicial = this.numeroDoConcursoFinal - this.extensaoDaFaixaDeConcurso;
 				this.rgeFaixaDeConcursos = concursos.maiorNumero;
 			}
+		}
+	}
+
+	getExtensoesDaFaixaDeConcursos(numeroConcurso: number, extensaoDaFaixaDeConcursos: any) {
+		if(numeroConcurso < 10) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 19);
+		}
+		if(numeroConcurso < 20) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 18);
+		}
+		if(numeroConcurso < 30) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 17);
+		}
+		if(numeroConcurso < 40) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 16);
+		}
+		if(numeroConcurso < 50) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 15);
+		}
+		if(numeroConcurso < 60) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 14);
+		}
+		if(numeroConcurso < 70) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 13);
+		}
+		if(numeroConcurso < 80) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 12);
+		}
+		if(numeroConcurso < 90) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 11);
+		}
+		if(numeroConcurso < 100) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 10);
+		}
+		if(numeroConcurso < 150) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 9);
+		}
+		if(numeroConcurso < 200) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 8);
+		}
+		if(numeroConcurso < 250) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 7);
+		}
+		if(numeroConcurso < 300) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 6);
+		}
+		if(numeroConcurso < 350) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 5);
+		}
+		if(numeroConcurso < 400) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 4);
+		}
+		if(numeroConcurso < 450) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 3);
+		}
+		if(numeroConcurso < 500) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 2);
+		}
+		if(numeroConcurso < 1000) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length - 1);
+		}
+		if(numeroConcurso >= 1000) {
+			return lodash.slice(extensaoDaFaixaDeConcursos, 0, extensaoDaFaixaDeConcursos.length);
 		}
 	}
 }
