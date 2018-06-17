@@ -49,14 +49,8 @@ pagina-resultado {
 		overflow-x: auto;
 	}
 
-	table {
-		border-collapse: collapse;
-		width: 400px;
-	}
-
 	th, td {
 		text-align: left;
-		padding: 5px 0 5px 5px;
 	}
 
 	tr:nth-child(even){

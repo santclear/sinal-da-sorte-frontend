@@ -100,6 +100,18 @@
     border-color: #e70000;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px 0 5px 5px;
+}
+
+.container-tabela {
+    overflow-x: auto;
+}
+
 .scroll-content {
     padding: 0px !important;
 }

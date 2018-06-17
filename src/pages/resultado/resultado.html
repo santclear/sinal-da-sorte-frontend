@@ -101,7 +101,7 @@
 						</p-table>
 						<div class="espaco_vertical"></div>
 						<div *ngFor="let rateio of sorteio.rateios">
-							<table *ngIf="rateio.qtdCidadesUfs.length > 0">
+							<table *ngIf="rateio.qtdCidadesUfs.length > 0" style="width: 500px">
 								<tr>
 									<th colspan="3">Ganhadores do prêmio {{rateio.tipoDePremio}}</th>
 								</tr>
@@ -130,7 +130,7 @@
 				
 				<ion-item>
 					<div class="container-tabela margem-automatica">
-						<p-table [columns]="colsEstatisticas" [value]="estatisticas" [paginator]="true" [rows]="15" [responsive]="true" sortField="dezena" [style]="{'max-width':'500px'}">
+						<p-table [columns]="colsEstatisticas" [value]="estatisticas" [paginator]="true" [rows]="15" [responsive]="true" sortField="dezena" [style]="{'max-width':'400px'}">
 							<ng-template pTemplate="header" let-colunas>
 								<tr>
 									<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">

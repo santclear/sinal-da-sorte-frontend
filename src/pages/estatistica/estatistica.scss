@@ -18,6 +18,10 @@ pagina-estatistica {
 		text-align: left;
 	}
 
+	.matriz_de_dezenas_megasena, .matriz_de_dezenas_quina, .matriz_de_dezenas_lotomania, .matriz_de_dezenas_timemania, .matriz_de_dezenas_duplasena, .matriz_de_dezenas_diadesorte {
+		max-width: 350px;
+	}
+
 	.matriz_de_dezenas_lotofacil {
 		max-width: 175px;
 	}
@@ -28,19 +32,8 @@ pagina-estatistica {
 		height: 31px;
 	}
 
-	.container-tabela {
-		overflow-x: auto;
-	}
-
-	table {
-		border-collapse: collapse;
-		width: 100%;
-	}
-
-	th {
-		white-space: nowrap;
+	th, td {
 		text-align: center;
-		padding: 0 5px 12px 5px;
 	}
 
 	tr:nth-child(even){
@@ -49,10 +42,5 @@ pagina-estatistica {
 
 	tr:hover {
 		background-color: #ccc
-	}
-
-	td {
-		text-align: center;
-		padding: 0 0 8px 0;
 	}
 }

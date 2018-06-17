@@ -34,10 +34,10 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<p-table [columns]="colsSomaDasDezenasEmCadaConcurso" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+				<p-table [columns]="colsSomaDasDezenasEmCadaConcurso" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{'max-width':'800px'}">
 					<ng-template pTemplate="header" let-colunas>
 						<tr>
-							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
+							<th [ngStyle]="{'width': coluna.tamanho}" *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
 								{{coluna.nome}}
 								<p-sortIcon [field]="coluna.campo"></p-sortIcon>
 							</th>
@@ -69,7 +69,7 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{'max-width':'300px'}">
 					<ng-template pTemplate="header" let-colunas>
 						<tr>
 							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">

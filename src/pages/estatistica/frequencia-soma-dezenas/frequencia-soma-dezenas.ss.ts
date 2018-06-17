@@ -142,9 +142,9 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 			somaDasDezenasPromise.then(somaDasDezenas => {
 				this.mediaDaSomaDasDezenasEmCadaConcurso = somaDasDezenas.mediaDaSomaDasDezenasEmCadaConcurso;
 				this.colsSomaDasDezenasEmCadaConcurso = [
-					{ campo: 'concurso', nome: 'Concurso' },
-					{ campo: 'soma', nome: 'Soma' },
-					{ campo: 'dezenas', nome: 'Dezena' }
+					{ campo: 'concurso', nome: 'Concurso', tamanho: '20%' },
+					{ campo: 'soma', nome: 'Soma', tamanho: '20%' },
+					{ campo: 'dezenas', nome: 'Dezena', tamanho: '60%' }
 				];
 				this.somaDasDezenasEmCadaConcurso = somaDasDezenas.somaDasDezenasEmCadaConcurso;
 				this.colsQuantidadesDeSomas = [

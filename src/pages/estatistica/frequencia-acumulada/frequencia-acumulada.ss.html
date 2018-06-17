@@ -9,7 +9,7 @@
 	(atualizeOGraficoOutput)="atualizeOGrafico($event)"
 	(selecioneDezenaOutput)="selecioneDezena($event)"></ss-estatistica>
 
-<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria]" class="margem-automatica">
+<div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria, 'margem-automatica']">
 	<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
 		{{dezena}}
 	</button>
@@ -42,7 +42,7 @@
 		
 		<ion-item>
 			<div class="container-tabela margem-automatica">
-				<p-table [columns]="cols" [value]="frequenciasSorteio" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal">
+				<p-table [columns]="cols" [value]="frequenciasSorteio" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{'max-width':'1000px'}">
 					<ng-template pTemplate="header" let-colunas>
 						<tr>
 							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
