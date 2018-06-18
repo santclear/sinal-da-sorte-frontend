@@ -47,7 +47,6 @@ export class EstatisticaSs {
 			concursosPromise.then(concursos => {
 				this.numeroDoConcursoInicial = concursos.maiorNumero - 9;
 				this.numeroDoConcursoFinal = concursos.maiorNumero;
-				// this.extensoesDaFaixaDeConcursos = Loterias.FAIXA_DE_CONCURSO.extensoes;
 				this.extensoesDaFaixaDeConcursos = this.getExtensoesDaFaixaDeConcursos(concursos.maiorNumero, Loterias.FAIXA_DE_CONCURSO.extensoes)
 				this.sufixoCssLoteria = sessao.loteria.nomeDoDocumentoNoBD;
 				this.isDuplasena = this.sufixoCssLoteria === 'duplasena' ? true : false;

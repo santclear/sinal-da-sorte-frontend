@@ -158,8 +158,8 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 					{ campo: 'dezena', nome: 'Dezena' },
 					{ campo: 'frequenciaTotal', nome: 'Frequência total' },
 					{ campo: 'ausenciaTotal', nome: 'Ausência total' },
-					{ campo: 'acumuloRemanescente', nome: 'Acúmulo remanescente' },
-					{ campo: 'ausenciaRemanescente', nome: 'Ausência remanescente' }
+					{ campo: 'acumuloRemanescente', nome: 'Últimas frequências' },
+					{ campo: 'ausenciaRemanescente', nome: 'Últimas ausências' }
 				];
 
 				this.frequenciasSorteio = frequenciaDasDezenas;
