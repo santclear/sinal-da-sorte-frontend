@@ -36,8 +36,8 @@
     color: #727100;
 }
 
-.cor-clara, .banner {
-    color: white;
+.cor-clara, .banner, .botao-da-matriz-dezenas {
+    color: white!important;
 }
 
 .cor-primaria,
@@ -82,8 +82,8 @@
     background-color: #300;
 }
 
-.fundo-terciario, .dezena_destacada {
-    background-color: #bfbc00;
+.fundo-terciario, .dezena_destacada, .botao-da-matriz-dezenas:hover {
+    background-color: #bfbc00!important;
 }
 
 .fundo-claro {
