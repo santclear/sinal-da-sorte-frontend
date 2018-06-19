@@ -62,11 +62,11 @@
     color: #300;
 }
 
-.cor-terciaria, .toastGeral .toast-container {
+.cor-terciaria {
     color: #999700;
 }
 
-.cor-texto, th, td, .toastGeral .toast-message, .toastGeral .button-inner, .dezena_destacada {
+.cor-texto, th, td, .dezena_destacada {
     color: #4f5355;
 }
 
@@ -78,7 +78,7 @@
     background-color: #003300;
 }
 
-.fundo-secundario {
+.fundo-secundario, .toastGeral .toast-message, .toastGeral .button-inner {
     background-color: #300;
 }
 
@@ -173,11 +173,7 @@ ion-icon {
     line-height: 19px!important;
 }
 
-.toastGeral .toast-message {
-    font-weight: bold;
-}
-
-.toastGeral .button-inner {
+.toastGeral .toast-message, .toastGeral .button-inner {
     font-weight: bold;
 }
 

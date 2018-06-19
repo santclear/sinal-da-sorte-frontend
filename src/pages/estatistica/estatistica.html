@@ -8,8 +8,14 @@
 					<ion-label color="primary">Tipo de gráfico:</ion-label>
 
 					<ion-select [(ngModel)]="cbxTipoDeGrafico" (ionChange)="cbxTipoDeGraficoAtualize($event)" cancelText="Cancelar" okText="Confirmar" [ngClass]="'cor-terciaria'">
-						<ion-option *ngFor="let grafico of tiposDeGrafico" value="{{grafico.id}}">{{grafico.tipo}}</ion-option>
+						<ion-option [disabled]="grafico.desabilitado" *ngFor="let grafico of tiposDeGrafico" value="{{grafico.id}}">
+							{{grafico.tipo}}
+							<span *ngIf="grafico.desabilitado"> - Em breve!</span>
+						</ion-option>
 					</ion-select>
+					<!-- <ion-select [(ngModel)]="cbxTipoDeGrafico" (ionChange)="cbxTipoDeGraficoAtualize($event)" cancelText="Cancelar" okText="Confirmar" [ngClass]="'cor-terciaria'">
+						<ion-option *ngFor="let grafico of tiposDeGrafico" value="{{grafico.id}}">{{grafico.tipo}}</ion-option>
+					</ion-select>		 -->
 				</ion-item>
 			</ion-list>
 		</div>

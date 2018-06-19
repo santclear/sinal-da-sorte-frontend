@@ -16,7 +16,7 @@
             <button [disabled]="pagina.exibir_texto !== 'none'" [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item icon-left *ngFor="let pagina of paginas; let indicePagina = index" [ngStyle]="{'color': pagina.corTexto}" (click)="abraAPagina(pagina, indicePagina)">
                 <ion-icon [name]="pagina.icone"></ion-icon>
                 <span>{{pagina.titulo}}</span>
-                <span [ngStyle]="{'display': pagina.exibir_texto}" style="color: #777; float: right; font-weight: bold">Em breve!</span>
+                <span [ngStyle]="{'display': pagina.exibir_texto}" style="float: right; font-weight: bold">Em breve!</span>
             </button>
         </ion-list>
     </ion-content>

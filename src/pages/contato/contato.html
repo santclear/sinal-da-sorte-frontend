@@ -19,8 +19,8 @@
 						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
 						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
 							<h5 [ngClass]="'cor-texto'">Fale conosco</h5>
-							<div class="ui-g" style="width:270px;margin-bottom:10px">
-								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Sugestões, elogios ou reclamações" value="sinaldasorteweb@gmail.com" formControlName="tipoContato"></p-radioButton></div>
+							<div class="ui-g" style="width:360px;margin-bottom:10px">
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Reclamações, sugestões, elogios ou outros assuntos" value="sinaldasorteweb@gmail.com" formControlName="tipoContato"></p-radioButton></div>
 								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Contato profissional" value="santclearsolucoes@gmail.com" formControlName="tipoContato"></p-radioButton></div>
 							</div> 
 							<p>
@@ -78,7 +78,9 @@
 					<h5 [ngClass]="'cor-texto'">Redes sociais</h5>
 					<p>
 						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.facebook.com/sinaldasorte" target="_blank">facebook.com/sinaldasorte</a></span><br/>
-						<span [ngClass]="['texto', 'cor-texto']"><a href="https://twitter.com/sinaldasorte" target="_blank">twitter.com/sinaldasorte</a></span> 
+						<span [ngClass]="['texto', 'cor-texto']"><a href="https://twitter.com/sinaldasorte" target="_blank">twitter.com/sinaldasorte</a></span><br/>
+						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.youtube.com/channel/UC5EY9xA4CCndPu5jL5TPu_g" target="_blank">youtube.com/sinaldasorte</a></span><br/>
+						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.instagram.com/sinaldasorte.com.br" target="_blank">instagram.com/sinaldasorte.com.br</a></span>
 					</p>
 					
 					<h5 [ngClass]="'cor-texto'">Sant'Clear Soluções Tecnológicas</h5>
