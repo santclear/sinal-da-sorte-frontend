@@ -36,6 +36,10 @@
     color: #727100;
 }
 
+.ui-radiobutton-box.ui-state-active {
+    color: #999700;
+}
+
 .cor-clara, .banner, .botao-da-matriz-dezenas {
     color: white!important;
 }
@@ -205,7 +209,6 @@ th {
 
 ion-card-content {
     background-color: #eee;
-    ;
 }
 
 .card-subtitle {
