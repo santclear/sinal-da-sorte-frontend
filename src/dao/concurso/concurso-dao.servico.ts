@@ -316,9 +316,14 @@ export class ConcursoDAOServico implements IConcursoDAO {
 					
 					concursos.forEach((concurso, i, concursos) => {
 						let dezenas = concurso.sorteios[numeroDoSorteio].numerosSorteados.split(';').map(Number);
-						let soma = lodash.sum(dezenas);
+						let nomeLoteria = concurso.loteria.nome;
 						let numerosSorteados = concurso.sorteios[numeroDoSorteio].numerosSorteados;
 						let numerosSorteadosSplit = numerosSorteados.split(';');
+						if(nomeLoteria==='Dia de Sorte'||nomeLoteria==='Timemania') {
+							dezenas.pop();
+							numerosSorteadosSplit.pop();
+						}
+						let soma = lodash.sum(dezenas);
 						let numerosSorteadosSort = numerosSorteadosSplit.sort(function (a, b) { return a - b });
 
 						somaDasDezenasEmCadaConcurso.push({

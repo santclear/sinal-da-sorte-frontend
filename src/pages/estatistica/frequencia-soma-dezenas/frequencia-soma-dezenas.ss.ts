@@ -160,6 +160,7 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 		let frequenciasPorConcursos = [];
 		for (let iConcurso = 0; iConcurso < concursos.length; iConcurso++) {
 			let dezenas = concursos[iConcurso].sorteios[numeroDoSorteio].numerosSorteados.split(';').map(Number);
+			if(this.sufixoCssLoteria === 'diadesorte'||this.sufixoCssLoteria === 'timemania')dezenas.pop();
 			let somaDezenas: number = lodash.sum(dezenas);
 			
 			frequenciasPorConcursos.push({ y: somaDezenas, concurso: concursos[iConcurso] });
