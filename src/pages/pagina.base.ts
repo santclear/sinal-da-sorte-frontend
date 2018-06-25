@@ -2,7 +2,7 @@ import { NavController } from 'ionic-angular';
 import { StorageService } from "../services/storage.service";
 
 export abstract class PaginaBase {
-    protected titulo: string;
+    public titulo: string;
     protected paginaAnterior: any;
     protected pbNav: NavController;
     protected pbStorage: StorageService;

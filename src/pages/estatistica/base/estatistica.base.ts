@@ -8,16 +8,16 @@ export abstract class EstatisticaBase {
 	protected dezena: string = '01';
 	protected numeroDoConcursoInicial: number;
 	protected numeroDoConcursoFinal: number;
-	protected sufixoCssLoteria: string;
+	public sufixoCssLoteria: string;
 	protected rdSorteios: number; 
-	protected dezenas: string[];
+	public dezenas: string[];
 	// protected textoExtensaoDaFaixaDeConcursos: string;
 	// protected textoQuantidadeDeAmostrasDeFrequencia: string;
 	// protected textoPrevisaoPositiva: string;
 	// protected textoPrevisaoNegativa: string;
 	// protected iptPesquisaDeAmostraFrequencia: string = '';
 	// protected exibirQuantidadeDeAmostrasDeFrequencia: boolean = false;
-	protected toggleMostrarMaisEstatisticasChecked: boolean = false;
+	public toggleMostrarMaisEstatisticasChecked: boolean = false;
 	protected bd: any;
 	protected concursoFacade: ConcursoFacade;
 

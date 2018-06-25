@@ -1,4 +1,4 @@
-<ss-estatistica 
+<!-- <ss-estatistica 
 	(cbxExtensaoDaFaixaDeConcursosAtualizeOutput)="cbxExtensaoDaFaixaDeConcursosAtualize($event)"
 	(rgeFaixaDeConcursosAtualizeOutput)="rgeFaixaDeConcursosAtualize($event)"
 	(rgeDesloqueParaEsquerdaOutput)="rgeDesloqueParaEsquerda($event)"
@@ -7,7 +7,16 @@
 	(rgeDesloqueParaDireitaEFCOutput)="rgeDesloqueParaDireitaEFC($event)"
 	(toggleMostreMaisEstatisticasOutput)="toggleMostreMaisEstatisticas($event)"
 	(atualizeOGraficoOutput)="atualizeOGrafico($event)"
-	(selecioneDezenaOutput)="selecioneDezena($event)"></ss-estatistica>
+	(selecioneDezenaOutput)="selecioneDezena($event)"></ss-estatistica> -->
+	<ss-estatistica 
+	(cbxExtensaoDaFaixaDeConcursosAtualizeOutput)="cbxExtensaoDaFaixaDeConcursosAtualize($event)"
+	(rgeFaixaDeConcursosAtualizeOutput)="rgeFaixaDeConcursosAtualize($event)"
+	(rgeDesloqueParaEsquerdaOutput)="rgeDesloqueParaEsquerda($event)"
+	(rgeDesloqueParaDireitaOutput)="rgeDesloqueParaDireita($event)"
+	(rgeDesloqueParaEsquerdaEFCOutput)="rgeDesloqueParaEsquerdaEFC($event)"
+	(rgeDesloqueParaDireitaEFCOutput)="rgeDesloqueParaDireitaEFC($event)"
+	(toggleMostreMaisEstatisticasOutput)="toggleMostreMaisEstatisticas($event)"
+	(atualizeOGraficoOutput)="atualizeOGrafico($event)"></ss-estatistica>
 
 <div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria, 'margem-automatica']">
 	<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
