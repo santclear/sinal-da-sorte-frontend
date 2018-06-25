@@ -72,7 +72,7 @@ page-landing {
 		font-size: 32pt;
 		font-weight: bold;
 	}
-	.funcionalidade .titulo, .faixa .titulo, .menu .logo p {
+	.funcionalidades .titulo, .funcionalidade .titulo, .faixa .titulo, .menu .logo p {
 		font-size: 16pt;
 		font-weight: bold;
 	}
@@ -101,5 +101,9 @@ page-landing {
 		font-size: 10pt;
 		padding: 15px;
 		text-align: justify;
+	}
+
+	.faixa .titulo, .funcionalidades > .titulo {
+		margin-bottom: 40px;
 	}
 }
