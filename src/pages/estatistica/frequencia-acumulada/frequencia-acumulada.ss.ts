@@ -140,6 +140,9 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 					fontWeight: 'normal'
 				}
 			},
+			exporting:{
+				filename: sessao.loteria.nomeDoDocumentoNoBD+'-freq-da-dez-'+dezena+'-conc-'+numeroDoConcursoInicial+'-a-'+numeroDoConcursoFinal
+			},
 			credits: {
 				href: "http://www.sinaldasorte.com",
 				text: "www.sinaldasorte.com"

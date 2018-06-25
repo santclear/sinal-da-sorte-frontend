@@ -123,7 +123,10 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 					color: sessao.loteria.cor.escuro,
 					fontWeight: 'normal'
 				}
-        	},
+			},
+			exporting:{
+				filename: sessao.loteria.nomeDoDocumentoNoBD+'-soma-das-dez-conc-'+numeroDoConcursoInicial+'-a-'+numeroDoConcursoFinal
+			},
 			credits: {
 				href: "http://www.sinaldasorte.com",
 				text: "www.sinaldasorte.com"
