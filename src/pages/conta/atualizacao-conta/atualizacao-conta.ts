@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, LoadingController } from 'ionic-angular';
 import { ContaService } from '../../../services/conta.service';
 // import { EnderecoService } from '../../../services/endereco.service';
 import { ContaDto } from '../../../dtos/conta.dto';
@@ -40,7 +40,8 @@ export class AtualizacaoContaPage extends PaginaBase {
 		// private enderecoService: EnderecoService,
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
-		private storage: StorageService) {
+		private storage: StorageService,
+		public loadingCtrl: LoadingController) {
 		super();
 		this.pbNav = navCtrl;
 		this.pbStorage = storage;
@@ -111,7 +112,14 @@ export class AtualizacaoContaPage extends PaginaBase {
 					usuario
 				};
 
+				let loading = this.loadingCtrl.create({
+					content: 'Por favor aguarde, a atualização do seu cadastro está sendo processada...'
+				});
+
+				loading.present();
+
 				this.contaService.atualize(conta).subscribe(response => {
+					loading.dismiss();
 					this.mensagemOk(conta);
 				}, error => { });
 		// 	}, erro => {

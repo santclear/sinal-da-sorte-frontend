@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, MenuController, AlertController, IonicPage, LoadingController } from 'ionic-angular';
 import { ContaPage } from '../conta/conta';
 import { EsqueciMinhaSenhaPage } from '../esqueci-minha-senha/esqueci-minha-senha';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
@@ -31,7 +31,8 @@ export class LoginPage {
 		public storage: StorageService,
 		public alertCtrl: AlertController,
 		public menuService: MenuService,
-		public contaService: ContaService
+		public contaService: ContaService,
+		public loadingCtrl: LoadingController
 	) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
@@ -47,10 +48,14 @@ export class LoginPage {
 	}
 
 	login() {
-		this.auth.authenticate(this.credenciais)
-			.subscribe(response => {
-				this.setRootPage(response);
-			}, error => { });
+		let loading = this.loadingCtrl.create({
+			content: 'Entrando...'
+		});
+		loading.present();
+		this.auth.authenticate(this.credenciais).subscribe(response => {
+			loading.dismiss();
+			this.setRootPage(response);
+		}, error => { });
 	}
 
 	setRootPage(response) {

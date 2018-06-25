@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, IonicPage, MenuController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, IonicPage, MenuController, LoadingController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -19,7 +19,8 @@ export class EsqueciMinhaSenhaPage {
 		public navParams: NavParams,
 		public formBuilder: FormBuilder, 
 		public auth: AuthService, 
-		public alertCtrl: AlertController) {
+		public alertCtrl: AlertController,
+		public loadingCtrl: LoadingController) {
 		
 		this.esqueciSenhaForm = this.formBuilder.group({
 			email: ['', [Validators.required, Validators.email]]
@@ -39,8 +40,15 @@ export class EsqueciMinhaSenhaPage {
 			email: this.esqueciSenhaForm.value.email,
 			senha: ''
 		}
+
+		let loading = this.loadingCtrl.create({
+			content: 'Por favor aguarde, a sua requisição está sendo processada...'
+		});
+
+		loading.present();
+
 		this.auth.envieNovaSenha(credenciais).subscribe(response => {
-			console.log(response);
+			loading.dismiss();
 			this.mostreEnvioOk(this.esqueciSenhaForm.value.email);
 		}, erro => {});
 	}

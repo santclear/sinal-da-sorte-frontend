@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage, MenuController } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 // import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';
@@ -31,7 +31,8 @@ export class ContaPage {
 		private contaService: ContaService,
 		// private enderecoService: EnderecoService,
 		private alertCtrl: AlertController,
-		private toastCtrl: ToastController) {
+		private toastCtrl: ToastController,
+		public loadingCtrl: LoadingController) {
 
 		this.instancieContaForm();
 	}
@@ -99,7 +100,13 @@ export class ContaPage {
 					usuario
 				};
 		
+				let loading = this.loadingCtrl.create({
+					content: 'Por favor aguarde, o seu cadastro está sendo processado...'
+				});
+
+				loading.present();
 				this.contaService.insert(conta).subscribe(response => {
+					loading.dismiss();
 					this.showInsertOk(conta.email);
 				}, error => { });
 			// }, erro => {
