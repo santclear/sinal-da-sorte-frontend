@@ -1,8 +1,8 @@
 {
     "name": "sinal-da-sorte",
     "version": "0.0.1",
-    "author": "Sant'Clear Soluções",
-    "homepage": "http://www.sinaldasorte.com/",
+    "author": "Sant'Clear",
+    "homepage": "http://www.sinaldasorte.com.br/",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
@@ -42,5 +42,5 @@
         "@ionic/app-scripts": "3.1.8",
         "typescript": "~2.6.2"
     },
-    "description": "Sinal da Sorte: Sistema de Gestão e Estatística de Apostas Lotéricas"
+    "description": "Sinal da Sorte: Sistema para análise estatística de loterias, auxílio em apostas lotéricas e confecção automatizada de volantes da Caixa Econômica Federal."
 }
