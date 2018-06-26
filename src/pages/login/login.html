@@ -1,6 +1,6 @@
 <ion-content>
 	<div [ngClass]="'conteudo'">
-		<img src="assets/img/login-logo.png" alt="logo">
+		<img [ngClass]="'margem-superior'" src="assets/img/login-logo.png" alt="logo">
 		<ion-grid>
 			<ion-row>
 				<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>
@@ -14,7 +14,7 @@
 							<ion-label floating>Senha</ion-label>
 							<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
 						</ion-item>
-						<button ion-button block (click)="login()">Entrar</button>
+						<button [ngClass]="'margem-superior'" ion-button block (click)="login()">Entrar</button>
 					</form>
 					<button ion-button block outline (click)="cadastrar()">Cadastrar</button>
 					<button ion-button block clear (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
