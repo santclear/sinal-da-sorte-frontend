@@ -121,7 +121,9 @@ export class AtualizacaoContaPage extends PaginaBase {
 				this.contaService.atualize(conta).subscribe(response => {
 					loading.dismiss();
 					this.mensagemOk(conta);
-				}, error => { });
+				}, error => {
+					loading.dismiss();
+				});
 		// 	}, erro => {
 		// 		this.contaForm.controls['cep'].setValue('');
 		// 		this.contaForm.controls['logradouro'].setValue('');

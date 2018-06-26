@@ -108,7 +108,9 @@ export class ContaPage {
 				this.contaService.insert(conta).subscribe(response => {
 					loading.dismiss();
 					this.showInsertOk(conta.email);
-				}, error => { });
+				}, error => {
+					loading.dismiss();
+				});
 			// }, erro => {
 			// 	this.contaForm.controls['cep'].setValue('');
 			// 	this.contaForm.controls['logradouro'].setValue('');

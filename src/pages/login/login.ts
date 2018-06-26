@@ -55,7 +55,9 @@ export class LoginPage {
 		this.auth.authenticate(this.credenciais).subscribe(response => {
 			loading.dismiss();
 			this.setRootPage(response);
-		}, error => { });
+		}, error => { 
+			loading.dismiss();
+		});
 	}
 
 	setRootPage(response) {

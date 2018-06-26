@@ -50,7 +50,9 @@ export class EsqueciMinhaSenhaPage {
 		this.auth.envieNovaSenha(credenciais).subscribe(response => {
 			loading.dismiss();
 			this.mostreEnvioOk(this.esqueciSenhaForm.value.email);
-		}, erro => {});
+		}, erro => {
+			loading.dismiss();
+		});
 	}
 
 	mostreEnvioOk(email: string) {
