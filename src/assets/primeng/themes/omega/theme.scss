@@ -29,8 +29,8 @@ $stateActiveBgColor: #d6d6d6;
 $stateActiveTextColor: #212121;
 
 //Highlight State
-$stateHighlightBorderColor: #156090;
-$stateHighlightBgColor: #186ba0;
+$stateHighlightBorderColor: #727100;
+$stateHighlightBgColor: #999700;
 $stateHighlightTextColor: #FFFFFF;
 
 //Focus State
@@ -138,15 +138,15 @@ $inputGroupTextColor: #222222;
 
 /* Spinner */
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:hover {
-    border: 1px solid #1f89ce;
-    background: #1f89ce;
+    border: 1px solid #bfbc00;
+    background: #bfbc00;
     outline: 0 none;
     color: #ffffff;
 }
 
 .ui-spinner:not(.ui-state-disabled) .ui-spinner-button:enabled:active {
-    border: 1px solid #156090;
-    background: #186ba0;
+    border: 1px solid #727100;
+    background: #999700;
     color: #ffffff;
 }
 
@@ -171,7 +171,7 @@ $inputGroupTextColor: #222222;
     &.ui-progressbar-determinate {
         .ui-progressbar-value {
         	 border: 0 none;
-             background: #8ec5fc;
+             background: #347f0c;
         }
         
         .ui-progressbar .ui-progressbar-label {
@@ -180,7 +180,7 @@ $inputGroupTextColor: #222222;
     }
     
     &.ui-progressbar-indeterminate {
-        background: #8ec5fc;
+        background: #347f0c;
         
         .ui-progressbar-value {
         	 border: 0 none;
@@ -195,59 +195,59 @@ $inputGroupTextColor: #222222;
 .ui-widget-content .ui-button,
 .ui-widget.ui-button,
 .ui-button {
-	border: 1px solid #2399e5;
+	border: 1px solid #2a660a;
 	color: #FFFFFF;
-	background: #2399e5;
+	background: #2a660a;
     -webkit-transition: background-color .2s;
     -moz-transition: background-color .2s;
     transition: background-color .2s;
     
     &:enabled:hover,
     &:focus {
-        border: 1px solid #1f89ce;
-    	background: #1f89ce;
+        border: 1px solid #bfbc00;
+    	background: #bfbc00;
     	outline: 0 none;
         color: #ffffff;
     }
     
     &:enabled:active {
-        border: 1px solid #156090;
-    	background: #186ba0;
+        border: 1px solid #727100;
+    	background: #999700;
         color: #ffffff;
     }
 }
 
 .ui-fileupload-choose:not(.ui-state-disabled):hover,
 .ui-fileupload-choose.ui-state-focus {
-    border: 1px solid #1f89ce;
-    background: #1f89ce;
+    border: 1px solid #bfbc00;
+    background: #bfbc00;
     outline: 0 none;
     color: #ffffff;
 }
 
 .ui-fileupload-choose:not(.ui-state-disabled):active {
-    border: 1px solid #156090;
-    background: #186ba0;
+    border: 1px solid #727100;
+    background: #999700;
     color: #ffffff;
 }
 
 /* Checkbox and Radio */
 .ui-chkbox-box.ui-state-active,
 .ui-radiobutton-box.ui-state-active {
-    border: 1px solid #156090; 
-    background: #186ba0; 
+    border: 1px solid #727100; 
+    background: #999700; 
     color: #FFFFFF;
 }
 
 .ui-chkbox-box.ui-state-focus,
 .ui-radiobutton-box.ui-state-focus  {
-    -moz-box-shadow: 0px 0px 5px #1f89ce;
-	-webkit-box-shadow: 0px 0px 5px #1f89ce;
-	box-shadow: 0px 0px 5px #1f89ce;
+    -moz-box-shadow: 0px 0px 5px #bfbc00;
+	-webkit-box-shadow: 0px 0px 5px #bfbc00;
+	box-shadow: 0px 0px 5px #bfbc00;
 }
 
 .ui-chkbox-box.ui-state-focus.ui-state-active {
-    background: #186ba0; 
+    background: #999700; 
 }
 
 /* Inputs */
@@ -261,21 +261,21 @@ $inputGroupTextColor: #222222;
 
 .ui-inputtext.ui-state-focus,
 .ui-inputtext:focus {
-	-moz-box-shadow: 0px 0px 5px #1f89ce;
-	-webkit-box-shadow: 0px 0px 5px #1f89ce;
-	box-shadow: 0px 0px 5px #1f89ce;
+	-moz-box-shadow: 0px 0px 5px #bfbc00;
+	-webkit-box-shadow: 0px 0px 5px #bfbc00;
+	box-shadow: 0px 0px 5px #bfbc00;
 }
 
 /* InputSwitch */
 .ui-inputswitch-on {
-	background: #186ba0 !important;
+	background: #999700 !important;
 	color: #ffffff !important;
 }
 
 .ui-paginator .ui-paginator-page.ui-state-active {
-	background: #186ba0;
+	background: #999700;
 	color: #ffffff;
-	border-color: #156090;
+	border-color: #727100;
 }
 
 /* DataTable  */
@@ -292,7 +292,7 @@ $inputGroupTextColor: #222222;
         }
                 
         &.ui-state-active {
-            background: #186ba0;
+            background: #999700;
             color: #ffffff;
         }
     }
@@ -326,12 +326,12 @@ $inputGroupTextColor: #222222;
 .ui-table {
     .ui-table-thead > tr > th,
     .ui-table-tfoot > tr > td {
-        background: #ebedf0;
+        background-color: #ebedf0;
         border-color: #d9d9d9;
     }
 
     .ui-sortable-column:not(.ui-state-highlight):hover {
-        background: #d3d5d8;
+        background-color: #d3d5d8;
         border-color: #d9d9d9;
     }
 
@@ -347,6 +347,20 @@ $inputGroupTextColor: #222222;
             background-color: lighten($stateHighlightBgColor, 20%);
             color: $stateHighlightTextColor;
         }
+    }
+}
+
+/* TurboTable */
+.ui-treetable {
+    .ui-treetable-thead > tr > th,
+    .ui-treetable-tfoot > tr > td {
+        background-color: #ebedf0;
+        border-color: #d9d9d9;
+    }
+
+    .ui-sortable-column:not(.ui-state-highlight):hover {
+        background-color: #d3d5d8;
+        border-color: #d9d9d9;
     }
 }
 
@@ -402,15 +416,15 @@ $inputGroupTextColor: #222222;
 .ui-togglebutton.ui-button.ui-state-focus,
 .ui-selectbutton .ui-button.ui-state-focus.ui-state-active,
 .ui-selectbutton .ui-button.ui-state-active:focus  {
-    -moz-box-shadow: 0px 0px 5px #1f89ce;
-	-webkit-box-shadow: 0px 0px 5px #1f89ce;
-	box-shadow: 0px 0px 5px #1f89ce;
+    -moz-box-shadow: 0px 0px 5px #bfbc00;
+	-webkit-box-shadow: 0px 0px 5px #bfbc00;
+	box-shadow: 0px 0px 5px #bfbc00;
 }
 
 .ui-togglebutton.ui-button.ui-state-active,
 .ui-selectbutton .ui-button.ui-state-active {
-   border: 1px solid #156090; 
-   background: #186ba0; 
+   border: 1px solid #727100; 
+   background: #999700; 
    color: #FFFFFF;
 }
 
@@ -421,9 +435,9 @@ $inputGroupTextColor: #222222;
 }
 
 .ui-dropdown.ui-state-focus, .ui-multiselect.ui-state-focus {
-    -moz-box-shadow: 0px 0px 5px #1f89ce;
-    -webkit-box-shadow: 0px 0px 5px #1f89ce;
-    box-shadow: 0px 0px 5px #1f89ce;
+    -moz-box-shadow: 0px 0px 5px #bfbc00;
+    -webkit-box-shadow: 0px 0px 5px #bfbc00;
+    box-shadow: 0px 0px 5px #bfbc00;
 }
 
 /* Growl */
@@ -514,8 +528,8 @@ $inputGroupTextColor: #222222;
 /* PanelMenu */
 .ui-panelmenu .ui-panelmenu-header.ui-state-active,
 .ui-panelmenu .ui-panelmenu-header.ui-state-active a {
-    border-color: #156090; 
-    background: #186ba0; 
+    border-color: #727100; 
+    background: #999700; 
     color: #FFFFFF;
 }
 
@@ -561,7 +575,7 @@ $inputGroupTextColor: #222222;
                 }
                 
                 &.ui-state-active {
-                    background-color: #186ba0;
+                    background-color: #999700;
                     color: #ffffff;
                 }
             }
@@ -610,8 +624,8 @@ $inputGroupTextColor: #222222;
 .fc {
     .fc-button-group {
         .ui-state-active {
-            border: 1px solid #156090;
-            background: #186ba0;
+            border: 1px solid #727100;
+            background: #999700;
             color: #ffffff;
         }
     }

@@ -13,9 +13,10 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@import url('../assets/primeicons/primeicons.css');
 @import url('../assets/primeng/themes/omega/theme.css');
 @import url('../assets/primeng/primeng.min.css');
-@import url('../assets/font-awesome/css/font-awesome.min.css');
+// @import url('../assets/font-awesome/css/font-awesome.min.css');
 
 .cores {
     color: #3f0000;
@@ -34,10 +35,6 @@
     color: #bfbc00;
     color: #999700;
     color: #727100;
-}
-
-.ui-radiobutton-box.ui-state-active {
-    color: #999700;
 }
 
 .cor-clara, .banner, .botao-da-matriz-dezenas {
