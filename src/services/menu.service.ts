@@ -22,6 +22,8 @@ export class MenuService {
 			concursoFacade.sincronize(parametrosDeServicosWeb).then(concursos => {
 				resolve(concursos);
 				loading.dismiss(concursos);
+			}).catch(erro => {
+				loading.dismiss();
 			});
 		});
 	}

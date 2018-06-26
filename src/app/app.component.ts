@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, LoadingController, ToastController, AlertController } from 'ionic-angular';
+import { Nav, Platform, MenuController, ToastController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContaLocalDTO } from '../dtos/conta-local.dto';
@@ -33,7 +33,6 @@ export class MyApp {
 	constructor(public plataforma: Platform,
 		public menu: MenuController,
 		public concursoDAOServico: ConcursoDAOServico,
-		public loadingCtrl: LoadingController,
 		public statusBar: StatusBar,
 		public splashScreen: SplashScreen,
 		public menuService: MenuService, 

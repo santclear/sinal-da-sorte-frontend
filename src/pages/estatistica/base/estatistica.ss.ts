@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { LoadingController, Range} from 'ionic-angular';
+import { Range} from 'ionic-angular';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
@@ -39,7 +39,7 @@ export class EstatisticaSs {
 	@Output() toggleMostreMaisEstatisticasOutput = new EventEmitter();
 	@Output() atualizeOGraficoOutput = new EventEmitter();
 
-	constructor(public concursoDAOServico: ConcursoDAOServico, public loadingCtrl: LoadingController) {
+	constructor(public concursoDAOServico: ConcursoDAOServico) {
 		this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd = ConexaoFabrica.getConexao();
 		this.bd.get('sessao').then((sessao) => {
