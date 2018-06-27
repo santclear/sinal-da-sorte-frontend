@@ -93,6 +93,7 @@
 							<ng-template pTemplate="body" let-rowData let-colunas="columns">
 								<tr>
 									<td *ngFor="let coluna of colunas">
+										<span class="ui-column-title">{{coluna.nome}}</span>
 										<span *ngIf="coluna.campo !== 'rateio'">{{rowData[coluna.campo]}}</span>
 										<span *ngIf="coluna.campo === 'rateio'">{{rowData[coluna.campo] | currency:'BRL':true}}</span>
 									</td>
@@ -142,8 +143,9 @@
 							<ng-template pTemplate="body" let-rowData let-colunas="columns">
 								<tr>
 									<td *ngFor="let coluna of colunas">
+										<span class="ui-column-title">{{coluna.nome}}</span>
 										<span *ngIf="coluna.campo !== 'frequenciaTotalPorCento'">{{rowData[coluna.campo]}}</span>
-										<span *ngIf="coluna.campo === 'frequenciaTotalPorCento'">{{rowData[coluna.campo] | number:'.2'}}%</span>
+										<span *ngIf="coluna.campo === 'frequenciaTotalPorCento'">{{rowData[coluna.campo] | number:'1.1-2'}}%</span>
 									</td>
 								</tr>
 							</ng-template>
