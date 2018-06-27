@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Loterias } from '../../enum/loterias';
+import { NavController } from 'ionic-angular';
 
 @Component({
 	selector: "ss-navbar",
@@ -13,7 +14,7 @@ export class NavBarSs {
 	public sufixoCssLoteriaSelecionada: string;
 	private bd: any;
 
-	constructor() {
+	constructor(public navCtrl: NavController) {
 		this.bd = ConexaoFabrica.getConexao();
 		this.salveLoteriaSessao(Loterias.LOTOFACIL).then(resultadoQuery => {
 			this.logoSelecionado = resultadoQuery.antigo.loteria.logo;
@@ -43,5 +44,9 @@ export class NavBarSs {
 				console.log(erro);
 			});
 		});
+	}
+
+	goResultado() {
+		this.navCtrl.setRoot('ResultadoPage');
 	}
 }

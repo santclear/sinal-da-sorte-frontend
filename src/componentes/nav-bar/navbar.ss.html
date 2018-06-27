@@ -9,8 +9,10 @@
 		</ion-title>
 
 		<ion-buttons end>
-			<span [ngClass]="['colorClaro'+ sufixoCssLoteriaSelecionada, 'titulo_loteria']">{{nomeDaLoteria}}</span>
-			<img alt="Logo" src="{{logoSelecionado}}">
+			<button ion-button block clear (click)="goResultado()">
+				<span [ngClass]="['colorClaro'+ sufixoCssLoteriaSelecionada, 'titulo_loteria']">{{nomeDaLoteria}}</span>
+				<img alt="Logo" src="{{logoSelecionado}}">
+			</button>
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
