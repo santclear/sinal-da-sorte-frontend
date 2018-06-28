@@ -5,6 +5,7 @@ import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Loterias } from '../../enum/loterias';
 import { PaginaBase } from '../pagina.base';
+import lodash from 'lodash';
 
 @IonicPage()
 @Component({
@@ -148,7 +149,16 @@ export class ResultadoPage extends PaginaBase {
 
 	ordeneDezenasEmOrdemCrescente(numerosSorteados: string) {
 		let numerosSorteadosSplit = numerosSorteados.split(';');
-		return numerosSorteadosSplit.sort(function (a: any, b: any) { return a - b });
+		let dezenas = numerosSorteadosSplit.sort(function (a: any, b: any) { return a - b });
+		let indiceZeroNumber = Number(dezenas[0]);
+		if(isNaN(indiceZeroNumber)) {
+			let novoArray = lodash.drop(dezenas);
+			let indiceZeroStr = dezenas[0];
+			novoArray.push(indiceZeroStr);
+			return novoArray;
+		}
+
+		return dezenas;
 	}
 
 	atualizeResultados(sessao, concursoFacade, numeroDoConcurso) {
