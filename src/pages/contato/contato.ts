@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController, LoadingController } from 'ionic-angular';
 import { PaginaBase } from '../pagina.base';
 import { ContatoDto } from '../../dtos/contato.dto';
 import { EmailService } from '../../services/email.service';
@@ -27,7 +27,8 @@ export class ContatoPage extends PaginaBase {
 		private toastCtrl: ToastController,
 		private alertCtrl: AlertController,
 		private emailService: EmailService,
-		private storage: StorageService) {
+		private storage: StorageService,
+		public loadingCtrl: LoadingController) {
 
 		super();
 		this.exibeLogo = navParams.get('exibeLogo');
@@ -70,9 +71,17 @@ export class ContatoPage extends PaginaBase {
 			emailLogin: emailLogin
 		};
 
+		let loading = this.loadingCtrl.create({
+			content: 'Por favor aguarde, o seu contato está sendo enviado...'
+		});
+
+		loading.present();
 		this.emailService.envie(contato).subscribe(() => {
+			loading.dismiss();
 			this.showInsertOk();
-		}, error => { });
+		}, error => { 
+			loading.dismiss();
+		});
 	}
 
 	showInsertOk() {
