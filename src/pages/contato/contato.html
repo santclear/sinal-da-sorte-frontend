@@ -59,7 +59,7 @@
 								<img src="assets/img/recaptcha-ok.png">
 							</div>
 							
-							<div class="botaoVC">
+							<div [ngClass]="['botaoVC','margem-superior']">
 								<button ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
 							</div>
 						</form>
