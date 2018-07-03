@@ -72,7 +72,7 @@ page-landing {
 		font-size: 32pt;
 		font-weight: bold;
 	}
-	.funcionalidades .titulo, .funcionalidade .titulo, .faixa .titulo, .menu .logo p {
+	.funcionalidades .titulo, .funcionalidade .titulo, .faixa .titulo, .faixa-sem-margem-superior .titulo, .menu .logo p {
 		font-size: 16pt;
 		font-weight: bold;
 	}
@@ -84,9 +84,21 @@ page-landing {
 		text-align: center;
 		padding: 200px 0 200px 0;
 	}
-	.faixa .texto {
+
+	.faixa-sem-margem-superior {
+		text-align: center;
+		padding: 0 0 200px 0;
+	}
+
+	.faixa .texto, .faixa-sem-margem-superior .texto {
 		font-size: 12pt;
 		margin: 10px;
+		text-align: center;
+	}
+	.faixa .texto-observacao {
+		font-size: 8pt;
+		margin: 10px;
+		text-align: center;
 	}
 	.faixa .links {
 		font-size: 16pt;
@@ -103,7 +115,7 @@ page-landing {
 		text-align: justify;
 	}
 
-	.faixa .titulo, .funcionalidades > .titulo {
+	.faixa .titulo, .faixa-sem-margem-superior .titulo, .funcionalidades > .titulo {
 		margin-bottom: 40px;
 	}
 }
