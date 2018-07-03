@@ -8,7 +8,7 @@
         <ion-list>
             <button id="btSelecioneLoteria" ion-item (click)="ativeMenuLoterias()" detail-none [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada, 'margemSuperior']">
                 <ion-avatar item-left>
-                    <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}">
+                    <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}" alt="Imagem da loteria {{nomeLoteriaSelecionada}}">
                 </ion-avatar>
                 <h1>Alterar Loteria</h1>
                 <h3>{{nomeLoteriaSelecionada}}</h3>
@@ -35,7 +35,7 @@
             <div class="margemSuperior"></div>
             <button [attr.id]="'bt'+loteria.sufixoCssLoteria" ion-item *ngFor="let loteria of loterias; let indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.sufixoCssLoteria]">
                 <ion-avatar item-left>
-                    <img src="{{loteria.caminhoDoIconeAvatar}}">
+                    <img src="{{loteria.caminhoDoIconeAvatar}}" alt="Imagem da loteria {{loteria.nome}}">
                 </ion-avatar>
                 <h2>{{loteria.nome}}</h2>
             </button>
