@@ -13,10 +13,13 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-@import url('../assets/primeicons/primeicons.css');
-@import url('../assets/primeng/themes/omega/theme.css');
-@import url('../assets/primeng/primeng.min.css');
-// @import url('../assets/font-awesome/css/font-awesome.min.css');
+$fa-font-path: "../assets/fonts" !default; 
+
+@import "font-awesome"; 
+
+i[class^="fa-"], ion-icon[class^="fa-"] {    
+   font-family: "FontAwesome" !important;
+}
 
 .cores {
     color: #3f0000;
@@ -48,6 +51,8 @@
 .funcionalidade .titulo, 
 .faixa .titulo,
 .faixa .texto,
+.faixa-sem-margem-superior .titulo,
+.faixa-sem-margem-superior .texto,
 .faixa .links, 
 .faixa a:link, 
 .faixa a:visited, 
@@ -67,7 +72,7 @@
     color: #999700;
 }
 
-.cor-texto, th, td, .dezena_destacada {
+.cor-texto, th, td, .dezena_destacada, .faixa .texto-observacao {
     color: #4f5355;
 }
 
