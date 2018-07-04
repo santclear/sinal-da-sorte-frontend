@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, AlertController, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, MenuController, AlertController, IonicPage, LoadingController, Platform } from 'ionic-angular';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 import { MenuService } from '../../services/menu.service';
@@ -16,6 +16,7 @@ import { ContaService } from '../../services/conta.service';
 export class LoginPage {
 
 	public bd: any;
+	public exibeNavegadores: boolean;
 
 	credenciais: CredenciaisDTO = {
 		email: "",
@@ -30,13 +31,19 @@ export class LoginPage {
 		public alertCtrl: AlertController,
 		public menuService: MenuService,
 		public contaService: ContaService,
-		public loadingCtrl: LoadingController
+		public loadingCtrl: LoadingController,
+		public plataforma: Platform
 	) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
 
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.
 	ionViewDidEnter() {
+		if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+			this.exibeNavegadores = true;
+		} else {
+			this.exibeNavegadores = false;
+		}
 		this.menu.swipeEnable(false);
 	}
 

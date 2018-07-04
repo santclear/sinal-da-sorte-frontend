@@ -1,0 +1,18 @@
+<div [ngClass]="['cor-primaria','titulo-navegadores','centralizar-texto']">
+	NAVEGADORES SUPORTADOS
+	<p>pressione o ícone para saber mais</p>
+</div>
+<div [ngClass]="['centralizar-texto','margem-superior']">
+	<ion-icon (click)="toastNavegadorSuportado('Google Chrome Suportado')" [ngClass]="'cor-primaria'" class="fa-chrome" title="Chrome Suportado"></ion-icon>
+	<ion-icon (click)="toastNavegadorSuportado('Mozilla Firefox Suportado')" [ngClass]="'cor-primaria'" class="fa-firefox" title="Firefox Suportado"></ion-icon>
+	<ion-icon (click)="toastNavegadorSuportado('Opera Suportado')" [ngClass]="'cor-primaria'" class="fa-opera" title="Opera Suportado"></ion-icon>
+	<ion-icon (click)="toastNavegadorNaoSuportado('Safari Não Suportado - 
+		Atenção! O uso desse aplicativo no Safari poderá apresentar comportamentos indesejados')" 
+		[ngClass]="'cor-inativo'" class="fa-safari" title="Safari Suportado"></ion-icon>
+	<ion-icon (click)="toastNavegadorNaoSuportado('Internet Explorer Não Suportado - 
+		Atenção, o uso do aplicativo no Internet Explorer poderá apresentar comportamentos indesejados')" 
+		[ngClass]="'cor-inativo'" class="fa-internet-explorer" title="Internet Explorer NÃO Suportado"></ion-icon>
+	<ion-icon (click)="toastNavegadorNaoSuportado('Microsoft Edge Não Suportado - 
+		Atenção, o uso do aplicativo no Microsoft Edge poderá apresentar comportamentos indesejados')" 
+		[ngClass]="'cor-inativo'" class="fa-edge" title="Microsoft Edge NÃO Suportado"></ion-icon>
+</div>
