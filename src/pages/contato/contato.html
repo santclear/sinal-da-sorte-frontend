@@ -14,7 +14,7 @@
 	<div [ngClass]="'conteudo'">
 		<ion-grid>
 			<ion-row>
-				<ion-col col-sm-8 col-md-6 col-lg-4 col-xl-3>
+				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
 					<div>
 						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
 						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
@@ -59,30 +59,41 @@
 								<img src="assets/img/recaptcha-ok.png">
 							</div>
 							
-							<div [ngClass]="['botaoVC','margem-superior']">
-								<button ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
+							<div [ngClass]="['botaoVC']">
+								<button [ngClass]="['margem-superior']" ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
 							</div>
 						</form>
 					</div>
 				</ion-col>
-				<ion-col col-sm-2 col-md-3 col-lg-4 col-xl-4>
-					<div></div>
-				</ion-col>
-				<ion-col col-sm-2 col-md-3 col-lg-4 col-xl-5>
-					<div></div>
-				</ion-col>
 			</ion-row>
 			<ion-row>
-				<ion-col col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3>
+				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
 					<br/><br/>
 					<h5 [ngClass]="'cor-texto'">Redes sociais</h5>
-					<p>
-						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.facebook.com/sinaldasorte" target="_blank">facebook.com/sinaldasorte</a></span><br/>
-						<span [ngClass]="['texto', 'cor-texto']"><a href="https://twitter.com/sinaldasorte" target="_blank">twitter.com/sinaldasorte</a></span><br/>
-						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.instagram.com/sinaldasorte.com.br" target="_blank">instagram.com/sinaldasorte.com.br</a></span>
-						<span [ngClass]="['texto', 'cor-texto']"><a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank">youtube.com/sinaldasorte</a></span><br/>
-					</p>
-					
+					<div [ngClass]="['faixa', 'margem-superior']">
+						<div [ngClass]="'links'">
+							<span>
+								<a href="https://www.facebook.com/sinaldasorte" target="_blank">
+									<ion-icon name="logo-facebook"></ion-icon>
+								</a>
+							</span>
+							<span>
+								<a href="https://twitter.com/sinaldasorte" target="_blank">
+									<ion-icon name="logo-twitter"></ion-icon>
+								</a>
+							</span>
+							<span>
+								<a href="https://www.instagram.com/sinaldasorte.com.br/" target="_blank">
+									<ion-icon name="logo-instagram"></ion-icon>
+								</a>
+							</span>
+							<span>
+								<a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank">
+									<ion-icon name="logo-youtube"></ion-icon>
+								</a>
+							</span>
+						</div>
+					</div>
 					<h5 [ngClass]="'cor-texto'">Sant'Clear</h5>
 					<p>
 						<!-- <span [ngClass]="['texto', 'cor-texto']">Desenvolvimento de Software Web e Mobile; Automação de Testes; Automação de Tarefas; Modelagem de Dados e Análise de Sistemas.</span> -->
@@ -93,12 +104,6 @@
 							Modelagem de Dados e Análise de Sistemas.
 						</span>
 					</p>
-				</ion-col>
-				<ion-col>
-					<div></div>
-				</ion-col>
-				<ion-col>
-					<div></div>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
