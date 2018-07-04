@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController, LoadingController, Platform } from 'ionic-angular';
 import { PaginaBase } from '../pagina.base';
 import { ContatoDto } from '../../dtos/contato.dto';
 import { EmailService } from '../../services/email.service';
@@ -18,6 +18,7 @@ export class ContatoPage extends PaginaBase {
 	public exibeReCaptcha: string = 'block';
 	public reCaptchaTimeout: any;
 	public exibeLogo;
+	public exibeNavegadores: boolean;
 
 	constructor(
 		public navCtrl: NavController,
@@ -28,7 +29,8 @@ export class ContatoPage extends PaginaBase {
 		private alertCtrl: AlertController,
 		private emailService: EmailService,
 		private storage: StorageService,
-		public loadingCtrl: LoadingController) {
+		public loadingCtrl: LoadingController,
+		public plataforma: Platform) {
 
 		super();
 		this.exibeLogo = navParams.get('exibeLogo');
@@ -40,6 +42,11 @@ export class ContatoPage extends PaginaBase {
 	}
 
 	ionViewDidEnter() {
+		if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+			this.exibeNavegadores = true;
+		} else {
+			this.exibeNavegadores = false;
+		}
 		if(!(this.exibeLogo === true || this.exibeLogo === undefined)) {
 			this.menu.swipeEnable(false);
 		}

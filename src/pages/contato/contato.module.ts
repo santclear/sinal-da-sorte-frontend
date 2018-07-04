@@ -7,6 +7,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { NavegadoresSuportadosSsModule } from '../../componentes/navegadores-suportados/navegadores-suportados.ss.module';
 
 @NgModule({
 	declarations: [
@@ -17,6 +18,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 		InputTextModule,
 		InputTextareaModule,
 		NavBarSsModule,
+		NavegadoresSuportadosSsModule,
 		RodapeSsModule,
 		RecaptchaModule.forRoot(),
 		IonicPageModule.forChild(ContatoPage),
