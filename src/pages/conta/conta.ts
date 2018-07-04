@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController, Platform } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 // import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';
@@ -23,6 +23,7 @@ export class ContaPage {
 	public generos: SelectItem[];
 	public exibeReCaptcha: string = 'block';
 	public reCaptchaTimeout: any;
+	public exibeNavegadores: boolean;
 
 	constructor(
 		private navCtrl: NavController,
@@ -32,12 +33,18 @@ export class ContaPage {
 		// private enderecoService: EnderecoService,
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
-		public loadingCtrl: LoadingController) {
+		public loadingCtrl: LoadingController,
+		public plataforma: Platform) {
 
 		this.instancieContaForm();
 	}
 
 	ionViewDidEnter() {
+		if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+			this.exibeNavegadores = true;
+		} else {
+			this.exibeNavegadores = false;
+		}
 		this.menu.swipeEnable(false);
 	}
 

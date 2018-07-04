@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { BloqueiaCopiaColaDirectiveModule } from '../../diretivas/bloqueia-copia-cola.module';
+import { NavegadoresSuportadosSsModule } from '../../componentes/navegadores-suportados/navegadores-suportados.ss.module';
 
 @NgModule({
 	declarations: [
@@ -21,6 +22,7 @@ import { BloqueiaCopiaColaDirectiveModule } from '../../diretivas/bloqueia-copia
 		DropdownModule,
 		PasswordModule,
 		BloqueiaCopiaColaDirectiveModule,
+		NavegadoresSuportadosSsModule,
 		RodapeSsModule,
 		RecaptchaModule.forRoot(),
 		IonicPageModule.forChild(ContaPage),
