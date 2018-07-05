@@ -12,6 +12,7 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
+import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -41,7 +42,9 @@ export class MyApp {
 		public storage: StorageService,
 		public toastCtrl: ToastController,
 		public alertCtrl: AlertController,
-		public contaService: ContaService) {
+		public contaService: ContaService,
+		public navegadoresSuportadosService: NavegadoresSuportadosService
+	) {
 		
 		this.bd = ConexaoFabrica.getConexao();
 
