@@ -29,8 +29,7 @@ export class ContatoPage extends PaginaBase {
 		private alertCtrl: AlertController,
 		private emailService: EmailService,
 		private storage: StorageService,
-		public loadingCtrl: LoadingController,
-		public plataforma: Platform) {
+		public loadingCtrl: LoadingController) {
 
 		super();
 		this.exibeLogo = navParams.get('exibeLogo');
@@ -42,11 +41,6 @@ export class ContatoPage extends PaginaBase {
 	}
 
 	ionViewDidEnter() {
-		if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
-			this.exibeNavegadores = true;
-		} else {
-			this.exibeNavegadores = false;
-		}
 		if(!(this.exibeLogo === true || this.exibeLogo === undefined)) {
 			this.menu.swipeEnable(false);
 		}

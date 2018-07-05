@@ -84,10 +84,6 @@ i[class^="fa-"], ion-icon[class^="fa-"] {
     background-color: #003300;
 }
 
-.toastNavegadorSuportado .toast-message, .toastNavegadorSuportado .button-inner {
-    background-color: #347f0c;
-}
-
 .toastNavegadorNaoSuportado .toast-message, .toastNavegadorNaoSuportado .button-inner {
     background-color: #e70000;
 }
@@ -199,8 +195,7 @@ ion-icon {
     line-height: 19px!important;
 }
 
-.toastGeral .toast-message, .toastGeral .button-inner, 
-.toastNavegadorSuportado .toast-message, .toastNavegadorSuportado .button-inner,
+.toastGeral .toast-message, .toastGeral .button-inner,
 .toastNavegadorNaoSuportado .toast-message, .toastNavegadorNaoSuportado .button-inner
  {
     font-weight: bold;

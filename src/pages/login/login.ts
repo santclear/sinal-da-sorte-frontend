@@ -31,19 +31,13 @@ export class LoginPage {
 		public alertCtrl: AlertController,
 		public menuService: MenuService,
 		public contaService: ContaService,
-		public loadingCtrl: LoadingController,
-		public plataforma: Platform
+		public loadingCtrl: LoadingController
 	) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
 
 	// Desabilita o menu quando entra na página. Não deve ter menu na view de login.
 	ionViewDidEnter() {
-		if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
-			this.exibeNavegadores = true;
-		} else {
-			this.exibeNavegadores = false;
-		}
 		this.menu.swipeEnable(false);
 	}
 

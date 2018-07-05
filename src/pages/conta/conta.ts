@@ -33,18 +33,12 @@ export class ContaPage {
 		// private enderecoService: EnderecoService,
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
-		public loadingCtrl: LoadingController,
-		public plataforma: Platform) {
+		public loadingCtrl: LoadingController) {
 
 		this.instancieContaForm();
 	}
 
 	ionViewDidEnter() {
-		if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
-			this.exibeNavegadores = true;
-		} else {
-			this.exibeNavegadores = false;
-		}
 		this.menu.swipeEnable(false);
 	}
 
