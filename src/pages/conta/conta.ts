@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController, Platform } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 // import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';

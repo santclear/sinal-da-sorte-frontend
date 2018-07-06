@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController, LoadingController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController, MenuController, LoadingController } from 'ionic-angular';
 import { PaginaBase } from '../pagina.base';
 import { ContatoDto } from '../../dtos/contato.dto';
 import { EmailService } from '../../services/email.service';

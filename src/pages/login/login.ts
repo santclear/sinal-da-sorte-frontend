@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, AlertController, IonicPage, LoadingController, Platform } from 'ionic-angular';
+import { NavController, MenuController, AlertController, IonicPage, LoadingController } from 'ionic-angular';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 import { MenuService } from '../../services/menu.service';
