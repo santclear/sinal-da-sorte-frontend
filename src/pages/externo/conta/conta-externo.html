@@ -1,16 +1,10 @@
-<ion-header>
-	<ion-navbar color="primary">
-		<ion-title>Cadastro de conta</ion-title>
-	</ion-navbar>
-</ion-header>
-
-<!-- <ion-content padding #contentRef (ionScroll)="scrollingFun($event)"> -->
 <ion-content>
 	<div [ngClass]="'conteudo'">
+		<ss-navbar-conversao-landscape></ss-navbar-conversao-landscape>
 		<ion-grid>
 			<ion-row>
 				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
-					<div>
+					<div [ngClass]="'margem-superior-aumentada'">
 						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
 						<form [formGroup]="contaForm" (ngSubmit)="cadastre(); $event.preventDefault()">
 							<p>
@@ -78,7 +72,11 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="senha" type="password" class="larguraTotal" pPassword>
+									<input formControlName="senha" type="password" class="larguraTotal" pPassword
+									promptLabel="Digite sua senha"
+									weakLabel="Nível de segurança da senha: BAIXO"
+									mediumLabel="Nível de segurança da senha: MÉDIO"
+									strongLabel="Nível de segurança da senha: ALTO">
 									<label for="float-input">Senha*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
@@ -87,7 +85,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword>
+									<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword feedback="false">
 									<label for="float-input">Confirme a senha*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">

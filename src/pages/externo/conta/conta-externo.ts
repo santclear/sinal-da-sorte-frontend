@@ -139,7 +139,7 @@ export class ContaExternoPage {
 			enableBackdropDismiss: false,
 			buttons: [{
 				text: 'Ok',
-				handler: () => { this.navCtrl.pop(); }
+				handler: () => { this.navCtrl.setRoot('LoginPage'); }
 			}]
 		});
 		alert.present();
