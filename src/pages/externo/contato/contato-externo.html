@@ -1,0 +1,112 @@
+<ss-navbar *ngIf="exibeLogo" [tituloInput]="titulo"></ss-navbar>
+<ion-header *ngIf="!exibeLogo">
+	<ion-navbar color="primary">
+		<button ion-button menuToggle left>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+
+		<ion-title>
+			{{titulo}}
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<div [ngClass]="'conteudo'">
+		<ion-grid>
+			<ion-row>
+				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
+					<div>
+						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
+						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
+							<h5 [ngClass]="'cor-texto'">Fale conosco</h5>
+							<div class="ui-g" style="width:360px;margin-bottom:10px">
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Reclamações, sugestões, elogios ou outros assuntos" value="sinaldasorteweb@gmail.com" formControlName="tipoContato"></p-radioButton></div>
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Contato profissional" value="santclearsolucoes@gmail.com" formControlName="tipoContato"></p-radioButton></div>
+							</div> 
+							<p>
+								<span class="ui-float-label">
+									<input formControlName="assunto" type="text" class="larguraTotal" pInputText>
+									<label for="float-input">Assunto*</label>
+								</span>
+								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['assunto'].valid&&contatoForm.controls['assunto'].dirty">
+									<i class="fa fa-close"></i> Digite o assunto
+								</span>
+							</p> 
+							<p>
+								<span class="ui-float-label">
+									<input formControlName="contato" type="text" class="larguraTotal" pInputText>
+									<label for="float-input">Seus contatos (email, telefone, etc)</label>
+								</span>
+								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['contato'].valid&&contatoForm.controls['contato'].dirty">
+									<i class="fa fa-close"></i> O máximo permitido é 100 caracteres
+								</span>
+							</p>
+
+							<p>
+								<span class="ui-float-label">
+									<textarea formControlName="mensagem" class="larguraTotal" [rows]="10" pInputTextarea></textarea>
+									<label for="float-input">Mensagem*</label> 
+								</span>
+								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['mensagem'].valid&&contatoForm.controls['mensagem'].dirty">
+									<i class="fa fa-close"></i> Digite a mensagem
+								</span>
+							</p>
+
+							<div [ngStyle]="{'display': exibeReCaptcha}">
+								<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
+							</div>
+							<div *ngIf="exibeReCaptcha === 'none'">
+								<img src="assets/img/recaptcha-ok.png">
+							</div>
+							
+							<div [ngClass]="['botaoVC']">
+								<button [ngClass]="['margem-superior']" ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
+							</div>
+						</form>
+					</div>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
+					<br/><br/>
+					<h5 [ngClass]="'cor-texto'">Redes sociais</h5>
+					<div [ngClass]="['faixa', 'margem-superior']">
+						<div [ngClass]="'links'">
+							<span>
+								<a href="https://www.facebook.com/sinaldasorte" target="_blank">
+									<ion-icon name="logo-facebook"></ion-icon>
+								</a>
+							</span>
+							<span>
+								<a href="https://twitter.com/sinaldasorte" target="_blank">
+									<ion-icon name="logo-twitter"></ion-icon>
+								</a>
+							</span>
+							<span>
+								<a href="https://www.instagram.com/sinaldasorte.com.br/" target="_blank">
+									<ion-icon name="logo-instagram"></ion-icon>
+								</a>
+							</span>
+							<span>
+								<a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank">
+									<ion-icon name="logo-youtube"></ion-icon>
+								</a>
+							</span>
+						</div>
+					</div>
+					<h5 [ngClass]="'cor-texto'">Sant'Clear</h5>
+					<p>
+						<!-- <span [ngClass]="['texto', 'cor-texto']">Desenvolvimento de Software Web e Mobile; Automação de Testes; Automação de Tarefas; Modelagem de Dados e Análise de Sistemas.</span> -->
+						<span [ngClass]="['texto', 'cor-texto']">
+							Desenvolvimento de Sistemas Web, de Aplicativos Móveis e de Web Services API; 
+							Automação de Testes; 
+							Automação de Tarefas; 
+							Modelagem de Dados e Análise de Sistemas.
+						</span>
+					</p>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<ss-rodape></ss-rodape>
+	</div>
+</ion-content>

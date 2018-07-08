@@ -1,0 +1,32 @@
+page-contato-externo {
+	.larguraTotal {
+		width: 100%;
+	}
+
+	.cor-texto {
+		color: #4f5355;
+	}
+	
+	.texto {
+		font-size: 11pt !important;
+	}
+
+	p {
+		padding: 10px 0 20px 0 !important;
+		margin: 0;
+	}
+
+	.botaoVC {
+		margin: 0 auto;
+		width: 133px;
+		text-align: center;
+	}
+
+	.faixa .links {
+		font-size: 16pt;
+	}
+
+	.faixa span {
+		margin-right: 10px;
+	}
+}

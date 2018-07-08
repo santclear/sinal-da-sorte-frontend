@@ -1,0 +1,20 @@
+page-conta-externo {
+	.danger {
+		color: color($colors, danger);
+	}
+
+	.larguraTotal {
+		width: 100%;
+	}
+	
+	p {
+		padding: 10px 0 20px 10px !important;
+		margin: 0;
+	}
+
+	.botaoVC {
+		margin: 0 auto;
+		width: 133px;
+		text-align: center;
+	}
+}
