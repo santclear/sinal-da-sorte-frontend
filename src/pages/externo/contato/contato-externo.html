@@ -1,21 +1,10 @@
-<ss-navbar *ngIf="exibeLogo" [tituloInput]="titulo"></ss-navbar>
-<ion-header *ngIf="!exibeLogo">
-	<ion-navbar color="primary">
-		<button ion-button menuToggle left>
-			<ion-icon name="menu"></ion-icon>
-		</button>
-
-		<ion-title>
-			{{titulo}}
-		</ion-title>
-	</ion-navbar>
-</ion-header>
 <ion-content>
 	<div [ngClass]="'conteudo'">
+		<ss-navbar-conversao-landscape></ss-navbar-conversao-landscape>
 		<ion-grid>
 			<ion-row>
 				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
-					<div>
+					<div [ngClass]="'margem-superior-aumentada'">
 						<!-- $event.preventDefault() previne o envio de formulário indesejado -->
 						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
 							<h5 [ngClass]="'cor-texto'">Fale conosco</h5>

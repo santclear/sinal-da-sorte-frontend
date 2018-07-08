@@ -17,7 +17,6 @@ export class ContatoExternoPage extends PaginaBase {
 	public contatoForm: FormGroup;
 	public exibeReCaptcha: string = 'block';
 	public reCaptchaTimeout: any;
-	public exibeLogo;
 	public exibeNavegadores: boolean;
 
 	constructor(
@@ -32,18 +31,12 @@ export class ContatoExternoPage extends PaginaBase {
 		public loadingCtrl: LoadingController) {
 
 		super();
-		this.exibeLogo = navParams.get('exibeLogo');
-		if(this.exibeLogo === true || this.exibeLogo === undefined) {
-			this.exibeLogo = true;
-		}
 		this.setTitulo("Contato");
 		this.instancieContatoForm();
 	}
 
 	ionViewDidEnter() {
-		if(!(this.exibeLogo === true || this.exibeLogo === undefined)) {
-			this.menu.swipeEnable(false);
-		}
+		this.menu.swipeEnable(false);
 	}
 
 	ionViewWillLeave() {
