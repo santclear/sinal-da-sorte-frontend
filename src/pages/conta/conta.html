@@ -78,7 +78,11 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="senha" type="password" class="larguraTotal" pPassword>
+									<input formControlName="senha" type="password" class="larguraTotal" pPassword
+									promptLabel="Digite sua senha"
+									weakLabel="Nível de segurança da senha: BAIXO"
+									mediumLabel="Nível de segurança da senha: MÉDIO"
+									strongLabel="Nível de segurança da senha: ALTO">
 									<label for="float-input">Senha*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
@@ -87,7 +91,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword>
+									<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword feedback="false">
 									<label for="float-input">Confirme a senha*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">
