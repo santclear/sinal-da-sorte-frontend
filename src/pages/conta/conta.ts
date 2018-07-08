@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController, NavParams } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 // import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';
@@ -10,6 +10,8 @@ import { UsuarioDto } from '../../dtos/usuario.dto';
 import { compararCamposValidator } from '../../validators/comparar-campos.validator';
 // import { cpfValidator } from '../../validators/cpf.validator';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import { StorageService } from '../../services/storage.service';
+import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 
 @IonicPage()
 @Component({
@@ -33,13 +35,20 @@ export class ContaPage {
 		// private enderecoService: EnderecoService,
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
-		public loadingCtrl: LoadingController) {
+		public loadingCtrl: LoadingController, 
+		public storage: StorageService,
+		public navParams: NavParams) {
 
 		this.instancieContaForm();
 	}
 
 	ionViewDidEnter() {
 		this.menu.swipeEnable(false);
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) {
+			let vemDePush: boolean = this.navParams.get('vemDePush');
+			if(!vemDePush) this.navCtrl.setRoot('ContaExternoPage');
+		}
 	}
 
 	ionViewWillLeave() {

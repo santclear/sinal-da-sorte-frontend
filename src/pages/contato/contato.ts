@@ -44,6 +44,11 @@ export class ContatoPage extends PaginaBase {
 		if(!(this.exibeLogo === true || this.exibeLogo === undefined)) {
 			this.menu.swipeEnable(false);
 		}
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) {
+			let vemDePush: boolean = this.navParams.get('vemDePush');
+			if(!vemDePush) this.navCtrl.setRoot('ContatoExternoPage');
+		}
 	}
 
 	ionViewWillLeave() {

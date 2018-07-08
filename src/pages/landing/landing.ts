@@ -20,14 +20,14 @@ export class LandingPage {
 	}
 
 	abraContato() {
-		this.navCtrl.push('ContatoPage', { 'exibeLogo': false });
+		this.navCtrl.push('ContatoPage', { 'exibeLogo': false, vemDePush: true });
 	}
 
 	abraConta() {
-		this.navCtrl.push('ContaPage');
+		this.navCtrl.push('ContaPage', {vemDePush: true});
 	}
 
 	abraLogin() {
-		this.navCtrl.push('LoginPage');
+		this.navCtrl.setRoot('LoginPage');
 	}
 }

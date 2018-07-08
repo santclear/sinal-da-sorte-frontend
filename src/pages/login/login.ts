@@ -104,11 +104,11 @@ export class LoginPage {
 	}
 
 	cadastrar() {
-		this.navCtrl.push('ContaPage');
+		this.navCtrl.push('ContaPage', {vemDePush: true});
 	}
 
 	esqueciMinhaSenha() {
-		this.navCtrl.push('EsqueciMinhaSenhaPage');
+		this.navCtrl.push('EsqueciMinhaSenhaPage', {vemDePush: true});
 	}
 
 	goLanding() {

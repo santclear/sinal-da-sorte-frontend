@@ -3,6 +3,8 @@ import { NavController, NavParams, AlertController, IonicPage, MenuController, L
 import { AuthService } from '../../services/auth.service';
 import { CredenciaisDTO } from '../../dtos/credenciais.dto';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ContaLocalDTO } from '../../dtos/conta-local.dto';
+import { StorageService } from '../../services/storage.service';
 
 @IonicPage()
 @Component({
@@ -20,7 +22,8 @@ export class EsqueciMinhaSenhaPage {
 		public formBuilder: FormBuilder, 
 		public auth: AuthService, 
 		public alertCtrl: AlertController,
-		public loadingCtrl: LoadingController) {
+		public loadingCtrl: LoadingController,
+		public storage: StorageService) {
 		
 		this.esqueciSenhaForm = this.formBuilder.group({
 			email: ['', [Validators.required, Validators.email]]
@@ -29,6 +32,11 @@ export class EsqueciMinhaSenhaPage {
 
 	ionViewDidEnter() {
 		this.menu.swipeEnable(false);
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) {
+			let vemDePush: boolean = this.navParams.get('vemDePush');
+			if(!vemDePush) this.navCtrl.setRoot('LoginPage');
+		}
 	}
 
 	ionViewWillLeave() {

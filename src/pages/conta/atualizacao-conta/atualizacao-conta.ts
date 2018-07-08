@@ -53,7 +53,12 @@ export class AtualizacaoContaPage extends PaginaBase {
 		if(contaLocal) {
 			this.populeContaForm(contaLocal.email);
 		}
-	}	
+	}
+	
+	ionViewDidEnter() {
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
+	}
 
 	ngOnInit() {
         this.ptBr = {

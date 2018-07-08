@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Loterias } from '../../enum/loterias';
 import { PaginaBase } from '../pagina.base';
 import lodash from 'lodash';
+import { ContaLocalDTO } from '../../dtos/conta-local.dto';
+import { StorageService } from '../../services/storage.service';
 
 @IonicPage()
 @Component({
@@ -54,7 +56,7 @@ export class ResultadoPage extends PaginaBase {
 	public sortBy = "total";
 	public sortOrder = "asc";
 
-	constructor(private concursoDAOServico: ConcursoDAOServico) {
+	constructor(private concursoDAOServico: ConcursoDAOServico, public navCtrl: NavController, public storage: StorageService) {
 		super();
 		this.setTitulo("Resultado");
 
@@ -73,6 +75,11 @@ export class ResultadoPage extends PaginaBase {
 		});
 
 		// this.menu.open();
+	}
+
+	ionViewDidEnter() {
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {

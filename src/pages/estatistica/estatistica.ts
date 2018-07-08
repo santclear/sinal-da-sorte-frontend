@@ -1,7 +1,9 @@
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { Component } from '@angular/core';
 import { PaginaBase } from '../pagina.base';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+import { StorageService } from '../../services/storage.service';
+import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 
 @IonicPage()
 @Component({
@@ -12,7 +14,7 @@ export class EstatisticaPage extends PaginaBase {
 	public cbxTipoDeGrafico: string = 'frequenciaAcumulada';
 	public tiposDeGrafico: {id: string, tipo: string, desabilitado: boolean}[];
 
-	constructor() {
+	constructor(public navCtrl: NavController, public storage: StorageService) {
 		super();
         this.setTitulo('Estatística');
 
@@ -38,7 +40,12 @@ export class EstatisticaPage extends PaginaBase {
 				this.cbxTipoDeGrafico = 'frequenciaSomaDezenas';
 			}
 		});
-    }
+	}
+	
+	ionViewDidEnter() {
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
+	}
 
 	cbxTipoDeGraficoAtualize(tipoDeGrafico: string): void {
 		this.cbxTipoDeGrafico = tipoDeGrafico;
