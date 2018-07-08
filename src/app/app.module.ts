@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContaPageModule } from '../pages/conta/conta.module';
 import { ResultadoPageModule } from '../pages/resultado/resultado.module';
 import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esqueci-minha-senha.module';
+import { DominioSingletonService } from '../services/dominio-singleton.service';
 
 @NgModule({
 	declarations: [
@@ -61,6 +62,7 @@ import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esquec
 		UsuarioService,
 		EmailService,
 		NavegadoresSuportadosService,
+		DominioSingletonService,
 		AuthInterceptorProvider,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }

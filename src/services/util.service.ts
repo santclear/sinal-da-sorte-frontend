@@ -9,8 +9,12 @@ export class UtilService {
 	constructor(public http: HttpClient) {
 	}
 
-	ping(): Observable<String> {
-		return this.http.get<String>(Loterias.DOMINIO +'util/ping');
+	ping(): Observable<string> {
+		return this.http.get<string>(Loterias.DOMINIO +'util/ping');
+	}
+
+	dominio(): Observable<string> {
+		return this.http.get<string>(Loterias.DOMINIO +'util/dominio');
 	}
 
 	verificaReCaptcha( apiKey: string, responseReCaptcha: string) {

@@ -13,6 +13,7 @@ import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
 import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
+import { DominioSingletonService } from '../services/dominio-singleton.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -32,6 +33,7 @@ export class MyApp {
 	private indiceLoteriaAtual: number;
 
 	constructor(public plataforma: Platform,
+		public dominioSingletonService: DominioSingletonService,
 		public menu: MenuController,
 		public concursoDAOServico: ConcursoDAOServico,
 		public statusBar: StatusBar,
@@ -43,9 +45,8 @@ export class MyApp {
 		public toastCtrl: ToastController,
 		public alertCtrl: AlertController,
 		public contaService: ContaService,
-		public navegadoresSuportadosService: NavegadoresSuportadosService
+		public navegadoresSuportadosService: NavegadoresSuportadosService,
 	) {
-		
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.loterias = this.menuService.getLoterias();
