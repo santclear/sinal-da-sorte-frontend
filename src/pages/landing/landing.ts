@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, MenuController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -8,7 +8,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 })
 export class LandingPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController) {
+	constructor(public menu: MenuController) {
 	}
 
 	ionViewDidEnter() {
@@ -17,17 +17,5 @@ export class LandingPage {
 
 	ionViewWillLeave() {
 		this.menu.swipeEnable(true);
-	}
-
-	abraContato() {
-		this.navCtrl.push('ContatoPage', { 'exibeLogo': false, vemDePush: true });
-	}
-
-	abraConta() {
-		this.navCtrl.push('ContaPage', {vemDePush: true});
-	}
-
-	abraLogin() {
-		this.navCtrl.setRoot('LoginPage');
 	}
 }
