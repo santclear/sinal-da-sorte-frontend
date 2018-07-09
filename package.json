@@ -1,6 +1,6 @@
 {
-    "name": "sinal-da-sorte",
-    "version": "0.1.0",
+    "name": "sinal-da-sorte-app",
+    "version": "0.1.2",
     "author": "Sant'Clear",
     "homepage": "http://www.sinaldasorte.com.br/",
     "private": true,
@@ -59,7 +59,6 @@
     "description": "Aplicativo para geração de surpresinhas com base em estatísticas, acompanhamento de concursos de loterias, e muito mais.",
     "cordova": {
         "platforms": [
-            "ios",
             "browser",
             "android"
         ],
