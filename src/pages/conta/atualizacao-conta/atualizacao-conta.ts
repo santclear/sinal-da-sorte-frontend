@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage, LoadingController } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, LoadingController, Platform } from 'ionic-angular';
 import { ContaService } from '../../../services/conta.service';
 // import { EnderecoService } from '../../../services/endereco.service';
 import { ContaDto } from '../../../dtos/conta.dto';
@@ -29,6 +29,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 	public generos: SelectItem[];
 	public ptBr: any;
 	public exibeReCaptcha: string = 'block';
+	public escondeReCaptcha: boolean = false;
 	public senha: string;
 	public reCaptchaTimeout: any;
 
@@ -41,7 +42,8 @@ export class AtualizacaoContaPage extends PaginaBase {
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
 		private storage: StorageService,
-		public loadingCtrl: LoadingController) {
+		public loadingCtrl: LoadingController,
+		public plataforma: Platform) {
 		super();
 		this.pbNav = navCtrl;
 		this.pbStorage = storage;
@@ -56,6 +58,10 @@ export class AtualizacaoContaPage extends PaginaBase {
 	}
 	
 	ionViewDidEnter() {
+		if(!this.plataforma.is('mobileweb') && !this.plataforma.is('core')) {
+			this.escondeReCaptcha = true;
+			this.contaForm.controls['reCaptcha'].setValue(true);
+		}
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
 	}

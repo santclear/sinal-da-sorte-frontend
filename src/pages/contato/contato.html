@@ -51,14 +51,14 @@
 									<i class="fa fa-close"></i> Digite a mensagem
 								</span>
 							</p>
-
-							<div [ngStyle]="{'display': exibeReCaptcha}">
-								<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
+							<div *ngIf="!escondeReCaptcha">
+								<div [ngStyle]="{'display': exibeReCaptcha}">
+									<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
+								</div>
+								<div *ngIf="exibeReCaptcha === 'none'">
+									<img src="assets/img/recaptcha-ok.png">
+								</div>
 							</div>
-							<div *ngIf="exibeReCaptcha === 'none'">
-								<img src="assets/img/recaptcha-ok.png">
-							</div>
-							
 							<div [ngClass]="['botaoVC']">
 								<button [ngClass]="['margem-superior']" ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
 							</div>

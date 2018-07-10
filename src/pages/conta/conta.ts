@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, ToastController, IonicPage, MenuController, LoadingController, NavParams, Platform } from 'ionic-angular';
 import { ContaService } from '../../services/conta.service';
 // import { EnderecoService } from '../../services/endereco.service';
 import { ContaNewDto } from '../../dtos/conta-new.dto';
@@ -24,6 +24,7 @@ export class ContaPage {
 	public ptBr: any;
 	public generos: SelectItem[];
 	public exibeReCaptcha: string = 'block';
+	public escondeReCaptcha: boolean = false;
 	public reCaptchaTimeout: any;
 	public exibeNavegadores: boolean;
 
@@ -37,12 +38,17 @@ export class ContaPage {
 		private toastCtrl: ToastController,
 		public loadingCtrl: LoadingController, 
 		public storage: StorageService,
-		public navParams: NavParams) {
+		public navParams: NavParams,
+		public plataforma: Platform) {
 
 		this.instancieContaForm();
 	}
 
 	ionViewDidEnter() {
+		if(!this.plataforma.is('mobileweb') && !this.plataforma.is('core')) {
+			this.escondeReCaptcha = true;
+			this.contaForm.controls['reCaptcha'].setValue(true);
+		}
 		this.menu.swipeEnable(false);
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		if(!contaLocal) {
