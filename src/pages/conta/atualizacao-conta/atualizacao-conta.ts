@@ -273,7 +273,11 @@ export class AtualizacaoContaPage extends PaginaBase {
 			dataDeNascimento: [new Date('1990-1-1'), [Validators.required]],
 			generoId: [null, [Validators.required]],
 			email: ['', [Validators.required, Validators.email]],
-			novoEmail: ['', [emailOrEmptyValidator]],
+			novoEmail: ['', Validators.compose([
+				emailOrEmptyValidator,
+				Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+			])],
+			
 			confirmeEmail: ['', [compararCamposValidator('novoEmail')]],
 			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
 			novaSenha: ['', [Validators.minLength(8), Validators.maxLength(100)]],

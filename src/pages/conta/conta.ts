@@ -198,7 +198,10 @@ export class ContaPage {
 			// cpf: ['', [Validators.required, cpfValidator()]],
 			dataDeNascimento: [new Date('1990-1-1'), [Validators.required]],
 			generoId: [null, [Validators.required]],
-			email: ['', [Validators.required, Validators.email]],
+			email: ['', Validators.compose([
+				Validators.required,
+				Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+			])],
 			confirmeEmail: ['', [compararCamposValidator('email')]],
 			senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
 			confirmeSenha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100), compararCamposValidator('senha')]],
