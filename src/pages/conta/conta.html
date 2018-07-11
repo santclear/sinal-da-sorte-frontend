@@ -52,7 +52,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<p-dropdown formControlName="generoId" [options]="generos" editable="true" placeholder="Gênero*"></p-dropdown>
+									<p-dropdown formControlName="generoId" [options]="generos" placeholder="Gênero*"></p-dropdown>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['generoId'].valid&&contaForm.controls['generoId'].dirty">
 									<i class="fa fa-close"></i> Escolha seu gênero
@@ -60,7 +60,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="email" type="text" pInputText>
+									<input formControlName="email" type="text" autocapitalize="none" pInputText>
 									<label for="float-input">E-mail*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['email'].valid&&contaForm.controls['email'].dirty">
@@ -69,7 +69,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="confirmeEmail" type="text" bloqueiaCopiaCola pInputText>
+									<input formControlName="confirmeEmail" autocapitalize="none" type="text" bloqueiaCopiaCola pInputText>
 									<label for="float-input">Confirme o novo e-mail</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeEmail'].valid&&contaForm.controls['confirmeEmail'].dirty">

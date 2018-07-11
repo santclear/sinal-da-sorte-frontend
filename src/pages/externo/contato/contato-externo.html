@@ -23,7 +23,7 @@
 							</p> 
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="contato" type="text" class="larguraTotal" pInputText>
+									<input formControlName="contato" type="text" autocapitalize="none" class="larguraTotal" pInputText>
 									<label for="float-input">Seus contatos (email, telefone, etc)</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['contato'].valid&&contatoForm.controls['contato'].dirty">

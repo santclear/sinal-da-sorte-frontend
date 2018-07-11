@@ -13,7 +13,7 @@
 					<form [formGroup]="esqueciSenhaForm" (ngSubmit)="envieNovaSenha(); $event.preventDefault()">
 						<ion-item>
 							<ion-label floating>E-mail</ion-label>
-							<ion-input type="text" formControlName="email"></ion-input>
+							<ion-input type="text" autocapitalize="none" formControlName="email"></ion-input>
 						</ion-item>
 						<span class="ui-message ui-messages-error ui-corner-all ng-star-inserted" *ngIf="esqueciSenhaForm.controls.email.dirty && esqueciSenhaForm.controls.email.errors"
 						margin-left>
