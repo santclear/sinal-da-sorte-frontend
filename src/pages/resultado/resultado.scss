@@ -1,4 +1,8 @@
 pagina-resultado {
+	p {
+		padding-top: 8px;
+	}
+
 	.resultado {
 		font-family: sans-serif;
 		font-size: 32pt;
@@ -7,8 +11,7 @@ pagina-resultado {
 
 	.palavra-destacada {
 		color: #4f5355;
-		font-size: 18pt;
-		font-weight: normal;
+		font-size: 16pt;
 	}
 
 	.coracao {
@@ -23,6 +26,8 @@ pagina-resultado {
 		color: #4f5355;
 		font-size: 12pt !important;
 		text-transform: none !important;
+		margin-top: 10px;
+		text-align: center;
 	}
 
 	.margem-superior {
@@ -55,5 +60,10 @@ pagina-resultado {
 
 	tr:hover {
 		background-color: #ccc
+	}
+
+	.centralize {
+		text-align: center;
+		margin: 0 auto;
 	}
 }
