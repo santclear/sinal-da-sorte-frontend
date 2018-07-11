@@ -128,10 +128,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 	handleDefaultError(errorObj) {
 		let toast = this.toastCtrl.create({
-			message: 'Verifique sua conexão de internet e tente novamente',
+			message: 'Sem conexão, por falta de internet ou por estar ocorrendo as atualizações dos resultados de loterias nos servidores.',
 			showCloseButton: true,
 			closeButtonText: 'Ok',
-			duration: 5000,
+			duration: 15000,
 			position: 'top',
 			cssClass: 'toastGeral'
 		});
