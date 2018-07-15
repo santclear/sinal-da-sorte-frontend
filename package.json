@@ -1,6 +1,6 @@
 {
     "name": "sinal-da-sorte-app",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "author": "Sant'Clear",
     "homepage": "http://www.sinaldasorte.com.br/",
     "private": true,
@@ -56,7 +56,7 @@
         "@ionic/app-scripts": "^3.1.10",
         "typescript": "~2.6.2"
     },
-    "description": "Aplicativo para geração de surpresinhas com base em estatísticas, acompanhamento de concursos de loterias, e muito mais.",
+    "description": "Loterias Caixa. Veja resultado da quina, resultado dupla sena, resultado da lotomania, sorteio mega sena, combinações de números, lotomania simulador e MAIS!",
     "cordova": {
         "platforms": [
             "browser",
