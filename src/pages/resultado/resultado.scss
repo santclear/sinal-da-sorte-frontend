@@ -5,7 +5,7 @@ pagina-resultado {
 
 	.resultado {
 		font-family: sans-serif;
-		font-size: 32pt;
+		font-size: 28pt;
 		font-weight: bold;
 	}
 
@@ -15,7 +15,7 @@ pagina-resultado {
 	}
 
 	.coracao {
-		font-size: 32pt;
+		font-size: 28pt;
 	}
 
 	.time-coracao, .mes-sorte {
@@ -24,7 +24,7 @@ pagina-resultado {
 
 	.texto {
 		color: #4f5355;
-		font-size: 12pt !important;
+		font-size: 11pt !important;
 		text-transform: none !important;
 		margin-top: 10px;
 		text-align: center;
@@ -39,11 +39,14 @@ pagina-resultado {
 	}
 	
 	.botao-da-matriz-dezenas {
-		width: 42px;
-		height: 42px;
+		// width: 42px;
+		// height: 42px;
+		// font-size: 14pt;
+		width: 36px;
+		height: 36px;
+		font-size: 12pt;
 		margin: 5px;
-		font-size: 14pt;
-		padding: 0 0.6rem !important;
+		padding: 0 !important;
 	}
 
 	.dezenas-sorteadas {
@@ -65,5 +68,9 @@ pagina-resultado {
 	.centralize {
 		text-align: center;
 		margin: 0 auto;
+	}
+
+	ion-range {
+		padding-top: 15px!important;
 	}
 }

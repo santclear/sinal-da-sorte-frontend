@@ -31,6 +31,14 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 
 	constructor(public concursoDAOServico: ConcursoDAOServico) {
 		super(concursoDAOServico);
+		this.sortOptions = [
+			{label: 'Concurso asc.', value: 'concurso'},
+			{label: 'Concurso desc.', value: '!concurso'},
+			{label: 'Soma asc.', value: 'soma'},
+			{label: 'Soma desc.', value: '!soma'},
+			{label: 'Dezenas asc.', value: 'dezenas'},
+			{label: 'Dezenas desc.', value: '!dezenas'},
+        ];
 		this.filterQuery = '';
 		this.rowsOnPage = 100;
 		this.sortBy = 'soma';
@@ -127,9 +135,19 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 			exporting:{
 				filename: sessao.loteria.nomeDoDocumentoNoBD+'-soma-das-dez-conc-'+numeroDoConcursoInicial+'-a-'+numeroDoConcursoFinal
 			},
+			lang: {
+				downloadCSV: 'Download CSV',
+				downloadJPEG: 'Download JPEG',
+				downloadPDF: 'Download PDF',
+				downloadPNG: 'Download PNG',
+				downloadSVG: 'Download SVG',
+				downloadXLS: 'Download XLS',
+				loading: 'Carregando...',
+				printChart: 'Imprimir gráfico'
+			},
 			credits: {
-				href: "http://www.sinaldasorte.com",
-				text: "www.sinaldasorte.com"
+				href: "http://www.sinaldasorte.com.br",
+				text: "www.sinaldasorte.com.br"
 			}
 		});
 	}

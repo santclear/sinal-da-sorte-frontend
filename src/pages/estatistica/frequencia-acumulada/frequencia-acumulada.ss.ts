@@ -27,15 +27,26 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 	public filterQuery: string;
 	public rowsOnPage: number;
 	public sortBy: string;
-	public sortOrder: string;
 
 	constructor(public concursoDAOServico: ConcursoDAOServico) {
 		super(concursoDAOServico);
+		this.sortOptions = [
+			{label: 'Dezena asc.', value: 'dezena'},
+			{label: 'Dezena desc.', value: '!dezena'},
+			{label: 'Frequência total asc.', value: 'frequenciaTotal'},
+			{label: 'Frequência total desc.', value: '!frequenciaTotal'},
+			{label: 'Ausência total asc.', value: 'ausenciaTotal'},
+			{label: 'Ausência total desc.', value: '!ausenciaTotal'},
+			{label: 'Últimas frequências asc.', value: 'acumuloRemanescente'},
+			{label: 'Últimas frequências desc.', value: '!acumuloRemanescente'},
+			{label: 'Últimas ausências asc.', value: 'ausenciaRemanescente'},
+			{label: 'Últimas ausências desc.', value: '!ausenciaRemanescente'},
+        ];
 		this.filterQuery = '';
 		this.rowsOnPage = 100;
 		this.sortBy = 'frequenciaTotal';
 		this.sortOrder = 'desc';
-    }
+	}
 
 	destaqueDezena(dezenaSelecionada: string): boolean {
 		return dezenaSelecionada == this.dezena;
@@ -143,9 +154,19 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 			exporting:{
 				filename: sessao.loteria.nomeDoDocumentoNoBD+'-freq-da-dez-'+dezena+'-conc-'+numeroDoConcursoInicial+'-a-'+numeroDoConcursoFinal
 			},
+			lang: {
+				downloadCSV: 'Download CSV',
+				downloadJPEG: 'Download JPEG',
+				downloadPDF: 'Download PDF',
+				downloadPNG: 'Download PNG',
+				downloadSVG: 'Download SVG',
+				downloadXLS: 'Download XLS',
+				loading: 'Carregando...',
+				printChart: 'Imprimir gráfico'
+			},
 			credits: {
-				href: "http://www.sinaldasorte.com",
-				text: "www.sinaldasorte.com"
+				href: "http://www.sinaldasorte.com.br",
+				text: "www.sinaldasorte.com.br"
 			}
 		});
 	}

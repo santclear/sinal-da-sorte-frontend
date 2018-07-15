@@ -2,6 +2,7 @@ import { ConcursoFacade } from '../../../dao/concurso/concurso-facade';
 import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
 import { ElementRef } from '@angular/core';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 export abstract class EstatisticaBase {
 	protected canvas: ElementRef;
@@ -20,6 +21,9 @@ export abstract class EstatisticaBase {
 	public toggleMostrarMaisEstatisticasChecked: boolean = false;
 	protected bd: any;
 	protected concursoFacade: ConcursoFacade;
+	public sortOrder: any;
+	public sortOptions: SelectItem[];
+    public sortField: string;
 
 	// ngDoCheck() {
 	// 	if(this.iptPesquisaDeAmostraFrequencia == '' || this.iptPesquisaDeAmostraFrequencia == undefined) {
@@ -42,7 +46,7 @@ export abstract class EstatisticaBase {
 				this.dezenas = sessao.loteria.dezenas;
 			});
 		});
-    }
+	}
 
 	cbxExtensaoDaFaixaDeConcursosAtualize(cbxExtensaoDaFaixaDeConcursosAtualizeOutput: any): void {
 		this.canvas = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.canvas;
@@ -199,6 +203,19 @@ export abstract class EstatisticaBase {
 			});
 		}
 	}
+
+    onSortChange(event) {
+        let value = event.value;
+
+        if (value.indexOf('!') === 0) {
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        }
+        else {
+            this.sortOrder = 1;
+            this.sortField = value;
+        }
+    }
 
 	abstract configureEstatistica(canvas: ElementRef, concursos: any, dezena: string, sessao: any, numeroDoSorteio: number, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, dezenas: string[]): void;
 	abstract atualizeFrequênciasDasDezenas(dezena: string, numeroDoConcursoInicial: number, numeroDoConcursoFinal: number, numeroDoSorteio: number, dezenas: string[]): void;

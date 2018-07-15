@@ -42,33 +42,76 @@
 		</ion-list-header>
 		
 		<ion-item>
-			<div class="container-tabela margem-automatica">
-				<p-table [columns]="colsSomaDasDezenasEmCadaConcurso" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{'max-width':'800px','margin':'0 auto'}">
-					<ng-template pTemplate="header" let-colunas>
-						<tr>
-							<th [ngStyle]="{'width': coluna.tamanho}" *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
-								{{coluna.nome}}
-								<p-sortIcon [field]="coluna.campo"></p-sortIcon>
-							</th>
-						</tr>
-					</ng-template>
-					<ng-template pTemplate="body" let-rowData let-colunas="columns">
-						<tr>
-							<td *ngFor="let coluna of colunas">
-								<span class="ui-column-title">{{coluna.nome}}</span>
-								{{rowData[coluna.campo]}}
-							</td>
-						</tr>
-					</ng-template>
-					<ng-template pTemplate="footer">
-						<tr>
-							<td>Média das somas</td>
-							<td>{{mediaDaSomaDasDezenasEmCadaConcurso | number:'1.1-2'}}</td>
-							<td></td>
-						</tr>
-					</ng-template>
-				</p-table>
-			</div>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4>
+						<div class="container-tabela margem-automatica">
+							<!-- <p-table [columns]="colsSomaDasDezenasEmCadaConcurso" [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{'max-width':'800px','margin':'0 auto'}">
+								<ng-template pTemplate="header" let-colunas>
+									<tr>
+										<th [ngStyle]="{'width': coluna.tamanho}" *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
+											{{coluna.nome}}
+											<p-sortIcon [field]="coluna.campo"></p-sortIcon>
+										</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-rowData let-colunas="columns">
+									<tr>
+										<td *ngFor="let coluna of colunas">
+											<span class="ui-column-title">{{coluna.nome}}</span>
+											{{rowData[coluna.campo]}}
+										</td>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="footer">
+									<tr>
+										<td>Média das somas</td>
+										<td>{{mediaDaSomaDasDezenasEmCadaConcurso | number:'1.1-2'}}</td>
+										<td></td>
+									</tr>
+								</ng-template>
+							</p-table> -->
+							<p-dataView #dv [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="soma" [sortField]="sortField" [sortOrder]="sortOrder">
+								<p-header>
+									<div class="ui-helper-clearfix">
+										<div class="ui-g">
+											<div class="ui-g-12">
+												<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'230px'}"></p-dropdown>
+											</div>
+											<div class="ui-g-6 filter-container">
+												<div style="position:relative">
+													<input type="search" pInputText placeholder="Pesquise soma" (keyup)="dv.filter($event.target.value)" style="width:140px">
+												</div>
+											</div>
+										</div>
+									</div>
+								</p-header>
+								<ng-template let-rowData pTemplate="listItem">
+									<div class="ui-g" style="padding: 10px;border-bottom: 1px solid #d9d9d9">
+										<div class="ui-g-12 ui-md-12">
+											<div class="ui-g">
+												<div class="ui-g-9 ui-sm-9">Concurso: </div>
+												<div class="ui-g-3 ui-sm-3"><b>{{rowData.concurso}}</b></div>
+							
+												<div class="ui-g-9 ui-sm-9">Soma das dezenas: </div>
+												<div class="ui-g-3 ui-sm-3"><b>{{rowData.soma}}</b></div>
+
+												<div class="ui-g-9 ui-sm-9">Dezenas: </div>
+												<div class="ui-g-12 ui-sm-12"><b>{{rowData.dezenas}}</b></div>
+											</div>
+										</div>
+									</div>
+								</ng-template>
+								<p-footer>
+									<div class="ui-dataview-footer" style="text-align: center">
+										Média das somas: {{mediaDaSomaDasDezenasEmCadaConcurso | number:'1.1-2'}}
+									</div>
+								</p-footer>
+							</p-dataView>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</ion-item>
 	</ion-list>
 	<ion-list>
@@ -77,8 +120,8 @@
 		</ion-list-header>
 		
 		<ion-item>
-			<div class="container-tabela margem-automatica">
-				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" [responsive]="true" sortField="ausenciaTotal" [style]="{'max-width':'300px','margin':'0 auto'}">
+			<div class="container-tabela">
+				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" sortField="ausenciaTotal" [style]="{'max-width':'300px','margin':'0 auto'}">
 					<ng-template pTemplate="header" let-colunas>
 						<tr>
 							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
@@ -90,7 +133,6 @@
 					<ng-template pTemplate="body" let-rowData let-colunas="columns">
 						<tr>
 							<td *ngFor="let coluna of colunas">
-								<span class="ui-column-title">{{coluna.nome}}</span>
 								{{rowData[coluna.campo]}}
 							</td>
 						</tr>

@@ -8,6 +8,7 @@ import { PaginaBase } from '../pagina.base';
 import lodash from 'lodash';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 @IonicPage()
 @Component({
@@ -20,6 +21,7 @@ export class ResultadoPage extends PaginaBase {
 	public dezenas = [];
 	public sorteios: any = [];
 	public colsRateio: any = [];
+	public colsGanhadores: any = [];
 	public colsEstatisticas: any = [];
 	public dezenasEmOrdemCrescente = [];
 	public tiposDeAcertos = [];
@@ -54,7 +56,10 @@ export class ResultadoPage extends PaginaBase {
 	public filterQuery = "";
 	public rowsOnPage = 100;
 	public sortBy = "total";
-	public sortOrder = "asc";
+	public sortOrder:any = "asc";
+
+	public sortOptions: SelectItem[];
+    public sortField: string;
 
 	constructor(private concursoDAOServico: ConcursoDAOServico, public navCtrl: NavController, public storage: StorageService) {
 		super();
@@ -80,6 +85,12 @@ export class ResultadoPage extends PaginaBase {
 	ionViewDidEnter() {
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
+		this.sortOptions = [
+			{label: 'Dezena asc.', value: 'dezena'},
+			{label: 'Dezena desc.', value: '!dezena'},
+			{label: 'Frequência asc.', value: 'frequenciaTotal'},
+			{label: 'Frequência desc.', value: '!frequenciaTotal'}
+        ];
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
@@ -208,6 +219,11 @@ export class ResultadoPage extends PaginaBase {
 				{ campo: 'rateio', nome: 'Prêmio' }
 			];
 
+			this.colsGanhadores = [
+				{ campo: 'qtd', nome: 'Ganhadores', width: '100px' },
+				{ campo: 'cidadeUf', nome: 'Cidades/UF', width: '*' },
+			];
+
 			concurso.sorteios.forEach(sorteio => {
 				this.dezenasEmOrdemCrescente.push(this.ordeneDezenasEmOrdemCrescente(sorteio.numerosSorteados));
 			});
@@ -259,4 +275,17 @@ export class ResultadoPage extends PaginaBase {
 			}
 		});
 	}
+
+    onSortChange(event) {
+        let value = event.value;
+
+        if (value.indexOf('!') === 0) {
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        }
+        else {
+            this.sortOrder = 1;
+            this.sortField = value;
+        }
+    }
 }
