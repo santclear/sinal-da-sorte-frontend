@@ -6,6 +6,7 @@ import { ContatoDto } from '../../dtos/contato.dto';
 import { EmailService } from '../../services/email.service';
 import { StorageService } from '../../services/storage.service';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class ContatoPage extends PaginaBase {
 		private emailService: EmailService,
 		private storage: StorageService,
 		public loadingCtrl: LoadingController,
-		public plataforma: Platform) {
+		public plataforma: Platform,
+		public admob: AdMobFree) {
 
 		super();
 		this.exibeLogo = navParams.get('exibeLogo');
@@ -54,6 +56,9 @@ export class ContatoPage extends PaginaBase {
 		if(!contaLocal) {
 			let vemDePush: boolean = this.navParams.get('vemDePush');
 			if(!vemDePush) this.navCtrl.setRoot('ContatoExternoPage');
+		}
+		if(this.plataforma.is('android')) {
+			super.mostreAnuncioBanner(this.admob);
 		}
 	}
 

@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 import { MyApp } from './app.component';
 
@@ -64,6 +65,7 @@ import { DominioSingletonService } from '../services/dominio-singleton.service';
 		NavegadoresSuportadosService,
 		DominioSingletonService,
 		AuthInterceptorProvider,
+		AdMobFree,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }
 	]

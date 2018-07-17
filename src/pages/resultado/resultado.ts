@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, Platform } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
@@ -9,6 +9,7 @@ import lodash from 'lodash';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import { AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 
 @IonicPage()
 @Component({
@@ -61,7 +62,12 @@ export class ResultadoPage extends PaginaBase {
 	public sortOptions: SelectItem[];
     public sortField: string;
 
-	constructor(private concursoDAOServico: ConcursoDAOServico, public navCtrl: NavController, public storage: StorageService) {
+	constructor(
+		private concursoDAOServico: ConcursoDAOServico, 
+		public navCtrl: NavController, 
+		public storage: StorageService,
+		public admob: AdMobFree,
+		public plataforma: Platform) {
 		super();
 		this.setTitulo("Resultado");
 
@@ -90,7 +96,11 @@ export class ResultadoPage extends PaginaBase {
 			{label: 'Dezena desc.', value: '!dezena'},
 			{label: 'Frequência asc.', value: 'frequenciaTotal'},
 			{label: 'Frequência desc.', value: '!frequenciaTotal'}
-        ];
+		];
+		if(this.plataforma.is('android')) {
+			super.mostreAnuncioBanner(this.admob);
+			this.mostreAnuncioInterstitial();
+		}
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
@@ -287,5 +297,22 @@ export class ResultadoPage extends PaginaBase {
             this.sortOrder = 1;
             this.sortField = value;
         }
+	}
+	
+    mostreAnuncioInterstitial() {
+		let interstitialConfig: AdMobFreeInterstitialConfig = {
+			// isTesting: true, // Remove in production
+			autoShow: true,
+			id: 'ca-app-pub-5335868077868255/2236896705'
+		};
+	
+		this.admob.interstitial.config(interstitialConfig);
+	
+		this.admob.interstitial.prepare().then(() => {
+		}).catch(e => {console.log(e)});
+
+		setTimeout(() => {
+			this.mostreAnuncioInterstitial();
+		}, 120000);
     }
 }

@@ -17,6 +17,7 @@ import { compararCamposValidator } from '../../../validators/comparar-campos.val
 import { emailOrEmptyValidator } from '../../../validators/email.validator';
 // import { LoginPage } from '../../login/login';
 import { PaginaBase } from '../../pagina.base';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 @IonicPage()
 @Component({
@@ -43,7 +44,8 @@ export class AtualizacaoContaPage extends PaginaBase {
 		private toastCtrl: ToastController,
 		private storage: StorageService,
 		public loadingCtrl: LoadingController,
-		public plataforma: Platform) {
+		public plataforma: Platform,
+		public admob: AdMobFree) {
 		super();
 		this.pbNav = navCtrl;
 		this.pbStorage = storage;
@@ -64,6 +66,9 @@ export class AtualizacaoContaPage extends PaginaBase {
 		}
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
+		if(this.plataforma.is('android')) {
+			super.mostreAnuncioBanner(this.admob);
+		}
 	}
 
 	ngOnInit() {
