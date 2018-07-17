@@ -13,6 +13,7 @@ import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
 import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
+import { AnuncioAdMobService } from '../services/anuncio-admob.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -44,6 +45,7 @@ export class MyApp {
 		public alertCtrl: AlertController,
 		public contaService: ContaService,
 		public navegadoresSuportadosService: NavegadoresSuportadosService,
+		public anuncioAdMobService: AnuncioAdMobService
 	) {
 		this.bd = ConexaoFabrica.getConexao();
 

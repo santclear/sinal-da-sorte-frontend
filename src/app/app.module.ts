@@ -30,6 +30,7 @@ import { ContaPageModule } from '../pages/conta/conta.module';
 import { ResultadoPageModule } from '../pages/resultado/resultado.module';
 import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esqueci-minha-senha.module';
 import { DominioSingletonService } from '../services/dominio-singleton.service';
+import { AnuncioAdMobService } from '../services/anuncio-admob.service';
 
 @NgModule({
 	declarations: [
@@ -63,6 +64,7 @@ import { DominioSingletonService } from '../services/dominio-singleton.service';
 		UsuarioService,
 		EmailService,
 		NavegadoresSuportadosService,
+		AnuncioAdMobService,
 		DominioSingletonService,
 		AuthInterceptorProvider,
 		AdMobFree,
