@@ -9,7 +9,6 @@ import lodash from 'lodash';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
-import { AnuncioAdMobService } from '../../services/anuncio-admob.service';
 
 @IonicPage()
 @Component({
@@ -90,10 +89,10 @@ export class ResultadoPage extends PaginaBase {
 		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
 		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
 		this.sortOptions = [
-			{label: 'Dezena asc.', value: 'dezena'},
-			{label: 'Dezena desc.', value: '!dezena'},
-			{label: 'Frequência asc.', value: 'frequenciaTotal'},
-			{label: 'Frequência desc.', value: '!frequenciaTotal'}
+			{label: 'Dezena - menor/maior', value: 'dezena'},
+			{label: 'Dezena - maior/menor', value: '!dezena'},
+			{label: 'Frequência - menor/maior', value: 'frequenciaTotal'},
+			{label: 'Frequência - maior/menor', value: '!frequenciaTotal'}
 		];
 	}
 

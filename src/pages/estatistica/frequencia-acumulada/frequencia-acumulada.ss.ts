@@ -31,16 +31,16 @@ export class FrequenciaAcumuladaSs extends EstatisticaBase implements Estatistic
 	constructor(public concursoDAOServico: ConcursoDAOServico) {
 		super(concursoDAOServico);
 		this.sortOptions = [
-			{label: 'Dezena asc.', value: 'dezena'},
-			{label: 'Dezena desc.', value: '!dezena'},
-			{label: 'Frequência total asc.', value: 'frequenciaTotal'},
-			{label: 'Frequência total desc.', value: '!frequenciaTotal'},
-			{label: 'Ausência total asc.', value: 'ausenciaTotal'},
-			{label: 'Ausência total desc.', value: '!ausenciaTotal'},
-			{label: 'Últimas frequências asc.', value: 'acumuloRemanescente'},
-			{label: 'Últimas frequências desc.', value: '!acumuloRemanescente'},
-			{label: 'Últimas ausências asc.', value: 'ausenciaRemanescente'},
-			{label: 'Últimas ausências desc.', value: '!ausenciaRemanescente'},
+			{label: 'Dezena - menor/maior', value: 'dezena'},
+			{label: 'Dezena - maior/menor', value: '!dezena'},
+			{label: 'Frequência total - menor/maior', value: 'frequenciaTotal'},
+			{label: 'Frequência total - maior/menor', value: '!frequenciaTotal'},
+			{label: 'Ausência total - menor/maior', value: 'ausenciaTotal'},
+			{label: 'Ausência total - maior/menor', value: '!ausenciaTotal'},
+			{label: 'Últimas frequências - menor/maior', value: 'acumuloRemanescente'},
+			{label: 'Últimas frequências - maior/menor', value: '!acumuloRemanescente'},
+			{label: 'Últimas ausências - menor/maior', value: 'ausenciaRemanescente'},
+			{label: 'Últimas ausências - maior/menor', value: '!ausenciaRemanescente'},
         ];
 		this.filterQuery = '';
 		this.rowsOnPage = 100;

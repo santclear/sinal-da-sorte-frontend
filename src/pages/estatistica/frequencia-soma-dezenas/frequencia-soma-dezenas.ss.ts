@@ -32,12 +32,12 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 	constructor(public concursoDAOServico: ConcursoDAOServico) {
 		super(concursoDAOServico);
 		this.sortOptions = [
-			{label: 'Concurso asc.', value: 'concurso'},
-			{label: 'Concurso desc.', value: '!concurso'},
-			{label: 'Soma asc.', value: 'soma'},
-			{label: 'Soma desc.', value: '!soma'},
-			{label: 'Dezenas asc.', value: 'dezenas'},
-			{label: 'Dezenas desc.', value: '!dezenas'},
+			{label: 'Concurso - menor/maior', value: 'concurso'},
+			{label: 'Concurso - maior/menor', value: '!concurso'},
+			{label: 'Soma - menor/maior', value: 'soma'},
+			{label: 'Soma - maior/menor', value: '!soma'},
+			{label: 'Dezenas - menor/maior', value: 'dezenas'},
+			{label: 'Dezenas - maior/menor', value: '!dezenas'},
         ];
 		this.filterQuery = '';
 		this.rowsOnPage = 100;
