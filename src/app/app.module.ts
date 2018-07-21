@@ -29,7 +29,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContaPageModule } from '../pages/conta/conta.module';
 import { ResultadoPageModule } from '../pages/resultado/resultado.module';
 import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esqueci-minha-senha.module';
-import { DominioSingletonService } from '../services/dominio-singleton.service';
 import { AnuncioAdMobService } from '../services/anuncio-admob.service';
 
 @NgModule({
@@ -65,7 +64,6 @@ import { AnuncioAdMobService } from '../services/anuncio-admob.service';
 		EmailService,
 		NavegadoresSuportadosService,
 		AnuncioAdMobService,
-		DominioSingletonService,
 		AuthInterceptorProvider,
 		AdMobFree,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
