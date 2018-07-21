@@ -13,16 +13,9 @@ export class UtilService {
 		return this.http.get<string>(Loterias.DOMINIO +'util/ping');
 	}
 
-	dominio(): Observable<string> {
-		return this.http.get<string>(Loterias.DOMINIO +'util/dominio');
-	}
-
-	verificaReCaptcha( apiKey: string, responseReCaptcha: string) {
-		return this.http.post('https://www.google.com/recaptcha/api/siteverify',
-			{
-				secret: apiKey,
-				response: responseReCaptcha
-			},
+	reCaptchaProcessResponse(response: string) {
+		return this.http.post(Loterias.DOMINIO +'util/reCaptchaProcessResponse/'+response,
+			null,
 			{
 				observe: 'response',
 				responseType: 'text'

@@ -17,6 +17,7 @@ import { compararCamposValidator } from '../../../validators/comparar-campos.val
 import { emailOrEmptyValidator } from '../../../validators/email.validator';
 // import { LoginPage } from '../../login/login';
 import { PaginaBase } from '../../pagina.base';
+import { UtilService } from '../../../services/util.service';
 
 @IonicPage()
 @Component({
@@ -43,7 +44,8 @@ export class AtualizacaoContaPage extends PaginaBase {
 		private toastCtrl: ToastController,
 		private storage: StorageService,
 		public loadingCtrl: LoadingController,
-		public plataforma: Platform) {
+		public plataforma: Platform,
+		public utilService: UtilService) {
 		super();
 		this.pbNav = navCtrl;
 		this.pbStorage = storage;
@@ -334,7 +336,14 @@ export class AtualizacaoContaPage extends PaginaBase {
 			novaSenha: null,
 			usuario: null
 		};
+
+		let loading = this.loadingCtrl.create({
+			content: 'Por favor aguarde, processando a exclusão da conta...'
+		});
+
+		loading.present();
 		this.contaService.exclua(conta).subscribe(response => {
+			loading.dismiss();
 			let alert = this.alertCtrl.create({
 				title: 'Sucesso!',
 				message: 'Para concluir a exclusão da sua conta siga as instruções enviadas para ' + conta.email,
@@ -350,31 +359,41 @@ export class AtualizacaoContaPage extends PaginaBase {
 				(<any>window).grecaptcha.reset();
 				clearTimeout(this.reCaptchaTimeout);
 			} catch(err) {err}
-		}, error => { });
+		}, error => { 
+			loading.dismiss();
+		});
 	}
 
 	reCaptcha(ev) {
-		if (ev) {
-			this.contaForm.controls['reCaptcha'].setValue(true);
-		}
-		this.exibeReCaptcha = 'none';
-		this.reCaptchaTimeout = setTimeout(() => {
-			this.exibeReCaptcha = 'block';
-			this.contaForm.controls['reCaptcha'].setValue(null);
-			try {
-				(<any>window).grecaptcha.reset();
-				let toast = this.toastCtrl.create({
-					message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
-					showCloseButton: true,
-					closeButtonText: 'Ok',
-					duration: 15000,
-					position: 'middle',
-					cssClass: 'toastGeral'
-				});
-				toast.present(toast);
-			} catch(err) {err} finally {
-				clearTimeout(this.reCaptchaTimeout);
-			}
-		}, 40000);
+		this.utilService.reCaptchaProcessResponse(ev).subscribe(() => {
+			this.exibeReCaptcha = 'none';
+			this.reCaptchaTimeout = setTimeout(() => {
+				this.exibeReCaptcha = 'block';
+				this.contaForm.controls['reCaptcha'].setValue(null);
+				try {
+					(<any>window).grecaptcha.reset();
+					let toast = this.toastCtrl.create({
+						message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
+						showCloseButton: true,
+						closeButtonText: 'Ok',
+						duration: 15000,
+						position: 'middle',
+						cssClass: 'toastGeral'
+					});
+					toast.present(toast);
+				} catch(err) {err} finally {
+					clearTimeout(this.reCaptchaTimeout);
+				}
+			}, 40000);
+		}, erro => {
+			let toast = this.toastCtrl.create({
+				message: `[Erro: ${erro}] - Reprovado no desafio. TENTE NOVAMENTE.`,
+				showCloseButton: true,
+				closeButtonText: 'Ok',
+				position: 'middle',
+				cssClass: 'toastNavegadorNaoSuportado'
+			});
+			toast.present();
+		});
 	}
 }

@@ -10,6 +10,7 @@ import { UsuarioDto } from '../../../dtos/usuario.dto';
 import { compararCamposValidator } from '../../../validators/comparar-campos.validator';
 // import { cpfValidator } from '../../validators/cpf.validator';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import { UtilService } from '../../../services/util.service';
 
 @IonicPage()
 @Component({
@@ -33,7 +34,8 @@ export class ContaExternoPage {
 		// private enderecoService: EnderecoService,
 		private alertCtrl: AlertController,
 		private toastCtrl: ToastController,
-		public loadingCtrl: LoadingController) {
+		public loadingCtrl: LoadingController,
+		public utilService: UtilService) {
 
 		this.instancieContaForm();
 	}
@@ -215,25 +217,35 @@ export class ContaExternoPage {
 	}
 	
 	reCaptcha(ev) {
-		if (ev) this.contaForm.controls['reCaptcha'].setValue(true);
-		this.exibeReCaptcha = 'none';
-		this.reCaptchaTimeout = setTimeout(() => {
-			this.exibeReCaptcha = 'block';
-			this.contaForm.controls['reCaptcha'].setValue(null);
-			try {
-				(<any>window).grecaptcha.reset();
-				let toast = this.toastCtrl.create({
-					message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
-					showCloseButton: true,
-					closeButtonText: 'Ok',
-					duration: 15000,
-					position: 'middle',
-					cssClass: 'toastGeral'
-				});
-				toast.present(toast);
-			} catch(err) {err} finally {
-				clearTimeout(this.reCaptchaTimeout);
-			}
-		}, 40000);
+		this.utilService.reCaptchaProcessResponse(ev).subscribe(() => {
+			this.exibeReCaptcha = 'none';
+			this.reCaptchaTimeout = setTimeout(() => {
+				this.exibeReCaptcha = 'block';
+				this.contaForm.controls['reCaptcha'].setValue(null);
+				try {
+					(<any>window).grecaptcha.reset();
+					let toast = this.toastCtrl.create({
+						message: 'O tempo do reCaptcha expirou! Para seguir com a atualização é necessário realizar o desafio do reCaptcha novamente.',
+						showCloseButton: true,
+						closeButtonText: 'Ok',
+						duration: 15000,
+						position: 'middle',
+						cssClass: 'toastGeral'
+					});
+					toast.present(toast);
+				} catch(err) {err} finally {
+					clearTimeout(this.reCaptchaTimeout);
+				}
+			}, 40000);
+		}, erro => {
+			let toast = this.toastCtrl.create({
+				message: `[Erro: ${erro}] - Reprovado no desafio. TENTE NOVAMENTE.`,
+				showCloseButton: true,
+				closeButtonText: 'Ok',
+				position: 'middle',
+				cssClass: 'toastNavegadorNaoSuportado'
+			});
+			toast.present();
+		});
 	}
 }
