@@ -12,6 +12,7 @@ import { CardModule } from 'primeng/card';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RodapeSsModule } from '../../../componentes/rodape/rodape.ss.module';
 import { BloqueiaCopiaColaDirectiveModule } from '../../../diretivas/bloqueia-copia-cola.module';
+import { DoacaoSsModule } from '../../../componentes/doacao/doacao.ss.module';
 
 @NgModule({
 	declarations: [
@@ -27,6 +28,7 @@ import { BloqueiaCopiaColaDirectiveModule } from '../../../diretivas/bloqueia-co
 		TabViewModule,
 		CardModule,
 		BloqueiaCopiaColaDirectiveModule,
+		DoacaoSsModule,
 		RodapeSsModule,
 		RecaptchaModule.forRoot(),
 		IonicPageModule.forChild(AtualizacaoContaPage),

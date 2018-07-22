@@ -9,6 +9,7 @@ import lodash from 'lodash';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import { AvisoService } from '../../services/aviso.service';
 
 @IonicPage()
 @Component({
@@ -59,12 +60,14 @@ export class ResultadoPage extends PaginaBase {
 	public sortOrder:any = "asc";
 
 	public sortOptions: SelectItem[];
-    public sortField: string;
+	public sortField: string;
+	public exibeAviso: boolean;
 
 	constructor(
 		private concursoDAOServico: ConcursoDAOServico, 
 		public navCtrl: NavController, 
-		public storage: StorageService) {
+		public storage: StorageService,
+		public avisoService: AvisoService) {
 		super();
 		this.setTitulo("Resultado");
 
@@ -81,6 +84,8 @@ export class ResultadoPage extends PaginaBase {
 				}
 			});
 		});
+
+		this.exibeAviso = this.avisoService.exibeAviso;
 
 		// this.menu.open();
 	}

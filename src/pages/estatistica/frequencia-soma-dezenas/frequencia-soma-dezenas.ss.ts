@@ -3,6 +3,7 @@ import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { EstatisticaBase } from '../base/estatistica.base';
 import { EstatisticaI } from '../base/estatistica.i';
 import lodash from 'lodash';
+import { IntersticialAdMobService } from '../../../services/intersticial-admob.service';
 
 declare var require: any;
 var hcharts = require('highcharts');
@@ -29,8 +30,8 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 	public sortBy2: string;
 	public sortOrder2: string;
 
-	constructor(public concursoDAOServico: ConcursoDAOServico) {
-		super(concursoDAOServico);
+	constructor(public concursoDAOServico: ConcursoDAOServico, public intersticialAdMobService: IntersticialAdMobService) {
+		super(concursoDAOServico, intersticialAdMobService);
 		this.sortOptions = [
 			{label: 'Concurso - menor/maior', value: 'concurso'},
 			{label: 'Concurso - maior/menor', value: '!concurso'},

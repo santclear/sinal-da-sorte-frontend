@@ -38,4 +38,21 @@ export class StorageService {
             localStorage.setItem(STORAGE_KEYS.paginaAnterior, nome);
         }
     }
+
+    getContadorAnuncio() : string {
+        let contador = localStorage.getItem(STORAGE_KEYS.contador);
+        if (contador == null) {
+            return null;
+        } else {
+            return contador;
+        }
+    }
+
+    setContadorAnuncio(contador: string) {
+        if (contador == null) {
+            localStorage.removeItem(STORAGE_KEYS.contador);
+        } else {
+            localStorage.setItem(STORAGE_KEYS.contador, contador);
+        }
+    }
 }

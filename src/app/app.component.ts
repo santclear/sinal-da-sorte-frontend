@@ -13,7 +13,9 @@ import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
 import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
-import { AnuncioAdMobService } from '../services/anuncio-admob.service';
+import { BannerAdMobService } from '../services/banner-admob.service';
+import { IntersticialAdMobService } from '../services/intersticial-admob.service';
+import { AvisoService } from '../services/aviso.service';
 
 @Component({
 	templateUrl: `app.html`,
@@ -45,7 +47,9 @@ export class MyApp {
 		public alertCtrl: AlertController,
 		public contaService: ContaService,
 		public navegadoresSuportadosService: NavegadoresSuportadosService,
-		public anuncioAdMobService: AnuncioAdMobService
+		public bannerAdMobService: BannerAdMobService,
+		public intersticialAdMobService: IntersticialAdMobService,
+		public avisoService: AvisoService
 	) {
 		this.bd = ConexaoFabrica.getConexao();
 
@@ -79,6 +83,7 @@ export class MyApp {
 	}
 
 	abraAPagina(objetoPagina, indicePagina) {
+		this.intersticialAdMobService.consomeCredito();
 		this.indicePaginaAtual = indicePagina;
 		let pagina: string = objetoPagina.class;
 		switch(objetoPagina.titulo) {
@@ -136,6 +141,7 @@ export class MyApp {
 	}
 
 	ativeMenuLoterias() {
+		this.intersticialAdMobService.consomeCredito();
 		this.menuAtivo = 'menuLoterias';
 		this.menu.close().then(() => {
 			this.menu.enable(false, 'menuPaginas');

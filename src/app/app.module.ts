@@ -22,6 +22,8 @@ import { UtilService } from '../services/util.service';
 import { UsuarioService } from '../services/usuario.service';
 import { EmailService } from '../services/email.service';
 import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
+import { IntersticialAdMobService } from '../services/intersticial-admob.service';
+import { AvisoService } from '../services/aviso.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 
@@ -29,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContaPageModule } from '../pages/conta/conta.module';
 import { ResultadoPageModule } from '../pages/resultado/resultado.module';
 import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esqueci-minha-senha.module';
-import { AnuncioAdMobService } from '../services/anuncio-admob.service';
+import { BannerAdMobService } from '../services/banner-admob.service';
 
 @NgModule({
 	declarations: [
@@ -63,9 +65,11 @@ import { AnuncioAdMobService } from '../services/anuncio-admob.service';
 		UsuarioService,
 		EmailService,
 		NavegadoresSuportadosService,
-		AnuncioAdMobService,
+		BannerAdMobService,
+		IntersticialAdMobService,
 		AuthInterceptorProvider,
 		AdMobFree,
+		AvisoService,
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: LOCALE_ID, useValue: "pt-BR" }
 	]

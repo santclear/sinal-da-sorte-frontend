@@ -4,6 +4,8 @@ import { PaginaBase } from '../pagina.base';
 import { IonicPage, NavController } from 'ionic-angular';
 import { StorageService } from '../../services/storage.service';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
+import { IntersticialAdMobService } from '../../services/intersticial-admob.service';
+import { AvisoService } from '../../services/aviso.service';
 
 @IonicPage()
 @Component({
@@ -13,10 +15,13 @@ import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 export class EstatisticaPage extends PaginaBase {
 	public cbxTipoDeGrafico: string = 'frequenciaAcumulada';
 	public tiposDeGrafico: {id: string, tipo: string, desabilitado: boolean}[];
+	public exibeAviso: boolean;
 
 	constructor(
 		public navCtrl: NavController, 
-		public storage: StorageService) {
+		public storage: StorageService,
+		public intersticialAdMobService: IntersticialAdMobService,
+		public avisoService: AvisoService) {
 		super();
         this.setTitulo('Estatística');
 
@@ -42,6 +47,8 @@ export class EstatisticaPage extends PaginaBase {
 				this.cbxTipoDeGrafico = 'frequenciaSomaDezenas';
 			}
 		});
+
+		this.exibeAviso = this.avisoService.exibeAviso;
 	}
 	
 	ionViewDidEnter() {
@@ -50,6 +57,7 @@ export class EstatisticaPage extends PaginaBase {
 	}
 
 	cbxTipoDeGraficoAtualize(tipoDeGrafico: string): void {
+		this.intersticialAdMobService.consomeCredito();
 		this.cbxTipoDeGrafico = tipoDeGrafico;
 	}
 }

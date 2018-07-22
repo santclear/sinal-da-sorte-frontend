@@ -1,6 +1,7 @@
 <ss-navbar [tituloInput]="titulo"></ss-navbar>
 
 <ion-content>
+	<ss-aviso *ngIf="exibeAviso"></ss-aviso>
 	<div [ngClass]="'conteudo'">
 		<div [ngClass]="['margem-lateral','select-largura-maxima alinhar-direita']">
 			<ion-list>
@@ -29,6 +30,7 @@
 				<ss-frequencia-soma-dezenas></ss-frequencia-soma-dezenas>
 			</div>
 		</div>
+		<ss-doacao></ss-doacao>
 		<ss-rodape></ss-rodape>
 	</div>
 </ion-content>

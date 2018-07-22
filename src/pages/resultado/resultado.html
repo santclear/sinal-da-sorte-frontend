@@ -1,6 +1,7 @@
 <ss-navbar [tituloInput]="titulo"></ss-navbar>
 
 <ion-content>
+	<ss-aviso *ngIf="exibeAviso"></ss-aviso>
 	<div [ngClass]="'conteudo'">
 		<ion-grid>
 			<ion-row>
@@ -196,7 +197,7 @@
 									</p-table> -->
 									<p-dataView #dv [value]="estatisticas" [paginator]="true" [rows]="15" paginatorPosition="both" filterBy="dezena" [sortField]="sortField" [sortOrder]="sortOrder" title="Cartões Frequência total das dezenas">
 										<p-header>
-											<div [ngClass]="['caption-data-view','cor-primaria']">Frequência total das dezenas desde o concurso:<br>1 até {{rgeFaixaDeConcursos}}</div>
+											<div [ngClass]="['caption-data-view','cor-primaria']">Frequência total das dezenas:<br>concursos: 1 até {{rgeFaixaDeConcursos}}</div>
 											<div class="ui-helper-clearfix">
 												<div class="ui-g">
 													<div class="ui-g-12">
@@ -241,6 +242,7 @@
 				</ion-item>
 			</ion-list>
 		</div>
+		<ss-doacao></ss-doacao>
 		<ss-rodape></ss-rodape>
 	</div>
 </ion-content>

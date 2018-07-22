@@ -6,6 +6,8 @@ import { TableModule } from 'primeng/table';
 import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
+import { AvisoSsModule } from '../../componentes/aviso/aviso.ss.module';
+import { DoacaoSsModule } from '../../componentes/doacao/doacao.ss.module';
 
 @NgModule({
 	declarations: [
@@ -13,9 +15,11 @@ import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 	],
 	imports: [
 		NavBarSsModule,
+		AvisoSsModule,
 		TableModule,
 		DataViewModule,
 		DropdownModule,
+		DoacaoSsModule,
 		RodapeSsModule,
 		IonicPageModule.forChild(ResultadoPage),
 	],
