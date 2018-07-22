@@ -12,7 +12,7 @@
 								<form [formGroup]="contaForm" (ngSubmit)="atualize(); $event.preventDefault()">
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="nome" type="text" class="larguraTotal" pInputText>
+											<input formControlName="nome" type="text" class="larguraTotal" pInputText title="Campo para informar o seu nome">
 											<label for="float-input">Nome*</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['nome'].valid&&contaForm.controls['nome'].dirty">
@@ -21,7 +21,7 @@
 									</p>
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText>
+											<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText title="Campo para informar o seu sobrenome">
 											<label for="float-input">Sobrenome*</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['sobrenome'].valid&&contaForm.controls['sobrenome'].dirty">
@@ -40,7 +40,7 @@
 									<p>
 										<span class="ui-float-label">
 											<p-calendar formControlName="dataDeNascimento" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1918:2001" dateFormat="dd/mm/yy"
-											[locale]="ptBr" [showIcon]="true"></p-calendar>
+											[locale]="ptBr" [showIcon]="true" title="Campo para informar a sua data de nascimento"></p-calendar>
 											<label for="float-input">Data de nascimento*</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['dataDeNascimento'].valid&&contaForm.controls['dataDeNascimento'].dirty">
@@ -49,7 +49,7 @@
 									</p>
 									<p>
 										<span class="ui-float-label">
-											<p-dropdown formControlName="generoId" [options]="generos" placeholder="Gênero*"></p-dropdown>
+											<p-dropdown formControlName="generoId" [options]="generos" placeholder="Gênero*" title="Campo para informar a sua identidade de gênero"></p-dropdown>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['generoId'].valid&&contaForm.controls['generoId'].dirty">
 											<i class="fa fa-close"></i> Escolha seu gênero
@@ -128,7 +128,7 @@
 									<p></p>
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword feedback="false">
+											<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword feedback="false" title="Campo para informar a sua senha">
 											<label for="float-input">Senha atual*</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
@@ -140,12 +140,12 @@
 											<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
 										</p>
 										<p *ngIf="exibeReCaptcha === 'none'">
-											<img src="assets/img/recaptcha-ok.png">
+											<img src="assets/img/recaptcha-ok.png" title="Imagem de confirmação do ReCaptcha">
 										</p>
 									</div>
 									<div class="botaoVA">
 										<!-- <button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button> -->
-										<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize>Atualizar</button>
+										<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize title="Botão Atualizar dados do usuário">Atualizar</button>
 									</div>
 								</form>
 							</div>
@@ -162,13 +162,13 @@
 								<form [formGroup]="contaForm" (ngSubmit)="atualize(); $event.preventDefault()">
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="email" type="text" [readonly]="true" pInputText>
+											<input formControlName="email" type="text" [readonly]="true" pInputText title="Campo informando o seu e-mail atual">
 											<label for="float-input">E-mail atual*</label>
 										</span>
 									</p>
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="novoEmail" type="text" autocapitalize="none" pInputText>
+											<input formControlName="novoEmail" type="text" autocapitalize="none" pInputText title="Campo para informar o seu novo e-mail">
 											<label for="float-input">Novo e-mail</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['novoEmail'].valid&&contaForm.controls['novoEmail'].dirty">
@@ -177,7 +177,7 @@
 									</p>
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="confirmeEmail" type="text" autocapitalize="none" bloqueiaCopiaCola pInputText>
+											<input formControlName="confirmeEmail" type="text" autocapitalize="none" bloqueiaCopiaCola pInputText title="Campo para confirmar o seu novo e-mail">
 											<label for="float-input">Confirme o novo e-mail</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeEmail'].valid&&contaForm.controls['confirmeEmail'].dirty">
@@ -186,7 +186,7 @@
 									</p>
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword feedback="false">
+											<input formControlName="senha" [(ngModel)]="senha" type="password" class="larguraTotal" [feedback]="false" pPassword feedback="false" title="Campo para informar a sua senha atual">
 											<label for="float-input">Senha atual*</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
@@ -199,7 +199,7 @@
 											promptLabel="Digite sua senha"
 											weakLabel="Nível de segurança da senha: BAIXO"
 											mediumLabel="Nível de segurança da senha: MÉDIO"
-											strongLabel="Nível de segurança da senha: ALTO">
+											strongLabel="Nível de segurança da senha: ALTO" title="Campo para informar a sua nova senha">
 											<label for="float-input">Nova senha</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['novaSenha'].valid&&contaForm.controls['novaSenha'].dirty">
@@ -208,7 +208,7 @@
 									</p>
 									<p>
 										<span class="ui-float-label">
-											<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword feedback="false">
+											<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword feedback="false" title="Campo para confirmar a sua nova senha">
 											<label for="float-input">Confirme a nova senha</label>
 										</span>
 										<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">
@@ -220,13 +220,13 @@
 											<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
 										</p>
 										<p *ngIf="exibeReCaptcha === 'none'">
-											<img src="assets/img/recaptcha-ok.png">
+											<img src="assets/img/recaptcha-ok.png" title="Imagem de confirmação do ReCaptcha">
 										</p>
 									</div>
 									<div class="botaoVAE">
 										<!-- <button ion-button class="botao" color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button> -->
-										<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize>Atualizar</button>
-										<button ion-button class="botao" color="danger" type="submit" [disabled]="contaForm.invalid" (click)="exclua(); $event.preventDefault()" small text-capitalize>Excluir</button>
+										<button ion-button class="botao" type="submit" [disabled]="contaForm.invalid" small text-capitalize title="Botão Atualizar dados da conta do usuário">Atualizar</button>
+										<button ion-button class="botao" color="danger" type="submit" [disabled]="contaForm.invalid" (click)="exclua(); $event.preventDefault()" small text-capitalize title="Botão Excluir conta do usuário">Excluir</button>
 									</div>
 								</form>
 							</div>

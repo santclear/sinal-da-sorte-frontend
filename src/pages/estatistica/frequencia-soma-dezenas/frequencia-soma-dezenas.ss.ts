@@ -143,7 +143,8 @@ export class FrequenciaSomaDezenasSs extends EstatisticaBase implements Estatist
 				downloadSVG: 'Download SVG',
 				downloadXLS: 'Download XLS',
 				loading: 'Carregando...',
-				printChart: 'Imprimir gráfico'
+				printChart: 'Imprimir gráfico',
+				contextButtonTitle: 'Menu do gráfico'
 			},
 			credits: {
 				href: "http://www.sinaldasorte.com.br",

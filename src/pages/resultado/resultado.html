@@ -20,37 +20,37 @@
 				<ion-col col-sm-10 offset-sm-1 col-md-4 offset-md-4 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4>
 					<div *ngIf="exibeDezenasComQuebraDeLinha">
 						<div [ngClass]="['centralize', 'dezenas-sorteadas']">
-							<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
+							<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]" title="Dezena {{dezena}} sorteada">
 								{{dezena}}
 							</button>
 						</div>
 					</div>
 					<div [ngClass]="'centralize'" *ngIf="!exibeDezenasComQuebraDeLinha && !exibeDezenasSorteio2DuplaSena">
-						<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
+						<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]" title="Dezena {{dezena}} sorteada">
 							{{dezena}}
 						</button>
 					</div>
 					<div [ngClass]="'centralize'">
 						<div [ngClass]="['texto']" *ngIf="exibeTimeDoCoracao" >Time do Coração:</div>
-						<button ion-button icon-left clear *ngIf="exibeTimeDoCoracao" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
+						<button ion-button icon-left clear *ngIf="exibeTimeDoCoracao" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]" title="Time do coração {{timeDoCoracao}} sorteado">
 							<ion-icon class="coracao" name="heart"></ion-icon>
 							<span class="time-coracao">{{timeDoCoracao}}</span>
 						</button>
 						
 						<div [ngClass]="['texto']" *ngIf="exibeMesDaSorte" >Mês da Sorte:</div>
-						<button ion-button icon-left clear *ngIf="exibeMesDaSorte" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]">
+						<button ion-button icon-left clear *ngIf="exibeMesDaSorte" [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada]" title="Mês da sorte {{mesDaSorte}} sorteado">
 							<ion-icon class="coracao" name="calendar"></ion-icon>
 							<span class="mes-sorte">{{mesDaSorte}}</span>
 						</button>
 					</div>
 					<div [ngClass]="'centralize'" *ngIf="exibeDezenasSorteio2DuplaSena">
 						<p [ngClass]="'texto'"><strong>Sorteio 1</strong></p>
-						<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
+						<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenas; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]"  title="Dezena {{dezena}} sorteada - Sorteio 1">
 							{{dezena}}
 						</button>
 				
 						<p [ngClass]="['texto']"><strong>Sorteio 2</strong></p>
-						<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenasSorteio2; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]">
+						<button [attr.id]="'bt'+ dezena" ion-button round class="botao-da-matriz-dezenas" *ngFor="let dezena of dezenasSorteio2; let iDezena = index" [ngClass]="['backgroundEscuro'+ sufixoCssLoteriaSelecionada]" title="Dezena {{dezena}} sorteada - Sorteio 2">
 							{{dezena}}
 						</button>
 					</div>
@@ -62,15 +62,15 @@
 				</ion-list-header>
 	
 				<ion-item>
-					<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" color="primary" pin="true">
+					<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" color="primary" pin="true" title="Range faixa de concursos">
 						<ion-label range-left class="label-botao-controle-altura">
-							<button ion-button id="idDeslocarParaEsquerda" class="sem-margem largura-botao-controle" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear>
+							<button ion-button id="idDeslocarParaEsquerda" class="sem-margem largura-botao-controle" (click)="rgeDesloqueParaEsquerda()" ion-button icon-only clear title="Botão Navega 1 concurso anterior">
 								<ion-icon name="arrow-dropleft-circle"></ion-icon>
 							</button>
 						</ion-label>
 						
 						<ion-label range-right class="label-botao-controle-altura">
-							<button ion-button id="idDeslocarParaEsquerda" class="sem-margem largura-botao-controle" (click)="rgeDesloqueParaDireita()" ion-button icon-only clear>
+							<button ion-button id="idDeslocarParaEsquerda" class="sem-margem largura-botao-controle" (click)="rgeDesloqueParaDireita()" ion-button icon-only clear title="Botão Navega 1 concurso posterior">
 								<ion-icon name="arrow-dropright-circle"></ion-icon>
 							</button>
 						</ion-label>
@@ -110,10 +110,13 @@
 						<ion-row>
 							<ion-col col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3>
 								<div class="container-tabela margem-automatica">
-									<p-table [columns]="colsRateio" [value]="sorteio.rateios" [responsive]="true" [style]="{'max-width':'500px','margin':'0 auto'}">
+									<p-table [columns]="colsRateio" [value]="sorteio.rateios" [responsive]="true" [style]="{'max-width':'500px','margin':'0 auto'}" title="Tabela Rateios">
+										<ng-template pTemplate="caption">
+											<span style="color: #003300!important">Rateios</span>
+										</ng-template>
 										<ng-template pTemplate="header" let-colunas>
 											<tr>
-												<th *ngFor="let coluna of colunas">
+												<th *ngFor="let coluna of colunas" title="Coluna {{coluna.nome}}">
 													{{coluna.nome}}
 												</th>
 											</tr>
@@ -130,13 +133,13 @@
 									</p-table>
 									<div class="espaco_vertical"></div>
 									<div *ngFor="let rateio of sorteio.rateios">
-										<p-table  *ngIf="rateio.qtdCidadesUfs.length > 0" [columns]="colsGanhadores" [value]="rateio.qtdCidadesUfs" [responsive]="true" [style]="{'max-width':'500px','margin':'0 auto'}">
+										<p-table  *ngIf="rateio.qtdCidadesUfs.length > 0" [columns]="colsGanhadores" [value]="rateio.qtdCidadesUfs" [responsive]="true" [style]="{'max-width':'500px','margin':'0 auto'}" title="Tabela Ganhadores do prêmio {{rateio.tipoDePremio}}">
 											<ng-template pTemplate="caption">
-												Ganhadores do prêmio {{rateio.tipoDePremio}}
+												<span style="color: #003300!important">Ganhadores do prêmio {{rateio.tipoDePremio}}</span>
 											</ng-template>
 											<ng-template pTemplate="header" let-colunas>
 												<tr>
-													<th *ngFor="let coluna of colunas" [style.width]="coluna.width">
+													<th *ngFor="let coluna of colunas" [style.width]="coluna.width" title="Coluna {{coluna.nome}}">
 														{{coluna.nome}}
 													</th>
 												</tr>
@@ -191,16 +194,17 @@
 											</tr>
 										</ng-template>
 									</p-table> -->
-									<p-dataView #dv [value]="estatisticas" [paginator]="true" [rows]="15" paginatorPosition="both" filterBy="dezena" [sortField]="sortField" [sortOrder]="sortOrder">
+									<p-dataView #dv [value]="estatisticas" [paginator]="true" [rows]="15" paginatorPosition="both" filterBy="dezena" [sortField]="sortField" [sortOrder]="sortOrder" title="Cartões Frequência total das dezenas">
 										<p-header>
+											<div [ngClass]="['caption-data-view','cor-primaria']">Frequência total das dezenas desde o concurso:<br>1 até {{rgeFaixaDeConcursos}}</div>
 											<div class="ui-helper-clearfix">
 												<div class="ui-g">
 													<div class="ui-g-12">
-														<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'50px'}"></p-dropdown>
+														<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'50px'}" title="Caixa de seleção de Tipo de Ordenamento"></p-dropdown>
 													</div>
 													<div class="ui-g-6 filter-container">
 														<div style="position:relative">
-															<input type="search" pInputText placeholder="Pesquise dezena" (keyup)="dv.filter($event.target.value)" style="width:140px">
+															<input type="search" pInputText placeholder="Pesquise dezena" (keyup)="dv.filter($event.target.value)" style="width:140px" title="Campo de pesquisa de dezena">
 														</div>
 													</div>
 												</div>

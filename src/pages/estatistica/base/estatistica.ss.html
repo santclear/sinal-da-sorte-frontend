@@ -21,15 +21,15 @@
 	</table>
 </div>-->
 <div class="select-largura-maxima alinhar-direita">
-	<ion-list [(ngModel)]="rdSorteios" *ngIf="isDuplasena" (ionChange)="atualizeOGrafico($event)" radio-group>
+	<ion-list [(ngModel)]="rdSorteios" *ngIf="isDuplasena" (ionChange)="atualizeOGrafico($event)" radio-group title="Seletor de sorteios">
 		<ion-item>
 			<ion-label>Sorteios 1</ion-label>
-			<ion-radio value="0" checked="true"></ion-radio>
+			<ion-radio value="0" checked="true" title="Opção Sorteio 1"></ion-radio>
 		</ion-item>
 
 		<ion-item>
 			<ion-label>Sorteios 2</ion-label>
-			<ion-radio value="1"></ion-radio>
+			<ion-radio value="1" title="Opção Sorteio 2"></ion-radio>
 		</ion-item>
 	</ion-list>
 </div>
@@ -66,7 +66,7 @@
 			<ion-label color="primary">Faixa de concursos:</ion-label>
 
 			<ion-select [(ngModel)]="cbxExtensaoDaFaixaDeConcursos" (ionChange)="cbxExtensaoDaFaixaDeConcursosAtualize($event)" cancelText="Cancelar"
-				okText="Confirmar" [ngClass]="'cor-terciaria'">
+				okText="Confirmar" [ngClass]="'cor-terciaria'" title="Caixa de seleção de Faixa de concursos">
 				<ion-option *ngFor="let extensao of extensoesDaFaixaDeConcursos" value="{{extensao.id}}">{{extensao.valor}}</ion-option>
 				</ion-select>
 		</ion-item>
@@ -79,14 +79,14 @@
 	</ion-list-header>
 
 	<ion-item>
-		<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" color="primary" pin="true">
+		<ion-range [min]="rgeFaixaDeConcursosMin" [max]="rgeFaixaDeConcursosMax" [(ngModel)]="rgeFaixaDeConcursos" (ionChange)="rgeFaixaDeConcursosAtualize($event)" color="primary" pin="true" title="Range faixa de concursos">
 			<ion-label range-left>
 				<div class="label-botao-controle-largura">
-					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC($event)" ion-button icon-only clear>
+					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaEsquerdaEFC($event)" ion-button icon-only clear title="Botão Navega {{cbxExtensaoDaFaixaDeConcursos}} concursos anteriores">
 						<ion-icon name="rewind"></ion-icon>
 					</button>
 					
-					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda($event)" ion-button icon-only clear>
+					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaEsquerda($event)" ion-button icon-only clear title="Botão Navega 1 concurso anterior">
 						<ion-icon name="arrow-dropleft-circle"></ion-icon>
 					</button>
 				</div>
@@ -94,11 +94,11 @@
 			
 			<ion-label range-right>
 				<div class="label-botao-controle-largura">
-					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita($event)" ion-button icon-only clear>
+					<button id="idDeslocarParaEsquerda" class="sem-margem" (click)="rgeDesloqueParaDireita($event)" ion-button icon-only clear title="Botão Navega 1 concurso posterior">
 						<ion-icon name="arrow-dropright-circle"></ion-icon>
 					</button>
 					
-					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC($event)" ion-button icon-only clear>
+					<button id="idDeslocarParaEsquerdaEFC" class="sem-margem" (click)="rgeDesloqueParaDireitaEFC($event)" ion-button icon-only clear title="Botão Navega {{cbxExtensaoDaFaixaDeConcursos}} concursos posteiores">
 						<ion-icon name="fastforward"></ion-icon>
 					</button>
 				</div>

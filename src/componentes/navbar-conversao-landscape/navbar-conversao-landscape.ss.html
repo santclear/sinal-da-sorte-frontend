@@ -4,15 +4,15 @@
 		<ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
 			<div [ngClass]="'logo'">
 				<p>
-					<img alt="Imagem da logo Sinal da Sorte" src="/assets/img/logo.png" (click)="goLanding()">
+					<img alt="Imagem da logo Sinal da Sorte" src="/assets/img/logo.png" (click)="goLanding()" title="Logo Botão Sinal da Sorte - Abre página Landing">
 				</p>
 			</div>
 		</ion-col>
 		<ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
 			<div [ngClass]="'botoes'">
-				<button ion-button clear color="primary" (click)="abraContato()">Contato</button>
-				<button ion-button clear color="primary" (click)="abraConta()">Criar uma conta</button>
-				<button ion-button clear color="primary" (click)="abraLogin()">Entrar</button>
+				<button ion-button clear color="primary" (click)="abraContato()" title="Botão Contato">Contato</button>
+				<button ion-button clear color="primary" (click)="abraConta()" title="Botão Criar uma conta">Criar uma conta</button>
+				<button ion-button clear color="primary" (click)="abraLogin()" title="Botão Entrar">Entrar</button>
 			</div>
 		</ion-col>
 	</ion-row>

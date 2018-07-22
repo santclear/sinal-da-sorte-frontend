@@ -30,7 +30,7 @@
 	<ion-list>
 		<ion-item class="fundo-componente">
 			<ion-label color="primary">Mais estatísticas</ion-label>
-			<ion-toggle (ionChange)="toggleMostreMaisEstatisticas($event)"></ion-toggle>
+			<ion-toggle (ionChange)="toggleMostreMaisEstatisticas($event)" title="Botão Exibir ou ocultar Mais Estatísticas"></ion-toggle>
 		</ion-item>
 	</ion-list>
 </div>
@@ -71,16 +71,17 @@
 									</tr>
 								</ng-template>
 							</p-table> -->
-							<p-dataView #dv [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="soma" [sortField]="sortField" [sortOrder]="sortOrder">
+							<p-dataView #dv [value]="somaDasDezenasEmCadaConcurso" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="soma" [sortField]="sortField" [sortOrder]="sortOrder" title="Cartões Soma das dezenas em cada concurso">
 								<p-header>
+									<div [ngClass]="['caption-data-view','cor-primaria']">Soma das dezenas em cada concurso entre:<br>{{numeroDoConcursoInicial}} até {{numeroDoConcursoFinal}}</div>
 									<div class="ui-helper-clearfix">
 										<div class="ui-g">
 											<div class="ui-g-12">
-												<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'230px'}"></p-dropdown>
+												<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'230px'}" title="Caixa de seleção de Tipo de Ordenamento"></p-dropdown>
 											</div>
 											<div class="ui-g-6 filter-container">
 												<div style="position:relative">
-													<input type="search" pInputText placeholder="Pesquise soma" (keyup)="dv.filter($event.target.value)" style="width:140px">
+													<input type="search" pInputText placeholder="Pesquise soma" (keyup)="dv.filter($event.target.value)" style="width:140px" title="Campo de pesquisa de soma">
 												</div>
 											</div>
 										</div>
@@ -121,10 +122,13 @@
 		
 		<ion-item>
 			<div class="container-tabela">
-				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" sortField="ausenciaTotal" [style]="{'max-width':'300px','margin':'0 auto'}">
+				<p-table [columns]="colsQuantidadesDeSomas" [value]="quantidadesDeSomas" [paginator]="true" [rows]="15" sortField="ausenciaTotal" [style]="{'max-width':'330px','margin':'0 auto'}" title="Tabela Quantidades de somas">
+					<ng-template pTemplate="caption">
+						<span style="color: #003300!important">Quantidades de somas entre os concursos:<br>{{numeroDoConcursoInicial}} até {{numeroDoConcursoFinal}}</span>
+					</ng-template>
 					<ng-template pTemplate="header" let-colunas>
 						<tr>
-							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo">
+							<th *ngFor="let coluna of colunas" [pSortableColumn]="coluna.campo" title="Coluna {{coluna.nome}}">
 								{{coluna.nome}}
 								<p-sortIcon [field]="coluna.campo"></p-sortIcon>
 							</th>

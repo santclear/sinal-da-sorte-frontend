@@ -19,7 +19,7 @@
 	(atualizeOGraficoOutput)="atualizeOGrafico($event)"></ss-estatistica>
 
 <div [ngClass]="['matriz_de_dezenas_'+ sufixoCssLoteria, 'margem-automatica']">
-	<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)">
+	<button ion-button [ngClass]="{dezena_destacada: destaqueDezena(dezena)}" class="botao-da-matriz-dezenas" [attr.id]="'bt'+ dezena" *ngFor="let dezena of dezenas; let iDezena = index" (click)="selecioneDezena(iDezena, rdSorteios)" [title]="'Botão Dezena '+ dezena +' - pressione para exibir a frequência da dezena '+ dezena +' no gráfico'">
 		{{dezena}}
 	</button>
 </div>
@@ -38,7 +38,7 @@
 	<ion-list>
 		<ion-item class="fundo-componente">
 			<ion-label color="primary">Mais estatísticas</ion-label>
-			<ion-toggle (ionChange)="toggleMostreMaisEstatisticas($event)"></ion-toggle>
+			<ion-toggle (ionChange)="toggleMostreMaisEstatisticas($event)" title="Botão Exibir ou ocultar Mais Estatísticas"></ion-toggle>
 		</ion-item>
 	</ion-list>
 </div>
@@ -72,16 +72,17 @@
 									</tr>
 								</ng-template>
 							</p-table> -->
-							<p-dataView #dv [value]="frequenciasSorteio" [paginator]="true" [rows]="15" paginatorPosition="both" filterBy="dezena" [sortField]="sortField" [sortOrder]="sortOrder">
+							<p-dataView #dv [value]="frequenciasSorteio" [paginator]="true" [rows]="15" paginatorPosition="both" filterBy="dezena" [sortField]="sortField" [sortOrder]="sortOrder" title="Cartões Frequência das dezenas">
 								<p-header>
+									<div [ngClass]="['caption-data-view','cor-primaria']">Frequência das dezenas entre o concurso:<br>{{numeroDoConcursoInicial}} até {{numeroDoConcursoFinal}}</div>
 									<div class="ui-helper-clearfix">
 										<div class="ui-g">
 											<div class="ui-g-12">
-												<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'230px'}"></p-dropdown>
+												<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordene por" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'230px'}" title="Caixa de seleção de Tipo de Ordenamento"></p-dropdown>
 											</div>
 											<div class="ui-g-6 filter-container">
 												<div style="position:relative">
-													<input type="search" pInputText placeholder="Pesquise dezena" (keyup)="dv.filter($event.target.value)" style="width:140px">
+													<input type="search" pInputText placeholder="Pesquise dezena" (keyup)="dv.filter($event.target.value)" style="width:140px" title="Campo de pesquisa de dezena">
 												</div>
 											</div>
 										</div>

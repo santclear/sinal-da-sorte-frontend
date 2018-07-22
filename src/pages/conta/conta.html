@@ -15,7 +15,7 @@
 						<form [formGroup]="contaForm" (ngSubmit)="cadastre(); $event.preventDefault()">
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="nome" type="text" class="larguraTotal" pInputText>
+									<input formControlName="nome" type="text" class="larguraTotal" pInputText title="Campo para informar o seu nome">
 									<label for="float-input">Nome*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['nome'].valid&&contaForm.controls['nome'].dirty">
@@ -24,7 +24,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText>
+									<input formControlName="sobrenome" type="text" class="larguraTotal" pInputText title="Campo para informar o seu sobrenome">
 									<label for="float-input">Sobrenome*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['sobrenome'].valid&&contaForm.controls['sobrenome'].dirty">
@@ -43,7 +43,7 @@
 							<p>
 								<span class="ui-float-label">
 									<p-calendar formControlName="dataDeNascimento" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1918:2001" dateFormat="dd/mm/yy"
-									[locale]="ptBr" [showIcon]="true"></p-calendar>
+									[locale]="ptBr" [showIcon]="true" title="Campo para informar a sua data de nascimento"></p-calendar>
 									<label for="float-input">Data de nascimento*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['dataDeNascimento'].valid&&contaForm.controls['dataDeNascimento'].dirty">
@@ -52,7 +52,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<p-dropdown formControlName="generoId" [options]="generos" placeholder="Gênero*"></p-dropdown>
+									<p-dropdown formControlName="generoId" [options]="generos" placeholder="Gênero*" title="Campo para informar a sua identidade de gênero"></p-dropdown>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['generoId'].valid&&contaForm.controls['generoId'].dirty">
 									<i class="fa fa-close"></i> Escolha seu gênero
@@ -60,7 +60,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="email" type="text" autocapitalize="none" pInputText>
+									<input formControlName="email" type="text" autocapitalize="none" pInputText title="Campo para informar o seu e-mail">
 									<label for="float-input">E-mail*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['email'].valid&&contaForm.controls['email'].dirty">
@@ -69,7 +69,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="confirmeEmail" autocapitalize="none" type="text" bloqueiaCopiaCola pInputText>
+									<input formControlName="confirmeEmail" autocapitalize="none" type="text" bloqueiaCopiaCola pInputText title="Campo para confirmar o seu e-mail">
 									<label for="float-input">Confirme o novo e-mail</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeEmail'].valid&&contaForm.controls['confirmeEmail'].dirty">
@@ -82,7 +82,7 @@
 									promptLabel="Digite sua senha"
 									weakLabel="Nível de segurança da senha: BAIXO"
 									mediumLabel="Nível de segurança da senha: MÉDIO"
-									strongLabel="Nível de segurança da senha: ALTO">
+									strongLabel="Nível de segurança da senha: ALTO" title="Campo para informar a sua senha">
 									<label for="float-input">Senha*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['senha'].valid&&contaForm.controls['senha'].dirty">
@@ -91,7 +91,7 @@
 							</p>
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword feedback="false">
+									<input formControlName="confirmeSenha" type="password" class="larguraTotal" [feedback]="false" bloqueiaCopiaCola pPassword feedback="false" title="Campo para confirmar a sua senha">
 									<label for="float-input">Confirme a senha*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contaForm.controls['confirmeSenha'].valid&&contaForm.controls['confirmeSenha'].dirty">
@@ -174,12 +174,12 @@
 									<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
 								</p>
 								<p *ngIf="exibeReCaptcha === 'none'">
-									<img src="assets/img/recaptcha-ok.png">
+									<img src="assets/img/recaptcha-ok.png" title="Imagem de confirmação do ReCaptcha">
 								</p>
 							</div>
 							<div class="botaoVC">
 								<!-- <button ion-button color="light" icon-start small (click)="voltar(); $event.preventDefault()" text-capitalize><ion-icon name='arrow-back'></ion-icon></button> -->
-								<button ion-button type="submit" [disabled]="contaForm.invalid" small text-capitalize>Cadastrar</button>
+								<button ion-button type="submit" [disabled]="contaForm.invalid" small text-capitalize title="Botão Cadastrar conta">Cadastrar</button>
 							</div>
 						</form>
 					</div>

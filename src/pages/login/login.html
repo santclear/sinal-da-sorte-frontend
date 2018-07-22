@@ -1,6 +1,6 @@
 <ion-content>
 	<div [ngClass]="'conteudo'">
-		<img [ngClass]="'margem-superior'" src="assets/img/login-logo.png" alt="Imagem da logo do Sinal da Sorte" (click)="goLanding()">
+		<img [ngClass]="'margem-superior'" src="assets/img/login-logo.png" alt="Imagem da logo do Sinal da Sorte" (click)="goLanding()" title="Logo Botão Sinal da Sorte - Abre página Landing">
 		<ion-grid>
 			<ion-row>
 				<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>
@@ -8,16 +8,16 @@
 					<form>
 						<ion-item>
 							<ion-label floating>Email</ion-label>
-							<ion-input [(ngModel)]="credenciais.email" name="email" type="text" autocapitalize="none"></ion-input>
+							<ion-input [(ngModel)]="credenciais.email" name="email" type="text" autocapitalize="none" title="Campo para informar o seu e-mail"></ion-input>
 						</ion-item>
 						<ion-item>
 							<ion-label floating>Senha</ion-label>
-							<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
+							<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password" title="Campo para informar a sua senha"></ion-input>
 						</ion-item>
-						<button [ngClass]="'margem-superior'" ion-button block (click)="login()">Entrar</button>
+						<button [ngClass]="'margem-superior'" ion-button block (click)="login()" title="Botão Entrar com suas credenciais">Entrar</button>
 					</form>
-					<button ion-button block outline (click)="cadastrar()">Cadastrar</button>
-					<button ion-button block clear (click)="esqueciMinhaSenha()">Esqueci minha senha</button>
+					<button ion-button block outline (click)="cadastrar()" title="Botão Abrir o formulário de cadastro de conta">Cadastrar</button>
+					<button ion-button block clear (click)="esqueciMinhaSenha()" title="Botão Abrir a página Esqueci Minha Senha">Esqueci minha senha</button>
 				</ion-col>
 				
 				<ion-col col-1 col-sm-4 col-md-4 col-lg-4 col-xl-5></ion-col>

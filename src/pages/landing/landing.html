@@ -5,17 +5,17 @@
 			<ion-grid>
 				<ion-row>
 					<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
-						<p>O Sinal da Sorte chegou.</p>
+						<p>Seu <span [ngClass]="'cor-destaque'">Sinal da Sorte</span>, comece a usar <span [ngClass]="'cor-destaque'">grátis</span> agora!</p>
 					</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
-						<p>Aposte com estratégia e descubra como alcançar a sorte.</p>
+						<p>A sorte na loteria pode estar mais perto do que nunca.</p>
 					</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-xl-10 offset-xl-1>
-						<p>Você também pode ser um milionário!</p>
+						<p><a [ngClass]="'cor-destaque'" href="#/conta-externo" title="Link para cadastrar-se no Sinal da Sorte">Cadastre-se</a> e use a vontade através desse site ou do aplicativo para celular.</p>
 					</ion-col>
 				</ion-row>
 			</ion-grid>
@@ -26,13 +26,13 @@
 					<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2>
 						<div [ngClass]="'titulo'">SINAL DA SORTE - APLICATIVO DE LOTERIAS CAIXA *</div>
 						<p [ngClass]="'texto'">							
-							Faça análise estatística e acompanhe os sorteios das loterias da Caixa Econômica Federal com atualizações diárias que
+							Faça análise estatística e acompanhe os sorteios das <a href="http://loterias.caixa.gov.br/wps/portal/loterias" target="_blank" title="Link das loterias da Caixa Econômica Federal">loterias da Caixa Econômica Federal</a> com atualizações diárias que
 							ocorrem NO DIA DO SORTEIO!
 							Simule as dezenas escolhidas para avaliação antes da marcação nos volantes, realize fechamento de combinações numéricas, 
 							imprima seus volantes através do aplicativo online ou aplicativo móvel, crie cotas de bolões, visualize
 							o histórico de seus volantes criados em concursos passados, receba palpites, gere surpresinhas com base nas estatísticas e muito mais!
 						</p>
-						<img [ngClass]="'margem-superior'" src="/assets/img/loterias-caixa.png" alt="Imagem Loterias da Caixa Econômica Federal">
+						<img [ngClass]="'margem-superior'" src="/assets/img/loterias-caixa.png" alt="Imagem da Caixa Econômica Federal" title="Imagem da logo das loterias da Caixa Econômica Federal">
 						<p [ngClass]="'demo'">
 							<iframe src="https://www.youtube.com/embed/Z05nQVQ9wPM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 						</p>
@@ -45,15 +45,12 @@
 			<ion-grid>
 				<ion-row>
 					<ion-col col-10 offset-1 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2>
-						<div [ngClass]="'titulo'">BAIXE O APLICATIVO NO O SEU ANDROID</div>
+						<div [ngClass]="'titulo'">BAIXE O APLICATIVO GRATUITAMENTE NO SEU ANDROID</div>
 						<p [ngClass]="'texto'">
 							Faça o download agora mesmo no seu Smartphone, Tablet ou Android TV!
 						</p>
-						<!-- <a href="https://play.google.com/store/apps/details?id=br.com.sinaldasorteapp" target="_blank">
-							<img [ngClass]="'margem-superior'" src="/assets/img/logo-google-play.png" alt="Imagem Loterias da Caixa Econômica Federal">
-						</a> -->
-						<a href='https://play.google.com/store/apps/details?id=br.com.sinaldasorteapp&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank">
-							<img alt='Disponível no Google Play' width="200" src='https://play.google.com/intl/pt-BR/badges/images/generic/pt-br_badge_web_generic.png'/>
+						<a href='https://play.google.com/store/apps/details?id=br.com.sinaldasorteapp&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank" title="Link do aplicativo para Android do Sinal da Sorte">
+							<img alt="Disponível no Google Play" width="200" src='https://play.google.com/intl/pt-BR/badges/images/generic/pt-br_badge_web_generic.png'/>
 						</a>
 					</ion-col>
 				</ion-row>
@@ -128,22 +125,22 @@
 			<div [ngClass]="'titulo'">NOS ACOMPANHE NAS REDES SOCIAIS</div>
 			<div [ngClass]="'links'">
 				<span>
-					<a href="https://www.facebook.com/sinaldasorte" target="_blank">
+					<a href="https://www.facebook.com/sinaldasorte" target="_blank" title="Link do perfil no Facebook do Sinal da Sorte">
 						<ion-icon name="logo-facebook"></ion-icon>
 					</a>
 				</span>
 				<span>
-					<a href="https://twitter.com/sinaldasorte" target="_blank">
+					<a href="https://twitter.com/sinaldasorte" target="_blank" title="Link do perfil no Twitter do Sinal da Sorte">
 						<ion-icon name="logo-twitter"></ion-icon>
 					</a>
 				</span>
 				<span>
-					<a href="https://www.instagram.com/sinaldasorte.com.br/" target="_blank">
+					<a href="https://www.instagram.com/sinaldasorte.com.br/" target="_blank" title="Link do perfil no Instagram do Sinal da Sorte">
 						<ion-icon name="logo-instagram"></ion-icon>
 					</a>
 				</span>
 				<span>
-					<a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank">
+					<a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank" title="Link do canal no YouTube do Sinal da Sorte">
 						<ion-icon name="logo-youtube"></ion-icon>
 					</a>
 				</span>

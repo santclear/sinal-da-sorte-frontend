@@ -13,13 +13,13 @@
 					<form [formGroup]="esqueciSenhaForm" (ngSubmit)="envieNovaSenha(); $event.preventDefault()">
 						<ion-item>
 							<ion-label floating>E-mail</ion-label>
-							<ion-input type="text" autocapitalize="none" formControlName="email"></ion-input>
+							<ion-input type="text" autocapitalize="none" formControlName="email" title="Campo para informar o seu e-mail de recuperação de senha"></ion-input>
 						</ion-item>
 						<span class="ui-message ui-messages-error ui-corner-all ng-star-inserted" *ngIf="esqueciSenhaForm.controls.email.dirty && esqueciSenhaForm.controls.email.errors"
 						margin-left>
 							<i class="fa fa-close"></i> E-mail inválido
 						</span>
-						<div [ngClass]="'margem-lateral'"><button ion-button type="submit" [disabled]="esqueciSenhaForm.invalid" small>Enviar nova senha</button></div>
+						<div [ngClass]="'margem-lateral'"><button ion-button type="submit" [disabled]="esqueciSenhaForm.invalid" small title="Botão Enviar nova senha para o e-mail informado">Enviar nova senha</button></div>
 					</form>
 				</ion-col>
 				<ion-col col-sm-6 col-md-8 col-lg-8></ion-col>

@@ -6,14 +6,14 @@
     </ion-header>
     <ion-content>
         <ion-list>
-            <button id="btSelecioneLoteria" ion-item (click)="ativeMenuLoterias()" detail-none [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada, 'margemSuperior']">
+            <button id="btSelecioneLoteria" ion-item (click)="ativeMenuLoterias()" detail-none [ngClass]="['colorEscuro'+ sufixoCssLoteriaSelecionada, 'margemSuperior']" title="Botão Selecionar loterias">
                 <ion-avatar item-left>
-                    <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}" alt="Imagem da loteria {{nomeLoteriaSelecionada}}">
+                    <img src="{{caminhoDoIconeAvatarDaLoteriaSelecionada}}" alt="Imagem da loteria {{nomeLoteriaSelecionada}}" title="Logo da loteria {{nomeLoteriaSelecionada}}">
                 </ion-avatar>
                 <h1>Alterar Loteria</h1>
                 <h3>{{nomeLoteriaSelecionada}}</h3>
             </button>
-            <button [disabled]="pagina.exibir_texto !== 'none'" [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item icon-left *ngFor="let pagina of paginas; let indicePagina = index" [ngStyle]="{'color': pagina.corTexto}" (click)="abraAPagina(pagina, indicePagina)">
+            <button [disabled]="pagina.exibir_texto !== 'none'" [attr.id]="'bt'+pagina.sufixoCssPagina" ion-item icon-left *ngFor="let pagina of paginas; let indicePagina = index" [ngStyle]="{'color': pagina.corTexto}" (click)="abraAPagina(pagina, indicePagina)" title="Botão Abrir página {{pagina.titulo}}">
                 <ion-icon [name]="pagina.icone"></ion-icon>
                 <span>{{pagina.titulo}}</span>
                 <span [ngStyle]="{'display': pagina.exibir_texto}" style="float: right; font-weight: bold">Em breve!</span>
@@ -33,13 +33,13 @@
         <ion-list>
             <!-- itera a propriedade Array loterias, criada no construtor -->
             <div class="margemSuperior"></div>
-            <button [attr.id]="'bt'+loteria.sufixoCssLoteria" ion-item *ngFor="let loteria of loterias; let indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.sufixoCssLoteria]">
+            <button [attr.id]="'bt'+loteria.sufixoCssLoteria" ion-item *ngFor="let loteria of loterias; let indiceLoteria = index" (click)="ativeMenuPaginas(indiceLoteria)" [ngClass]="['colorEscuro'+ loteria.sufixoCssLoteria]" title="Botão Selecionar loteria {{loteria.nome}}">
                 <ion-avatar item-left>
-                    <img src="{{loteria.caminhoDoIconeAvatar}}" alt="Imagem da loteria {{loteria.nome}}">
+                    <img src="{{loteria.caminhoDoIconeAvatar}}" alt="Imagem da loteria {{loteria.nome}}" title="Logo da loteria {{loteria.nome}}">
                 </ion-avatar>
                 <h2>{{loteria.nome}}</h2>
             </button>
-            <button id="btVoltar" ion-item (click)="ativeMenuPaginas(-1)">
+            <button id="btVoltar" ion-item (click)="ativeMenuPaginas(-1)" title="Botão voltar para o menu anterior">
                 <ion-avatar item-left></ion-avatar>
                 <h2 [ngClass]="'cor-primaria'">Voltar</h2>
             </button>

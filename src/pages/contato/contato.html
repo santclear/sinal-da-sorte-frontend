@@ -20,12 +20,12 @@
 						<form [formGroup]="contatoForm" (ngSubmit)="envieContato(); $event.preventDefault()">
 							<h5 [ngClass]="'cor-texto'">Fale conosco</h5>
 							<div class="ui-g" style="width:360px;margin-bottom:10px">
-								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Reclamações, sugestões, elogios ou outros assuntos" value="sinaldasorteweb@gmail.com" formControlName="tipoContato"></p-radioButton></div>
-								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Contato profissional" value="santclearsolucoes@gmail.com" formControlName="tipoContato"></p-radioButton></div>
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Reclamações, sugestões, elogios ou outros assuntos" value="sinaldasorteweb@gmail.com" formControlName="tipoContato" title="Opção Reclamações, sugestões, elogios ou outros assuntos"></p-radioButton></div>
+								<div class="ui-g-12, texto, cor-texto"><p-radioButton name="groupname" label="Contato profissional" value="santclearsolucoes@gmail.com" formControlName="tipoContato" title="Opção Contato profissional"></p-radioButton></div>
 							</div> 
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="assunto" type="text" class="larguraTotal" pInputText>
+									<input formControlName="assunto" type="text" class="larguraTotal" pInputText title="Campo para informar o seu assunto">
 									<label for="float-input">Assunto*</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['assunto'].valid&&contatoForm.controls['assunto'].dirty">
@@ -34,7 +34,7 @@
 							</p> 
 							<p>
 								<span class="ui-float-label">
-									<input formControlName="contato" type="text" autocapitalize="none" class="larguraTotal" pInputText>
+									<input formControlName="contato" type="text" autocapitalize="none" class="larguraTotal" pInputText title="Campo para informar os seus contatos">
 									<label for="float-input">Seus contatos (email, telefone, etc)</label>
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['contato'].valid&&contatoForm.controls['contato'].dirty">
@@ -44,7 +44,7 @@
 
 							<p>
 								<span class="ui-float-label">
-									<textarea formControlName="mensagem" class="larguraTotal" [rows]="10" pInputTextarea></textarea>
+									<textarea formControlName="mensagem" class="larguraTotal" [rows]="10" pInputTextarea title="Campo para escrever a sua mensagem"></textarea>
 									<label for="float-input">Mensagem*</label> 
 								</span>
 								<span class="ui-message ui-messages-error ui-corner-all" *ngIf="!contatoForm.controls['mensagem'].valid&&contatoForm.controls['mensagem'].dirty">
@@ -56,11 +56,11 @@
 									<re-captcha (resolved)="reCaptcha($event)" siteKey="6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP"></re-captcha>
 								</div>
 								<div *ngIf="exibeReCaptcha === 'none'">
-									<img src="assets/img/recaptcha-ok.png">
+									<img src="assets/img/recaptcha-ok.png" title="Imagem de confirmação do ReCaptcha">
 								</div>
 							</div>
 							<div [ngClass]="['botaoVC']">
-								<button [ngClass]="['margem-superior']" ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize>Enviar</button>
+								<button [ngClass]="['margem-superior']" ion-button type="submit" [disabled]="contatoForm.invalid" small text-capitalize title="Botão Enviar formulário de contato">Enviar</button>
 							</div>
 						</form>
 					</div>
@@ -73,22 +73,22 @@
 					<div [ngClass]="['faixa', 'margem-superior']">
 						<div [ngClass]="'links'">
 							<span>
-								<a href="https://www.facebook.com/sinaldasorte" target="_blank">
+								<a href="https://www.facebook.com/sinaldasorte" target="_blank" title="Link do perfil no Facebook do Sinal da Sorte">
 									<ion-icon name="logo-facebook"></ion-icon>
 								</a>
 							</span>
 							<span>
-								<a href="https://twitter.com/sinaldasorte" target="_blank">
+								<a href="https://twitter.com/sinaldasorte" target="_blank" title="Link do perfil no Twitter do Sinal da Sorte">
 									<ion-icon name="logo-twitter"></ion-icon>
 								</a>
 							</span>
 							<span>
-								<a href="https://www.instagram.com/sinaldasorte.com.br/" target="_blank">
+								<a href="https://www.instagram.com/sinaldasorte.com.br/" target="_blank" title="Link do perfil no Instagram do Sinal da Sorte">
 									<ion-icon name="logo-instagram"></ion-icon>
 								</a>
 							</span>
 							<span>
-								<a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank">
+								<a href="https://www.youtube.com/channel/UCxtOUuTlYu5yRw83IuBXPrw" target="_blank" title="Link do canal no YouTube do Sinal da Sorte">
 									<ion-icon name="logo-youtube"></ion-icon>
 								</a>
 							</span>

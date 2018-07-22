@@ -30,6 +30,8 @@ i[class^="fa-"], ion-icon[class^="fa-"] {
     color: #003300;
     color: #002600;
 
+    color: #1aff9b;
+
     color: #347f0c;
     color: #2a660a;
     color: #1f4c07;
@@ -70,6 +72,10 @@ i[class^="fa-"], ion-icon[class^="fa-"] {
 
 .cor-terciaria {
     color: #999700;
+}
+
+.cor-destaque {
+    color: #1aff9b;
 }
 
 .cor-texto, th, td, .dezena_destacada, .faixa .texto-observacao {
@@ -124,6 +130,13 @@ i[class^="fa-"], ion-icon[class^="fa-"] {
     color: white;
     background-color: #e70000;
     border-color: #e70000;
+}
+
+.caption-data-view {
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 16px;
+    margin: 10px 0 10px 0;
 }
 
 table {

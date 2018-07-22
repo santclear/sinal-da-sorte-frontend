@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<button ion-button menuToggle left>
+		<button ion-button menuToggle left title="Botão Menu">
 			<ion-icon name="menu"></ion-icon>
 		</button>
 
@@ -9,9 +9,9 @@
 		</ion-title>
 
 		<ion-buttons end>
-			<button ion-button block clear (click)="goResultado()">
+			<button ion-button block clear (click)="goResultado()" title="Botão Abrir página Resultado">
 				<span [ngClass]="['colorClaro'+ sufixoCssLoteriaSelecionada, 'titulo_loteria']">{{nomeDaLoteria}}</span>
-				<img alt="Logo" src="{{logoSelecionado}}">
+				<img alt="Logo" src="{{logoSelecionado}}" title="Logo Sinal da Sorte com o tema da loteria {{nomeDaLoteria}}">
 			</button>
 		</ion-buttons>
 	</ion-navbar>
