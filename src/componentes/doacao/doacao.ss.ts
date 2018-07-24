@@ -5,5 +5,11 @@ import { Component } from '@angular/core';
 	templateUrl: 'doacao.ss.html'
 })
 export class DoacaoSs {
+	public exibeDoacao: boolean;
+
 	constructor() {}
+
+	toggleDoacao(event) {
+		this.exibeDoacao = event.checked;
+	}
 }

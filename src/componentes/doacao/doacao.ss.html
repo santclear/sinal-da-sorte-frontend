@@ -1,6 +1,44 @@
-<div style="text-align: center;">
-	<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EQR79S4J6ZYAY' target="_blank" title="Link para realizar uma doação via PayPal">
-		<img alt="PayPal - A maneira fácil e segura de enviar pagamentos online!" src='https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif'/>
-		<img alt="Cartões de crédito" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-	</a>
+<div [ngClass]="['margem-superior','centralizar-texto']">
+	<h5 [ngClass]="'cor-primaria'" style="margin: 80px 0 40px 0">Desejas saber como contribuir com o desenvolvimento desse projeto?</h5>
+
+	<div [ngClass]="['select-largura-maxima margem-automatica','margem-superior']">
+		<ion-list>
+			<ion-item class="fundo-componente">
+				<ion-label color="primary">Quero saber mais</ion-label>
+				<ion-toggle (ionChange)="toggleDoacao($event)" title="Botão Exibir ou ocultar formas de contribuição"></ion-toggle>
+			</ion-item>
+		</ion-list>
+	</div>
+
+	<div *ngIf="exibeDoacao">
+		<h5 [ngClass]="['cor-primaria','margem-superior']">ESCOLHA UM DOS MÉTODOS ABAIXO E REALIZE UMA DOAÇÃO</h5>
+		<h5 [ngClass]="['cor-texto','margem-superior']">Para doar através de transferência bancária</h5>
+		<div [ngClass]="['cor-texto']">
+			Nu Pagamentos S.A.(260)
+		</div>
+		<div [ngClass]="['cor-texto']">
+			Agência: 0001
+		</div>
+		<div [ngClass]="['cor-texto']">
+			Conta: 6727853-4
+		</div>
+		<div [ngClass]="['cor-texto']">
+			Método para transferência: TED
+		</div>
+
+		<h5 [ngClass]="['cor-texto','margem-superior']">Para doar através do PagSeguro</h5>
+		<div>
+			<a href="https://pag.ae/bjB1YLH" target="_blank" title="Link para realizar uma doação via PagSeguro">
+				<img alt="Pague com PagSeguro - é rápido, grátis e seguro!" src='https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/120x53-doar.gif'/>
+			</a>
+		</div>
+
+		<h5 [ngClass]="['cor-texto','margem-superior']">Para doar através do PayPal</h5>
+		<div>
+			<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EQR79S4J6ZYAY' target="_blank" title="Link para realizar uma doação via PayPal">
+				<img alt="PayPal - A maneira fácil e segura de enviar pagamentos online!" src='https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif'/>
+				<img alt="Cartões de crédito" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+			</a>
+		</div>
+	</div>
 </div>
