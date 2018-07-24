@@ -1,10 +1,15 @@
 export abstract class Loterias {
 	// static readonly DOMINIO = 'http://localhost:8081/sinal-da-sorte-ws/';
-	// static readonly DOMINIO = 'http://localhost:8080/';
 	// static readonly DOMINIO = 'http://sinaldasorte-ws.jelasticlw.com.br/';
-	static readonly DOMINIO = 'http://www.sinaldasorte.com.br:7717/sinal-da-sorte-ws/';
-	static readonly RECAPTCHA_SITEKEY = '6LecHFEUAAAAAIMKXFZeKkgbFr2EqJBRqg10ofJP';
-	static readonly RECAPTCHA_SECRET = '6LecHFEUAAAAAGpVfe755LWfkajCPQlhNfvGRXgy';
+	// static readonly DOMINIO = 'http://www.sinaldasorte.com.br:7717/sinal-da-sorte-ws/';
+
+
+	
+
+	// static readonly DOMINIO = 'http://localhost:8080/';
+	static readonly DOMINIO = 'https://www.sinaldasorte.com.br/sinal-da-sorte-ws/';
+
+
 	static readonly LOTOFACIL = {
 		id: 1,
 		sufixoCssLoteria: 'Lotofacil',
