@@ -22,7 +22,9 @@ import { UtilService } from '../services/util.service';
 import { UsuarioService } from '../services/usuario.service';
 import { EmailService } from '../services/email.service';
 import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
-import { IntersticialAdMobService } from '../services/intersticial-admob.service';
+import { BannerAdMobService } from '../services/banner-admob.service';
+import { InterstitialAdMobService } from '../services/interstitial-admob.service';
+import { RewardVideoAdMobService } from '../services/rewarded-admob.service';
 import { AvisoService } from '../services/aviso.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
@@ -31,7 +33,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContaPageModule } from '../pages/conta/conta.module';
 import { ResultadoPageModule } from '../pages/resultado/resultado.module';
 import { EsqueciMinhaSenhaPageModule } from '../pages/esqueci-minha-senha/esqueci-minha-senha.module';
-import { BannerAdMobService } from '../services/banner-admob.service';
 
 @NgModule({
 	declarations: [
@@ -66,7 +67,8 @@ import { BannerAdMobService } from '../services/banner-admob.service';
 		EmailService,
 		NavegadoresSuportadosService,
 		BannerAdMobService,
-		IntersticialAdMobService,
+		InterstitialAdMobService,
+		RewardVideoAdMobService,
 		AuthInterceptorProvider,
 		AdMobFree,
 		AvisoService,

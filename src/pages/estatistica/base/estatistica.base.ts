@@ -3,7 +3,7 @@ import { ConcursoDAOServico } from '../../../dao/concurso/concurso-dao.servico';
 import { ConexaoFabrica } from '../../../dao/util/conexao-fabrica';
 import { ElementRef } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
-import { IntersticialAdMobService } from '../../../services/intersticial-admob.service';
+import { InterstitialAdMobService } from '../../../services/interstitial-admob.service';
 
 export abstract class EstatisticaBase {
 	protected canvas: ElementRef;
@@ -38,7 +38,7 @@ export abstract class EstatisticaBase {
 	// 	}
 	// }
 
-	constructor(public concursoDAOServico: ConcursoDAOServico, public intersticialAdMobService: IntersticialAdMobService) {
+	constructor(public concursoDAOServico: ConcursoDAOServico, public interstitialAdMobService: InterstitialAdMobService) {
 		this.bd = ConexaoFabrica.getConexao();
         this.concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 		this.bd.get('sessao').then((sessao) => {
@@ -50,7 +50,7 @@ export abstract class EstatisticaBase {
 	}
 
 	cbxExtensaoDaFaixaDeConcursosAtualize(cbxExtensaoDaFaixaDeConcursosAtualizeOutput: any): void {
-		this.intersticialAdMobService.consomeCredito();
+		this.interstitialAdMobService.consomeCredito();
 		this.canvas = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.canvas;
 		this.rdSorteios = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.rdSorteios;
 		this.numeroDoConcursoInicial = cbxExtensaoDaFaixaDeConcursosAtualizeOutput.numeroDoConcursoInicial;
@@ -141,7 +141,7 @@ export abstract class EstatisticaBase {
 	}
 
 	toggleMostreMaisEstatisticas(toggleMostreMaisEstatisticasOutput: any): void {
-		this.intersticialAdMobService.consomeCredito();
+		this.interstitialAdMobService.consomeCredito();
 		this.toggleMostrarMaisEstatisticasChecked = toggleMostreMaisEstatisticasOutput.checked;
 		if(this.toggleMostrarMaisEstatisticasChecked) {
 			this.atualizeFrequênciasDasDezenas(

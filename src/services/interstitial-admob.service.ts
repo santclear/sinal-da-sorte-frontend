@@ -4,20 +4,20 @@ import { AdMobFree, AdMobFreeInterstitialConfig} from "@ionic-native/admob-free"
 import { StorageService } from "./storage.service";
 
 @Injectable()
-export class IntersticialAdMobService {
+export class InterstitialAdMobService {
 
 	constructor(public admob: AdMobFree, public plataforma: Platform, public storage: StorageService) {
 		this.consomeCredito();
 	}
 	
     mostreAnuncioInterstitial() {
-		let interstitialConfig: AdMobFreeInterstitialConfig = {
-			// isTesting: true, // Remove in production
+		let intersticialConfig: AdMobFreeInterstitialConfig = {
+			isTesting: true, // Remove in production
 			autoShow: true,
-			id: 'ca-app-pub-5335868077868255/2236896705'
+			// id: 'ca-app-pub-5335868077868255/2236896705'
 		};
 		
-		this.admob.interstitial.config(interstitialConfig);
+		this.admob.interstitial.config(intersticialConfig);
 	
 		this.admob.interstitial.prepare().then(() => {
 		}).catch(e => {console.log(e)});

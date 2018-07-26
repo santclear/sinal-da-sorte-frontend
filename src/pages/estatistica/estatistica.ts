@@ -4,7 +4,7 @@ import { PaginaBase } from '../pagina.base';
 import { IonicPage, NavController } from 'ionic-angular';
 import { StorageService } from '../../services/storage.service';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
-import { IntersticialAdMobService } from '../../services/intersticial-admob.service';
+import { InterstitialAdMobService } from '../../services/interstitial-admob.service';
 import { AvisoService } from '../../services/aviso.service';
 
 @IonicPage()
@@ -20,7 +20,7 @@ export class EstatisticaPage extends PaginaBase {
 	constructor(
 		public navCtrl: NavController, 
 		public storage: StorageService,
-		public intersticialAdMobService: IntersticialAdMobService,
+		public intersticialAdMobService: InterstitialAdMobService,
 		public avisoService: AvisoService) {
 		super();
         this.setTitulo('Estatística');

@@ -13,9 +13,9 @@ export class BannerAdMobService {
 
 	mostreAnuncioBanner() { 
         let bannerConfig: AdMobFreeBannerConfig = {
-            // isTesting: true, // Remove in production
+            isTesting: true, // Remove in production
             autoShow: true,
-            id: 'ca-app-pub-5335868077868255/5246799894'
+            // id: 'ca-app-pub-5335868077868255/5246799894'
         };
  
         this.admob.banner.config(bannerConfig);

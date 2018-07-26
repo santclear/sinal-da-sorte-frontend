@@ -14,8 +14,9 @@ import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
 import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
 import { BannerAdMobService } from '../services/banner-admob.service';
-import { IntersticialAdMobService } from '../services/intersticial-admob.service';
+import { InterstitialAdMobService } from '../services/interstitial-admob.service';
 import { AvisoService } from '../services/aviso.service';
+import { ConcursoFacade } from '../dao/concurso/concurso-facade';
 
 @Component({
 	templateUrl: `app.html`,
@@ -48,7 +49,7 @@ export class MyApp {
 		public contaService: ContaService,
 		public navegadoresSuportadosService: NavegadoresSuportadosService,
 		public bannerAdMobService: BannerAdMobService,
-		public intersticialAdMobService: IntersticialAdMobService,
+		public interstitialAdMobService: InterstitialAdMobService,
 		public avisoService: AvisoService
 	) {
 		this.bd = ConexaoFabrica.getConexao();
@@ -83,7 +84,7 @@ export class MyApp {
 	}
 
 	abraAPagina(objetoPagina, indicePagina) {
-		this.intersticialAdMobService.consomeCredito();
+		this.interstitialAdMobService.consomeCredito();
 		this.indicePaginaAtual = indicePagina;
 		let pagina: string = objetoPagina.class;
 		switch(objetoPagina.titulo) {
@@ -92,6 +93,7 @@ export class MyApp {
 				if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
 					pagina = 'LandingPage';
 				} 
+				this.indicePaginaAtual = 0;
 			default:
 				this.storage.setPaginaAnterior(this.nav.getActive().name);
 				this.nav.setRoot(pagina);
@@ -105,43 +107,67 @@ export class MyApp {
 		} else {
 			this.indiceLoteriaAtual = indiceLoteria;
 		}
-		let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-		resultadoSincronizePromise.then(resultadoSincronize => {
-			let ultimoConcursoStr = JSON.stringify(resultadoSincronize);
-			let ultimoConcurso = JSON.parse(ultimoConcursoStr);
-			if(ultimoConcurso.maiorNumero === 0) {
-				let toast = this.toastCtrl.create({
-					message: 'Código 403: Sem autorização para acessar todos os recursos, por falha de conexão de internet ou token inválido',
-					showCloseButton: true,
-					closeButtonText: 'Ok',
-					duration: 5000,
-					position: 'top',
-					cssClass: 'toastGeral'
+		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+		let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(this.menuService.getLoterias()[indiceLoteria].nomeDoDocumentoNoBD);
+		concursosPromise.then(ultimoConcurso => {
+			if (ultimoConcurso.maiorNumero < 1) {
+				let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+				resultadoSincronizePromise.then(resultadoSincronize => {
+					let ultimoConcursoStr = JSON.stringify(resultadoSincronize);
+					let ultimoConcurso = JSON.parse(ultimoConcursoStr);
+					if(ultimoConcurso.maiorNumero === 0) {
+						let toast = this.toastCtrl.create({
+							message: 'Código 403: Sem autorização para acessar todos os recursos, por falha de conexão de internet ou token inválido',
+							showCloseButton: true,
+							closeButtonText: 'Ok',
+							duration: 5000,
+							position: 'top',
+							cssClass: 'toastGeral'
+						});
+						toast.present();
+					}
+					this.sufixoCssLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].sufixoCssLoteria;
+					this.nomeLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].nome;
+					this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].caminhoDoIconeAvatar;
+		
+					this.salveOuAtualizeLoteriaSessao(this.menuService.getLoterias()[indiceLoteria]).then(resultadoQuery => {
+						this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
+						this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
+					});
+		
+					this.menuAtivo = 'menuPaginas';
+					this.menu.close().then(() => {
+						this.menu.enable(true, 'menuPaginas');
+						this.menu.enable(false, 'menuLoterias');
+						this.menu.open();
+					}).catch(erro => {
+						console.log(erro);
+					});
 				});
-				toast.present();
+			} else {
+				this.sufixoCssLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].sufixoCssLoteria;
+				this.nomeLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].nome;
+				this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].caminhoDoIconeAvatar;
+	
+				this.salveOuAtualizeLoteriaSessao(this.menuService.getLoterias()[indiceLoteria]).then(resultadoQuery => {
+					this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
+					this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
+				});
+	
+				this.menuAtivo = 'menuPaginas';
+				this.menu.close().then(() => {
+					this.menu.enable(true, 'menuPaginas');
+					this.menu.enable(false, 'menuLoterias');
+					this.menu.open();
+				}).catch(erro => {
+					console.log(erro);
+				});
 			}
-			this.sufixoCssLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].sufixoCssLoteria;
-			this.nomeLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].nome;
-			this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].caminhoDoIconeAvatar;
-
-			this.salveOuAtualizeLoteriaSessao(this.menuService.getLoterias()[indiceLoteria]).then(resultadoQuery => {
-				this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
-				this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
-			});
-
-			this.menuAtivo = 'menuPaginas';
-			this.menu.close().then(() => {
-				this.menu.enable(true, 'menuPaginas');
-				this.menu.enable(false, 'menuLoterias');
-				this.menu.open();
-			}).catch(erro => {
-				console.log(erro);
-			});
 		});
 	}
 
 	ativeMenuLoterias() {
-		this.intersticialAdMobService.consomeCredito();
+		this.interstitialAdMobService.consomeCredito();
 		this.menuAtivo = 'menuLoterias';
 		this.menu.close().then(() => {
 			this.menu.enable(false, 'menuPaginas');
@@ -214,10 +240,18 @@ export class MyApp {
 					let alert;
 					switch(conta.situacao) {
 						case 'ATIVO':
-							let indiceLoteria = sessao.loteria.id - 1;
-							let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
-							resultadoSincronizePromise.then(resultadoSincronize => {
-								this.setPaginaInicial();
+							let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+							let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+							concursosPromise.then(ultimoConcurso => {
+								if (ultimoConcurso.maiorNumero < 1) {
+									let indiceLoteria = sessao.loteria.id - 1;
+									let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
+									resultadoSincronizePromise.then(resultadoSincronize => {
+										this.setPaginaInicial();
+									});
+								} else {
+									this.setPaginaInicial();
+								}
 							});
 							break;
 						case 'INATIVO_PERMANENTE':
