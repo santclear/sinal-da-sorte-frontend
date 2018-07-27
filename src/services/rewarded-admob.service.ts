@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Platform, ToastController, AlertController } from 'ionic-angular';
+import { Platform, ToastController, AlertController, Loading } from 'ionic-angular';
 import { AdMobFree, AdMobFreeRewardVideoConfig} from "@ionic-native/admob-free";
 import { MenuService } from "./menu.service";
 import { ConexaoFabrica } from "../dao/util/conexao-fabrica";
@@ -33,8 +33,11 @@ export class RewardVideoAdMobService {
 			document.addEventListener('admob.rewardvideo.events.CLOSE', event => {
 				if(this.exibirMensagem) {
 					let alert = this.alertCtrl.create({
-						title: 'Conclusão obrigatória do tempo promocional',
-						message: `Para verificar se há novos sorteios para serem atualizados, certifique-se que o vídeo foi exibido completamente antes de fechar.`,
+						// title: 'Conclusão obrigatória do tempo promocional',
+						// message: `Para verificar se há novos sorteios para serem atualizados, certifique-se que o vídeo foi exibido completamente antes de fechar.`,
+						title: 'Obtenha o prêmio de busca',
+						message: `Para verificar se há novos sorteios para serem atualizados, 
+							obtenha o prêmio de busca permitindo que o vídeo seja exibido completamente.`,
 						enableBackdropDismiss: false,
 						buttons: [{
 							text: 'Ok',
@@ -49,7 +52,8 @@ export class RewardVideoAdMobService {
 			document.addEventListener('admob.rewardvideo.events.LOAD_FAIL', (event) => {
 				let alert = this.alertCtrl.create({
 					title: 'Erro ao buscar novos sorteios',
-					message: ` Ocorreu um erro ao tentar buscar novos sorteios, tente novamente.
+					message: `Isso pode ter ocorrido por falha de conexão, verifique se está ativa a sua internet, 
+					se estiver e mesmo assim o erro persistir, tente mais tarde.
 						`,
 					enableBackdropDismiss: false,
 					buttons: [{
@@ -67,7 +71,7 @@ export class RewardVideoAdMobService {
 		});
 	}
 	
-    mostreAnuncioRewardVideo() {
+    mostreAnuncioRewardVideo(loading: Loading) {
 		if(this.plataforma.is('android')) {
 			let rewardVideoConfig: AdMobFreeRewardVideoConfig = {
 				isTesting: true, // Remove in production
@@ -78,6 +82,7 @@ export class RewardVideoAdMobService {
 			this.admob.rewardVideo.config(rewardVideoConfig);
 			
 			this.admob.rewardVideo.prepare().then(() => {
+				loading.dismiss();
 			}).catch(e => {console.log(e)});
 		} else {
 			this.atualizeResultados();
@@ -103,10 +108,10 @@ export class RewardVideoAdMobService {
 					toast.present();
 				} else {
 					let alert = this.alertCtrl.create({
-						title: 'Busca realizada com sucesso',
-						message: ` A busca por novos sorteios ocorreu com sucesso. 
+						title: 'Prêmio de busca concedido',
+						message: `A busca por novos sorteios ocorreu com sucesso.
 							Verique no seu dispositivo se os novos sorteios foram atualizados.
-							Caso não tenha atualizado tente mais tarde.
+							Caso não tenha atualizado, tente mais tarde.
 							`,
 						enableBackdropDismiss: false,
 						buttons: [{
