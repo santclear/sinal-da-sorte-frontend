@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, ToastController, AlertController } from 'ionic-angular';
+import { Nav, Platform, MenuController, ToastController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContaLocalDTO } from '../dtos/conta-local.dto';
@@ -12,10 +12,7 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
-import { NavegadoresSuportadosService } from '../services/navegadores-suportados.service';
-import { BannerAdMobService } from '../services/banner-admob.service';
 import { InterstitialAdMobService } from '../services/interstitial-admob.service';
-import { AvisoService } from '../services/aviso.service';
 import { ConcursoFacade } from '../dao/concurso/concurso-facade';
 
 @Component({
@@ -31,27 +28,49 @@ export class MyApp {
 	public nomeLoteriaSelecionada: string;
 	public caminhoDoIconeAvatarDaLoteriaSelecionada: string;
 	public indicePaginaAtual: number;
-	public menuAtivo: string;
-	public bd: any;
+	private bd: any;
 	private indiceLoteriaAtual: number;
+	private loading: Loading;
+	private exibeMensagemErroApp: boolean = true;
 
-	constructor(public plataforma: Platform,
-		public menu: MenuController,
-		public concursoDAOServico: ConcursoDAOServico,
-		public statusBar: StatusBar,
-		public splashScreen: SplashScreen,
-		public menuService: MenuService, 
-		public auth: AuthService,
-		public util: UtilService,
-		public storage: StorageService,
-		public toastCtrl: ToastController,
-		public alertCtrl: AlertController,
-		public contaService: ContaService,
-		public navegadoresSuportadosService: NavegadoresSuportadosService,
-		public bannerAdMobService: BannerAdMobService,
-		public interstitialAdMobService: InterstitialAdMobService,
-		public avisoService: AvisoService
+	constructor(private plataforma: Platform,
+		private menu: MenuController,
+		private concursoDAOServico: ConcursoDAOServico,
+		private statusBar: StatusBar,
+		private splashScreen: SplashScreen,
+		private menuService: MenuService, 
+		private auth: AuthService,
+		private util: UtilService,
+		private storage: StorageService,
+		private toastCtrl: ToastController,
+		private alertCtrl: AlertController,
+		private contaService: ContaService,
+		private interstitialAdMobService: InterstitialAdMobService,
+		private loadingCtrl: LoadingController
 	) {
+		this.loading = this.loadingCtrl.create({
+			content: 'Aguarde, carregando...'
+		});
+
+		this.loading.present();
+		
+		setTimeout(() => {
+			if(this.exibeMensagemErroApp) {
+				this.loading.dismiss();
+				let alert = this.alertCtrl.create({
+					title: 'Tente fechar e abrir novamente o aplicativo',
+					message: `O sistema demorou para responder, tente fechar e abrir novamente o aplicativo. 
+						Caso o erro persista, pode ser que tenha ocorrido alguma falha na conexão, nesse caso tente mais tarde.
+						`,
+					enableBackdropDismiss: false,
+					buttons: [{
+						text: 'Ok',
+					}]
+				});
+				alert.present();
+			}
+		}, 10000);
+
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.loterias = this.menuService.getLoterias();
@@ -134,8 +153,7 @@ export class MyApp {
 						this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
 						this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 					});
-		
-					this.menuAtivo = 'menuPaginas';
+					
 					this.menu.close().then(() => {
 						this.menu.enable(true, 'menuPaginas');
 						this.menu.enable(false, 'menuLoterias');
@@ -153,8 +171,7 @@ export class MyApp {
 					this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
 					this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
 				});
-	
-				this.menuAtivo = 'menuPaginas';
+				
 				this.menu.close().then(() => {
 					this.menu.enable(true, 'menuPaginas');
 					this.menu.enable(false, 'menuLoterias');
@@ -168,7 +185,6 @@ export class MyApp {
 
 	ativeMenuLoterias() {
 		this.interstitialAdMobService.consomeCredito();
-		this.menuAtivo = 'menuLoterias';
 		this.menu.close().then(() => {
 			this.menu.enable(false, 'menuPaginas');
 			this.menu.enable(true, 'menuLoterias');
@@ -293,11 +309,17 @@ export class MyApp {
 		
 		let contaLocal = this.storage.getContaLocal();
 		if(contaLocal) {
+			this.exibeMensagemErroApp = false;
+			this.loading.dismiss();
 			this.paginaInicial = 'ResultadoPage';
 		} else  {
 			if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+				this.exibeMensagemErroApp = false;
+				this.loading.dismiss();
 				this.paginaInicial = 'LandingPage';
 			} else {
+				this.exibeMensagemErroApp = false;
+				this.loading.dismiss();
 				this.paginaInicial = 'LoginPage';
 			}
 		}
