@@ -27,6 +27,7 @@ export class AtualizarResultadosSs {
 
 		this.rewardVideoAdMobService.dismiss.subscribe(response => {
 			loading.dismiss();
+			this.navCtrl.popAll();
 			this.navCtrl.setRoot('ResultadoPage');
 		});
 	}

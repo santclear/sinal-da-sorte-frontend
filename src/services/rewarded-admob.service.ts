@@ -12,6 +12,8 @@ export class RewardVideoAdMobService {
 
 	private dismissObserver: any;
 	public dismiss: any;
+	private loading: Loading;
+
 
 	private exibirMensagem: boolean = true;
 
@@ -72,6 +74,7 @@ export class RewardVideoAdMobService {
 	}
 	
     mostreAnuncioRewardVideo(loading: Loading) {
+		this.loading = loading;
 		if(this.plataforma.is('android')) {
 			let rewardVideoConfig: AdMobFreeRewardVideoConfig = {
 				isTesting: true, // Remove in production
@@ -82,9 +85,22 @@ export class RewardVideoAdMobService {
 			this.admob.rewardVideo.config(rewardVideoConfig);
 			
 			this.admob.rewardVideo.prepare().then(() => {
-				loading.dismiss();
-			}).catch(e => {console.log(e)});
+			}).catch(e => {
+				this.loading.dismiss();
+				let alert = this.alertCtrl.create({
+					title: 'Prêmio de busca',
+					message: `Não foi possível preparar o prêmio de busca. Verifique sua conexão com a internet e tente novamente, 
+						caso essa mensagem seja exibida novamente, entre em contato com o suporte: sinaldasorteweb@gmail.com
+						`,
+					enableBackdropDismiss: false,
+					buttons: [{
+						text: 'Ok',
+					}]
+				});
+				alert.present();
+			});
 		} else {
+			this.loading.dismiss();
 			this.atualizeResultados();
 		}
 	}
@@ -109,7 +125,7 @@ export class RewardVideoAdMobService {
 				} else {
 					let alert = this.alertCtrl.create({
 						title: 'Prêmio de busca concedido',
-						message: `A busca por novos sorteios ocorreu com sucesso.
+						message: `Excelente! Você recebeu um prêmio de busca e ele foi usado para buscar novos resultados de sorteios de loteria.
 							Verique no seu dispositivo se os novos sorteios foram atualizados.
 							Caso não tenha atualizado, tente mais tarde.
 							`,

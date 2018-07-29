@@ -71,6 +71,18 @@ export class ResultadoPage extends PaginaBase {
 		super();
 		this.setTitulo("Resultado");
 
+		// this.menu.open();
+	}
+
+	ionViewDidEnter() {
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
+		this.sortOptions = [
+			{label: 'Dezena - menor/maior', value: 'dezena'},
+			{label: 'Dezena - maior/menor', value: '!dezena'},
+			{label: 'Frequência - menor/maior', value: 'frequenciaTotal'},
+			{label: 'Frequência - maior/menor', value: '!frequenciaTotal'}
+		];
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.bd.get('sessao').then((sessao) => {
@@ -86,19 +98,6 @@ export class ResultadoPage extends PaginaBase {
 		});
 
 		this.exibeAviso = this.avisoService.exibeAviso;
-
-		// this.menu.open();
-	}
-
-	ionViewDidEnter() {
-		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
-		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
-		this.sortOptions = [
-			{label: 'Dezena - menor/maior', value: 'dezena'},
-			{label: 'Dezena - maior/menor', value: '!dezena'},
-			{label: 'Frequência - menor/maior', value: 'frequenciaTotal'},
-			{label: 'Frequência - maior/menor', value: '!frequenciaTotal'}
-		];
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
