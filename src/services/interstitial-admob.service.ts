@@ -7,7 +7,7 @@ import { StorageService } from "./storage.service";
 export class InterstitialAdMobService {
 
 	constructor(public admob: AdMobFree, public plataforma: Platform, public storage: StorageService) {
-		this.consomeCredito();
+		// this.consomeCredito();
 	}
 	
     mostreAnuncioInterstitial() {
