@@ -49,7 +49,7 @@ export class MyApp {
 		private loadingCtrl: LoadingController
 	) {
 		this.loading = this.loadingCtrl.create({
-			content: 'Aguarde, carregando...'
+			content: 'Aguarde, carregando... Esse processo pode durar até 60 segundo dependendo do seu dispositivo ou conexão'
 		});
 
 		this.loading.present();
@@ -58,9 +58,9 @@ export class MyApp {
 			if(this.exibeMensagemErroApp) {
 				this.loading.dismiss();
 				let alert = this.alertCtrl.create({
-					title: 'Tente fechar e abrir novamente o aplicativo',
-					message: `O sistema demorou para responder, tente fechar e abrir novamente o aplicativo. 
-						Caso o erro persista, pode ser que tenha ocorrido alguma falha na conexão, nesse caso tente mais tarde.
+					title: 'Sem conexão com a internet',
+					message: `Sem conexão com a internet, 
+						não será possível buscar novos resultados de sorteios de loterias ou efetuar login.
 						`,
 					enableBackdropDismiss: false,
 					buttons: [{
@@ -69,7 +69,7 @@ export class MyApp {
 				});
 				alert.present();
 			}
-		}, 10000);
+		}, 55000);
 
 		this.bd = ConexaoFabrica.getConexao();
 
