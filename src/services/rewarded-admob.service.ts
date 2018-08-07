@@ -75,9 +75,9 @@ export class RewardVideoAdMobService {
     mostreAnuncioRewardVideo() {
 		if(this.plataforma.is('android')) {
 			let rewardVideoConfig: AdMobFreeRewardVideoConfig = {
-				// isTesting: true, // Remove in production
+				isTesting: true, // Remove in production
 				autoShow: true,
-				id: 'ca-app-pub-5335868077868255/8883684198'
+				// id: 'ca-app-pub-5335868077868255/8883684198'
 			};
 			
 			this.admob.rewardVideo.config(rewardVideoConfig);

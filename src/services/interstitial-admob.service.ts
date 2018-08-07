@@ -32,7 +32,7 @@ export class InterstitialAdMobService {
 			let contadorStr: string = this.storage.getContadorAnuncio();
 			let contador;
 			if(contadorStr === null) {
-				contador = Math.floor((Math.random() * 6) + 7);
+				contador = Math.floor((Math.random() * 5) + 3);
 				contadorStr = contador.toString();
 				this.storage.setContadorAnuncio(contadorStr);
 			} else {
@@ -41,7 +41,7 @@ export class InterstitialAdMobService {
 					contador--;
 					this.storage.setContadorAnuncio(contador.toString());
 				} else {
-					contador = Math.floor((Math.random() * 6) + 7);
+					contador = Math.floor((Math.random() * 5) + 3);
 					contadorStr = contador.toString();
 					this.storage.setContadorAnuncio(contadorStr);
 					this.mostreAnuncioInterstitial();
