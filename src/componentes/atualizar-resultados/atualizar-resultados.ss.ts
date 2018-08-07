@@ -23,11 +23,10 @@ export class AtualizarResultadosSs {
 
 		loading.present();
 			
-		this.rewardVideoAdMobService.mostreAnuncioRewardVideo(loading);
+		this.rewardVideoAdMobService.mostreAnuncioRewardVideo();
 
 		this.rewardVideoAdMobService.dismiss.subscribe(response => {
 			loading.dismiss();
-			this.navCtrl.popAll();
 			this.navCtrl.setRoot('ResultadoPage');
 		});
 	}

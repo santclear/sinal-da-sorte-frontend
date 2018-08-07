@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
 import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
@@ -10,6 +10,8 @@ import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { AvisoService } from '../../services/aviso.service';
+import { BannerAdMobService } from '../../services/banner-admob.service';
+import { RewardVideoAdMobService } from '../../services/rewarded-admob.service';
 
 @IonicPage()
 @Component({
@@ -67,22 +69,13 @@ export class ResultadoPage extends PaginaBase {
 		private concursoDAOServico: ConcursoDAOServico, 
 		public navCtrl: NavController, 
 		public storage: StorageService,
-		public avisoService: AvisoService) {
+		public avisoService: AvisoService,
+		private loadingCtrl: LoadingController,
+		public bannerAdMobService: BannerAdMobService,
+		private rewardVideoAdMobService: RewardVideoAdMobService,) {
 		super();
 		this.setTitulo("Resultado");
 
-		// this.menu.open();
-	}
-
-	ionViewDidEnter() {
-		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
-		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
-		this.sortOptions = [
-			{label: 'Dezena - menor/maior', value: 'dezena'},
-			{label: 'Dezena - maior/menor', value: '!dezena'},
-			{label: 'Frequência - menor/maior', value: 'frequenciaTotal'},
-			{label: 'Frequência - maior/menor', value: '!frequenciaTotal'}
-		];
 		this.bd = ConexaoFabrica.getConexao();
 
 		this.bd.get('sessao').then((sessao) => {
@@ -98,6 +91,19 @@ export class ResultadoPage extends PaginaBase {
 		});
 
 		this.exibeAviso = this.avisoService.exibeAviso;
+
+		// this.menu.open();
+	}
+
+	ionViewDidEnter() {
+		let contaLocal: ContaLocalDTO = this.storage.getContaLocal();
+		if(!contaLocal) this.navCtrl.setRoot('ContaExternoPage');
+		this.sortOptions = [
+			{label: 'Dezena - menor/maior', value: 'dezena'},
+			{label: 'Dezena - maior/menor', value: '!dezena'},
+			{label: 'Frequência - menor/maior', value: 'frequenciaTotal'},
+			{label: 'Frequência - maior/menor', value: '!frequenciaTotal'}
+		];
 	}
 
 	rgeFaixaDeConcursosAtualize(concursoFinal) {
@@ -294,5 +300,32 @@ export class ResultadoPage extends PaginaBase {
             this.sortOrder = 1;
             this.sortField = value;
         }
+	}
+
+	sincronizeResultados() {
+		let loading = this.loadingCtrl.create({
+			content: 'Aguarde, carregando...'
+		});
+
+		loading.present();
+			
+		this.rewardVideoAdMobService.mostreAnuncioRewardVideo();
+
+		this.rewardVideoAdMobService.dismiss.subscribe(response => {
+			loading.dismiss();
+			this.bd = ConexaoFabrica.getConexao();
+
+			this.bd.get('sessao').then((sessao) => {
+				let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+				let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+				concursosPromise.then(concursos => {
+					if(concursos.maiorNumero > 0) {
+						this.atualizeResultados(sessao, concursoFacade, concursos.maiorNumero);
+						this.rgeFaixaDeConcursos = concursos.maiorNumero;
+						this.rgeFaixaDeConcursosMax = concursos.maiorNumero;
+					}
+				});
+			});
+		});
 	}
 }

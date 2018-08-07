@@ -8,7 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RodapeSsModule } from '../../componentes/rodape/rodape.ss.module';
 import { AvisoSsModule } from '../../componentes/aviso/aviso.ss.module';
 import { DoacaoSsModule } from '../../componentes/doacao/doacao.ss.module';
-import { AtualizarResultadosSsModule } from '../../componentes/atualizar-resultados/atualizar-resultados.ss.module';
+// import { AtualizarResultadosSsModule } from '../../componentes/atualizar-resultados/atualizar-resultados.ss.module';
 
 @NgModule({
 	declarations: [
@@ -16,7 +16,7 @@ import { AtualizarResultadosSsModule } from '../../componentes/atualizar-resulta
 	],
 	imports: [
 		NavBarSsModule,
-		AtualizarResultadosSsModule,
+		// AtualizarResultadosSsModule,
 		AvisoSsModule,
 		TableModule,
 		DataViewModule,

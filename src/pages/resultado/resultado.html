@@ -2,7 +2,11 @@
 
 <ion-content>
 	<ss-aviso *ngIf="exibeAviso"></ss-aviso>
-	<ss-atualizar-resultados [nomeLoteriaInput]="nomeDaLoteria"></ss-atualizar-resultados>
+	<!-- <ss-atualizar-resultados [nomeLoteriaInput]="nomeDaLoteria"></ss-atualizar-resultados> -->
+	<div style="text-align: center;">
+		<h5 style="color: green;">Os resultados dos sorteios são atualizados diariamente entre 20:00 horas e 23:00 horas</h5>
+		<button ion-button color="favorite" (click)="sincronizeResultados()" title="Botão atualizar resultados da {{nomeDaLoteria}}">Verificar Novos Sorteios {{nomeDaLoteria}}</button>
+	</div>
 	<div [ngClass]="'conteudo'">
 		<ion-grid>
 			<ion-row>
