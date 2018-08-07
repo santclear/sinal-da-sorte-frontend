@@ -14,7 +14,7 @@ export class MenuService {
 		return new Promise(resolve => {
 			let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
 			let loading = this.loadingCtrl.create({
-				content: 'Por favor aguarde, verificando se há concursos da ' + parametrosDeServicosWeb.nome + ' para serem atualizados...'
+				content: 'Por favor aguarde, verificando se há concursos da ' + parametrosDeServicosWeb.nome + ' para serem atualizados... Esse processo pode demorar dependendo do seu dispositivo ou conexão.'
 			});
 
 			loading.present();

@@ -49,7 +49,7 @@ export class MyApp {
 		private loadingCtrl: LoadingController
 	) {
 		this.loading = this.loadingCtrl.create({
-			content: 'Aguarde, carregando... Esse processo pode durar até 60 segundo dependendo do seu dispositivo ou conexão'
+			content: 'Aguarde, carregando... Esse processo pode durar até 60 segundo dependendo do seu dispositivo ou conexão.'
 		});
 
 		this.loading.present();
@@ -59,8 +59,7 @@ export class MyApp {
 				this.loading.dismiss();
 				let alert = this.alertCtrl.create({
 					title: 'Sem conexão com a internet',
-					message: `Sem conexão com a internet, 
-						não será possível buscar novos resultados de sorteios de loterias ou efetuar login.
+					message: `Não é possível buscar novos resultados de sorteios de loterias ou efetuar login. Verifique sua conexão com a internet e em seguida tente fechar e abrir o aplicativo novamente.
 						`,
 					enableBackdropDismiss: false,
 					buttons: [{

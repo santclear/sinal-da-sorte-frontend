@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Platform, ToastController, AlertController, Loading } from 'ionic-angular';
+import { Platform, ToastController, AlertController } from 'ionic-angular';
 import { AdMobFree, AdMobFreeRewardVideoConfig} from "@ionic-native/admob-free";
 import { MenuService } from "./menu.service";
 import { ConexaoFabrica } from "../dao/util/conexao-fabrica";
@@ -12,7 +12,6 @@ export class RewardVideoAdMobService {
 
 	private dismissObserver: any;
 	public dismiss: any;
-	private loading: Loading;
 
 
 	private exibirMensagem: boolean = true;
@@ -29,7 +28,7 @@ export class RewardVideoAdMobService {
 		if(this.plataforma.is('android')) {
 			document.addEventListener('admob.rewardvideo.events.REWARD', () => {
 				this.exibirMensagem = false;
-				this.atualizeResultados();
+				this.sincronizeResultados();
 			});
 
 			document.addEventListener('admob.rewardvideo.events.CLOSE', event => {
@@ -37,9 +36,9 @@ export class RewardVideoAdMobService {
 					let alert = this.alertCtrl.create({
 						// title: 'Conclusão obrigatória do tempo promocional',
 						// message: `Para verificar se há novos sorteios para serem atualizados, certifique-se que o vídeo foi exibido completamente antes de fechar.`,
-						title: 'Obtenha o prêmio de busca',
-						message: `Para verificar se há novos sorteios para serem atualizados, 
-							obtenha o prêmio de busca permitindo que o vídeo seja exibido completamente.`,
+						title: 'Exibição necessária',
+						message: `Desculpe, para verificar se há novos sorteios para serem atualizados, 
+							é necessário a exibição completa do vídeo.`,
 						enableBackdropDismiss: false,
 						buttons: [{
 							text: 'Ok',
@@ -73,23 +72,21 @@ export class RewardVideoAdMobService {
 		});
 	}
 	
-    mostreAnuncioRewardVideo(loading: Loading) {
-		this.loading = loading;
+    mostreAnuncioRewardVideo() {
 		if(this.plataforma.is('android')) {
 			let rewardVideoConfig: AdMobFreeRewardVideoConfig = {
-				isTesting: true, // Remove in production
+				// isTesting: true, // Remove in production
 				autoShow: true,
-				// id: 'ca-app-pub-5335868077868255/8883684198'
+				id: 'ca-app-pub-5335868077868255/8883684198'
 			};
 			
 			this.admob.rewardVideo.config(rewardVideoConfig);
 			
 			this.admob.rewardVideo.prepare().then(() => {
 			}).catch(e => {
-				this.loading.dismiss();
 				let alert = this.alertCtrl.create({
-					title: 'Prêmio de busca',
-					message: `Não foi possível preparar o prêmio de busca. Verifique sua conexão com a internet e tente novamente, 
+					title: 'Falha ao buscar novos resultados',
+					message: `Não foi possível buscar novos resultados de sorteios de loteria. Verifique sua conexão com a internet e tente novamente, 
 						caso essa mensagem seja exibida novamente, entre em contato com o suporte: sinaldasorteweb@gmail.com
 						`,
 					enableBackdropDismiss: false,
@@ -100,12 +97,11 @@ export class RewardVideoAdMobService {
 				alert.present();
 			});
 		} else {
-			this.loading.dismiss();
-			this.atualizeResultados();
+			this.sincronizeResultados();
 		}
 	}
 
-	atualizeResultados() {
+	sincronizeResultados() {
 		this.bd.get('sessao').then((sessao) => {
 			let indiceLoteria = sessao.loteria.id - 1;
 			let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
@@ -124,8 +120,8 @@ export class RewardVideoAdMobService {
 					toast.present();
 				} else {
 					let alert = this.alertCtrl.create({
-						title: 'Prêmio de busca concedido',
-						message: `Excelente! Você recebeu um prêmio de busca e ele foi usado para buscar novos resultados de sorteios de loteria.
+						title: 'Busca realizada com sucesso',
+						message: `Excelente! A busca por novos resultados de sorteios de loteria ocorreu com sucesso.
 							Verique no seu dispositivo se os novos sorteios foram atualizados.
 							Caso não tenha atualizado, tente mais tarde.
 							`,
