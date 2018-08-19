@@ -3,8 +3,8 @@
 <ion-content>
 	<ss-aviso *ngIf="exibeAviso"></ss-aviso>
 	<!-- <ss-atualizar-resultados [nomeLoteriaInput]="nomeDaLoteria"></ss-atualizar-resultados> -->
-	<div style="text-align: center;">
-		<h5 style="color: green;">Os resultados dos sorteios são atualizados diariamente entre 20:00 horas e 23:00 horas</h5>
+	<div style="text-align: center">
+		<div style="color: green; font-size: 10pt; margin-top: 10px;">Verifique sempre que quiser se há novos sorteios disponíveis, para acompanhar os resultados de loteria e manter as estatísticas atualizadas.</div>
 		<button ion-button color="favorite" (click)="sincronizeResultados()" title="Botão atualizar resultados da {{nomeDaLoteria}}">Verificar Novos Sorteios {{nomeDaLoteria}}</button>
 	</div>
 	<div [ngClass]="'conteudo'">
@@ -202,7 +202,7 @@
 									</p-table> -->
 									<p-dataView #dv [value]="estatisticas" [paginator]="true" [rows]="15" paginatorPosition="both" filterBy="dezena" [sortField]="sortField" [sortOrder]="sortOrder" title="Cartões Frequência total das dezenas">
 										<p-header>
-											<div [ngClass]="['caption-data-view','cor-primaria']">Frequência total das dezenas:<br>concursos: 1 até {{rgeFaixaDeConcursos}}</div>
+											<div [ngClass]="['caption-data-view','cor-primaria']">Frequência total das dezenas<br>concursos: 1 até {{rgeFaixaDeConcursos}}</div>
 											<div class="ui-helper-clearfix">
 												<div class="ui-g">
 													<div class="ui-g-12">
