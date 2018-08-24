@@ -312,15 +312,15 @@ export class MyApp {
 			this.loading.dismiss();
 			this.paginaInicial = 'ResultadoPage';
 		} else  {
-			if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
-				this.exibeMensagemErroApp = false;
-				this.loading.dismiss();
-				this.paginaInicial = 'LandingPage';
-			} else {
+			// if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+			// 	this.exibeMensagemErroApp = false;
+			// 	this.loading.dismiss();
+			// 	this.paginaInicial = 'LandingPage';
+			// } else {
 				this.exibeMensagemErroApp = false;
 				this.loading.dismiss();
 				this.paginaInicial = 'LoginPage';
-			}
+			// }
 		}
 		this.initializeApp();
 	}
