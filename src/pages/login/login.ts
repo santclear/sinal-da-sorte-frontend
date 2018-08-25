@@ -7,8 +7,8 @@ import { ConexaoFabrica } from '../../dao/util/conexao-fabrica';
 import { ContaLocalDTO } from '../../dtos/conta-local.dto';
 import { StorageService } from '../../services/storage.service';
 import { ContaService } from '../../services/conta.service';
-import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
-import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
+// import { ConcursoDAOServico } from '../../dao/concurso/concurso-dao.servico';
+// import { ConcursoFacade } from '../../dao/concurso/concurso-facade';
 
 @IonicPage()
 @Component({
@@ -34,7 +34,7 @@ export class LoginPage {
 		public menuService: MenuService,
 		public contaService: ContaService,
 		public loadingCtrl: LoadingController,
-		private concursoDAOServico: ConcursoDAOServico,
+		// private concursoDAOServico: ConcursoDAOServico,
 	) {
 		this.bd = ConexaoFabrica.getConexao();
 	}
@@ -70,19 +70,19 @@ export class LoginPage {
 			switch(conta.situacao) {
 				case 'ATIVO':
 					this.bd.get('sessao').then((sessao) => {
-						let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-						let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
-						concursosPromise.then(ultimoConcurso => {
-							if (ultimoConcurso.maiorNumero < 1) {
+						// let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+						// let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+						// concursosPromise.then(ultimoConcurso => {
+						// 	if (ultimoConcurso.maiorNumero < 1) {
 								let indiceLoteria = sessao.loteria.id - 1;
 								let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 								resultadoSincronizePromise.then(resultadoSincronize => {
 									this.navCtrl.setRoot('ResultadoPage');
 								});
-							} else {
-								this.navCtrl.setRoot('ResultadoPage');
-							}
-						});
+						// 	} else {
+						// 		this.navCtrl.setRoot('ResultadoPage');
+						// 	}
+						// });
 						// let indiceLoteria = sessao.loteria.id - 1;
 						// let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 						// resultadoSincronizePromise.then(resultadoSincronize => {

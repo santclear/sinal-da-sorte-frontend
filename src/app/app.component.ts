@@ -13,7 +13,7 @@ import { StorageService } from '../services/storage.service';
 import { UtilService } from '../services/util.service';
 import { ContaService } from '../services/conta.service';
 import { InterstitialAdMobService } from '../services/interstitial-admob.service';
-import { ConcursoFacade } from '../dao/concurso/concurso-facade';
+// import { ConcursoFacade } from '../dao/concurso/concurso-facade';
 
 @Component({
 	templateUrl: `app.html`,
@@ -35,7 +35,7 @@ export class MyApp {
 
 	constructor(private plataforma: Platform,
 		private menu: MenuController,
-		private concursoDAOServico: ConcursoDAOServico,
+		// private concursoDAOServico: ConcursoDAOServico,
 		private statusBar: StatusBar,
 		private splashScreen: SplashScreen,
 		private menuService: MenuService, 
@@ -125,10 +125,10 @@ export class MyApp {
 		} else {
 			this.indiceLoteriaAtual = indiceLoteria;
 		}
-		let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-		let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(this.menuService.getLoterias()[indiceLoteria].nomeDoDocumentoNoBD);
-		concursosPromise.then(ultimoConcurso => {
-			if (ultimoConcurso.maiorNumero < 1) {
+		// let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+		// let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(this.menuService.getLoterias()[indiceLoteria].nomeDoDocumentoNoBD);
+		// concursosPromise.then(ultimoConcurso => {
+		// 	if (ultimoConcurso.maiorNumero < 1) {
 				let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 				resultadoSincronizePromise.then(resultadoSincronize => {
 					let ultimoConcursoStr = JSON.stringify(resultadoSincronize);
@@ -161,25 +161,25 @@ export class MyApp {
 						console.log(erro);
 					});
 				});
-			} else {
-				this.sufixoCssLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].sufixoCssLoteria;
-				this.nomeLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].nome;
-				this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].caminhoDoIconeAvatar;
+			// } else {
+				// this.sufixoCssLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].sufixoCssLoteria;
+				// this.nomeLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].nome;
+				// this.caminhoDoIconeAvatarDaLoteriaSelecionada = this.menuService.getLoterias()[indiceLoteria].caminhoDoIconeAvatar;
 	
-				this.salveOuAtualizeLoteriaSessao(this.menuService.getLoterias()[indiceLoteria]).then(resultadoQuery => {
-					this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
-					this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
-				});
+				// this.salveOuAtualizeLoteriaSessao(this.menuService.getLoterias()[indiceLoteria]).then(resultadoQuery => {
+				// 	this.paginas = this.menuService.getPaginas(resultadoQuery.novo);
+				// 	this.nav.setRoot(this.paginas[this.indicePaginaAtual].class);
+				// });
 				
-				this.menu.close().then(() => {
-					this.menu.enable(true, 'menuPaginas');
-					this.menu.enable(false, 'menuLoterias');
-					this.menu.open();
-				}).catch(erro => {
-					console.log(erro);
-				});
-			}
-		});
+				// this.menu.close().then(() => {
+				// 	this.menu.enable(true, 'menuPaginas');
+				// 	this.menu.enable(false, 'menuLoterias');
+				// 	this.menu.open();
+				// }).catch(erro => {
+				// 	console.log(erro);
+				// });
+		// 	}
+		// });
 	}
 
 	ativeMenuLoterias() {
@@ -255,19 +255,19 @@ export class MyApp {
 					let alert;
 					switch(conta.situacao) {
 						case 'ATIVO':
-							let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
-							let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
-							concursosPromise.then(ultimoConcurso => {
-								if (ultimoConcurso.maiorNumero < 1) {
+							// let concursoFacade = new ConcursoFacade(this.concursoDAOServico);
+							// let concursosPromise = concursoFacade.procurePorNumeroDoUltimoConcursoSorteado(sessao.loteria.nomeDoDocumentoNoBD);
+							// concursosPromise.then(ultimoConcurso => {
+							// 	if (ultimoConcurso.maiorNumero < 1) {
 									let indiceLoteria = sessao.loteria.id - 1;
 									let resultadoSincronizePromise = this.menuService.sincronizeOsConcursosDaLoteria(this.menuService.getLoterias()[indiceLoteria]);
 									resultadoSincronizePromise.then(resultadoSincronize => {
 										this.setPaginaInicial();
 									});
-								} else {
-									this.setPaginaInicial();
-								}
-							});
+								// } else {
+								// 	this.setPaginaInicial();
+								// }
+							// });
 							break;
 						case 'INATIVO_PERMANENTE':
 							alert = this.alertCtrl.create({
