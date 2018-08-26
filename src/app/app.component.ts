@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, ToastController, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { Nav, Platform, MenuController, ToastController, AlertController, LoadingController, Loading, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ContaLocalDTO } from '../dtos/conta-local.dto';
 import { Loterias } from '../enum/loterias';
 
 import { ConexaoFabrica } from '../dao/util/conexao-fabrica';
-import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
+// import { ConcursoDAOServico } from '../dao/concurso/concurso-dao.servico';
 import { MenuService } from '../services/menu.service';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
@@ -46,7 +46,8 @@ export class MyApp {
 		private alertCtrl: AlertController,
 		private contaService: ContaService,
 		private interstitialAdMobService: InterstitialAdMobService,
-		private loadingCtrl: LoadingController
+		private loadingCtrl: LoadingController,
+		private events: Events
 	) {
 		this.loading = this.loadingCtrl.create({
 			content: 'Aguarde, carregando... Esse processo pode durar até 60 segundo dependendo do seu dispositivo ou conexão.'
@@ -92,6 +93,12 @@ export class MyApp {
 			};
 			this.sincronize();
 		});
+
+		this.events.subscribe('contaLocal:atualizada', (contaLocal, time) => {
+			this.bd.get('sessao').then((sessao) => {
+				this.paginas = this.menuService.getPaginas(sessao, contaLocal);
+			});
+		});
 	}
 
 	initializeApp() {
@@ -108,9 +115,9 @@ export class MyApp {
 		switch(objetoPagina.titulo) {
 			case 'Sair':
 				this.auth.logout();
-				if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
-					pagina = 'LandingPage';
-				} 
+				// if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
+				// 	pagina = 'LandingPage';
+				// } 
 				this.indicePaginaAtual = 0;
 			default:
 				this.storage.setPaginaAnterior(this.nav.getActive().name);
@@ -311,6 +318,14 @@ export class MyApp {
 			this.exibeMensagemErroApp = false;
 			this.loading.dismiss();
 			this.paginaInicial = 'ResultadoPage';
+			let toast = this.toastCtrl.create({
+				message: `Caro usuário, você está acessando sem uma conta cadastrada. Algumas funcionalidades estão sendo desenvolvidas, quando elas estiverem prontas, você poderá receber a notificação dessas novidades por e-mail se tiveres uma conta cadastrada.`,
+				showCloseButton: true,
+				closeButtonText: 'Ok',
+				duration: 30000,
+				cssClass: 'toastGeral'
+			});
+			toast.present();
 		} else  {
 			// if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
 			// 	this.exibeMensagemErroApp = false;

@@ -16,6 +16,7 @@
 							<ion-input [(ngModel)]="credenciais.senha" name="senha" type="password" title="Campo para informar a sua senha"></ion-input>
 						</ion-item>
 						<button [ngClass]="'margem-superior'" ion-button block (click)="login()" title="Botão Entrar com suas credenciais">Entrar</button>
+						<button ion-button block color="secondary" (click)="login('anonimo')" title="Botão Entrar com suas credenciais">Entrar sem cadastrar</button>
 					</form>
 					<button ion-button block outline (click)="cadastrar()" title="Botão Abrir o formulário de cadastro de conta">Cadastrar</button>
 					<button ion-button block clear (click)="esqueciMinhaSenha()" title="Botão Abrir a página Esqueci Minha Senha">Esqueci minha senha</button>

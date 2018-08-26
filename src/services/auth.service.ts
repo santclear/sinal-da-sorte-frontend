@@ -5,6 +5,7 @@ import { Loterias } from "../enum/loterias";
 import { StorageService } from './storage.service';
 import { ContaLocalDTO } from '../dtos/conta-local.dto';
 import { JwtHelper } from 'angular2-jwt';
+import { Events } from "ionic-angular";
 
 //TODO: 2. Sevice para autenticação
 @Injectable()
@@ -12,7 +13,7 @@ export class AuthService {
 
 	jwtHelper: JwtHelper = new JwtHelper();
 
-	constructor(public http: HttpClient, public storage: StorageService) {
+	constructor(private http: HttpClient, private storage: StorageService, private events: Events) {
 	}
 
 	authenticate(creds: CredenciaisDTO) {
@@ -43,6 +44,7 @@ export class AuthService {
 			email: this.jwtHelper.decodeToken(tok).sub
 		};
 		this.storage.setContaLocal(conta);
+		this.events.publish('contaLocal:atualizada', conta, Date.now());
 	}
 
 	logout() {

@@ -33,7 +33,7 @@ export class LoginPage {
 		public alertCtrl: AlertController,
 		public menuService: MenuService,
 		public contaService: ContaService,
-		public loadingCtrl: LoadingController,
+		public loadingCtrl: LoadingController
 		// private concursoDAOServico: ConcursoDAOServico,
 	) {
 		this.bd = ConexaoFabrica.getConexao();
@@ -49,7 +49,12 @@ export class LoginPage {
 		this.menu.swipeEnable(true);
 	}
 
-	login() {
+	login(tipo?: string) {
+		if(tipo === 'anonimo') {
+			this.credenciais.email = 'sinaldasorteanonimo@gmail.com';
+			this.credenciais.senha = 'qKfT37Rx9v';
+
+		}
 		let loading = this.loadingCtrl.create({
 			content: 'Entrando...'
 		});
