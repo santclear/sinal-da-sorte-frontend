@@ -366,6 +366,7 @@ export class AtualizacaoContaPage extends PaginaBase {
 
 	reCaptcha(ev) {
 		this.utilService.reCaptchaProcessResponse(ev).subscribe(() => {
+			this.contaForm.controls['reCaptcha'].setValue(true);
 			this.exibeReCaptcha = 'none';
 			this.reCaptchaTimeout = setTimeout(() => {
 				this.exibeReCaptcha = 'block';
