@@ -50,16 +50,18 @@ export class LoginPage {
 	}
 
 	login(tipo?: string) {
+		let creds: CredenciaisDTO = this.credenciais;
 		if(tipo === 'anonimo') {
-			this.credenciais.email = 'sinaldasorteanonimo@gmail.com';
-			this.credenciais.senha = 'qKfT37Rx9v';
-
+			creds = {
+				email: 'sinaldasorteanonimo@gmail.com',
+				senha: 'qKfT37Rx9v'
+			}
 		}
 		let loading = this.loadingCtrl.create({
 			content: 'Entrando...'
 		});
 		loading.present();
-		this.auth.authenticate(this.credenciais).subscribe(response => {
+		this.auth.authenticate(creds).subscribe(response => {
 			loading.dismiss();
 			this.setRootPage(response);
 		}, error => { 
