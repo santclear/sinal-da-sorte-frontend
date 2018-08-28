@@ -315,17 +315,24 @@ export class MyApp {
 		
 		let contaLocal = this.storage.getContaLocal();
 		if(contaLocal) {
-			this.exibeMensagemErroApp = false;
-			this.loading.dismiss();
-			this.paginaInicial = 'ResultadoPage';
-			let toast = this.toastCtrl.create({
-				message: `Caro usuário, você está acessando sem uma conta cadastrada. Algumas funcionalidades estão sendo desenvolvidas, quando elas estiverem prontas, você poderá receber a notificação dessas novidades por e-mail se tiveres uma conta cadastrada.`,
-				showCloseButton: true,
-				closeButtonText: 'Ok',
-				duration: 30000,
-				cssClass: 'toastGeral'
+			this.bd.get('sessao').then((sessao) => {
+				this.paginas = this.menuService.getPaginas(sessao, contaLocal);
+				if(contaLocal.email === 'sinaldasorteanonimo@gmail.com') {
+					let toast = this.toastCtrl.create({
+						// message: `Algumas funcionalidades estão sendo desenvolvidas, quando elas estiverem prontas, você poderá receber a notificação dessas novidades por e-mail se tiveres uma conta cadastrada. Para cadastrar, clique no menu ao lado do título dessa página, depois clique Sair e clique CADASTRAR`,
+						message: `Acesso anônimo. Cadastre-se para ficar por dentro das próximas funcionalidades.`,
+						// message: `Quando as novas funcionalidades forem lançadas será necessário uma conta cadastrada. Para cadastrar, clique no menu ao lado do título da app, depois clique Sair e clique CADASTRAR`,
+						showCloseButton: true,
+						closeButtonText: 'Fechar',
+						duration: 120000,
+						cssClass: 'toastGeral'
+					});
+					toast.present();
+				}
+				this.exibeMensagemErroApp = false;
+				this.loading.dismiss();
+				this.paginaInicial = 'ResultadoPage';
 			});
-			toast.present();
 		} else  {
 			// if(this.plataforma.is('mobileweb') || this.plataforma.is('core')) {
 			// 	this.exibeMensagemErroApp = false;
